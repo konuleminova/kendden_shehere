@@ -202,7 +202,7 @@ class HomePageState extends State<HomePage> {
         });
   }
 
-  static const platform = const MethodChannel("redux_sign_in/chat_activity");
+  static const platform = const MethodChannel("kendden_shehere/chat_activity");
 
   _getNewActivity() async {
     try {

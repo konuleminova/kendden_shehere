@@ -33,7 +33,7 @@ class OnlineChatPageState extends State<OnlineChatPage> {
         ));
   }
 
-  static const chatChannel = const MethodChannel("redux_sign_in/chat");
+  static const chatChannel = const MethodChannel("kendden_shehere/chat");
 
   Future<void> _getOnlineChatSdk() async {
     String chatMessage="chat msg";
