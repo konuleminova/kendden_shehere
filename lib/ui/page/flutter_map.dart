@@ -28,8 +28,12 @@ class _MapPage1State extends State<MapPage1> {
           child: Padding(
             padding: EdgeInsets.all(8),
             child: new TextField(
+              onTap: (){
+                Navigator.of(context).pushNamed("/search_place");
+              },
               onSubmitted: (text) {
                 return getLocations();
+
               },
               controller: _textEditingController,
               decoration: new InputDecoration(
