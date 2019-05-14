@@ -5,10 +5,9 @@ import 'package:kendden_shehere/data/viewmodel/login_viewmodel.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_details_page.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_shop_list.dart';
 import 'package:kendden_shehere/ui/page/grocery/gwishlisttab.dart';
-import 'package:kendden_shehere/ui/page/login_2.dart';
-import 'package:kendden_shehere/ui/page/online_chat.dart';
-import 'package:kendden_shehere/ui/page/order_history.dart';
-import 'package:kendden_shehere/ui/page/order_shop_list.dart';
+import 'package:kendden_shehere/ui/page/test/login_2.dart';
+import 'package:kendden_shehere/ui/page/test/order_history.dart';
+import 'package:kendden_shehere/ui/page/test/order_shop_list.dart';
 import 'package:kendden_shehere/ui/page/payment/checkout.dart';
 import 'package:kendden_shehere/ui/page/payment/confirm_order.dart';
 import 'package:kendden_shehere/ui/page/flutter_map.dart';
@@ -58,7 +57,6 @@ class MyApp extends StatelessWidget {
           "/order_shop_list": (BuildContext context) => OrderShopListPage(),
           "/profile": (BuildContext context) => ProfilePage(),
           "/settings": (BuildContext context) => SettingsPage(),
-          "/online_chat": (BuildContext context) => OnlineChatPage()
 
           // "/product_list": (BuildContext context) => ProductListPage()
         },

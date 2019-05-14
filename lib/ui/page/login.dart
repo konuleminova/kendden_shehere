@@ -47,9 +47,10 @@ class LoginState extends State<LoginPage> {
         store.onChange.listen((state) {
           if (state != null) {
             if (state.user_info.status == STATUS.SUCCESS) {
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                  '/home', (Route<dynamic> route) => false);
+              //Navigator.of(context).pushNamedAndRemoveUntil(
+              //    '/home', (Route<dynamic> route) => false);
               //Navigator.pushNamed(context, "/home");
+              Navigator.pushReplacementNamed(context, "/home");
             } else if (state.user_info.status == STATUS.LOADING) {
               print("loading..");
             } else if (state.user_info.status == STATUS.FAIL) {

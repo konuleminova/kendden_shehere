@@ -35,7 +35,6 @@ class HomePageState extends State<HomePage> {
   double width = 0;
   final dataKey = new GlobalKey();
   int index = 4;
-
   var increment = 1;
   int counter = 0;
 
