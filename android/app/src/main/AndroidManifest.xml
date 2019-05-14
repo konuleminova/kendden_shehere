@@ -16,7 +16,7 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:icon="@mipmap/ic_launcher"
-        android:label="kendden_shehere">
+        android:label="Kendden Shehere">
         <activity
             android:name=".ChatActivity"
             android:theme="@style/AppTheme.FullScreen"></activity>
