@@ -67,6 +67,8 @@ flutter:
   - images/img2.jpg
   - images/img3.jpg
   - images/desc.txt
+  - images/delivery_terms.txt
+  - images/fag.txt
 
   # To add assets to your application, add an assets section, like this:
   # assets:

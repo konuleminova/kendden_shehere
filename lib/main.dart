@@ -3,6 +3,8 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/data/model/login_model.dart';
 import 'package:kendden_shehere/data/viewmodel/login_viewmodel.dart';
 import 'package:kendden_shehere/ui/page/about_us.dart';
+import 'package:kendden_shehere/ui/page/delivery.dart';
+import 'package:kendden_shehere/ui/page/fag.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_details_page.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_shop_list.dart';
 import 'package:kendden_shehere/ui/page/grocery/gwishlisttab.dart';
@@ -61,7 +63,9 @@ class MyApp extends StatelessWidget {
           "/profile": (BuildContext context) => ProfilePage(),
           "/settings": (BuildContext context) => SettingsPage(),
           "/search_place": (BuildContext context) => CustomSearchScaffold(),
-          "/about_us": (BuildContext context) => AboutUsPage()
+          "/about_us": (BuildContext context) => AboutUsPage(),
+          "/delivery_terms": (BuildContext context) => DeliveryPage(),
+          "/fag": (BuildContext context) => FagPage()
 
           // "/product_list": (BuildContext context) => ProductListPage()
         },

@@ -84,11 +84,17 @@ class DrawerState extends State<DrawerWidget> {
           ),
           ListTile(
             leading: Icon(Icons.feedback),
-            title: Text("Feedback"),
+            title: Text("Delivery Terms"),
+            onTap: () {
+              Navigator.pushNamed(context, '/delivery_terms');
+            },
           ),
           ListTile(
             leading: Icon(Icons.question_answer),
             title: Text("FAG"),
+            onTap: () {
+              Navigator.pushNamed(context, '/fag');
+            },
           ),
           ListTile(
             leading: Icon(Icons.info),

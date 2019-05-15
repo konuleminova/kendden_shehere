@@ -1,5 +1,6 @@
-Şirkət haqqında
+About the company
+The project of the State Agro Trade Company “Kendden Shehere” is aimed at providing support to owners of small and medium-sized farms and local food products producers in bringing their products to market.
 
-“Kənddən Şəhərə” Dövlət Aqrar Ticarət Şirkətinin kiçik və orta fermer təsərrüfatı sahiblərinin yetişdirdiyi, eləcə də yerli istehsal ərzaq məhsullarının satışına dəstək məqsədilə həyata keçirdiyi layihədir. “Kənddən Şəhərə” Elektron Satış Platformasının məqsədi də müştərilərə daha üstün xidmət göstərmək, ərzaq mallarına olan tələblərini daha sürətli və rahat şəkildə qarşılamalarını təmin etməkdir. Onlayn sifariş və çatdırılma xidməti sayəsində evinizi və ya ofisinizi tərk etmədən təbii, sağlam yerli qida məhsullarını ala bilərsiniz.
+The online trading platform “Kendden Shehere” is aimed at providing customers with high-quality service, as well as covering their food needs quickly and comfortably. By placing an order online, you can buy natural, healthy local products without leaving your home or office.
 
- “Dövlət Aqrar Ticarət Şirkəti” MMC dövlətin həyata keçirdiyi aqrar siyasət konsepsiyasına dəstək olmaq, ölkədə istehsal olunan kənd təsərrüfatı məhsullarının yerli və xarici bazarlara rahat, maneəsiz və rəqabətə dayanıqlı şəkildə çıxışını təmin edərək kənd təsərrüfatı məhsulları istehsalçılarının inkişafına nail olmaq, kənd təsərrüfatı məhsullarının istehsalının artırılmasını təmin etmək, bununla da ölkə iqtisadiyyatına töhfə vermək məqsədini daşıyır.
+The State Agro Trade Company LLC supports the concept of agricultural policy implemented by the state and ensures uninterrupted, unimpeded and competitive export of agricultural products, produced in the country, to the local and foreign markets in order to achieve the development of agricultural producers and ensure the growth of agricultural production, thereby contributing to the development of the country's economy.
