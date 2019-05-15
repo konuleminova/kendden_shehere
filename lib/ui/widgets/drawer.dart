@@ -35,8 +35,8 @@ class DrawerState extends State<DrawerWidget> {
                 decoration: new BoxDecoration(color: Colors.lightGreen),
                 onDetailsPressed: () {
                   Navigator.pushNamed<dynamic>(context, "/profile")
-                  .then((isLoggedOut) {
-                    if(isLoggedOut != null && isLoggedOut == true) {
+                      .then((isLoggedOut) {
+                    if (isLoggedOut != null && isLoggedOut == true) {
                       Navigator.pushReplacementNamed(context, '/login');
                     }
                   });
@@ -90,7 +90,13 @@ class DrawerState extends State<DrawerWidget> {
             leading: Icon(Icons.question_answer),
             title: Text("FAG"),
           ),
-          ListTile(leading: Icon(Icons.info), title: Text("About Us")),
+          ListTile(
+            leading: Icon(Icons.info),
+            title: Text("About Us"),
+            onTap: () {
+              Navigator.pushNamed(context, '/about_us');
+            },
+          ),
           ListTile(leading: Icon(Icons.phone), title: Text("Contact Us")),
         ],
       ),
