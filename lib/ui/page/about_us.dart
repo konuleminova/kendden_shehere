@@ -19,7 +19,7 @@ class AboutUsPage extends StatelessWidget {
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
                     if (snapshot.data != null) {
-                      return new Text(snapshot.data);
+                      return new Text(snapshot.data,style: new TextStyle(fontSize: 18),);
                     }
                   } else {
                     return Center(

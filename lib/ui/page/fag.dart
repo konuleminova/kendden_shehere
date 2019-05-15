@@ -19,7 +19,13 @@ class FagPage extends StatelessWidget {
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
                     if (snapshot.data != null) {
-                      return new Text(snapshot.data);
+                      return new Text(
+                        snapshot.data,
+                        style: TextStyle(
+                            color: Colors.green,
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold),
+                      );
                     }
                   } else {
                     return Center(
