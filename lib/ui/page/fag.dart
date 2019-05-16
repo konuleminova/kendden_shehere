@@ -80,7 +80,7 @@ class FAGState extends State<FagPage> {
           expande
               ? (new Container(
                   margin: EdgeInsets.only(top: 8,bottom: 8),
-                  padding: EdgeInsets.all(20),
+                  padding: EdgeInsets.all(12),
                   width: width,
                   child: new Text(
                     subtitle,
