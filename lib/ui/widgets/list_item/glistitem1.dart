@@ -81,7 +81,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                                 product.isLiked
                                     ? Icons.favorite
                                     : Icons.favorite_border,
-                                color: Colors.grey[400],
+                                color: Colors.pink[400],
                                 size: 30,
                               ),
                               onPressed: () {
@@ -100,7 +100,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                         ],
                       )),
                   new Column(
-                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       new GrocerySubtitle(text: product.subtitle),
@@ -119,28 +119,21 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
 
   addedWidget() {
     if (!product.isAdded) {
-      return new GestureDetector(
-        child: new Container(
-          child: new Container(
-            padding: EdgeInsets.all(8),
-            color: Colors.lightGreen,
-            child: new SizedBox(
-              child: new Icon(
-                Icons.shopping_cart,
-                color: Colors.white,
-              ),
-              height: 20,
-              width: 20,
-            ),
+      return new Container(
+        alignment: Alignment.bottomRight,
+        child: IconButton(
+          icon: Icon(
+            Icons.shopping_cart,
+            color: Colors.green,
+            size: 30,
           ),
-          alignment: Alignment.topRight,
+          onPressed: () {
+            setState(() {
+              product.isAdded = true;
+              widget.viewModel.onAddedProduct(product);
+            });
+          },
         ),
-        onTap: () {
-          setState(() {
-            product.isAdded = true;
-            widget.viewModel.onAddedProduct(product);
-          });
-        },
       );
     } else {
       return new Container(
