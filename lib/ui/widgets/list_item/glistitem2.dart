@@ -33,7 +33,8 @@ class GroceryListItemTwoState extends State<GroceryListItemTwo> {
     amount = widget.product.amount;
 
     // TODO: implement build
-    return Card(
+    return GestureDetector(
+      child: Card(
         margin: EdgeInsets.all(12),
         child: Material(
             borderRadius: BorderRadius.circular(20.0),
@@ -83,7 +84,12 @@ class GroceryListItemTwoState extends State<GroceryListItemTwo> {
                 ),
               ),
               color: Colors.white,
-            )));
+            )),
+      ),
+      onTap: () {
+        Navigator.pushNamed(context, "/product_detail");
+      },
+    );
   }
 
   _updateContainer(bool isAdded) {
@@ -129,7 +135,7 @@ class GroceryListItemTwoState extends State<GroceryListItemTwo> {
                 setState(() {
                   widget.product.amount--;
                   if (widget.product.amount < 1) {
-                   widget. product.isAdded = false;
+                    widget.product.isAdded = false;
                     widget.product.amount = 1;
                   }
                 });
@@ -153,4 +159,3 @@ class GroceryListItemTwoState extends State<GroceryListItemTwo> {
     }
   }
 }
-
