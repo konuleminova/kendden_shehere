@@ -262,7 +262,7 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                   child: IconButton(
                     icon: Icon(
                       isLiked ? Icons.favorite : Icons.favorite_border,
-                      color: Colors.grey[400],
+                      color: Colors.pink[400],
                       size: 30,
                     ),
                     onPressed: () {

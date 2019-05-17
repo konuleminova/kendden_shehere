@@ -66,6 +66,7 @@ class GroceryListItemTwoState extends State<GroceryListItemTwo> {
                         product.isLiked
                             ? Icons.favorite
                             : Icons.favorite_border,
+                        color: Colors.pink[400],
                       ),
                       onPressed: () {
                         setState(() {
