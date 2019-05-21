@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:kendden_shehere/data/viewmodel/wishlist_viewmodel.dart';
 import 'package:kendden_shehere/ui/page/test/shop_item_model.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/data/model/app_state_model.dart';
@@ -20,7 +21,7 @@ class GroceryWishListPage extends StatefulWidget {
 class GroceryWishListPageState extends State<GroceryWishListPage> {
   List<Product> wishItems;
   double width;
-  ShoppingCartViewModel viewModel;
+  WishListViewModel viewModel;
 
   var increment = 1;
 
@@ -29,19 +30,18 @@ class GroceryWishListPageState extends State<GroceryWishListPage> {
     width = MediaQuery.of(context).size.width;
     // TODO: implement build
     return new StoreConnector(
-        onInitialBuild: (ShoppingCartViewModel viewModel) {},
+        onInitialBuild: (WishListViewModel viewModel) {},
         onInit: (store) {
           wishItems = new List<Product>();
           // store.state.products[0].status=true;
           // wishItems.clear();
-          for(int i=0;i<store.state.products.length;i++){
-
-            if (store.state.products[i].isLiked) {
+          for (int i = 0; i < store.state.wishItems.length; i++) {
               wishItems.add(new Product(
                 title: store.state.products[i].title,
                 subtitle: store.state.products[i].subtitle,
-                price: "2 Azn",image:store.state.products[i].image, ));
-            }
+                price: "2 Azn",
+                image: store.state.products[i].image,
+              ));
           }
           /*if(store.state.products[0].status){
             wishItems.add(new ShopItem(
@@ -50,13 +50,13 @@ class GroceryWishListPageState extends State<GroceryWishListPage> {
                 price: "2 Azn"));
           }
           */
-          store.state.shopItems.clear();
-          store.state.shopItems.addAll(wishItems);
+          //store.state.shopItems.clear();
+       //   store.state.shopItems.addAll(wishItems);
           //this.wishItems=store.state.wishItems;
         },
         converter: (Store<AppState> store) =>
-            ShoppingCartViewModel.create(store),
-        builder: (BuildContext context, ShoppingCartViewModel viewModel) {
+            WishListViewModel.create(store),
+        builder: (BuildContext context, WishListViewModel viewModel) {
           this.viewModel = viewModel;
           return new Scaffold(
             appBar: new AppBar(
@@ -85,26 +85,26 @@ class GroceryWishListPageState extends State<GroceryWishListPage> {
   }
 
   Widget _shopBody() => new Container(
-    margin: EdgeInsets.only(bottom: 16, top: 16, left: 10, right: 12),
-    child: new ListView(
-      shrinkWrap: true,
-      physics: ClampingScrollPhysics(),
-      children: viewModel.shopItems
-          .map((Product shopItem) => _buildWishListItem(shopItem))
-          .toList(),
-    ),
-  );
+        margin: EdgeInsets.only(bottom: 16, top: 16, left: 10, right: 12),
+        child: new ListView(
+          shrinkWrap: true,
+          physics: ClampingScrollPhysics(),
+          children: viewModel.wishItems
+              .map((Product shopItem) => _buildWishListItem(shopItem))
+              .toList(),
+        ),
+      );
 
   Widget _buildWishListItem(Product shopItem) => new Stack(
-    children: <Widget>[
-      GroceryListItemTwo(new Product(
-          image: shopItem.image,
-          title: shopItem.title,
-          subtitle: shopItem.subtitle,
-          price: shopItem.price,
-          isLiked: true,
-          isAdded: false,
-          amount: 1)),
-    ],
-  );
+        children: <Widget>[
+          GroceryListItemTwo(new Product(
+              image: shopItem.image,
+              title: shopItem.title,
+              subtitle: shopItem.subtitle,
+              price: shopItem.price,
+              isLiked: true,
+              isAdded: false,
+              amount: 1)),
+        ],
+      );
 }

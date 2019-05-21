@@ -10,13 +10,23 @@ class AppState {
   Home home;
   List<Product> products;
   int code;
-  List<Product>shopItems;
+  List<Product> shopItems;
+  List<Product> wishItems;
 
   AppState.initialState()
       : user_info = UserLogin(),
-        home = Home(),shopItems=new List<Product>(),products=new List<Product>();
+        home = Home(),
+        shopItems = new List<Product>(),
+        products = new List<Product>(),
+        wishItems = new List<Product>();
 
-  AppState({this.user_info, this.code, this.home,this.shopItems,this.products});
+  AppState(
+      {this.user_info,
+      this.code,
+      this.home,
+      this.shopItems,
+      this.products,
+      this.wishItems});
 
   static AppState fromJson(dynamic json) {
     if (json != null) {
