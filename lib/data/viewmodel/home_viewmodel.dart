@@ -1,3 +1,5 @@
+import 'package:kendden_shehere/data/viewmodel/wishlist_viewmodel.dart';
+import 'package:kendden_shehere/redux/action/wishlist_action.dart';
 import 'package:kendden_shehere/ui/page/test/shop_item_model.dart';
 import 'package:kendden_shehere/redux/action/shop_action.dart';
 import 'package:redux/redux.dart';
@@ -10,8 +12,16 @@ class HomeViewModel {
   Function(int limit, int page) onFetchProductList;
   Function(Product product) addShopItem;
   Function(Product shopItem) removeShopItem;
+  Function(Product shopItem) removeWishItem;
+  Function(Product product) addWishItem;
+  List<Product> wishItems;
 
-  HomeViewModel({this.onFetchProductList, this.addShopItem,this.removeShopItem});
+  HomeViewModel(
+      {this.onFetchProductList,
+      this.addShopItem,
+      this.removeShopItem,
+      this.addWishItem,
+      this.removeWishItem});
 
   factory HomeViewModel.create(Store<AppState> store) {
     _onFetchProductList(int limit, int page) {
@@ -21,12 +31,24 @@ class HomeViewModel {
     _addShopItem(Product product) {
       store.dispatch(AddProductAction(product: product));
     }
+
     _removeShopItem(Product product) {
       store.dispatch(RemoveShopItemAction(removeShopItem: product));
     }
 
+    _addWishItem(Product product) {
+      store.dispatch(AddWishItemAction(product: product));
+    }
+
+    _removeWishItem(Product product) {
+      store.dispatch(RemoveWishItemAction(removeWishItem: product));
+    }
+
     return HomeViewModel(
         onFetchProductList: _onFetchProductList,
-        addShopItem: _addShopItem,removeShopItem: _removeShopItem);
+        addShopItem: _addShopItem,
+        removeShopItem: _removeShopItem,
+        addWishItem: _addWishItem,
+        removeWishItem: _removeWishItem);
   }
 }

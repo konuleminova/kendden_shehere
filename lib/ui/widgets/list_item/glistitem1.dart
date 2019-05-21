@@ -89,9 +89,11 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                                 setState(() {
                                   if (product.isLiked) {
                                     product.isLiked = false;
+                                    widget.viewModel.removeWishItem(product);
                                     // widget.viewModel.onAddedProduct(shopItem);
                                   } else {
                                     product.isLiked = true;
+                                    widget.viewModel.addWishItem(product);
                                     // widget.viewModel.onAddedProduct(shopItem);
                                   }
                                 });
@@ -133,7 +135,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
               product.isAdded = true;
               widget.viewModel.addShopItem(product);
             });
-          },
+          }
         ),
       );
     } else {

@@ -11,17 +11,20 @@ class WishListViewModel {
   Function(Product product) addWishItem;
   List<Product> wishItems;
 
-  WishListViewModel({this.removeWishItem, this.wishItems,this.addWishItem});
+  WishListViewModel({this.removeWishItem, this.wishItems, this.addWishItem});
 
   factory WishListViewModel.create(Store<AppState> store) {
     _removeShopItem(Product product) {
       store.dispatch(RemoveWishItemAction(removeWishItem: product));
     }
+
     _addWishItem(Product product) {
       store.dispatch(AddWishItemAction(product: product));
     }
 
     return WishListViewModel(
-        removeWishItem: _removeShopItem, wishItems: store.state.shopItems,addWishItem:_addWishItem);
+        removeWishItem: _removeShopItem,
+        wishItems: store.state.wishItems,
+        addWishItem: _addWishItem);
   }
 }

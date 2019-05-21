@@ -37,10 +37,10 @@ class GroceryWishListPageState extends State<GroceryWishListPage> {
           // wishItems.clear();
           for (int i = 0; i < store.state.wishItems.length; i++) {
               wishItems.add(new Product(
-                title: store.state.products[i].title,
-                subtitle: store.state.products[i].subtitle,
+                title: store.state.wishItems[i].title,
+                subtitle:store.state.wishItems[i].subtitle,
                 price: "2 Azn",
-                image: store.state.products[i].image,
+                image: store.state.wishItems[i].image,
               ));
           }
           /*if(store.state.products[0].status){
