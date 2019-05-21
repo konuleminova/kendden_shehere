@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/data/model/product_model.dart';
+import 'package:kendden_shehere/data/model/shop_item_model.dart';
 import 'package:kendden_shehere/data/viewmodel/home_viewmodel.dart';
 import 'package:kendden_shehere/ui/widgets/gtile_title.dart';
 import 'package:kendden_shehere/ui/widgets/rating_star.dart';
@@ -19,6 +20,7 @@ class GroceryListItemOne extends StatefulWidget {
 
 class GroceryListItemOneState extends State<GroceryListItemOne> {
   Product product;
+  ShopItem shopItem = new ShopItem();
 
   @override
   Widget build(BuildContext context) {
@@ -88,10 +90,12 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                                 setState(() {
                                   if (product.isLiked) {
                                     product.isLiked = false;
-                                    widget.viewModel.onAddedProduct(product);
+                                    shopItem.isLiked = product.isLiked;
+                                   // widget.viewModel.onAddedProduct(shopItem);
                                   } else {
                                     product.isLiked = true;
-                                    widget.viewModel.onAddedProduct(product);
+                                    shopItem.isLiked = product.isLiked;
+                                   // widget.viewModel.onAddedProduct(shopItem);
                                   }
                                 });
                               },
@@ -130,7 +134,14 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
           onPressed: () {
             setState(() {
               product.isAdded = true;
-              widget.viewModel.onAddedProduct(product);
+              shopItem.isLiked = product.isLiked;
+              shopItem.status = product.isAdded;
+              shopItem.image = product.image;
+              shopItem.id = product.id;
+              shopItem.subtitle = product.subtitle;
+              shopItem.title = product.title;
+              shopItem.price = product.price;
+              widget.viewModel.addShopItem(shopItem);
             });
           },
         ),
@@ -157,6 +168,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                     product.isAdded = false;
                     product.amount = 1;
                   }
+                  widget.viewModel.removeShopItem(shopItem);
                 });
               },
             ),

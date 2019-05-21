@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:kendden_shehere/data/model/shop_item_model.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/data/model/app_state_model.dart';
 import 'package:kendden_shehere/data/model/product_model.dart';
@@ -33,14 +34,12 @@ class GroceryCartState extends State<GroceryShopCartPage> {
           shopItems = new List<ShopItem>();
          // store.state.products[0].status=true;
          // shopItems.clear();
-          for(int i=0;i<store.state.products.length;i++){
+          for(int i=0;i<store.state.shopItems.length;i++){
 
-            if (store.state.products[i].isAdded) {
               shopItems.add(new ShopItem(
-                  title: store.state.products[i].title,
-                  subtitle: store.state.products[i].subtitle,
-                  price: "2 Azn",image:store.state.products[i].image, ));
-            }
+                  title: store.state.shopItems[i].title,
+                  subtitle: store.state.shopItems[i].subtitle,
+                  price: "2 Azn",image:store.state.shopItems[i].image, ));
           }
           /*if(store.state.products[0].status){
             shopItems.add(new ShopItem(
@@ -49,8 +48,8 @@ class GroceryCartState extends State<GroceryShopCartPage> {
                 price: "2 Azn"));
           }
           */
-          store.state.shopItems.clear();
-         store.state.shopItems.addAll(shopItems);
+       //   store.state.shopItems.clear();
+         //store.state.shopItems.addAll(shopItems);
           //this.shopItems=store.state.shopItems;
         },
         converter: (Store<AppState> store) =>

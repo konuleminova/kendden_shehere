@@ -8,7 +8,4 @@ class FetchProductsAction {
   FetchProductsAction({this.result, this.data});
 }
 
-class AddProductAction {
-  Product product;
-  AddProductAction({this.product});
-}
+

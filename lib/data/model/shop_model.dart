@@ -1,22 +1,6 @@
-class ShopItem {
-  int id;
-  String title;
-  String subtitle;
-  String price;
-  String image;
-  bool isLiked;
-  String url;
-  bool status;
-  int amount;
+import 'package:kendden_shehere/data/model/shop_item_model.dart';
 
-  ShopItem(
-      {this.id,
-      this.title,
-      this.subtitle,
-      this.price,
-      this.image,
-      this.isLiked,
-      this.url,
-      this.status,
-      this.amount});
+class ShopModel {
+  List<ShopItem> shopItems;
+  ShopItem shopItem;
 }
