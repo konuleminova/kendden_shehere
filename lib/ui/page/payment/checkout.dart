@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/main.dart';
-import 'package:kendden_shehere/ui/page/flutter_map.dart';
-import 'package:kendden_shehere/ui/page/map_view.dart';
+import 'package:kendden_shehere/ui/page/map/flutter_map.dart';
+import 'package:kendden_shehere/ui/page/map/map_view.dart';
 
  class CheckoutsPage extends StatefulWidget {
   @override

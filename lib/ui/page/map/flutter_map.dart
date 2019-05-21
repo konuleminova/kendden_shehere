@@ -3,7 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoder/geocoder.dart';
-import 'package:kendden_shehere/ui/page/map_view.dart';
+import 'package:kendden_shehere/ui/page/map/map_view.dart';
 
 class MapPage1 extends StatefulWidget {
   @override
