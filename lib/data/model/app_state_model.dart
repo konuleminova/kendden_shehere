@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/data/model/home_model.dart';
 import 'package:kendden_shehere/data/model/product_model.dart';
-import 'package:kendden_shehere/data/model/shop_item_model.dart';
+import 'package:kendden_shehere/ui/page/test/shop_item_model.dart';
 import 'package:kendden_shehere/data/model/shop_model.dart';
 import 'package:kendden_shehere/data/model/login_model.dart';
 
