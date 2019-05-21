@@ -1,18 +1,19 @@
+import 'package:kendden_shehere/data/model/product_model.dart';
 import 'package:kendden_shehere/data/model/shop_item_model.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/data/model/shop_model.dart';
 import 'package:kendden_shehere/redux/action/shop_action.dart';
 
-Reducer<List<ShopItem>> shopReducer = combineReducers<List<ShopItem>>([
-  new TypedReducer<List<ShopItem>, RemoveShopItemAction>(removeShopItemReducer),
-  new TypedReducer<List<ShopItem>, AddProductAction>(addCardReducer)
+Reducer<List<Product>> shopReducer = combineReducers<List<Product>>([
+  new TypedReducer<List<Product>, RemoveShopItemAction>(removeShopItemReducer),
+  new TypedReducer<List<Product>, AddProductAction>(addCardReducer)
 ]);
 
-List<ShopItem> removeShopItemReducer(
-    List<ShopItem> shopItems, RemoveShopItemAction action) {
+List<Product> removeShopItemReducer(
+    List<Product> shopItems, RemoveShopItemAction action) {
   return List.from(shopItems)..remove(action.removeShopItem);
 }
 
-List<ShopItem> addCardReducer(List<ShopItem> state, AddProductAction action) {
-    return List.from(state)..add(action.product);
+List<Product> addCardReducer(List<Product> state, AddProductAction action) {
+  return List.from(state)..add(action.product);
 }

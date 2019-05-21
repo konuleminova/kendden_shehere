@@ -91,11 +91,11 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                                   if (product.isLiked) {
                                     product.isLiked = false;
                                     shopItem.isLiked = product.isLiked;
-                                   // widget.viewModel.onAddedProduct(shopItem);
+                                    // widget.viewModel.onAddedProduct(shopItem);
                                   } else {
                                     product.isLiked = true;
                                     shopItem.isLiked = product.isLiked;
-                                   // widget.viewModel.onAddedProduct(shopItem);
+                                    // widget.viewModel.onAddedProduct(shopItem);
                                   }
                                 });
                               },
@@ -141,7 +141,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
               shopItem.subtitle = product.subtitle;
               shopItem.title = product.title;
               shopItem.price = product.price;
-              widget.viewModel.addShopItem(shopItem);
+              widget.viewModel.addShopItem(product);
             });
           },
         ),
@@ -168,7 +168,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                     product.isAdded = false;
                     product.amount = 1;
                   }
-                  widget.viewModel.removeShopItem(shopItem);
+                  widget.viewModel.removeShopItem(product);
                 });
               },
             ),

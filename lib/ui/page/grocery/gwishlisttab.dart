@@ -18,7 +18,7 @@ class GroceryWishlistTabView extends StatefulWidget {
 }
 
 class GroceryWishlistTabViewState extends State<GroceryWishlistTabView> {
-  List<ShopItem> shopItems;
+  List<Product> shopItems;
   double width;
   ShoppingCartViewModel viewModel;
 
@@ -31,13 +31,13 @@ class GroceryWishlistTabViewState extends State<GroceryWishlistTabView> {
     return new StoreConnector(
         onInitialBuild: (ShoppingCartViewModel viewModel) {},
         onInit: (store) {
-          shopItems = new List<ShopItem>();
+          shopItems = new List<Product>();
           // store.state.products[0].status=true;
           // shopItems.clear();
           for(int i=0;i<store.state.products.length;i++){
 
             if (store.state.products[i].isLiked) {
-              shopItems.add(new ShopItem(
+              shopItems.add(new Product(
                 title: store.state.products[i].title,
                 subtitle: store.state.products[i].subtitle,
                 price: "2 Azn",image:store.state.products[i].image, ));
@@ -90,12 +90,12 @@ class GroceryWishlistTabViewState extends State<GroceryWishlistTabView> {
       shrinkWrap: true,
       physics: ClampingScrollPhysics(),
       children: viewModel.shopItems
-          .map((ShopItem shopItem) => _buildWishListItem(shopItem))
+          .map((Product shopItem) => _buildWishListItem(shopItem))
           .toList(),
     ),
   );
 
-  Widget _buildWishListItem(ShopItem shopItem) => new Stack(
+  Widget _buildWishListItem(Product shopItem) => new Stack(
     children: <Widget>[
       GroceryListItemTwo(new Product(
           image: shopItem.image,

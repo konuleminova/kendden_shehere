@@ -10,11 +10,11 @@ class AppState {
   Home home;
   List<Product> products;
   int code;
-  List<ShopItem>shopItems;
+  List<Product>shopItems;
 
   AppState.initialState()
       : user_info = UserLogin(),
-        home = Home(),shopItems=new List<ShopItem>(),products=new List<Product>();
+        home = Home(),shopItems=new List<Product>(),products=new List<Product>();
 
   AppState({this.user_info, this.code, this.home,this.shopItems,this.products});
 

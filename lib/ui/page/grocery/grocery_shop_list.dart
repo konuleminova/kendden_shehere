@@ -89,7 +89,7 @@ class GroceryCartState extends State<GroceryShopCartPage> {
           shrinkWrap: true,
           physics: ClampingScrollPhysics(),
           children: viewModel.shopItems
-              .map((ShopItem shopItem) => _builShopListItem(shopItem))
+              .map((Product shopItem) => _builShopListItem(shopItem))
               .toList(),
         ),
       );
@@ -160,7 +160,7 @@ class GroceryCartState extends State<GroceryShopCartPage> {
     );
   }
 
-  Widget _builShopListItem(ShopItem shopItem) => new Stack(
+  Widget _builShopListItem(Product shopItem) => new Stack(
         children: <Widget>[
           GroceryListItemTwo(new Product(
               image: shopItem.image,

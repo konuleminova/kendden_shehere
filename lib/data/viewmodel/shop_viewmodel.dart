@@ -1,3 +1,4 @@
+import 'package:kendden_shehere/data/model/product_model.dart';
 import 'package:kendden_shehere/data/model/shop_item_model.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/data/model/app_state_model.dart';
@@ -5,15 +6,17 @@ import 'package:kendden_shehere/data/model/shop_model.dart';
 import 'package:kendden_shehere/redux/action/shop_action.dart';
 
 class ShoppingCartViewModel {
-  Function(ShopItem shopItem) removeShopItem;
-  List<ShopItem> shopItems;
+  Function(Product shopItem) removeShopItem;
+  List<Product> shopItems;
 
-  ShoppingCartViewModel({this.removeShopItem,this.shopItems});
+  ShoppingCartViewModel({this.removeShopItem, this.shopItems});
 
   factory ShoppingCartViewModel.create(Store<AppState> store) {
-    _removeItem(ShopItem shopItem) {
-      store.dispatch(RemoveShopItemAction(removeShopItem: shopItem));
+    _removeShopItem(Product product) {
+      store.dispatch(RemoveShopItemAction(removeShopItem: product));
     }
-    return ShoppingCartViewModel(removeShopItem: _removeItem,shopItems: store.state.shopItems);
+
+    return ShoppingCartViewModel(
+        removeShopItem: _removeShopItem, shopItems: store.state.shopItems);
   }
 }

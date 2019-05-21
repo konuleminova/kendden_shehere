@@ -8,8 +8,8 @@ import 'package:kendden_shehere/redux/middleware/thunk_home.dart';
 
 class HomeViewModel {
   Function(int limit, int page) onFetchProductList;
-  Function(ShopItem product) addShopItem;
-  Function(ShopItem shopItem) removeShopItem;
+  Function(Product product) addShopItem;
+  Function(Product shopItem) removeShopItem;
 
   HomeViewModel({this.onFetchProductList, this.addShopItem,this.removeShopItem});
 
@@ -18,10 +18,10 @@ class HomeViewModel {
       store.dispatch(getProductListThunkAction(limit, page));
     }
 
-    _addShopItem(ShopItem product) {
+    _addShopItem(Product product) {
       store.dispatch(AddProductAction(product: product));
     }
-    _removeShopItem(ShopItem product) {
+    _removeShopItem(Product product) {
       store.dispatch(RemoveShopItemAction(removeShopItem: product));
     }
 
