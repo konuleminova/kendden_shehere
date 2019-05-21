@@ -9,15 +9,15 @@ import 'package:kendden_shehere/data/viewmodel/shop_viewmodel.dart';
 import 'package:kendden_shehere/ui/widgets/oval_tap.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/glistitem2.dart';
 
-class GroceryWishlistTabView extends StatefulWidget {
+class GroceryWishListPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return new GroceryWishlistTabViewState();
+    return new GroceryWishListPageState();
   }
 }
 
-class GroceryWishlistTabViewState extends State<GroceryWishlistTabView> {
+class GroceryWishListPageState extends State<GroceryWishListPage> {
   List<Product> shopItems;
   double width;
   ShoppingCartViewModel viewModel;

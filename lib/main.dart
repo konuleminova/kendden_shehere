@@ -7,7 +7,7 @@ import 'package:kendden_shehere/ui/page/menu/delivery.dart';
 import 'package:kendden_shehere/ui/page/menu/fag.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_details_page.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_shop_list.dart';
-import 'package:kendden_shehere/ui/page/grocery/gwishlisttab.dart';
+import 'package:kendden_shehere/ui/page/grocery/grocery_wish_list.dart';
 import 'package:kendden_shehere/ui/page/map/searchplace.dart';
 import 'package:kendden_shehere/ui/page/test/flutter_places_webservice.dart';
 import 'package:kendden_shehere/ui/page/test/login_2.dart';
@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
           "/shopping_cart": (BuildContext context) => GroceryShopCartPage(),
           "/product_detail": (BuildContext context) => GroceryDetailsPage(),
           "/drop_down": (BuildContext context) => DropdownMenu(),
-          "/wish_list": (BuildContext context) => GroceryWishlistTabView(),
+          "/wish_list": (BuildContext context) => GroceryWishListPage(),
           "/confirm_order": (context) => ConfirmOrderPage(),
           "/card_storage": (context) => PaymentMethodPage(),
           "/checkout": (BuildContext context) => CheckoutsPage(),
