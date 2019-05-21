@@ -48,4 +48,20 @@ class Networks {
       }
     } catch (exception) {}
   }
+
+//  static dynamic fetchCategories(String parent, String ) async {
+//    try {
+//      final response = await http.post(FETCH_PRODUCT,
+//          body: json.encode({
+//            "ID": "71",
+//            "ROWS": {"LIMIT": limit, "PAGE": page}
+//          }),
+//          headers: {"Accept": "application/json"});
+//      if (response.statusCode == 200) {
+//        return Home.fromJson(json.decode(response.body));
+//      }else{
+//        return null;
+//      }
+//    } catch (exception) {}
+//  }
 }

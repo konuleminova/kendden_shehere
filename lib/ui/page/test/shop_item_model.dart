@@ -19,4 +19,8 @@ class ShopItem {
       this.url,
       this.status,
       this.amount});
+
+  bool operator == (item) => item is ShopItem && item.id == this.id && item.title == this.title;
+  @override
+  int get hashCode => this.id.hashCode ^ this.title.hashCode;
 }
