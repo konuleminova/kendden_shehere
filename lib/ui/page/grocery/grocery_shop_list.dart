@@ -18,7 +18,7 @@ class GroceryShopCartPage extends StatefulWidget {
 }
 
 class GroceryCartState extends State<GroceryShopCartPage> {
-  List<ShopItem> shopItems;
+  List<Product> shopItems;
   double width;
   ShoppingCartViewModel viewModel;
 
@@ -31,15 +31,16 @@ class GroceryCartState extends State<GroceryShopCartPage> {
     return new StoreConnector(
         onInitialBuild: (ShoppingCartViewModel viewModel) {},
         onInit: (store) {
-          shopItems = new List<ShopItem>();
-         // store.state.products[0].status=true;
-         // shopItems.clear();
-          for(int i=0;i<store.state.shopItems.length;i++){
-
-              shopItems.add(new ShopItem(
-                  title: store.state.shopItems[i].title,
-                  subtitle: store.state.shopItems[i].subtitle,
-                  price: "2 Azn",image:store.state.shopItems[i].image, ));
+          shopItems = new List<Product>();
+          // store.state.products[0].status=true;
+          // shopItems.clear();
+          for (int i = 0; i < store.state.shopItems.length; i++) {
+            shopItems.add(new Product(
+              title: store.state.shopItems[i].title,
+              subtitle: store.state.shopItems[i].subtitle,
+              price: "2 Azn",
+              image: store.state.shopItems[i].image,
+            ));
           }
           /*if(store.state.products[0].status){
             shopItems.add(new ShopItem(
@@ -48,8 +49,8 @@ class GroceryCartState extends State<GroceryShopCartPage> {
                 price: "2 Azn"));
           }
           */
-       //   store.state.shopItems.clear();
-         //store.state.shopItems.addAll(shopItems);
+          //   store.state.shopItems.clear();
+          //store.state.shopItems.addAll(shopItems);
           //this.shopItems=store.state.shopItems;
         },
         converter: (Store<AppState> store) =>

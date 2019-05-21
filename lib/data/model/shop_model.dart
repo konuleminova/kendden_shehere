@@ -1,6 +1,7 @@
+import 'package:kendden_shehere/data/model/product_model.dart';
 import 'package:kendden_shehere/data/model/shop_item_model.dart';
 
 class ShopModel {
-  List<ShopItem> shopItems;
-  ShopItem shopItem;
+  List<Product> shopItems;
+  Product shopItem;
 }

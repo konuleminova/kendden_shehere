@@ -20,7 +20,6 @@ class GroceryListItemOne extends StatefulWidget {
 
 class GroceryListItemOneState extends State<GroceryListItemOne> {
   Product product;
-  ShopItem shopItem = new ShopItem();
 
   @override
   Widget build(BuildContext context) {
@@ -90,11 +89,9 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                                 setState(() {
                                   if (product.isLiked) {
                                     product.isLiked = false;
-                                    shopItem.isLiked = product.isLiked;
                                     // widget.viewModel.onAddedProduct(shopItem);
                                   } else {
                                     product.isLiked = true;
-                                    shopItem.isLiked = product.isLiked;
                                     // widget.viewModel.onAddedProduct(shopItem);
                                   }
                                 });
@@ -134,13 +131,6 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
           onPressed: () {
             setState(() {
               product.isAdded = true;
-              shopItem.isLiked = product.isLiked;
-              shopItem.status = product.isAdded;
-              shopItem.image = product.image;
-              shopItem.id = product.id;
-              shopItem.subtitle = product.subtitle;
-              shopItem.title = product.title;
-              shopItem.price = product.price;
               widget.viewModel.addShopItem(product);
             });
           },
