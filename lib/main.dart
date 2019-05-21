@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/data/model/login_model.dart';
 import 'package:kendden_shehere/data/viewmodel/login_viewmodel.dart';
+import 'package:kendden_shehere/ui/page/grocery/grocery_categories.dart';
 import 'package:kendden_shehere/ui/page/menu/about_us.dart';
 import 'package:kendden_shehere/ui/page/menu/delivery.dart';
 import 'package:kendden_shehere/ui/page/menu/fag.dart';
@@ -65,7 +66,8 @@ class MyApp extends StatelessWidget {
           "/search_place": (BuildContext context) => CustomSearchScaffold(),
           "/about_us": (BuildContext context) => AboutUsPage(),
           "/delivery_terms": (BuildContext context) => DeliveryPage(),
-          "/fag": (BuildContext context) => FagPage()
+          "/fag": (BuildContext context) => FagPage(),
+          "/categories": (BuildContext context) => GroceryCategoriesPage()
 
           // "/product_list": (BuildContext context) => ProductListPage()
         },

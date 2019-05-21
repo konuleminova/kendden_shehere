@@ -59,6 +59,9 @@ class DrawerState extends State<DrawerWidget> {
           ListTile(
             leading: Icon(Icons.category),
             title: Text("Categories"),
+            onTap: () {
+              Navigator.pushNamed(context, "/categories");
+            },
           ),
           GestureDetector(
             child: ListTile(
