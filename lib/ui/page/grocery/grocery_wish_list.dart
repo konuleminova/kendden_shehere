@@ -18,7 +18,7 @@ class GroceryWishListPage extends StatefulWidget {
 }
 
 class GroceryWishListPageState extends State<GroceryWishListPage> {
-  List<Product> shopItems;
+  List<Product> wishItems;
   double width;
   ShoppingCartViewModel viewModel;
 
@@ -31,28 +31,28 @@ class GroceryWishListPageState extends State<GroceryWishListPage> {
     return new StoreConnector(
         onInitialBuild: (ShoppingCartViewModel viewModel) {},
         onInit: (store) {
-          shopItems = new List<Product>();
+          wishItems = new List<Product>();
           // store.state.products[0].status=true;
-          // shopItems.clear();
+          // wishItems.clear();
           for(int i=0;i<store.state.products.length;i++){
 
             if (store.state.products[i].isLiked) {
-              shopItems.add(new Product(
+              wishItems.add(new Product(
                 title: store.state.products[i].title,
                 subtitle: store.state.products[i].subtitle,
                 price: "2 Azn",image:store.state.products[i].image, ));
             }
           }
           /*if(store.state.products[0].status){
-            shopItems.add(new ShopItem(
+            wishItems.add(new ShopItem(
                 title: store.state.products[0].title,
                 description: "Dummy Text",
                 price: "2 Azn"));
           }
           */
           store.state.shopItems.clear();
-          store.state.shopItems.addAll(shopItems);
-          //this.shopItems=store.state.shopItems;
+          store.state.shopItems.addAll(wishItems);
+          //this.wishItems=store.state.wishItems;
         },
         converter: (Store<AppState> store) =>
             ShoppingCartViewModel.create(store),
