@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kendden_shehere/ui/page/grocery/grocery_categories.dart';
 
 class DrawerWidget extends StatefulWidget {
   @override
@@ -60,7 +61,14 @@ class DrawerState extends State<DrawerWidget> {
             leading: Icon(Icons.category),
             title: Text("Categories"),
             onTap: () {
-              Navigator.pushNamed(context, "/categories");
+              Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                      new GroceryCategoriesPage(
+                        id: "0",title: "Categories",
+                      )));
+             // Navigator.pushNamed(context, "/categories");
             },
           ),
           GestureDetector(

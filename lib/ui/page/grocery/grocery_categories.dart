@@ -4,6 +4,10 @@ import 'package:kendden_shehere/data/model/list_categories.dart';
 import 'package:kendden_shehere/service/networks.dart';
 
 class GroceryCategoriesPage extends StatefulWidget {
+  String id,title;
+
+  GroceryCategoriesPage({this.id,this.title});
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -12,56 +16,55 @@ class GroceryCategoriesPage extends StatefulWidget {
 }
 
 class GroceryCategoriesState extends State<GroceryCategoriesPage> {
+  List<Category> categories = new List();
+
   @override
   Widget build(BuildContext context) {
-    List<Category> categories = new List();
     // TODO: implement build
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("Categories"),
-        backgroundColor: Colors.lightGreen,
-      ),
-      body: new Container(
-        child: new FutureBuilder(
-          builder: (BuildContext context, AsyncSnapshot snapShot) {
-            if (snapShot.hasData) {
-              if (snapShot.data != null) {
-                for (int i = 0; i < snapShot.data.length; i++) {
-                  if (snapShot.data[i].parent == "0") {
-                    categories.add(snapShot.data[i]);
-                  }
-                }
-
-                return new ListView.builder(
-                  itemBuilder: (BuildContext context, int index) {
-                    return new Container(
-                      margin: EdgeInsets.only(left: 16,right: 16,top: 10),
-                      child: new Text(
-                        categories[index].name_en,
-                        style:
-                            TextStyle(color: Colors.lightGreen, fontSize: 22,fontWeight: FontWeight.bold),
-                      ),
-                    );
-                  },
-                  itemCount: categories.length,
-                );
-              }
-            } else {
-              return new Center(
-                child: new CircularProgressIndicator(),
-              );
-            }
-          },
-          future: getCategories(),
+        appBar: new AppBar(
+          title: new Text(widget.title),
+          backgroundColor: Colors.lightGreen,
         ),
-      ),
-    );
+        body: new ListView.builder(
+          itemBuilder: (BuildContext context, int index) {
+            return new Container(
+                child: ListTile(
+              leading: new Text(
+                categories[index].name_en,
+                style: TextStyle(
+                    color: Colors.lightGreen,
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold),
+              ),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                        new GroceryCategoriesPage(
+                          id: categories[index].id,title:categories[index].name_en
+                        )));
+              },
+            ));
+          },
+          itemCount: categories.length,
+        ));
   }
 
   @override
   void initState() {
     super.initState();
-    getCategories();
+    getCategories().then((onvalue) {
+      for (int i = 0; i < onvalue.length; i++) {
+        if (onvalue[i].parent == widget.id) {
+          categories.add(onvalue[i]);
+        }
+      }
+      setState(() {
+        categories=categories;
+      });
+    });
   }
 
   Future<List<Category>> getCategories() async {
