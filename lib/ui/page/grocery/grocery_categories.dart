@@ -36,30 +36,36 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
                       categories.add(snapshot.data[i]);
                     }
                   }
-                  return new ListView.builder(
-                    itemBuilder: (BuildContext context, int index) {
-                      return new Container(
-                          child: ListTile(
-                        leading: new Text(
-                          categories[index].name_en.trim(),
-                          style: TextStyle(
-                              color: Colors.lightGreen,
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              new MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      new GroceryCategoriesPage(
-                                          id: categories[index].id,
-                                          title: categories[index].name_en)));
-                        },
-                      ));
-                    },
-                    itemCount: categories.length,
-                  );
+                  if (categories.length > 0) {
+                    return new ListView.builder(
+                      itemBuilder: (BuildContext context, int index) {
+                        return new Container(
+                            child: ListTile(
+                          leading: new Text(
+                            categories[index].name_en.trim(),
+                            style: TextStyle(
+                                color: Colors.lightGreen,
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                new MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        new GroceryCategoriesPage(
+                                            id: categories[index].id,
+                                            title: categories[index].name_en)));
+                          },
+                        ));
+                      },
+                      itemCount: categories.length,
+                    );
+                  } else {
+                    return new Center(
+                      child: new Text("products"),
+                    );
+                  }
                 }
               } else {
                 return Center(
