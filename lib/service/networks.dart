@@ -58,7 +58,6 @@ class Networks {
     try {
       final response = await http.get(LIST_CATEGORIES);
       if (response.statusCode == 200) {
-        //print(response.body);
         return ListCategories.fromJson(json.decode(response.body));
       } else {
         return null;
