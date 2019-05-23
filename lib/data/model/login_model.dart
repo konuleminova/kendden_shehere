@@ -7,13 +7,13 @@ import 'package:redux_thunk/redux_thunk.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
-enum STATUS { SUCCESS, FAIL, LOADING, NETWORK_ERROR }
+enum STATUS1 { SUCCESS, FAIL, LOADING, NETWORK_ERROR }
 
 class UserLogin {
   String username;
   String password;
   bool isLogin = false;
-  STATUS status;
+  STATUS1 status;
 
   UserLogin({this.username, this.password, this.isLogin, this.status});
 
@@ -22,7 +22,7 @@ class UserLogin {
   }
 
   UserLogin copyWith(
-      {String username, String password, bool isLogin, STATUS status}) {
+      {String username, String password, bool isLogin, STATUS1 status}) {
     return UserLogin(
         username: username ?? this.username,
         password: password ?? this.password,

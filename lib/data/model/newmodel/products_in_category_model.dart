@@ -3,7 +3,6 @@ import 'package:kendden_shehere/data/model/newmodel/new_product_model.dart';
 
 class ProductsInCategory {
   List<NewProduct> productsInCategory;
-
   ProductsInCategory({this.productsInCategory});
 
   factory ProductsInCategory.fromJson(List<dynamic> json) {

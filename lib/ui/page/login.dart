@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:kendden_shehere/data/model/newmodel/new_user_model.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/data/model/app_state_model.dart';
 import 'package:kendden_shehere/data/model/login_model.dart';
@@ -53,10 +54,11 @@ class LoginState extends State<LoginPage> {
               // Navigator.pushReplacementNamed(context, "/home");
             } else if (state.user_info.status == STATUS.LOADING) {
               print("loading..");
+              if (state.user_info.status == STATUS.NETWORK_ERROR) {
+                _showToast(context, "No internet connection");
+              }
             } else if (state.user_info.status == STATUS.FAIL) {
               _showToast(context, "Username or Password is wrong.");
-            } else if (state.user_info.status == STATUS.NETWORK_ERROR) {
-              _showToast(context, "No internet connection");
             }
           }
         });

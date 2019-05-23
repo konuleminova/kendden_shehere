@@ -1,13 +1,14 @@
+import 'package:kendden_shehere/data/model/newmodel/new_user_model.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/data/model/login_model.dart';
 import 'package:kendden_shehere/redux/action/login_action.dart';
 
-Reducer<UserLogin> loginReducer = combineReducers<UserLogin>(
-    [TypedReducer<UserLogin, LoginAction>(signInReducer)]);
+Reducer<NewUserModel> loginReducer = combineReducers<NewUserModel>(
+    [TypedReducer<NewUserModel, LoginAction>(signInReducer)]);
 
-UserLogin signInReducer(UserLogin state, LoginAction action) {
+NewUserModel signInReducer(NewUserModel state, LoginAction action) {
   return state.copyWith(
-      username: action.username,
+      name: action.username,
       password: action.password,
       status: action.status,
       isLogin: action.isLogin);

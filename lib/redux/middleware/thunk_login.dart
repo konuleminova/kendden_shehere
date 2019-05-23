@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:kendden_shehere/data/model/newmodel/new_user_model.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/data/model/app_state_model.dart';
 import 'package:kendden_shehere/data/model/login_model.dart';
@@ -10,27 +11,30 @@ import 'package:redux_thunk/redux_thunk.dart';
 
 ThunkAction<AppState> loginThunkFunction(String username, String password) {
   return (Store<AppState> store) async {
-    UserLogin userLogin = new UserLogin();
+    NewUserModel userLogin = new NewUserModel();
     userLogin.status = STATUS.LOADING;
     store.dispatch(LoginAction(status: STATUS.LOADING));
-    AppState responseBody = await Networks.loginUser(username, password);
-    print(responseBody.toString()+"..");
+   NewUserModel responseBody = await Networks.login(username, password);
+   print(responseBody.toString());
+    print(responseBody.toString() + "..");
     if (responseBody != null) {
-      if (responseBody.code == 1001) {
-        userLogin.username = username;
-        userLogin.password = password;
+        userLogin.name = username;
+        userLogin.surname = password;
+        userLogin.email=responseBody.email;
+        userLogin.mobile=responseBody.mobile;
+        userLogin.address=responseBody.address;
         userLogin.isLogin = true;
         userLogin.status = STATUS.SUCCESS;
         SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
         sharedPrefUtil.setUserHasLogin(userLogin.isLogin);
-        store.dispatch(LoginAction(username: username,password: password,isLogin: true,status: STATUS.SUCCESS));
-      } else {
-        userLogin.status = STATUS.FAIL;
-        store.dispatch(LoginAction(status: STATUS.FAIL));
-      }
+        store.dispatch(LoginAction(
+            username: username,
+            password: password,
+            isLogin: true,
+            status: STATUS.SUCCESS));
     } else {
-      userLogin.status = STATUS.NETWORK_ERROR;
-      store.dispatch(LoginAction(status: STATUS.NETWORK_ERROR));
+      userLogin.status = STATUS.FAIL;
+      store.dispatch(LoginAction(status: STATUS.FAIL));
     }
   };
 }
