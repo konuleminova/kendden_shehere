@@ -42,7 +42,7 @@ class GroceryListPageState extends State<NewGroceryListPage> {
                               return Container(
                                   width:
                                       MediaQuery.of(context).size.width * 0.6,
-                                  height: 350,
+                                  height: 360,
                                   child: InkWell(
                                     child: GroceryListItemOne(
                                       product: snapshot.data[index],
