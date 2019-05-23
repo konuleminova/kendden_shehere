@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:kendden_shehere/data/model/app_state_model.dart';
 import 'package:kendden_shehere/data/model/home_model.dart';
-import 'package:kendden_shehere/data/model/list_categories.dart';
+import 'package:kendden_shehere/data/model/newmodel/list_categories.dart';
+import 'package:kendden_shehere/data/model/product_model.dart';
+import 'package:kendden_shehere/data/model/newmodel/products_in_category_model.dart';
 import 'package:kendden_shehere/redux/middleware/thunk_login.dart';
 
 class Networks {
@@ -15,6 +17,8 @@ class Networks {
 //Kendden Shehere Api
   static String BASE_KS_URL = "http://kenddenshehere.az/api/?act=";
   static String LIST_CATEGORIES = BASE_KS_URL + "list_categories";
+
+  static var PRODUCTS_IN_CATEGORY = BASE_KS_URL + "productincat&id=";
 
   static dynamic loginUser(String username, String password) async {
     var uri = BASE_URL + LOGIN_ENDPOINT;
@@ -59,6 +63,17 @@ class Networks {
       final response = await http.get(LIST_CATEGORIES);
       if (response.statusCode == 200) {
         return ListCategories.fromJson(json.decode(response.body));
+      } else {
+        return null;
+      }
+    } catch (exception) {}
+  }
+
+  static dynamic productsInCategory(String id) async {
+    try {
+      final response = await http.get(PRODUCTS_IN_CATEGORY + id);
+      if (response.statusCode == 200) {
+        return ProductsInCategory.fromJson(json.decode(response.body));
       } else {
         return null;
       }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/data/model/category_item.dart';
-import 'package:kendden_shehere/data/model/list_categories.dart';
+import 'package:kendden_shehere/data/model/newmodel/list_categories.dart';
 import 'package:kendden_shehere/service/networks.dart';
+import 'package:kendden_shehere/ui/page/grocery/new_grocery/new_grocery_list.dart';
 
 class GroceryCategoriesPage extends StatefulWidget {
   String id, title;
@@ -29,6 +30,7 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
         body: FutureBuilder(
             future: getCategories(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
+              categories.clear();
               if (snapshot.hasData) {
                 if (snapshot.data != null) {
                   for (int i = 0; i < snapshot.data.length; i++) {
@@ -41,30 +43,29 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
                       itemBuilder: (BuildContext context, int index) {
                         return new Container(
                             child: ListTile(
-                          leading: new Text(
-                            categories[index].name_en.trim(),
-                            style: TextStyle(
-                                color: Colors.lightGreen,
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                new MaterialPageRoute(
-                                    builder: (BuildContext context) =>
+                              leading: new Text(
+                                categories[index].name_en.trim(),
+                                style: TextStyle(
+                                    color: Colors.lightGreen,
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    new MaterialPageRoute(
+                                        builder: (BuildContext context) =>
                                         new GroceryCategoriesPage(
                                             id: categories[index].id,
                                             title: categories[index].name_en)));
-                          },
-                        ));
+                              },
+                            ));
                       },
                       itemCount: categories.length,
                     );
                   } else {
-                    return new Center(
-                      child: new Text("products"),
-                    );
+                    return new NewGroceryListPage(
+                        id: widget.id);
                   }
                 }
               } else {
@@ -78,6 +79,13 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
   @override
   void initState() {
     super.initState();
+  }
+
+
+  @override
+  void dispose() {
+    super.dispose();
+
   }
 
   Future<List<Category>> getCategories() async {
