@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kendden_shehere/ui/widgets/dialog/dialog.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -74,16 +75,37 @@ class ProfilePage extends StatelessWidget {
                     title: Text("Usermame"),
                     subtitle: Text("konul"),
                     leading: Icon(Icons.verified_user),
+                    onTap: (){
+                      showDialog(
+                          context: context,
+                          builder: (buildContext) {
+                            return BeautifulAlertDialog("Username");
+                          });
+                    },
                   ),
                   ListTile(
                     title: Text("Email"),
                     subtitle: Text("keminova@gmail.com"),
                     leading: Icon(Icons.email),
+                    onTap: (){
+                      showDialog(
+                          context: context,
+                          builder: (buildContext) {
+                            return BeautifulAlertDialog("Email");
+                          });
+                    },
                   ),
                   ListTile(
                     title: Text("Phone"),
                     subtitle: Text("+944-9815225566"),
                     leading: Icon(Icons.phone),
+                    onTap: (){
+                      showDialog(
+                          context: context,
+                          builder: (buildContext) {
+                            return BeautifulAlertDialog("Phone");
+                          });
+                    },
                   ),
                   ListTile(
                     title: Text("Birthday"),

@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+
 class BeautifulAlertDialog extends StatelessWidget {
+  String text;
+
+  BeautifulAlertDialog(this.text);
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -7,55 +12,61 @@ class BeautifulAlertDialog extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.transparent,
         child: Container(
-          padding: EdgeInsets.only(right: 16.0),
-          height: 150,
+          padding: EdgeInsets.only(right: 12.0, left: 12),
+          height: 190,
           decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(75),
-                  bottomLeft: Radius.circular(75),
-                  topRight: Radius.circular(10),
-                  bottomRight: Radius.circular(10)
-              )
+            color: Colors.white,
           ),
           child: Row(
             children: <Widget>[
-              SizedBox(width: 20.0),
-              CircleAvatar(radius: 55, backgroundColor: Colors.grey.shade200, child: Image.asset('assets/img/info-icon.png', width: 60,),),
-              SizedBox(width: 20.0),
               Expanded(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Text("Alert!", style: Theme.of(context).textTheme.title,),
                     SizedBox(height: 10.0),
                     Flexible(
                       child: Text(
-                          "Do you want to continue to turn off the services?"),
+                          "Do you want to save changes?",style: TextStyle(color: Colors.pink),),
                     ),
                     SizedBox(height: 10.0),
-                    Row(children: <Widget>[
-                      Expanded(
-                        child: RaisedButton(
-                          child: Text("No"),
-                          color: Colors.red,
-                          colorBrightness: Brightness.dark,
-                          onPressed: (){Navigator.pop(context);},
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+                    Flexible(
+                      child: new Container(
+                          margin: EdgeInsets.only(left: 16, right: 16),
+                          child: new TextField(
+                            decoration: InputDecoration(labelText: text,),
+                          )),
+                    ),
+                    SizedBox(height: 10.0),
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: RaisedButton(
+                            child: Text("No"),
+                            color: Colors.red,
+                            colorBrightness: Brightness.dark,
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0)),
+                          ),
                         ),
-                      ),
-                      SizedBox(width: 10.0),
-                      Expanded(
-                        child: RaisedButton(
-                          child: Text("Yes"),
-                          color: Colors.green,
-                          colorBrightness: Brightness.dark,
-                          onPressed: (){Navigator.pop(context);},
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+                        SizedBox(width: 10.0),
+                        Expanded(
+                          child: RaisedButton(
+                            child: Text("Yes"),
+                            color: Colors.green,
+                            colorBrightness: Brightness.dark,
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0)),
+                          ),
                         ),
-                      ),
-                    ],)
+                      ],
+                    )
                   ],
                 ),
               )
