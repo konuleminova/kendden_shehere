@@ -24,6 +24,10 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
   @override
   Widget build(BuildContext context) {
     product = widget.product;
+    String s = product.img.trim();
+    if(s==""){
+      s=null;
+    }
 
     // TODO: implement build
     return Container(
@@ -50,7 +54,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                 children: <Widget>[
                   GestureDetector(
                     child: Container(
-                        child: Image.network(
+                        child: Image.network(s ??
                             "https://pulapul.com/PulaPul/?action=GetImage&module=Campaigns&fileid=17&d=20190523"),
                         height: 150,
                         padding: EdgeInsets.only(
