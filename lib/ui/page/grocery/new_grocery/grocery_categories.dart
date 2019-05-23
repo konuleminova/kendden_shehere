@@ -46,8 +46,9 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
                               leading: new Text(
                                 categories[index].name_en.trim(),
                                 style: TextStyle(
-                                    color: Colors.lightGreen,
-                                    fontSize: 22,
+                                    fontFamily: 'RobotoMono',
+                                    color: Colors.grey[700],
+                                    fontSize: 20,
                                     fontWeight: FontWeight.bold),
                               ),
                               onTap: () {
