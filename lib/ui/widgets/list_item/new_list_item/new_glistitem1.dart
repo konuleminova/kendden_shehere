@@ -107,7 +107,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       new GrocerySubtitle(text: product.counttype),
-                      new GrocerySubtitle(text: product.price),
+                      new GrocerySubtitle(text: product.price+" AZN"),
                     ],
                   ),
                   addedWidget(),
