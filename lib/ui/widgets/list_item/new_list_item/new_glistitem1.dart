@@ -33,7 +33,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
     return Container(
       decoration: BoxDecoration(
           color: Colors.white,
-          border: Border.all(color: Colors.lightGreen),
+          border: Border.all(color:Colors.grey[300]),
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(5.0), topRight: Radius.circular(5.0)),
           boxShadow: [
@@ -81,7 +81,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                           new Container(
                             child: IconButton(
                               icon: Icon(
-                                Icons.favorite,
+                                Icons.favorite_border,
                                 color: Colors.pink[400],
                                 size: 30,
                               ),
