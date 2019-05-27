@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class BeautifulAlertDialog extends StatelessWidget {
+class ProfileEditDialog extends StatelessWidget {
   String text;
 
-  BeautifulAlertDialog(this.text);
+  ProfileEditDialog(this.text);
 
   @override
   Widget build(BuildContext context) {

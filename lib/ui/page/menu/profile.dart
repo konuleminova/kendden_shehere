@@ -1,12 +1,16 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:kendden_shehere/ui/widgets/dialog/dialog.dart';
+import 'package:kendden_shehere/ui/widgets/dialog/image_picker_dialog.dart';
+import 'package:kendden_shehere/ui/widgets/dialog/profile_edit_dialog.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProfilePage extends StatefulWidget {
   final image = 'assets/img/2.jpg';
+  File file;
+
+  ProfilePage({this.file});
 
   @override
   State<StatefulWidget> createState() {
@@ -20,6 +24,7 @@ class ProfileState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    cameraFile = widget.file;
     // TODO: implement build
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
@@ -60,7 +65,12 @@ class ProfileState extends State<ProfilePage> {
                         behavior: HitTestBehavior.translucent,
                         onTap: () {
                           print("selected");
-                          imageSelectorCamera();
+                          //imageSelectorCamera();
+                          showDialog(
+                              context: context,
+                              builder: (buildContext) {
+                                return ImagePickerDialog();
+                              });
                         })
                   ],
                 ),
@@ -100,7 +110,7 @@ class ProfileState extends State<ProfilePage> {
                       showDialog(
                           context: context,
                           builder: (buildContext) {
-                            return BeautifulAlertDialog("Username");
+                            return ProfileEditDialog("Username");
                           });
                     },
                   ),
@@ -112,7 +122,7 @@ class ProfileState extends State<ProfilePage> {
                       showDialog(
                           context: context,
                           builder: (buildContext) {
-                            return BeautifulAlertDialog("Email");
+                            return ProfileEditDialog("Email");
                           });
                     },
                   ),
@@ -124,7 +134,7 @@ class ProfileState extends State<ProfilePage> {
                       showDialog(
                           context: context,
                           builder: (buildContext) {
-                            return BeautifulAlertDialog("Phone");
+                            return ProfileEditDialog("Phone");
                           });
                     },
                   ),
@@ -166,14 +176,13 @@ class ProfileState extends State<ProfilePage> {
     );
   }
 
-  //display image selected from camera
-  imageSelectorCamera() async {
-    cameraFile = await ImagePicker.pickImage(
-      source: ImageSource.camera,
-      //maxHeight: 50.0,
-      //maxWidth: 50.0,
-    );
-    print("You selected camera image : " + cameraFile.path);
-    setState(() {});
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  void setState(VoidCallback fn) {
+    Navigator.pop(context);
   }
 }
