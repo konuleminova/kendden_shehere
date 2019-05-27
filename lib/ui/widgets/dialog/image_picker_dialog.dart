@@ -50,7 +50,7 @@ class ImagePickerDialog extends StatelessWidget {
                         style: TextStyle(color: Colors.grey),
                       ),
                       onTap: () {
-                        imageSelectorCamera(context);
+                        imageSelectorCamera(context, ImageSource.camera);
                       },
                     ),
                     ListTile(
@@ -59,6 +59,9 @@ class ImagePickerDialog extends StatelessWidget {
                         "Gallery",
                         style: TextStyle(color: Colors.grey),
                       ),
+                      onTap: () {
+                        imageSelectorCamera(context, ImageSource.gallery);
+                      },
                     ),
                   ],
                 ),
@@ -71,18 +74,17 @@ class ImagePickerDialog extends StatelessWidget {
   }
 
   //display image selected from camera
-  imageSelectorCamera(BuildContext context) async {
-    cameraFile = await ImagePicker.pickImage(
-      source: ImageSource.camera,
-      //maxHeight: 50.0,
-      //maxWidth: 50.0,
-    );
+  imageSelectorCamera(BuildContext context, ImageSource imageSource) async {
+    cameraFile = await ImagePicker.pickImage(source: imageSource
+        //maxHeight: 50.0,
+        //maxWidth: 50.0,
+        );
     if (cameraFile != null) {
       Route route = MaterialPageRoute(
           builder: (context) => ProfilePage(
-            file: cameraFile,
-          ));
-       Navigator.push(context, route);
+                file: cameraFile,
+              ));
+      Navigator.push(context, route);
     }
     print("You selected camera image : " + cameraFile.path);
     // setState(() {});
