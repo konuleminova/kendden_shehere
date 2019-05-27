@@ -1,10 +1,11 @@
 package com.sinam.kendden_shehere;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.sinam.kendden_shehere.R;
 import com.sofit.onlinechatsdk.ChatView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class ChatActivity extends AppCompatActivity {
 

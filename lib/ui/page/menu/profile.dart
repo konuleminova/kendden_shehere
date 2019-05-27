@@ -1,12 +1,26 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/dialog.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
+import 'package:image_picker/image_picker.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   final image = 'assets/img/2.jpg';
 
   @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return new ProfileState();
+  }
+}
+
+class ProfileState extends State<ProfilePage> {
+  File cameraFile;
+
+  @override
   Widget build(BuildContext context) {
+    // TODO: implement build
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       appBar: AppBar(
@@ -31,16 +45,23 @@ class ProfilePage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    CircleAvatar(
-                      minRadius: 60,
-                      backgroundColor: Colors.green.shade300,
-                      child: CircleAvatar(
-                        radius: 50.0,
-                        backgroundImage:
-                        NetworkImage('https://content-static.upwork.com/uploads/2014/10/01073427/profilephoto1.jpg'),
-                        backgroundColor: Colors.transparent,
-                      )
-                    ),
+                    GestureDetector(
+                        child: CircleAvatar(
+                            minRadius: 60,
+                            backgroundColor: Colors.green.shade300,
+                            child: CircleAvatar(
+                              radius: 50.0,
+                              backgroundImage: cameraFile == null
+                                  ? NetworkImage(
+                                      'https://content-static.upwork.com/uploads/2014/10/01073427/profilephoto1.jpg')
+                                  : new FileImage(cameraFile),
+                              backgroundColor: Colors.transparent,
+                            )),
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () {
+                          print("selected");
+                          imageSelectorCamera();
+                        })
                   ],
                 ),
                 SizedBox(
@@ -75,7 +96,7 @@ class ProfilePage extends StatelessWidget {
                     title: Text("Usermame"),
                     subtitle: Text("konul"),
                     leading: Icon(Icons.verified_user),
-                    onTap: (){
+                    onTap: () {
                       showDialog(
                           context: context,
                           builder: (buildContext) {
@@ -87,7 +108,7 @@ class ProfilePage extends StatelessWidget {
                     title: Text("Email"),
                     subtitle: Text("keminova@gmail.com"),
                     leading: Icon(Icons.email),
-                    onTap: (){
+                    onTap: () {
                       showDialog(
                           context: context,
                           builder: (buildContext) {
@@ -99,7 +120,7 @@ class ProfilePage extends StatelessWidget {
                     title: Text("Phone"),
                     subtitle: Text("+944-9815225566"),
                     leading: Icon(Icons.phone),
-                    onTap: (){
+                    onTap: () {
                       showDialog(
                           context: context,
                           builder: (buildContext) {
@@ -143,5 +164,16 @@ class ProfilePage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  //display image selected from camera
+  imageSelectorCamera() async {
+    cameraFile = await ImagePicker.pickImage(
+      source: ImageSource.camera,
+      //maxHeight: 50.0,
+      //maxWidth: 50.0,
+    );
+    print("You selected camera image : " + cameraFile.path);
+    setState(() {});
   }
 }
