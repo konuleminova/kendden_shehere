@@ -8,9 +8,6 @@ import 'package:image_picker/image_picker.dart';
 
 class ProfilePage extends StatefulWidget {
   final image = 'assets/img/2.jpg';
-  File file;
-
-  ProfilePage({this.file});
 
   @override
   State<StatefulWidget> createState() {
@@ -20,11 +17,10 @@ class ProfilePage extends StatefulWidget {
 }
 
 class ProfileState extends State<ProfilePage> {
-  File cameraFile;
+  File imageFile;
 
   @override
   Widget build(BuildContext context) {
-    cameraFile = widget.file;
     // TODO: implement build
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
@@ -56,10 +52,10 @@ class ProfileState extends State<ProfilePage> {
                             backgroundColor: Colors.green.shade300,
                             child: CircleAvatar(
                               radius: 50.0,
-                              backgroundImage: cameraFile == null
+                              backgroundImage: imageFile == null
                                   ? NetworkImage(
                                       'https://content-static.upwork.com/uploads/2014/10/01073427/profilephoto1.jpg')
-                                  : new FileImage(cameraFile),
+                                  : new FileImage(imageFile),
                               backgroundColor: Colors.transparent,
                             )),
                         behavior: HitTestBehavior.translucent,
@@ -69,7 +65,78 @@ class ProfileState extends State<ProfilePage> {
                           showDialog(
                               context: context,
                               builder: (buildContext) {
-                                return ImagePickerDialog();
+                                return Center(
+                                  child: Dialog(
+                                    elevation: 0,
+                                    backgroundColor: Colors.transparent,
+                                    child: Container(
+                                      padding: EdgeInsets.only(
+                                          right: 12.0, left: 12),
+                                      height: 190,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                      ),
+                                      child: Row(
+                                        children: <Widget>[
+                                          Expanded(
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: <Widget>[
+                                                SizedBox(
+                                                  height: 10.0,
+                                                ),
+                                                Flexible(
+                                                  child: Text(
+                                                    "Profile Photo",
+                                                    style: TextStyle(
+                                                        color: Colors.pink,
+                                                        fontSize: 18),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 10.0,
+                                                ),
+                                                Divider(
+                                                  color: Colors.blue,
+                                                ),
+
+                                                //SizedBox(height: 5.0),
+                                                ListTile(
+                                                  leading:
+                                                      new Icon(Icons.camera),
+                                                  title: Text(
+                                                    "Camera",
+                                                    style: TextStyle(
+                                                        color: Colors.grey),
+                                                  ),
+                                                  onTap: () {
+                                                    imageSelector(context,
+                                                        ImageSource.camera);
+                                                  },
+                                                ),
+                                                ListTile(
+                                                  leading: Icon(Icons.image),
+                                                  title: Text(
+                                                    "Gallery",
+                                                    style: TextStyle(
+                                                        color: Colors.grey),
+                                                  ),
+                                                  onTap: () {
+                                                    imageSelector(context,
+                                                        ImageSource.gallery);
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
                               });
                         })
                   ],
@@ -176,13 +243,13 @@ class ProfileState extends State<ProfilePage> {
     );
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
-  void setState(VoidCallback fn) {
+  imageSelector(BuildContext context, ImageSource imageSource) async {
+    imageFile = await ImagePicker.pickImage(source: imageSource
+        //maxHeight: 50.0,
+        //maxWidth: 50.0,
+        );
     Navigator.pop(context);
+    setState(() {});
+    print("You selected camera image : " + imageFile.path);
   }
 }

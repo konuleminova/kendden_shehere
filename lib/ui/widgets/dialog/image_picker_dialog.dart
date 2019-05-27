@@ -4,11 +4,26 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kendden_shehere/ui/page/menu/profile.dart';
 
-class ImagePickerDialog extends StatelessWidget {
+class ImagePickerDialog extends StatefulWidget {
   File cameraFile;
 
   @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return ImagePickerState();
+  }
+
+  getFile() {
+    return cameraFile;
+  }
+}
+
+class ImagePickerState extends State<ImagePickerDialog> {
+  static File cameraFile;
+
+  @override
   Widget build(BuildContext context) {
+    // TODO: implement build
     return Center(
       child: Dialog(
         elevation: 0,
@@ -79,14 +94,20 @@ class ImagePickerDialog extends StatelessWidget {
         //maxHeight: 50.0,
         //maxWidth: 50.0,
         );
-    if (cameraFile != null) {
+    /*if (cameraFile != null) {
       Route route = MaterialPageRoute(
           builder: (context) => ProfilePage(
                 file: cameraFile,
               ));
       Navigator.push(context, route);
     }
+    */
     print("You selected camera image : " + cameraFile.path);
-    // setState(() {});
+    setState(() {
+      widget.cameraFile = cameraFile;
+      Navigator.pop(context);
+      ProfilePage page=new ProfilePage();
+      //page.getFile(cameraFile);
+    });
   }
 }
