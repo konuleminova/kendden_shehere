@@ -66,8 +66,8 @@ class LoginState extends State<LoginPage> {
       builder: (BuildContext context, ViewModel viewModel) => Scaffold(
               body: SingleChildScrollView(
             child: Container(
+              decoration: new BoxDecoration(color: Colors.lightGreen),
               height: MediaQuery.of(context).size.height,
-              color: Colors.lightGreen,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
@@ -84,6 +84,10 @@ class LoginState extends State<LoginPage> {
                                 fontSize: 28.0)),
                         new Container(
                           child: TextField(
+                            onSubmitted: (value){
+                              _controllerUsername.text=value;
+
+                            },
                             controller: _controllerUsername,
                             decoration: InputDecoration(
                                 prefixIcon: Icon(
@@ -114,6 +118,10 @@ class LoginState extends State<LoginPage> {
                         new Container(
                           margin: EdgeInsets.all(16),
                           child: TextField(
+                            onSubmitted: (value){
+                              _controllerPass.text=value;
+
+                            },
                             controller: _controllerPass,
                             decoration: InputDecoration(
                                 prefixIcon: Icon(
