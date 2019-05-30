@@ -45,42 +45,9 @@ class _MapPage1State extends PlacesAutocompleteState {
   @override
   void initState() {
     super.initState();
+    _lastMapPositon = _bakuLatLng;
     //  placeModel = widget.placeModel;
-    print(placeModel.toString());
-    if (placeModel != null) {
-      _lastMapPositon = new LatLng(placeModel.latitude, placeModel.longitude);
-      _markers.add(Marker(
-          draggable: true,
-          markerId: MarkerId(_lastMapPositon.toString()),
-          position: _lastMapPositon,
-          infoWindow: InfoWindow(
-              title: placeModel.countryName, snippet: placeModel.addressLine),
-          icon: BitmapDescriptor.defaultMarker));
-      if (_mapController != null) {
-        _mapController.animateCamera(CameraUpdate.newCameraPosition(
-            new CameraPosition(target: _lastMapPositon, zoom: 14.00)));
-      }
-    } else {
-      _lastMapPositon = _bakuLatLng;
-    }
-  }
-
-  @override
-  void onResponseError(PlacesAutocompleteResponse response) {
-    super.onResponseError(response);
-    searchScaffoldKey.currentState.showSnackBar(
-      SnackBar(content: Text(response.errorMessage)),
-    );
-  }
-
-  @override
-  void onResponse(PlacesAutocompleteResponse response) {
-    super.onResponse(response);
-    if (response != null && response.predictions.isNotEmpty) {
-      searchScaffoldKey.currentState.showSnackBar(
-        SnackBar(content: Text("Got answer")),
-      );
-    }
+    //print(placeModel.toString());
   }
 
   Future<Null> displayPrediction(
@@ -94,18 +61,30 @@ class _MapPage1State extends PlacesAutocompleteState {
       final lat = detail.result.geometry.location.lat;
       final lng = detail.result.geometry.location.lng;
 
-      scaffold.showSnackBar(
-        SnackBar(content: Text("${p.description} - $lat/$lng")),
-      );
-      PlaceModel placeModel = new PlaceModel();
-      placeModel.longitude = lng;
-      placeModel.latitude = lat;
-      placeModel.countryName = p.description;
-      placeModel.addressLine = p.placeId.toLowerCase();
+//      scaffold.showSnackBar(
+//        SnackBar(content: Text("${p.description} - $lat/$lng")),
+//      );
+
+       setState(() {
+         _lastMapPositon = new LatLng(lat,lng);
+         _markers.clear();
+         _markers.add(Marker(
+             draggable: true,
+             markerId: MarkerId(_lastMapPositon.toString()),
+             position: _lastMapPositon,
+             infoWindow: InfoWindow(
+                 title: p.description, snippet: p.placeId.toLowerCase()),
+             icon: BitmapDescriptor.defaultMarker));
+         if (_mapController != null) {
+           _mapController.animateCamera(CameraUpdate.newCameraPosition(
+               new CameraPosition(target: _lastMapPositon, zoom: 12.00)));
+         }
+       });
 
 //    Route route = MaterialPageRoute(
 //        builder: (context) => MapPage1(placeModel: placeModel));
 //    Navigator.pushReplacement(context,route);
+
     }
   }
 
@@ -114,7 +93,7 @@ class _MapPage1State extends PlacesAutocompleteState {
     final body = PlacesAutocompleteResult(
       onTap: (p) {
         displayPrediction(p, searchScaffoldKey.currentState, context);
-        //print(p.description);
+        print(p.description);
       },
       /* logo: Row(
         children: [FlutterLogo()],
@@ -129,7 +108,7 @@ class _MapPage1State extends PlacesAutocompleteState {
         Container(
           child: body,
           width: MediaQuery.of(context).size.width,
-          height: body!=null?100.0:0.0,
+          height: body != null ? 100.0 : 0.0,
         ),
         GestureDetector(
             child: new Container(
@@ -162,7 +141,7 @@ class _MapPage1State extends PlacesAutocompleteState {
                   mp.showMap();
                 },
               ),
-              margin: EdgeInsets.only(left: 16, right: 16, bottom: 20,top: 8),
+              margin: EdgeInsets.only(left: 16, right: 16, bottom: 20, top: 8),
             ),
             onTap: () {
               MapDemoPage mp = new MapDemoPage();
