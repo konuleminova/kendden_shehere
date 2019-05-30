@@ -45,11 +45,14 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
                             child: ListTile(
                               leading: new Text(
                                 categories[index].name_en.trim(),
-                                style: TextStyle(
-                                    fontFamily: 'RobotoMono',
-                                    color: Colors.grey[700],
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
+                             style: TextStyle(
+                                  color: Theme
+                                  .of(context)
+                                  .brightness == Brightness.light
+                                  ? Colors.black.withOpacity(0.9)
+                                  : Colors.white.withOpacity(0.9),
+                              fontSize: 18.0,
+                            ),
                               ),
                               onTap: () {
                                 print(categories[index].id);

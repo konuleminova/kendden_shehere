@@ -103,14 +103,13 @@ class _MapPage1State extends PlacesAutocompleteState {
       shrinkWrap: true,
       physics: ClampingScrollPhysics(),
       children: <Widget>[
-        Card(
-            margin: EdgeInsets.only(left: 8,right: 8),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8.0))),
-            child: Container(
-              height: 60.0,
-              child: AppBarPlacesAutoCompleteTextField(),
-            )),
+        Container(
+          child: AppBarPlacesAutoCompleteTextField(),
+          margin: EdgeInsets.only(left: 8, right: 8),
+          decoration: BoxDecoration(
+              border: new Border.all(color: Colors.grey[300]),
+              color: Colors.white),
+        ),
         Container(
           child: body,
 
