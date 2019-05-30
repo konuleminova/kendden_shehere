@@ -19,14 +19,13 @@ const kGoogleApiKey = "AIzaSyC1XWcwMQ-WDLXUWZOTwQW7325Wb-OeysU";
 final searchScaffoldKey = GlobalKey<ScaffoldState>();
 
 class MapPage1 extends PlacesAutocompleteWidget {
-  PlaceModel placeModel;
 
   // MapPage1({this.placeModel});
   MapPage1()
       : super(
           apiKey: kGoogleApiKey,
           sessionToken: Uuid().generateV4(),
-          language: "en",
+          language: "az",
           components: [Component(Component.country, "az")],
         );
 
@@ -39,7 +38,6 @@ class _MapPage1State extends PlacesAutocompleteState {
   GoogleMapController _mapController;
   final Set<Marker> _markers = {};
   TextEditingController _textEditingController = new TextEditingController();
-  PlaceModel placeModel;
   LatLng _lastMapPositon;
 
   @override
