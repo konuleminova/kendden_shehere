@@ -3,9 +3,14 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoder/geocoder.dart';
+import 'package:kendden_shehere/data/model/newmodel/place_model.dart';
 import 'package:kendden_shehere/ui/page/map/map_view.dart';
 
 class MapPage1 extends StatefulWidget {
+  PlaceModel placeModel;
+
+  MapPage1({this.placeModel});
+
   @override
   _MapPage1State createState() => _MapPage1State();
 }
@@ -14,8 +19,32 @@ class _MapPage1State extends State<MapPage1> {
   static const LatLng _bakuLatLng = const LatLng(40.3716222, 49.8555191);
   GoogleMapController _mapController;
   final Set<Marker> _markers = {};
-  LatLng _lastMapPositon = _bakuLatLng;
   TextEditingController _textEditingController = new TextEditingController();
+  PlaceModel placeModel;
+  LatLng _lastMapPositon;
+
+  @override
+  void initState() {
+    super.initState();
+    placeModel=widget.placeModel;
+    print(placeModel.toString());
+    if (placeModel != null) {
+      _lastMapPositon = new LatLng(placeModel.latitude, placeModel.longitude);
+      _markers.add(Marker(
+          draggable: true,
+          markerId: MarkerId(_lastMapPositon.toString()),
+          position: _lastMapPositon,
+          infoWindow: InfoWindow(
+              title: placeModel.countryName, snippet: placeModel.addressLine),
+          icon: BitmapDescriptor.defaultMarker));
+      if(_mapController!=null){
+        _mapController.animateCamera(CameraUpdate.newCameraPosition(
+            new CameraPosition(target: _lastMapPositon, zoom: 14.00)));
+      }
+    } else {
+       _lastMapPositon = _bakuLatLng;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +57,11 @@ class _MapPage1State extends State<MapPage1> {
           child: Padding(
             padding: EdgeInsets.all(8),
             child: new TextField(
-              onTap: (){
+              onTap: () {
                 Navigator.of(context).pushNamed("/search_place");
               },
               onSubmitted: (text) {
                 return getLocations();
-
               },
               controller: _textEditingController,
               decoration: new InputDecoration(
@@ -380,7 +408,8 @@ class _MapPage1State extends State<MapPage1> {
       new Polyline(
           polylineId: new PolylineId("111"),
           points: points,
-          color: Colors.redAccent,zIndex: 2),
+          color: Colors.redAccent,
+          zIndex: 2),
     ];
     List<Polyline> _lines2 = <Polyline>[
       new Polyline(

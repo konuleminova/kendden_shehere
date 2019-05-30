@@ -3,8 +3,11 @@ import 'dart:math';
 import 'package:google_maps_webservice/places.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:flutter/material.dart';
+import 'package:kendden_shehere/data/model/newmodel/place_model.dart';
+import 'package:kendden_shehere/ui/page/map/flutter_map.dart';
 
-const kGoogleApiKey = "AIzaSyBbSJwbLSidCTD5AAn_QuAwuF5Du5ANAvg";
+const kGoogleApiKey = "AIzaSyC1XWcwMQ-WDLXUWZOTwQW7325Wb-OeysU";
+// "AIzaSyBbSJwbLSidCTD5AAn_QuAwuF5Du5ANAvg";
 
 // to get places detail (lat/lng)
 final searchScaffoldKey = GlobalKey<ScaffoldState>();
@@ -15,14 +18,14 @@ class CustomSearchScaffold extends PlacesAutocompleteWidget {
           apiKey: kGoogleApiKey,
           sessionToken: Uuid().generateV4(),
           language: "en",
-          components: [Component(Component.country, "uk")],
+          components: [Component(Component.country, "az")],
         );
 
   @override
   _CustomSearchScaffoldState createState() => _CustomSearchScaffoldState();
 }
 
-Future<Null> displayPrediction(Prediction p, ScaffoldState scaffold) async {
+Future<Null> displayPrediction(Prediction p, ScaffoldState scaffold,BuildContext context) async {
   GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
   if (p != null) {
     // get detail (lat/lng)
@@ -34,6 +37,15 @@ Future<Null> displayPrediction(Prediction p, ScaffoldState scaffold) async {
     scaffold.showSnackBar(
       SnackBar(content: Text("${p.description} - $lat/$lng")),
     );
+    PlaceModel placeModel = new PlaceModel();
+    placeModel.longitude = lng;
+    placeModel.latitude = lat;
+    placeModel.countryName = p.description;
+    placeModel.addressLine = p.placeId.toLowerCase();
+
+    Route route = MaterialPageRoute(
+        builder: (context) => MapPage1(placeModel: placeModel));
+    Navigator.pushReplacement(context,route);
   }
 }
 
@@ -46,7 +58,7 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
     );
     final body = PlacesAutocompleteResult(
       onTap: (p) {
-        displayPrediction(p, searchScaffoldKey.currentState);
+        displayPrediction(p, searchScaffoldKey.currentState,context);
         //print(p.description);
       },
       /* logo: Row(

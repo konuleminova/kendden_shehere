@@ -52,6 +52,7 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
                                     fontWeight: FontWeight.bold),
                               ),
                               onTap: () {
+                                print(categories[index].id);
                                 Navigator.push(
                                     context,
                                     new MaterialPageRoute(
