@@ -1,21 +1,40 @@
+import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:kendden_shehere/data/model/newmodel/place_model.dart';
 import 'package:kendden_shehere/ui/page/map/map_view.dart';
+import 'dart:math';
 
-class MapPage1 extends StatefulWidget {
+import 'package:google_maps_webservice/places.dart';
+
+const kGoogleApiKey = "AIzaSyC1XWcwMQ-WDLXUWZOTwQW7325Wb-OeysU";
+// "AIzaSyBbSJwbLSidCTD5AAn_QuAwuF5Du5ANAvg";
+
+// to get places detail (lat/lng)
+final searchScaffoldKey = GlobalKey<ScaffoldState>();
+
+class MapPage1 extends PlacesAutocompleteWidget {
   PlaceModel placeModel;
 
-  MapPage1({this.placeModel});
+  // MapPage1({this.placeModel});
+  MapPage1()
+      : super(
+          apiKey: kGoogleApiKey,
+          sessionToken: Uuid().generateV4(),
+          language: "en",
+          components: [Component(Component.country, "az")],
+        );
 
   @override
   _MapPage1State createState() => _MapPage1State();
 }
 
-class _MapPage1State extends State<MapPage1> {
+class _MapPage1State extends PlacesAutocompleteState {
   static const LatLng _bakuLatLng = const LatLng(40.3716222, 49.8555191);
   GoogleMapController _mapController;
   final Set<Marker> _markers = {};
@@ -26,7 +45,7 @@ class _MapPage1State extends State<MapPage1> {
   @override
   void initState() {
     super.initState();
-    placeModel=widget.placeModel;
+    //  placeModel = widget.placeModel;
     print(placeModel.toString());
     if (placeModel != null) {
       _lastMapPositon = new LatLng(placeModel.latitude, placeModel.longitude);
@@ -37,39 +56,80 @@ class _MapPage1State extends State<MapPage1> {
           infoWindow: InfoWindow(
               title: placeModel.countryName, snippet: placeModel.addressLine),
           icon: BitmapDescriptor.defaultMarker));
-      if(_mapController!=null){
+      if (_mapController != null) {
         _mapController.animateCamera(CameraUpdate.newCameraPosition(
             new CameraPosition(target: _lastMapPositon, zoom: 14.00)));
       }
     } else {
-       _lastMapPositon = _bakuLatLng;
+      _lastMapPositon = _bakuLatLng;
+    }
+  }
+
+  @override
+  void onResponseError(PlacesAutocompleteResponse response) {
+    super.onResponseError(response);
+    searchScaffoldKey.currentState.showSnackBar(
+      SnackBar(content: Text(response.errorMessage)),
+    );
+  }
+
+  @override
+  void onResponse(PlacesAutocompleteResponse response) {
+    super.onResponse(response);
+    if (response != null && response.predictions.isNotEmpty) {
+      searchScaffoldKey.currentState.showSnackBar(
+        SnackBar(content: Text("Got answer")),
+      );
+    }
+  }
+
+  Future<Null> displayPrediction(
+      Prediction p, ScaffoldState scaffold, BuildContext context) async {
+    GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
+    if (p != null) {
+      // get detail (lat/lng)
+      PlacesDetailsResponse detail =
+          await _places.getDetailsByPlaceId(p.placeId);
+      print(detail.status);
+      final lat = detail.result.geometry.location.lat;
+      final lng = detail.result.geometry.location.lng;
+
+      scaffold.showSnackBar(
+        SnackBar(content: Text("${p.description} - $lat/$lng")),
+      );
+      PlaceModel placeModel = new PlaceModel();
+      placeModel.longitude = lng;
+      placeModel.latitude = lat;
+      placeModel.countryName = p.description;
+      placeModel.addressLine = p.placeId.toLowerCase();
+
+//    Route route = MaterialPageRoute(
+//        builder: (context) => MapPage1(placeModel: placeModel));
+//    Navigator.pushReplacement(context,route);
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final body = PlacesAutocompleteResult(
+      onTap: (p) {
+        displayPrediction(p, searchScaffoldKey.currentState, context);
+        //print(p.description);
+      },
+      /* logo: Row(
+        children: [FlutterLogo()],
+        mainAxisAlignment: MainAxisAlignment.center,
+      ),
+      */
+    );
     // TODO: implement build
     return new Column(
       children: <Widget>[
-        new Card(
-          margin: EdgeInsets.only(left: 16, right: 16, bottom: 16),
-          //alignment: Alignment.topCenter,
-          child: Padding(
-            padding: EdgeInsets.all(8),
-            child: new TextField(
-              onTap: () {
-                Navigator.of(context).pushNamed("/search_place");
-              },
-              onSubmitted: (text) {
-                return getLocations();
-              },
-              controller: _textEditingController,
-              decoration: new InputDecoration(
-                hintText: "Search Adress",
-                border: InputBorder.none,
-              ),
-            ),
-          ),
+        AppBarPlacesAutoCompleteTextField(),
+        Container(
+          child: body,
+          width: MediaQuery.of(context).size.width,
+          height: body!=null?100.0:0.0,
         ),
         GestureDetector(
             child: new Container(
@@ -102,7 +162,7 @@ class _MapPage1State extends State<MapPage1> {
                   mp.showMap();
                 },
               ),
-              margin: EdgeInsets.only(left: 16, right: 16, bottom: 20),
+              margin: EdgeInsets.only(left: 16, right: 16, bottom: 20,top: 8),
             ),
             onTap: () {
               MapDemoPage mp = new MapDemoPage();
@@ -435,34 +495,27 @@ class _MapPage1State extends State<MapPage1> {
   }
 
   void _onCameraMove(CameraPosition position) {}
+}
 
-  void getLocations() async {
-    CameraPosition position =
-        new CameraPosition(target: new LatLng(21.417276, -1.279271));
-    _onCameraMove(position);
-    final query = _textEditingController.text;
-    var address = await Geocoder.local.findAddressesFromQuery(query);
-    var first = address.first;
-    setState(() {
-      _lastMapPositon =
-          new LatLng(first.coordinates.latitude, first.coordinates.longitude);
-      _markers.add(Marker(
-          draggable: true,
-          markerId: MarkerId(_lastMapPositon.toString()),
-          position: _lastMapPositon,
-          infoWindow:
-              InfoWindow(title: first.countryName, snippet: first.addressLine),
-          icon: BitmapDescriptor.defaultMarker));
-      _mapController.animateCamera(CameraUpdate.newCameraPosition(
-          new CameraPosition(target: _lastMapPositon, zoom: 14.00)));
-    });
+class Uuid {
+  final Random _random = Random();
 
-    print(first.coordinates.toString() + " Konul...");
+  String generateV4() {
+    // Generate xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx / 8-4-4-4-12.
+    final int special = 8 + _random.nextInt(4);
+
+    return '${_bitsDigits(16, 4)}${_bitsDigits(16, 4)}-'
+        '${_bitsDigits(16, 4)}-'
+        '4${_bitsDigits(12, 3)}-'
+        '${_printDigits(special, 1)}${_bitsDigits(12, 3)}-'
+        '${_bitsDigits(16, 4)}${_bitsDigits(16, 4)}${_bitsDigits(16, 4)}';
   }
 
-  void _onMapTab(LatLng argument) {
-    MapDemoPage mp = new MapDemoPage();
-    mp.showMap();
-    print("map tab");
-  }
+  String _bitsDigits(int bitCount, int digitCount) =>
+      _printDigits(_generateBits(bitCount), digitCount);
+
+  int _generateBits(int bitCount) => _random.nextInt(1 << bitCount);
+
+  String _printDigits(int value, int count) =>
+      value.toRadixString(16).padLeft(count, '0');
 }

@@ -43,9 +43,9 @@ Future<Null> displayPrediction(Prediction p, ScaffoldState scaffold,BuildContext
     placeModel.countryName = p.description;
     placeModel.addressLine = p.placeId.toLowerCase();
 
-    Route route = MaterialPageRoute(
-        builder: (context) => MapPage1(placeModel: placeModel));
-    Navigator.pushReplacement(context,route);
+//    Route route = MaterialPageRoute(
+//        builder: (context) => MapPage1(placeModel: placeModel));
+//    Navigator.pushReplacement(context,route);
   }
 }
 
