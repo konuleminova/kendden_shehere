@@ -100,13 +100,16 @@ class _MapPage1State extends PlacesAutocompleteState {
       */
     );
     // TODO: implement build
-    return new Column(
+    return new ListView(
+      shrinkWrap: true,
+      physics: ClampingScrollPhysics(),
       children: <Widget>[
         AppBarPlacesAutoCompleteTextField(),
-        Container(
+       Container(
           child: body,
-          width: MediaQuery.of(context).size.width,
-          height: body != null ? 100.0 : 0.0,
+
+        //  width: MediaQuery.of(context).size.width,
+         // height: body != null ? 100.0 : 0.0,
         ),
         GestureDetector(
             child: new Container(
@@ -139,7 +142,7 @@ class _MapPage1State extends PlacesAutocompleteState {
                   mp.showMap();
                 },
               ),
-              margin: EdgeInsets.only(left: 16, right: 16, bottom: 20, top: 8),
+              margin: EdgeInsets.only(left: 16, right: 16, bottom: 20, top: 5),
             ),
             onTap: () {
               MapDemoPage mp = new MapDemoPage();
