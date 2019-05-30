@@ -19,7 +19,6 @@ const kGoogleApiKey = "AIzaSyC1XWcwMQ-WDLXUWZOTwQW7325Wb-OeysU";
 final searchScaffoldKey = GlobalKey<ScaffoldState>();
 
 class MapPage1 extends PlacesAutocompleteWidget {
-
   // MapPage1({this.placeModel});
   MapPage1()
       : super(
@@ -63,21 +62,21 @@ class _MapPage1State extends PlacesAutocompleteState {
 //        SnackBar(content: Text("${p.description} - $lat/$lng")),
 //      );
 
-       setState(() {
-         _lastMapPositon = new LatLng(lat,lng);
-         _markers.clear();
-         _markers.add(Marker(
-             draggable: true,
-             markerId: MarkerId(_lastMapPositon.toString()),
-             position: _lastMapPositon,
-             infoWindow: InfoWindow(
-                 title: p.description, snippet: p.placeId.toLowerCase()),
-             icon: BitmapDescriptor.defaultMarker));
-         if (_mapController != null) {
-           _mapController.animateCamera(CameraUpdate.newCameraPosition(
-               new CameraPosition(target: _lastMapPositon, zoom: 12.00)));
-         }
-       });
+      setState(() {
+        _lastMapPositon = new LatLng(lat, lng);
+        _markers.clear();
+        _markers.add(Marker(
+            draggable: true,
+            markerId: MarkerId(_lastMapPositon.toString()),
+            position: _lastMapPositon,
+            infoWindow: InfoWindow(
+                title: p.description, snippet: p.placeId.toLowerCase()),
+            icon: BitmapDescriptor.defaultMarker));
+        if (_mapController != null) {
+          _mapController.animateCamera(CameraUpdate.newCameraPosition(
+              new CameraPosition(target: _lastMapPositon, zoom: 12.00)));
+        }
+      });
 
 //    Route route = MaterialPageRoute(
 //        builder: (context) => MapPage1(placeModel: placeModel));
@@ -104,12 +103,19 @@ class _MapPage1State extends PlacesAutocompleteState {
       shrinkWrap: true,
       physics: ClampingScrollPhysics(),
       children: <Widget>[
-        AppBarPlacesAutoCompleteTextField(),
-       Container(
+        Card(
+            margin: EdgeInsets.only(left: 8,right: 8),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8.0))),
+            child: Container(
+              height: 60.0,
+              child: AppBarPlacesAutoCompleteTextField(),
+            )),
+        Container(
           child: body,
 
-        //  width: MediaQuery.of(context).size.width,
-         // height: body != null ? 100.0 : 0.0,
+          //  width: MediaQuery.of(context).size.width,
+          // height: body != null ? 100.0 : 0.0,
         ),
         GestureDetector(
             child: new Container(
