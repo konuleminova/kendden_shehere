@@ -4,7 +4,7 @@ import 'package:kendden_shehere/main.dart';
 import 'package:kendden_shehere/ui/page/map/flutter_map.dart';
 import 'package:kendden_shehere/ui/page/map/map_view.dart';
 
- class CheckoutsPage extends StatefulWidget {
+class CheckoutsPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -15,6 +15,8 @@ import 'package:kendden_shehere/ui/page/map/map_view.dart';
 class CheckoutsPageState extends State<CheckoutsPage> {
   var selectedIndex = 0;
   String choice = "11:30-13:00";
+  ScrollController _scrollController;
+  bool _isOnTop = true;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +31,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
         ],
       ),
       body: new ListView(
+        controller: _scrollController,
         children: <Widget>[
           _getAccountTypeSection(),
           _getDropDown(),
@@ -39,7 +42,10 @@ class CheckoutsPageState extends State<CheckoutsPage> {
               style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
             ),
           ),
-          _getGoogleMap(),
+          GestureDetector(
+            child: _getGoogleMap(),
+            onTap: _isOnTop ? _scrollToBottom : _scrollToTop,
+          ),
           new Container(
             child: RaisedButton(
               color: Colors.green,
@@ -58,6 +64,30 @@ class CheckoutsPageState extends State<CheckoutsPage> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  _scrollToTop() {
+    _scrollController.animateTo(_scrollController.position.minScrollExtent,
+        duration: Duration(milliseconds: 1000), curve: Curves.easeIn);
+    setState(() => _isOnTop = true);
+  }
+
+  _scrollToBottom() {
+    _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+        duration: Duration(milliseconds: 1000), curve: Curves.easeOut);
+    setState(() => _isOnTop = false);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
   }
 
   Widget _getAccountTypeSection() {
@@ -90,11 +120,11 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                         stops: [0.0, 0.5],
                         colors: selectedIndex == 0
                             ? [
-                          // Colors are easy thanks to Flutter's
-                          // Colors class.
-                          Color(0xFF47E497),
-                          Color(0xFF47E0D6)
-                        ]
+                                // Colors are easy thanks to Flutter's
+                                // Colors class.
+                                Color(0xFF47E497),
+                                Color(0xFF47E0D6)
+                              ]
                             : [Colors.white, Colors.white],
                       ),
                     ),
@@ -150,11 +180,11 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                         stops: [0.0, 0.5],
                         colors: selectedIndex == 1
                             ? [
-                          // Colors are easy thanks to Flutter's
-                          // Colors class.
-                          Color(0xFF47E497),
-                          Color(0xFF47E0D6)
-                        ]
+                                // Colors are easy thanks to Flutter's
+                                // Colors class.
+                                Color(0xFF47E497),
+                                Color(0xFF47E0D6)
+                              ]
                             : [Colors.white, Colors.white],
                       ),
                     ),
@@ -199,75 +229,75 @@ class CheckoutsPageState extends State<CheckoutsPage> {
   }
 
   _getDropDown() => Container(
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        Padding(
-          padding:
-          const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
-          child: Text(
-            'Catdirilma vaxti',
-            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 1.0),
-          child: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+              child: Text(
+                'Catdirilma vaxti',
+                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 1.0),
+              child: Container(
 //              height: 42.0,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                new Card(
-                  margin: EdgeInsets.only(left: 8),
-                  child: PopupMenuButton<String>(
-                      onSelected: choiceAction,
-                      itemBuilder: (BuildContext context) {
-                        return Constants.deliveryTimes.map((String choice) {
-                          return PopupMenuItem<String>(
-                            value: choice,
-                            child: Text(choice),
-                          );
-                        }).toList();
-                      },
-                      child: new Container(
-                          height: 50,
-                          padding: EdgeInsets.only(top: 1, bottom: 1),
-                          width: MediaQuery.of(context).size.width * 0.5,
-                          child: ListTile(
-                            title: Text(
-                              choice,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    new Card(
+                      margin: EdgeInsets.only(left: 8),
+                      child: PopupMenuButton<String>(
+                          onSelected: choiceAction,
+                          itemBuilder: (BuildContext context) {
+                            return Constants.deliveryTimes.map((String choice) {
+                              return PopupMenuItem<String>(
+                                value: choice,
+                                child: Text(choice),
+                              );
+                            }).toList();
+                          },
+                          child: new Container(
+                              height: 50,
+                              padding: EdgeInsets.only(top: 1, bottom: 1),
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              child: ListTile(
+                                title: Text(
+                                  choice,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 14.0),
+                                ),
+                                trailing: new Icon(
+                                  Icons.arrow_drop_down,
+                                  size: 20,
+                                ),
+                              ))),
+                    ),
+                    new Container(
+                      padding: EdgeInsets.all(12),
+                      child: (choice == "Tecili catdirilma")
+                          ? Text('Təcili sifarişlərə 2 AZN əlavə tətbiq olunur',
                               style: TextStyle(
                                   fontWeight: FontWeight.w700,
-                                  fontSize: 14.0),
+                                  fontSize: 15.0,
+                                  color: Colors.redAccent))
+                          : new SizedBox(
+                              height: 0,
+                              width: 0,
                             ),
-                            trailing: new Icon(
-                              Icons.arrow_drop_down,
-                              size: 20,
-                            ),
-                          ))),
+                      alignment: AlignmentDirectional.topStart,
+                    ),
+                  ],
                 ),
-                new Container(
-                  padding: EdgeInsets.all(12),
-                  child: (choice == "Tecili catdirilma")
-                      ? Text('Təcili sifarişlərə 2 AZN əlavə tətbiq olunur',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 15.0,
-                          color: Colors.redAccent))
-                      : new SizedBox(
-                    height: 0,
-                    width: 0,
-                  ),
-                  alignment: AlignmentDirectional.topStart,
-                ),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
-      ],
-    ),
-  );
+      );
 
   void choiceAction(String choice) {
     setState(() {
