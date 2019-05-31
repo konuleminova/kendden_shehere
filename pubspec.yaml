@@ -41,6 +41,7 @@ dependencies:
   google_maps_webservice: ^0.0.14
   flutter_google_places: ^0.2.2
   image_picker: ^0.6.0+8
+  intro_views_flutter:
 
 
 
@@ -70,6 +71,7 @@ flutter:
   - images/desc.txt
   - images/delivery_terms.txt
   - images/fag.txt
+  - images/smwallet/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
