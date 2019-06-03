@@ -135,6 +135,8 @@ class _MapPage1State extends PlacesAutocompleteState {
                 },
                 polygons: setPolygon(),
                 tiltGesturesEnabled: true,
+                scrollGesturesEnabled: true,
+                zoomGesturesEnabled: true,
                 markers: _markers,
                 onCameraMove: _onCameraMove,
                 onMapCreated: _onMapCreated,
