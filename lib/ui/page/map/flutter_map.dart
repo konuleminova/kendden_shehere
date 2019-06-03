@@ -123,29 +123,23 @@ class _MapPage1State extends PlacesAutocompleteState {
               height: MediaQuery.of(context).size.height * 0.35,
               alignment: AlignmentDirectional.topCenter,
               color: Colors.white,
-              child: new GestureDetector(
-                child: GoogleMap(
-                  gestureRecognizers: Set()
-                    ..add(Factory<PanGestureRecognizer>(
-                        () => PanGestureRecognizer()))
-                    ..add(Factory<VerticalDragGestureRecognizer>(
-                        () => VerticalDragGestureRecognizer())),
-                  onTap: (LatLng location) {
-                    MapDemoPage mp = new MapDemoPage();
-                    mp.showMap();
-                  },
-                  polygons: setPolygon(),
-                  tiltGesturesEnabled: true,
-                  markers: _markers,
-                  onCameraMove: _onCameraMove,
-                  onMapCreated: _onMapCreated,
-                  initialCameraPosition:
-                      CameraPosition(target: _lastMapPositon, zoom: 11.00),
-                ),
-                onTap: () {
+              child:  GoogleMap(
+                gestureRecognizers: Set()
+                  ..add(Factory<PanGestureRecognizer>(
+                          () => PanGestureRecognizer()))
+                  ..add(Factory<VerticalDragGestureRecognizer>(
+                          () => VerticalDragGestureRecognizer())),
+                onTap: (LatLng location) {
                   MapDemoPage mp = new MapDemoPage();
                   mp.showMap();
                 },
+                polygons: setPolygon(),
+                tiltGesturesEnabled: true,
+                markers: _markers,
+                onCameraMove: _onCameraMove,
+                onMapCreated: _onMapCreated,
+                initialCameraPosition:
+                CameraPosition(target: _lastMapPositon, zoom: 11.00),
               ),
               margin: EdgeInsets.only(left: 16, right: 16, bottom: 20, top: 5),
             ),
