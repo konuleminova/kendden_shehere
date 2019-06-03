@@ -120,7 +120,7 @@ class _MapPage1State extends PlacesAutocompleteState {
             child: new Container(
               padding: EdgeInsets.all(1),
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.3,
+              height: MediaQuery.of(context).size.height * 0.35,
               alignment: AlignmentDirectional.topCenter,
               color: Colors.white,
               child: new GestureDetector(
@@ -134,7 +134,7 @@ class _MapPage1State extends PlacesAutocompleteState {
                     MapDemoPage mp = new MapDemoPage();
                     mp.showMap();
                   },
-                  polylines: setPolyLine(),
+                  polygons: setPolygon(),
                   tiltGesturesEnabled: true,
                   markers: _markers,
                   onCameraMove: _onCameraMove,
@@ -161,7 +161,7 @@ class _MapPage1State extends PlacesAutocompleteState {
     _mapController = controller;
   }
 
-  setPolyLine() {
+  setPolygon() {
     List<LatLng> points = new List<LatLng>();
     points.add(new LatLng(40.3716222, 49.8555191));
     points.add(new LatLng(40.3716876, 49.8568066));
@@ -449,30 +449,34 @@ class _MapPage1State extends PlacesAutocompleteState {
     points3.add(new LatLng(40.3806301, 49.8973504));
     points3.add(new LatLng(40.3739614, 49.8961811));
 
-    List<Polyline> _lines = <Polyline>[
-      new Polyline(
-          polylineId: new PolylineId("111"),
+    List<Polygon> _lines = <Polygon>[
+      new Polygon(
+          polygonId: new PolygonId("111"),
           points: points,
-          color: Colors.redAccent,
+          fillColor: const Color(0xFFFAAEB0),
+          strokeColor: Colors.red[700],
           zIndex: 2),
     ];
-    List<Polyline> _lines2 = <Polyline>[
-      new Polyline(
-          polylineId: new PolylineId("112"),
+    List<Polygon> _lines2 = <Polygon>[
+      new Polygon(
+          geodesic: true,
+          polygonId: new PolygonId("112"),
           points: points2,
-          color: Colors.green,
-          width: 10,
+          strokeColor: Colors.lightGreenAccent[700],
+          fillColor: const Color(0xFFB1FF50),
+          //  width: 10,
           zIndex: 1),
     ];
-    List<Polyline> _lines3 = <Polyline>[
-      new Polyline(
-          polylineId: new PolylineId("113"),
+    List<Polygon> _lines3 = <Polygon>[
+      new Polygon(
+          polygonId: new PolygonId("113"),
           points: points3,
-          color: Colors.blue,
-          width: 10,
+          fillColor: const Color(0xFF2494F0),
+          strokeColor: Colors.lightBlueAccent[700],
+          //width: 10,
           zIndex: 0),
     ];
-    Set<Polyline> plo = new Set();
+    Set<Polygon> plo = new Set();
     plo.addAll(_lines);
     plo.addAll(_lines2);
     plo.addAll(_lines3);
