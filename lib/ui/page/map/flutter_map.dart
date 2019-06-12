@@ -114,7 +114,6 @@ class _MapPage1State extends PlacesAutocompleteState {
         Container(
           child: body,
           width: MediaQuery.of(context).size.width,
-          height: body != null ? 200.0 : 0.0,
         ),
         GestureDetector(
             child: new Container(
