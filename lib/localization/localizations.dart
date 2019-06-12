@@ -4,12 +4,16 @@ import 'package:intl/intl.dart';
 import 'package:kendden_shehere/localization/langs.dart';
 
 class AppLocalizations {
-  final Locale locale;
+  Locale locale;
 
   AppLocalizations(this.locale);
 
   static AppLocalizations of(BuildContext context) {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
+  }
+
+  setLocale(Locale locale) {
+    this.locale = locale;
   }
 
   String get title {
@@ -27,7 +31,7 @@ class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   @override
   bool isSupported(Locale locale) {
     // TODO: implement isSupported
-    return ['en', 'es'].contains(locale.languageCode);
+    return ['en', 'az', 'ru'].contains(locale.languageCode);
   }
 
   @override

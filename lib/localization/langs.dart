@@ -1,11 +1,15 @@
 class Lang {
   static Map<String, Map<String, String>> localizedValues = {
     'en': {
-      'title': 'Hello World',
+      'title': 'Home',
       'text': 'Text en',
     },
-    'es': {
-      'title': 'Hola Mundo',
+    'ru': {
+      'title': 'Главная',
+      'text': 'Text es',
+    },
+    'az': {
+      'title': 'Ana sehife',
       'text': 'Text es',
     },
   };

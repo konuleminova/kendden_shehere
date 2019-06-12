@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/data/model/login_model.dart';
 import 'package:kendden_shehere/data/viewmodel/login_viewmodel.dart';
+import 'package:kendden_shehere/localization/localizations.dart';
 import 'package:kendden_shehere/ui/page/grocery/new_grocery/grocery_categories.dart';
 import 'package:kendden_shehere/ui/page/menu/about_us.dart';
 import 'package:kendden_shehere/ui/page/menu/delivery.dart';
@@ -34,6 +35,7 @@ import 'package:kendden_shehere/ui/page/test/old_shopping_cart.dart';
 import 'package:kendden_shehere/ui/widgets/dropdown.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 import 'package:redux_thunk/redux_thunk.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() => runApp(MyApp());
 
@@ -46,7 +48,19 @@ class MyApp extends StatelessWidget {
     return StoreProvider<AppState>(
       store: store,
       child: new MaterialApp(
-
+        locale: Locale("ru", ""),
+        onGenerateTitle: (BuildContext context) =>
+            AppLocalizations.of(context).title,
+        localizationsDelegates: [
+          const AppLocalizationsDelegate(),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate
+        ],
+        supportedLocales: [
+          const Locale('en', "EN"),
+          const Locale('ru', "RU"),
+          const Locale('az', "AZ"),
+        ],
         debugShowCheckedModeBanner: false,
         home: IndexPage(),
         routes: <String, WidgetBuilder>{
@@ -60,7 +74,7 @@ class MyApp extends StatelessWidget {
           "/wish_list": (BuildContext context) => GroceryWishListPage(),
           "/confirm_order": (context) => ConfirmOrderPage(),
           "/card_storage": (context) => PaymentMethodPage(),
-          "/checkout": (BuildContext context) =>   CheckoutsPage(),
+          "/checkout": (BuildContext context) => CheckoutsPage(),
           "/order_history": (BuildContext context) => OrderHistoryPage(),
           "/order_shop_list": (BuildContext context) => OrderShopListPage(),
           "/profile": (BuildContext context) => ProfilePage(),

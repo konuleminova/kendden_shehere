@@ -20,6 +20,8 @@ dependencies:
 
   flutter:
     sdk: flutter
+  flutter_localizations: # add this
+    sdk: flutter
 
 
 
@@ -49,10 +51,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: "^0.7.0"
-flutter_icons:
-  android: "launcher_icon"
-  ios: true
-  image_path: "images/pattern.png"
+  intl: ^0.15.7
+  intl_translation: ^0.17.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
