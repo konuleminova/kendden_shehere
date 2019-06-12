@@ -98,6 +98,7 @@ class _MapPage1State extends PlacesAutocompleteState {
       ),
       */
     );
+    print(body.toString());
     // TODO: implement build
     return new ListView(
       shrinkWrap: true,
@@ -112,9 +113,8 @@ class _MapPage1State extends PlacesAutocompleteState {
         ),
         Container(
           child: body,
-
-          //  width: MediaQuery.of(context).size.width,
-          // height: body != null ? 100.0 : 0.0,
+          width: MediaQuery.of(context).size.width,
+          height: body != null ? 200.0 : 0.0,
         ),
         GestureDetector(
             child: new Container(
@@ -123,12 +123,12 @@ class _MapPage1State extends PlacesAutocompleteState {
               height: MediaQuery.of(context).size.height * 0.35,
               alignment: AlignmentDirectional.topCenter,
               color: Colors.white,
-              child:  GoogleMap(
+              child: GoogleMap(
                 gestureRecognizers: Set()
                   ..add(Factory<PanGestureRecognizer>(
-                          () => PanGestureRecognizer()))
+                      () => PanGestureRecognizer()))
                   ..add(Factory<VerticalDragGestureRecognizer>(
-                          () => VerticalDragGestureRecognizer())),
+                      () => VerticalDragGestureRecognizer())),
                 onTap: (LatLng location) {
                   MapDemoPage mp = new MapDemoPage();
                   mp.showMap();
@@ -141,7 +141,7 @@ class _MapPage1State extends PlacesAutocompleteState {
                 onCameraMove: _onCameraMove,
                 onMapCreated: _onMapCreated,
                 initialCameraPosition:
-                CameraPosition(target: _lastMapPositon, zoom: 11.00),
+                    CameraPosition(target: _lastMapPositon, zoom: 11.00),
               ),
               margin: EdgeInsets.only(left: 16, right: 16, bottom: 20, top: 5),
             ),
