@@ -55,7 +55,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                   GestureDetector(
                     child: Container(
                         child: Image.network(s ??
-                            "https://pulapul.com/PulaPul/?action=GetImage&module=Campaigns&fileid=17&d=20190523"),
+                            "https://res.cloudinary.com/demo/image/upload/sample.jpg"),
                         height: 150,
                         padding: EdgeInsets.only(
                             left: 10, right: 10, top: 10, bottom: 4)),
