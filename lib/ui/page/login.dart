@@ -192,7 +192,6 @@ class LoginState extends State<LoginPage> {
                               padding: EdgeInsets.symmetric(vertical: 16.0),
                               color: Colors.green[700],
                               onPressed: () {
-                                print("click");
                                 passFocus.unfocus();
                                 userFocus.unfocus();
                                 if (_validateUsername && _validatePassword) {
