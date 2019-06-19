@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:kendden_shehere/data/model/newmodel/new_user_model.dart';
 import 'package:redux/redux.dart';
@@ -14,27 +15,29 @@ ThunkAction<AppState> loginThunkFunction(String username, String password) {
     NewUserModel userLogin = new NewUserModel();
     userLogin.status = STATUS.LOADING;
     store.dispatch(LoginAction(status: STATUS.LOADING));
-   NewUserModel responseBody = await Networks.login(username, password);
-   print(responseBody.toString());
+    NewUserModel responseBody = await Networks.login(username, password);
+    print(responseBody.toString());
     print(responseBody.toString() + "..");
     if (responseBody != null) {
-        userLogin.name = username;
-        userLogin.surname = password;
-        userLogin.email=responseBody.email;
-        userLogin.mobile=responseBody.mobile;
-        userLogin.address=responseBody.address;
-        userLogin.isLogin = true;
-        userLogin.status = STATUS.SUCCESS;
-        SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
-        sharedPrefUtil.setUserHasLogin(userLogin.isLogin);
-        store.dispatch(LoginAction(
-            username: username,
-            password: password,
-            isLogin: true,
-            status: STATUS.SUCCESS));
+      userLogin.name = username;
+      userLogin.surname = password;
+      userLogin.email = responseBody.email;
+      userLogin.mobile = responseBody.mobile;
+      userLogin.address = responseBody.address;
+      userLogin.isLogin = true;
+      userLogin.status = STATUS.SUCCESS;
+      SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
+      sharedPrefUtil.setUserHasLogin(userLogin.isLogin);
+      store.dispatch(LoginAction(
+          username: username,
+          password: password,
+          isLogin: true,
+          status: STATUS.SUCCESS));
     } else {
       userLogin.status = STATUS.FAIL;
       store.dispatch(LoginAction(status: STATUS.FAIL));
     }
   };
 }
+
+

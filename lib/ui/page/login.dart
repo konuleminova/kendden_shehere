@@ -20,8 +20,8 @@ void _showToast(BuildContext context, String content) {
   final scaffold = Scaffold.of(context);
   scaffold.showSnackBar(SnackBar(
     content: Text(content),
-    action:
-        SnackBarAction(label: "Try Again", onPressed: scaffold.hideCurrentSnackBar),
+    action: SnackBarAction(
+        label: "Try Again", onPressed: scaffold.hideCurrentSnackBar),
   ));
 }
 
@@ -37,6 +37,7 @@ class LoginState extends State<LoginPage> {
   bool _validateUsername = false;
   bool _validatePassword = false;
   double opacity;
+  bool status=false;
 
   @override
   Widget build(BuildContext context) {
@@ -53,14 +54,16 @@ class LoginState extends State<LoginPage> {
               // Navigator.pushReplacementNamed(context, "/home");
             } else if (state.user_info.status == STATUS.LOADING) {
               print("loading..");
+              status=true;
               if (state.user_info.status == STATUS.NETWORK_ERROR) {
                 _showToast(context, "No internet connection");
               }
             } else if (state.user_info.status == STATUS.FAIL) {
-              setState(() {
-                opacity=0.5;
-              });
+              status=false;
               _showToast(context, "Username or Password is wrong.");
+              setState(() {
+                opacity = 0.5;
+              });
             }
           }
         });
@@ -140,7 +143,7 @@ class LoginState extends State<LoginPage> {
                               //_controllerPass.text=value;
                               passFocus.unfocus();
                               userFocus.unfocus();
-                              if (_validateUsername&&_validatePassword) {
+                              if (_validateUsername && _validatePassword) {
                                 viewModel.buildLogin(_controllerUsername.text,
                                     _controllerPass.text);
                               }
@@ -198,7 +201,7 @@ class LoginState extends State<LoginPage> {
                                 print("click");
                                 passFocus.unfocus();
                                 userFocus.unfocus();
-                                if (_validateUsername&&_validatePassword) {
+                                if (_validateUsername && _validatePassword) {
                                   viewModel.buildLogin(_controllerUsername.text,
                                       _controllerPass.text);
                                 }
@@ -219,8 +222,7 @@ class LoginState extends State<LoginPage> {
                               shape: RoundedRectangleBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10.0))),
-                              child: Text("Login",
-                                  style: TextStyle(color: Colors.white70)),
+                              child: _statusWidget(),
                             ),
                           ),
                         ),
@@ -314,5 +316,15 @@ class LoginState extends State<LoginPage> {
     _controllerUsername.dispose();
     _controllerPass.dispose();
     super.dispose();
+  }
+
+  _statusWidget() {
+    if (!status) {
+      return Text("Login", style: TextStyle(color: Colors.white70));
+    } else {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
   }
 }
