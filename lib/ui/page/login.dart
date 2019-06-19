@@ -21,7 +21,7 @@ void _showToast(BuildContext context, String content) {
   scaffold.showSnackBar(SnackBar(
     content: Text(content),
     action:
-        SnackBarAction(label: "UNDO", onPressed: scaffold.hideCurrentSnackBar),
+        SnackBarAction(label: "Try Again", onPressed: scaffold.hideCurrentSnackBar),
   ));
 }
 
