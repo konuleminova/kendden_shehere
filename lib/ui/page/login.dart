@@ -33,14 +33,13 @@ Widget get _loadingView {
 
 class LoginState extends State<LoginPage> {
   TextEditingController _controllerUsername, _controllerPass;
+  FocusNode userFocus, passFocus;
   bool _validateUsername = false;
   bool _validatePassword = false;
+  double opacity;
 
   @override
   Widget build(BuildContext context) {
-    _controllerUsername = TextEditingController();
-    _controllerPass = TextEditingController();
-
     // TODO: implement build
     return StoreConnector(
       converter: (Store<AppState> store) => ViewModel.create(store),
@@ -58,6 +57,9 @@ class LoginState extends State<LoginPage> {
                 _showToast(context, "No internet connection");
               }
             } else if (state.user_info.status == STATUS.FAIL) {
+              setState(() {
+                opacity=0.5;
+              });
               _showToast(context, "Username or Password is wrong.");
             }
           }
@@ -84,11 +86,27 @@ class LoginState extends State<LoginPage> {
                                 fontSize: 28.0)),
                         new Container(
                           child: TextField(
-                            onSubmitted: (value){
-                              _controllerUsername.text=value;
-
+                            onSubmitted: (value) {
+                              //_controllerUsername.text=value;
+                              userFocus.unfocus();
+                              FocusScope.of(context).requestFocus(passFocus);
+                            },
+                            onChanged: (value) {
+                              passFocus.unfocus();
+                              setState(() {
+                                _controllerUsername.text.isEmpty
+                                    ? _validateUsername = false
+                                    : _validateUsername = true;
+                                if (_validateUsername && _validatePassword) {
+                                  opacity = 1;
+                                } else {
+                                  opacity = 0.5;
+                                }
+                              });
                             },
                             controller: _controllerUsername,
+                            textInputAction: TextInputAction.next,
+                            focusNode: userFocus,
                             decoration: InputDecoration(
                                 prefixIcon: Icon(
                                   Icons.person,
@@ -99,16 +117,16 @@ class LoginState extends State<LoginPage> {
                                   color: Colors.black26,
                                 ),
                                 hintText: "Username",
-                                errorText: _validateUsername
-                                    ? "Field can't be empty."
-                                    : null,
+//                                errorText: !_validateUsername
+//                                    ? "Field can't be empty."
+//                                    : null,
                                 hintStyle: TextStyle(color: Colors.black26),
                                 filled: true,
                                 fillColor: Colors.white,
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide.none,
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(40.0)),
+                                      BorderRadius.all(Radius.circular(10.0)),
                                 ),
                                 contentPadding: EdgeInsets.symmetric(
                                     horizontal: 20.0, vertical: 16.0)),
@@ -118,20 +136,42 @@ class LoginState extends State<LoginPage> {
                         new Container(
                           margin: EdgeInsets.all(16),
                           child: TextField(
-                            onSubmitted: (value){
-                              _controllerPass.text=value;
-
+                            onSubmitted: (value) {
+                              //_controllerPass.text=value;
+                              passFocus.unfocus();
+                              userFocus.unfocus();
+                              if (_validateUsername&&_validatePassword) {
+                                viewModel.buildLogin(_controllerUsername.text,
+                                    _controllerPass.text);
+                              }
                             },
+                            onChanged: (value) {
+                              userFocus.unfocus();
+                              setState(() {
+                                _controllerPass.text.isEmpty
+                                    ? _validatePassword = false
+                                    : _validatePassword = true;
+                                if (_validateUsername && _validatePassword) {
+                                  opacity = 1;
+                                } else {
+                                  opacity = 0.5;
+                                }
+                              });
+                            },
+                            autofocus: false,
+                            obscureText: true,
                             controller: _controllerPass,
+                            textInputAction: TextInputAction.done,
+                            focusNode: passFocus,
                             decoration: InputDecoration(
                                 prefixIcon: Icon(
                                   Icons.lock,
                                   color: Colors.black26,
                                 ),
                                 hintText: "Password",
-                                errorText: _validateUsername
-                                    ? "Field can't be empty."
-                                    : null,
+//                                errorText: !_validateUsername
+//                                    ? "Field can't be empty."
+//                                    : null,
                                 hintStyle: TextStyle(
                                   color: Colors.black26,
                                 ),
@@ -140,39 +180,48 @@ class LoginState extends State<LoginPage> {
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide.none,
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(40.0)),
+                                      BorderRadius.all(Radius.circular(10.0)),
                                 ),
                                 contentPadding: EdgeInsets.symmetric(
                                     horizontal: 20.0, vertical: 16.0)),
                           ),
                         ),
-                        Container(
-                          width: double.infinity,
-                          padding: EdgeInsets.all(30.0),
-                          child: RaisedButton(
-                            padding: EdgeInsets.symmetric(vertical: 16.0),
-                            color: Colors.green[700],
-                            onPressed: () {
-                              print("click");
-                              setState(() {
-                                _controllerUsername.text.isEmpty
-                                    ? _validateUsername = true
-                                    : _validateUsername = false;
-                                _controllerPass.text.isEmpty
-                                    ? _validatePassword = true
-                                    : _validatePassword = false;
-                              });
-                              if (!_validateUsername) {
-                                viewModel.buildLogin(_controllerUsername.text,
-                                    _controllerPass.text);
-                              }
-                            },
-                            elevation: 11,
-                            shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(40.0))),
-                            child: Text("Login",
-                                style: TextStyle(color: Colors.white70)),
+                        Opacity(
+                          opacity: opacity,
+                          child: Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.all(30.0),
+                            child: RaisedButton(
+                              padding: EdgeInsets.symmetric(vertical: 16.0),
+                              color: Colors.green[700],
+                              onPressed: () {
+                                print("click");
+                                passFocus.unfocus();
+                                userFocus.unfocus();
+                                if (_validateUsername&&_validatePassword) {
+                                  viewModel.buildLogin(_controllerUsername.text,
+                                      _controllerPass.text);
+                                }
+//                                setState(() {
+//                                  _controllerUsername.text.isEmpty
+//                                      ? _validateUsername = true
+//                                      : _validateUsername = false;
+//                                  _controllerPass.text.isEmpty
+//                                      ? _validatePassword = true
+//                                      : _validatePassword = false;
+//                                });
+//                                if (!_validateUsername) {
+//                                  viewModel.buildLogin(_controllerUsername.text,
+//                                      _controllerPass.text);
+//                                }
+                              },
+                              elevation: 11,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0))),
+                              child: Text("Login",
+                                  style: TextStyle(color: Colors.white70)),
+                            ),
                           ),
                         ),
                         Text("Forgot your password?",
@@ -253,12 +302,17 @@ class LoginState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
+    opacity = 0.5;
+    _controllerUsername = TextEditingController();
+    _controllerPass = TextEditingController();
+    userFocus = new FocusNode();
+    passFocus = new FocusNode();
   }
 
   @override
   void dispose() {
-    super.dispose();
     _controllerUsername.dispose();
     _controllerPass.dispose();
+    super.dispose();
   }
 }
