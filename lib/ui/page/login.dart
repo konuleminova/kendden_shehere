@@ -199,18 +199,6 @@ class LoginState extends State<LoginPage> {
                                   viewModel.buildLogin(_controllerUsername.text,
                                       _controllerPass.text);
                                 }
-//                                setState(() {
-//                                  _controllerUsername.text.isEmpty
-//                                      ? _validateUsername = true
-//                                      : _validateUsername = false;
-//                                  _controllerPass.text.isEmpty
-//                                      ? _validatePassword = true
-//                                      : _validatePassword = false;
-//                                });
-//                                if (!_validateUsername) {
-//                                  viewModel.buildLogin(_controllerUsername.text,
-//                                      _controllerPass.text);
-//                                }
                               },
                               elevation: 7,
                               shape: RoundedRectangleBorder(
