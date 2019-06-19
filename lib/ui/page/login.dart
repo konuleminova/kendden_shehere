@@ -25,12 +25,6 @@ void _showToast(BuildContext context, String content) {
   ));
 }
 
-Widget get _loadingView {
-  return new Center(
-    child: new CircularProgressIndicator(),
-  );
-}
-
 class LoginState extends State<LoginPage> {
   TextEditingController _controllerUsername, _controllerPass;
   FocusNode userFocus, passFocus;
