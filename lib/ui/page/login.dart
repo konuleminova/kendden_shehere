@@ -131,10 +131,10 @@ class LoginState extends State<LoginPage> {
                                 contentPadding: EdgeInsets.symmetric(
                                     horizontal: 20.0, vertical: 16.0)),
                           ),
-                          margin: EdgeInsets.only(left: 16, top: 16, right: 16),
+                          margin: EdgeInsets.only(left: 20, top: 16, right: 20),
                         ),
                         new Container(
-                          margin: EdgeInsets.all(16),
+                          margin: EdgeInsets.all(20),
                           child: TextField(
                             onSubmitted: (value) {
                               //_controllerPass.text=value;
@@ -215,7 +215,7 @@ class LoginState extends State<LoginPage> {
 //                                      _controllerPass.text);
 //                                }
                               },
-                              elevation: 11,
+                              elevation: 7,
                               shape: RoundedRectangleBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10.0))),
