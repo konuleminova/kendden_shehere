@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/localization/localizations.dart';
+import 'package:kendden_shehere/service/networks.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/data/model/app_state_model.dart';
 import 'package:kendden_shehere/data/model/product_model.dart';
@@ -38,6 +39,7 @@ class HomePageState extends State<HomePage> {
   int index = 4;
   var increment = 1;
   int counter = 0;
+  List<String> photos = new List();
 
   @override
   void initState() {
@@ -183,7 +185,25 @@ class HomePageState extends State<HomePage> {
                 new SizedBox(
                   width: width,
                   height: 200,
-                  child: new PageView(children: <Widget>[_buildCarousel()]),
+                  child: new PageView(children: <Widget>[
+                    new FutureBuilder(
+                        future: Networks.bannerImages(),
+                        builder:
+                            (BuildContext context, AsyncSnapshot snapshot) {
+                          if (snapshot.hasData) {
+                            photos = snapshot.data;
+                            List<ImageProvider> images=new List();
+                            for (int i = 0; i < photos.length; i++) {
+                             images.add(new NetworkImage(photos[i]));
+                            }
+                            return _buildCarousel(images);
+                          } else {
+                           return Center(
+                              child: new CircularProgressIndicator(),
+                            );
+                          }
+                        })
+                  ]),
                 ),
                 GestureDetector(
                   child: _titleContainer(),
@@ -212,13 +232,9 @@ class HomePageState extends State<HomePage> {
     }
   }
 
-  Widget _buildCarousel() => Container(
+  Widget _buildCarousel(List<ImageProvider> images) => Container(
         child: new Carousel(
-          children: [
-            new AssetImage('images/img1.jpg'),
-            new AssetImage('images/img2.jpg'),
-            new AssetImage('images/img3.jpg'),
-          ]
+          children: images
               .map((bgImage) => new Image(
                     image: bgImage,
                     width: width,
