@@ -17,6 +17,7 @@ import 'package:kendden_shehere/ui/widgets/rating_star.dart';
 import 'package:kendden_shehere/ui/widgets/search.dart';
 import 'package:kendden_shehere/util/carousel.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -194,9 +195,13 @@ class HomePageState extends State<HomePage> {
                             (BuildContext context, AsyncSnapshot snapshot) {
                           if (snapshot.hasData) {
                             photos = snapshot.data;
-                            List<ImageProvider> images = new List();
+                            List<Widget> images = new List();
                             for (int i = 0; i < photos.length; i++) {
-                              images.add(new NetworkImage(photos[i]));
+                              images.add(new Container(
+                                width: width,
+                                child:
+                                    new Image(image: NetworkImage(photos[i]),fit: BoxFit.cover,),
+                              ));
                             }
                             return _buildCarousel(images);
                           } else {
@@ -234,19 +239,19 @@ class HomePageState extends State<HomePage> {
     }
   }
 
-  Widget _buildCarousel(List<ImageProvider> images) => Container(
+  Widget _buildCarousel(List<Widget> images) => Container(
           child: new Stack(
         children: <Widget>[
-          new Carousel(
-            children: images
-                .map((bgImage) => new Image(
-                      image: bgImage,
-                      width: width,
-                      height: 200,
-                      fit: BoxFit.cover,
-                    ))
-                .toList(),
-            displayDuration: const Duration(seconds: 4),
+          CarouselSlider(
+            items: images,
+            autoPlay: true,
+            height: 200,
+            aspectRatio: 2.0,
+            onPageChanged: (index) {
+              setState(() {
+                _current = index;
+              });
+            },
           ),
           Positioned(
               bottom: 0.0,
@@ -263,8 +268,8 @@ class HomePageState extends State<HomePage> {
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: _current == index
-                            ? Color.fromRGBO(0, 0, 0, 0.9)
-                            : Color.fromRGBO(0, 0, 0, 0.4)),
+                            ? Colors.white
+                            : const Color(0xFFABC2B1)),
                   );
                 }),
               ))
