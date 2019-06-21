@@ -192,13 +192,13 @@ class HomePageState extends State<HomePage> {
                             (BuildContext context, AsyncSnapshot snapshot) {
                           if (snapshot.hasData) {
                             photos = snapshot.data;
-                            List<ImageProvider> images=new List();
+                            List<ImageProvider> images = new List();
                             for (int i = 0; i < photos.length; i++) {
-                             images.add(new NetworkImage(photos[i]));
+                              images.add(new NetworkImage(photos[i]));
                             }
                             return _buildCarousel(images);
                           } else {
-                           return Center(
+                            return Center(
                               child: new CircularProgressIndicator(),
                             );
                           }

@@ -105,11 +105,8 @@ class Networks {
     try {
       final response = await http.get(BANNER_IMAGES);
       if (response.statusCode == 200) {
-        //  print(json.decode(response.body));
-        // return ProductsInCategory.fromJson(json.decode(response.body));
         List<String> photos =
             json.decode(response.body).map<String>((m) => m as String).toList();
-        print(photos[1]);
         return photos;
       } else {
         return null;
