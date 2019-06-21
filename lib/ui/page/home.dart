@@ -243,6 +243,7 @@ class HomePageState extends State<HomePage> {
           child: new Stack(
         children: <Widget>[
           CarouselSlider(
+            pauseAutoPlayOnTouch: const Duration(seconds: 1),
             items: images,
             autoPlay: true,
             height: 200,
