@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
     return StoreProvider<AppState>(
       store: store,
       child: new MaterialApp(
-        locale: Locale("en", ""),
+        locale: Locale("tr", ""),
         onGenerateTitle: (BuildContext context) =>
             AppLocalizations.of(context).title,
         localizationsDelegates: [
@@ -57,9 +57,9 @@ class MyApp extends StatelessWidget {
           GlobalWidgetsLocalizations.delegate
         ],
         supportedLocales: [
-          const Locale('en', "EN"),
-          const Locale('ru', "RU"),
-          const Locale('az', "AZ"),
+          const Locale('en', ""),
+          const Locale('ru', ""),
+          const Locale('tr', ""),
         ],
         debugShowCheckedModeBanner: false,
         home: IndexPage(),

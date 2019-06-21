@@ -8,8 +8,8 @@ class Lang {
       'title': 'Главная',
       'text': 'Text es',
     },
-    'az': {
-      'title': 'Ana sehife',
+    'tr': {
+      'title': 'Ana səhifə',
       'text': 'Text es',
     },
   };
