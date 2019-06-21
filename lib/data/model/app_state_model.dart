@@ -13,13 +13,15 @@ class AppState {
   int code;
   List<Product> shopItems;
   List<Product> wishItems;
+  String lang;
 
   AppState.initialState()
       : user_info = NewUserModel(),
         home = Home(),
         shopItems = new List<Product>(),
         products = new List<Product>(),
-        wishItems = new List<Product>();
+        wishItems = new List<Product>(),
+        lang = "tr";
 
   AppState(
       {this.user_info,
@@ -27,7 +29,7 @@ class AppState {
       this.home,
       this.shopItems,
       this.products,
-      this.wishItems});
+      this.wishItems,this.lang});
 
   @override
   String toString() {

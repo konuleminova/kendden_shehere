@@ -121,7 +121,13 @@ class HomePageState extends State<HomePage> {
                   ),
                   onPressed: () => scaffoldKey.currentState.openDrawer(),
                 ),
-                title: new Text(AppLocalizations.of(context).title),
+                title: GestureDetector(
+                  child: new Text(AppLocalizations.of(context).title),
+                  onTap: () {
+                    print("click");
+                    //viewModel.changeLang("en");
+                  },
+                ),
                 actions: <Widget>[
                   new IconButton(
                     icon: Icon(
@@ -199,8 +205,10 @@ class HomePageState extends State<HomePage> {
                             for (int i = 0; i < photos.length; i++) {
                               images.add(new Container(
                                 width: width,
-                                child:
-                                    new Image(image: NetworkImage(photos[i]),fit: BoxFit.cover,),
+                                child: new Image(
+                                  image: NetworkImage(photos[i]),
+                                  fit: BoxFit.cover,
+                                ),
                               ));
                             }
                             return _buildCarousel(images);

@@ -9,7 +9,7 @@ class Lang {
       'text': 'Text es',
     },
     'tr': {
-      'title': 'Ana səhifə',
+      'title': 'Ana sehife',
       'text': 'Text es',
     },
   };

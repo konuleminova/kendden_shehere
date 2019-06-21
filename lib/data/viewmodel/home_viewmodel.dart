@@ -1,4 +1,5 @@
 import 'package:kendden_shehere/data/viewmodel/wishlist_viewmodel.dart';
+import 'package:kendden_shehere/redux/action/lang_action.dart';
 import 'package:kendden_shehere/redux/action/wishlist_action.dart';
 import 'package:kendden_shehere/ui/page/test/shop_item_model.dart';
 import 'package:kendden_shehere/redux/action/shop_action.dart';
@@ -15,13 +16,15 @@ class HomeViewModel {
   Function(Product shopItem) removeWishItem;
   Function(Product product) addWishItem;
   List<Product> wishItems;
+  Function(String lang) changeLang;
 
   HomeViewModel(
       {this.onFetchProductList,
       this.addShopItem,
       this.removeShopItem,
       this.addWishItem,
-      this.removeWishItem});
+      this.removeWishItem,
+      this.changeLang});
 
   factory HomeViewModel.create(Store<AppState> store) {
     _onFetchProductList(int limit, int page) {
@@ -44,11 +47,16 @@ class HomeViewModel {
       store.dispatch(RemoveWishItemAction(removeWishItem: product));
     }
 
+    _changeLang(String lang) {
+      store.dispatch(ChangeLangAction(lang: lang));
+    }
+
     return HomeViewModel(
         onFetchProductList: _onFetchProductList,
         addShopItem: _addShopItem,
         removeShopItem: _removeShopItem,
         addWishItem: _addWishItem,
-        removeWishItem: _removeWishItem);
+        removeWishItem: _removeWishItem,
+        changeLang: _changeLang);
   }
 }
