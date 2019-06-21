@@ -41,6 +41,8 @@ class HomePageState extends State<HomePage> {
   int counter = 0;
   List<String> photos = new List();
 
+  var _current = 0;
+
   @override
   void initState() {
     productList = new List();
@@ -233,18 +235,50 @@ class HomePageState extends State<HomePage> {
   }
 
   Widget _buildCarousel(List<ImageProvider> images) => Container(
-        child: new Carousel(
-          children: images
-              .map((bgImage) => new Image(
-                    image: bgImage,
-                    width: width,
-                    height: 200,
-                    fit: BoxFit.cover,
-                  ))
-              .toList(),
-          displayDuration: const Duration(seconds: 4),
-        ),
-      );
+          child: new Stack(
+        children: <Widget>[
+          new Carousel(
+            children: images
+                .map((bgImage) => new Image(
+                      image: bgImage,
+                      width: width,
+                      height: 200,
+                      fit: BoxFit.cover,
+                    ))
+                .toList(),
+            displayDuration: const Duration(seconds: 4),
+          ),
+          Positioned(
+              bottom: 0.0,
+              left: 0.0,
+              right: 0.0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: map<Widget>(images, (index, url) {
+                  return Container(
+                    width: 8.0,
+                    height: 8.0,
+                    margin:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: _current == index
+                            ? Color.fromRGBO(0, 0, 0, 0.9)
+                            : Color.fromRGBO(0, 0, 0, 0.4)),
+                  );
+                }),
+              ))
+        ],
+      ));
+
+  List<T> map<T>(List list, Function handler) {
+    List<T> result = [];
+    for (var i = 0; i < list.length; i++) {
+      result.add(handler(i, list[i]));
+    }
+
+    return result;
+  }
 
   _titleContainer() => new Container(
         padding: EdgeInsets.all(10),
