@@ -52,8 +52,8 @@ class SettingsState extends State<SettingsPage> {
                     width: MediaQuery.of(context).size.width,
                     child: RaisedButton(
                       color: Colors.green,
-                      onPressed: () async {
-                        await application.onLocaleChanged(Locale(_value));
+                      onPressed: () {
+                        application.onLocaleChanged(Locale(_value,""));
                         Navigator.pop(context);
                       },
                       child: Text(
