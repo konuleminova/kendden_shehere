@@ -59,7 +59,7 @@ class MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    _newLocaleDelegate = AppTranslationsDelegate(newLocale: new Locale("az"));
+    _newLocaleDelegate = AppTranslationsDelegate(newLocale: new Locale("en"));
     application.onLocaleChanged = onLocaleChange;
   }
 
@@ -69,7 +69,7 @@ class MyAppState extends State<MyApp> {
     return StoreProvider<AppState>(
       store: widget.store,
       child: new MaterialApp(
-        locale: Locale(widget.store.state.lang, ""),
+        locale: Locale("en",""),
         onGenerateTitle: (BuildContext context) =>
         AppTranslations.of(context).text("title_select_language"),
         localizationsDelegates: [
