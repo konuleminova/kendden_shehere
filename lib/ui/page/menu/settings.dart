@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kendden_shehere/localization/application.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -9,7 +10,7 @@ class SettingsPage extends StatefulWidget {
 }
 
 class SettingsState extends State<SettingsPage> {
-  String _value = "1";
+  String _value = "en";
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +52,10 @@ class SettingsState extends State<SettingsPage> {
                     width: MediaQuery.of(context).size.width,
                     child: RaisedButton(
                       color: Colors.green,
-                      onPressed: () =>
-                          {},
+                      onPressed: () async {
+                        await application.onLocaleChanged(Locale(_value));
+                        Navigator.pop(context);
+                      },
                       child: Text(
                         "Save",
                         style: TextStyle(color: Colors.white),
@@ -68,7 +71,7 @@ class SettingsState extends State<SettingsPage> {
     DropdownButton _itemDown() => DropdownButton<String>(
           items: [
             DropdownMenuItem(
-              value: "1",
+              value: "en",
               child: Row(
                 children: <Widget>[
                   Text(
@@ -78,7 +81,7 @@ class SettingsState extends State<SettingsPage> {
               ),
             ),
             DropdownMenuItem(
-              value: "2",
+              value: "ru",
               child: Row(
                 children: <Widget>[
                   Text(
@@ -88,7 +91,7 @@ class SettingsState extends State<SettingsPage> {
               ),
             ),
             DropdownMenuItem(
-              value: "3",
+              value: "az",
               child: Row(
                 children: <Widget>[
                   Text(
