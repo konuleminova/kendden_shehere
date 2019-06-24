@@ -85,7 +85,7 @@ class MyAppState extends State<MyApp> {
         supportedLocales: [
           const Locale("en", ""),
           const Locale("ru", ""),
-          const Locale("az", ""),
+          const Locale("tr", ""),
         ],
         debugShowCheckedModeBanner: false,
         home: IndexPage(),
@@ -120,9 +120,7 @@ class MyAppState extends State<MyApp> {
   void onLocaleChange(Locale locale) {
     setState(() {
       _newLocaleDelegate = AppTranslationsDelegate(newLocale: locale);
-      if (locale.languageCode != "az") {
-        _locale = locale;
-      }
+      _locale = locale;
     });
   }
 }

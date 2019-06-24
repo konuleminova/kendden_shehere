@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/ui/page/grocery/new_grocery/grocery_categories.dart';
 
 class DrawerWidget extends StatefulWidget {
@@ -66,7 +67,7 @@ class DrawerState extends State<DrawerWidget> {
                   new MaterialPageRoute(
                       builder: (BuildContext context) =>
                       new GroceryCategoriesPage(
-                        id: "0",title: "Categories",
+                        id: "0",title: AppTranslations.of(context).text("categories")
                       )));
              // Navigator.pushNamed(context, "/categories");
             },

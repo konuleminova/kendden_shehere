@@ -41,15 +41,20 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
                   if (categories.length > 0) {
                     return new ListView.builder(
                       itemBuilder: (BuildContext context, int index) {
+                        String title;
+                        String langCode =
+                            Localizations.localeOf(context).languageCode;
+                        if (langCode == "tr") {
+                          title = categories[index].name_az.trim();
+                        } else if (langCode == "en") {
+                          title = categories[index].name_en.trim();
+                        } else if (langCode == "ru") {
+                          title = categories[index].name_ru.trim();
+                        }
                         return new Container(
                             child: ListTile(
                           leading: new Text(
-                              Localizations.localeOf(context)
-                                  .languageCode ==
-                                  "en"
-                                  ? categories[index].name_en.trim()
-                                  : categories[index]
-                                  .name_ru.trim(),
+                            title,
                             style: TextStyle(
                               color: Theme.of(context).brightness ==
                                       Brightness.light
@@ -66,13 +71,7 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
                                     builder: (BuildContext context) =>
                                         new GroceryCategoriesPage(
                                             id: categories[index].id,
-                                            title:
-                                                Localizations.localeOf(context)
-                                                            .languageCode ==
-                                                        "en"
-                                                    ? categories[index].name_en
-                                                    : categories[index]
-                                                        .name_ru)));
+                                            title: title)));
                           },
                         ));
                       },

@@ -11,7 +11,7 @@ class Application {
 
   final List<String> supportedLanguages = ["English", "Russian", "Azerbaijan"];
 
-  final List<String> supportedLanguagesCodes = ["en", "ru", "az"];
+  final List<String> supportedLanguagesCodes = ["en", "ru", "tr"];
 
   //returns the list of supported Locales
   Iterable<Locale> supportedLocales() =>

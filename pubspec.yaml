@@ -75,7 +75,7 @@ flutter:
   - images/smwallet/
   - assets/locale/localization_en.json
   - assets/locale/localization_ru.json
-  - assets/locale/localization_az.json
+  - assets/locale/localization_tr.json
 
 
   # To add assets to your application, add an assets section, like this:

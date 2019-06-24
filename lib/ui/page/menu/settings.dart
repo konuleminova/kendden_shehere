@@ -91,7 +91,7 @@ class SettingsState extends State<SettingsPage> {
               ),
             ),
             DropdownMenuItem(
-              value: "az",
+              value: "tr",
               child: Row(
                 children: <Widget>[
                   Text(
