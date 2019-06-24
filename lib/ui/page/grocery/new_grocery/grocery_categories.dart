@@ -44,7 +44,7 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
                         return new Container(
                             child: ListTile(
                               leading: new Text(
-                                categories[index].name_en.trim(),
+                                categories[index].name_ru.trim(),
                              style: TextStyle(
                                   color: Theme
                                   .of(context)
@@ -62,7 +62,7 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
                                         builder: (BuildContext context) =>
                                         new GroceryCategoriesPage(
                                             id: categories[index].id,
-                                            title: categories[index].name_en)));
+                                            title: categories[index].name_ru)));
                               },
                             ));
                       },

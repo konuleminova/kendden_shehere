@@ -56,11 +56,14 @@ class MyApp extends StatefulWidget {
 class MyAppState extends State<MyApp> {
   AppTranslationsDelegate _newLocaleDelegate;
 
+  Locale _locale;
+
   @override
   void initState() {
     super.initState();
     _newLocaleDelegate = AppTranslationsDelegate(newLocale: new Locale("en"));
     application.onLocaleChanged = onLocaleChange;
+    _locale = new Locale("en", "");
   }
 
   @override
@@ -69,9 +72,9 @@ class MyAppState extends State<MyApp> {
     return StoreProvider<AppState>(
       store: widget.store,
       child: new MaterialApp(
-        locale: Locale("en",""),
+        locale: _locale,
         onGenerateTitle: (BuildContext context) =>
-        AppTranslations.of(context).text("title_select_language"),
+            AppTranslations.of(context).text("title_select_language"),
         localizationsDelegates: [
           _newLocaleDelegate,
           //provides localised strings
@@ -117,6 +120,9 @@ class MyAppState extends State<MyApp> {
   void onLocaleChange(Locale locale) {
     setState(() {
       _newLocaleDelegate = AppTranslationsDelegate(newLocale: locale);
+      if (locale.languageCode != "az") {
+        _locale = locale;
+      }
     });
   }
 }

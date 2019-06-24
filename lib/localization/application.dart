@@ -24,3 +24,4 @@ class Application {
 Application application = Application();
 
 typedef void LocaleChangeCallback(Locale locale);
+
