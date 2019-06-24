@@ -60,7 +60,7 @@ class DrawerState extends State<DrawerWidget> {
           ),
           ListTile(
             leading: Icon(Icons.category),
-            title: Text("Categories"),
+            title: Text(AppTranslations.of(context).text("categories")),
             onTap: () {
               Navigator.push(
                   context,
