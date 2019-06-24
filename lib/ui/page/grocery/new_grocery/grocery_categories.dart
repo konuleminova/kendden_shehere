@@ -43,34 +43,43 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
                       itemBuilder: (BuildContext context, int index) {
                         return new Container(
                             child: ListTile(
-                              leading: new Text(
-                                categories[index].name_ru.trim(),
-                             style: TextStyle(
-                                  color: Theme
-                                  .of(context)
-                                  .brightness == Brightness.light
+                          leading: new Text(
+                              Localizations.localeOf(context)
+                                  .languageCode ==
+                                  "en"
+                                  ? categories[index].name_en.trim()
+                                  : categories[index]
+                                  .name_ru.trim(),
+                            style: TextStyle(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.light
                                   ? Colors.black.withOpacity(0.9)
                                   : Colors.white.withOpacity(0.9),
                               fontSize: 18.0,
                             ),
-                              ),
-                              onTap: () {
-                                print(categories[index].id);
-                                Navigator.push(
-                                    context,
-                                    new MaterialPageRoute(
-                                        builder: (BuildContext context) =>
+                          ),
+                          onTap: () {
+                            print(categories[index].id);
+                            Navigator.push(
+                                context,
+                                new MaterialPageRoute(
+                                    builder: (BuildContext context) =>
                                         new GroceryCategoriesPage(
                                             id: categories[index].id,
-                                            title: categories[index].name_ru)));
-                              },
-                            ));
+                                            title:
+                                                Localizations.localeOf(context)
+                                                            .languageCode ==
+                                                        "en"
+                                                    ? categories[index].name_en
+                                                    : categories[index]
+                                                        .name_ru)));
+                          },
+                        ));
                       },
                       itemCount: categories.length,
                     );
                   } else {
-                    return new NewGroceryListPage(
-                        id: widget.id);
+                    return new NewGroceryListPage(id: widget.id);
                   }
                 }
               } else {
@@ -86,11 +95,9 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
     super.initState();
   }
 
-
   @override
   void dispose() {
     super.dispose();
-
   }
 
   Future<List<Category>> getCategories() async {
