@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/data/model/login_model.dart';
 import 'package:kendden_shehere/data/viewmodel/login_viewmodel.dart';
+import 'package:kendden_shehere/localization/app_translations.dart';
+import 'package:kendden_shehere/localization/app_translations_delegate.dart';
+import 'package:kendden_shehere/localization/application.dart';
 import 'package:kendden_shehere/localization/localizations.dart';
 import 'package:kendden_shehere/ui/page/grocery/new_grocery/grocery_categories.dart';
 import 'package:kendden_shehere/ui/page/menu/about_us.dart';
@@ -39,27 +42,47 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   final Store<AppState> store = Store<AppState>(appStateReducer,
       initialState: AppState.initialState(), middleware: [thunkMiddleware]);
 
   @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return MyAppState();
+  }
+}
+
+class MyAppState extends State<MyApp> {
+  AppTranslationsDelegate _newLocaleDelegate;
+
+  @override
+  void initState() {
+    super.initState();
+    _newLocaleDelegate = AppTranslationsDelegate(newLocale: new Locale("az"));
+    application.onLocaleChanged = onLocaleChange;
+  }
+
+  @override
   Widget build(BuildContext context) {
+    // TODO: implement build
     return StoreProvider<AppState>(
-      store: store,
+      store: widget.store,
       child: new MaterialApp(
-        locale: Locale(store.state.lang, ""),
+        locale: Locale(widget.store.state.lang, ""),
         onGenerateTitle: (BuildContext context) =>
-            AppLocalizations.of(context).title,
+        AppTranslations.of(context).text("title_select_language"),
         localizationsDelegates: [
-          const AppLocalizationsDelegate(),
+          _newLocaleDelegate,
+          //provides localised strings
           GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate
+          //provides RTL support
+          GlobalWidgetsLocalizations.delegate,
         ],
         supportedLocales: [
-          const Locale('en', ""),
-          const Locale('ru', ""),
-          const Locale('tr', ""),
+          const Locale("en", ""),
+          const Locale("ru", ""),
+          const Locale("az", ""),
         ],
         debugShowCheckedModeBanner: false,
         home: IndexPage(),
@@ -89,5 +112,11 @@ class MyApp extends StatelessWidget {
         },
       ),
     );
+  }
+
+  void onLocaleChange(Locale locale) {
+    setState(() {
+      _newLocaleDelegate = AppTranslationsDelegate(newLocale: locale);
+    });
   }
 }

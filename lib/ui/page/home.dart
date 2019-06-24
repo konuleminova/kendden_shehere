@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:kendden_shehere/localization/app_translations.dart';
+import 'package:kendden_shehere/localization/application.dart';
 import 'package:kendden_shehere/localization/localizations.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:redux/redux.dart';
@@ -122,9 +124,10 @@ class HomePageState extends State<HomePage> {
                   onPressed: () => scaffoldKey.currentState.openDrawer(),
                 ),
                 title: GestureDetector(
-                  child: new Text(AppLocalizations.of(context).title),
+                  child: new Text(AppTranslations.of(context).text("title_select_language")),
                   onTap: () {
                     print("click");
+                    application.onLocaleChanged(Locale("ru"));
                     //viewModel.changeLang("en");
                   },
                 ),
