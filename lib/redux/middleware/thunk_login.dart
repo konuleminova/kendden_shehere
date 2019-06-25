@@ -21,26 +21,27 @@ ThunkAction<AppState> loginThunkFunction(String username, String password) {
     store.dispatch(LoginAction(status: STATUS.LOADING));
     NewUserModel responseBody = await Networks.login(username, password);
     if (responseBody != null) {
+      userLogin.status = STATUS.SUCCESS;
+      store.dispatch(LoginAction(status: STATUS.SUCCESS));
       userLogin.name = username;
       userLogin.surname = password;
       userLogin.email = responseBody.email;
       userLogin.mobile = responseBody.mobile;
       userLogin.address = responseBody.address;
       userLogin.isLogin = true;
-      userLogin.status = STATUS.SUCCESS;
       SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
       sharedPrefUtil.setUserHasLogin(userLogin.isLogin);
       store.dispatch(NavigateReplaceAction("/home"));
     } else {
       checkInternetConnection().then((onValue) {
         if (onValue) {
-          showSnackBar("Username or password is wrong.");
           userLogin.status = STATUS.FAIL;
           store.dispatch(LoginAction(status: STATUS.FAIL));
-        }else{
-          showSnackBar("No internet connection.");
+          showSnackBar("Username or password is wrong.");
+        } else {
           userLogin.status = STATUS.NETWORK_ERROR;
           store.dispatch(LoginAction(status: STATUS.NETWORK_ERROR));
+          showSnackBar("No internet connection.");
         }
       });
     }

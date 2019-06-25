@@ -32,7 +32,9 @@ class LoginState extends State<LoginPage> {
       converter: (Store<AppState> store) => ViewModel.create(store),
       onInit: (store) {
         store.onChange.listen((state) {
-          if (state.user_info.status == STATUS.FAIL||state.user_info.status == STATUS.NETWORK_ERROR) {
+          if (state.user_info.status == STATUS.FAIL ||
+              state.user_info.status == STATUS.NETWORK_ERROR ||
+              state.user_info.status == STATUS.SUCCESS) {
             status = false;
           }
         });
@@ -117,7 +119,7 @@ class LoginState extends State<LoginPage> {
                                 viewModel.buildLogin(_controllerUsername.text,
                                     _controllerPass.text);
                                 setState(() {
-                                  status=true;
+                                  status = true;
                                 });
                               }
                             },
