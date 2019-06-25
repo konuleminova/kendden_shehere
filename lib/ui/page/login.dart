@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/data/model/newmodel/new_user_model.dart';
+import 'package:kendden_shehere/main.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/data/model/app_state_model.dart';
 import 'package:kendden_shehere/data/model/login_model.dart';
@@ -66,6 +67,7 @@ class LoginState extends State<LoginPage> {
         */
       },
       builder: (BuildContext context, ViewModel viewModel) => Scaffold(
+          key: scaffoldKey,
               body: SingleChildScrollView(
             child: Container(
               decoration: new BoxDecoration(color: Colors.lightGreen),

@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:kendden_shehere/data/model/newmodel/new_user_model.dart';
+import 'package:kendden_shehere/main.dart';
 import 'package:kendden_shehere/navigation/navigator_action.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/data/model/app_state_model.dart';
@@ -20,7 +22,7 @@ ThunkAction<AppState> loginThunkFunction(String username, String password) {
     print(responseBody.toString());
     print(responseBody.toString() + "..");
     print("konul");
-    if(responseBody!=null){
+    if (responseBody != null) {
       print("not null");
       userLogin.name = username;
       userLogin.surname = password;
@@ -31,8 +33,17 @@ ThunkAction<AppState> loginThunkFunction(String username, String password) {
       userLogin.status = STATUS.SUCCESS;
       SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
       sharedPrefUtil.setUserHasLogin(userLogin.isLogin);
-      store.dispatch( NavigateReplaceAction("/home"));
-    }else{
+      store.dispatch(NavigateReplaceAction("/home"));
+    } else {
+      scaffoldKey.currentState.showSnackBar(
+        SnackBar(
+          content: Text("Username or password is wrong."),
+          duration: Duration(seconds: 3),action: SnackBarAction(
+            label: "Try Again", onPressed: (){
+
+        }),
+        ),
+      );
       userLogin.status = STATUS.FAIL;
       store.dispatch(LoginAction(status: STATUS.FAIL));
     }
