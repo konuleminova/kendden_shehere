@@ -36,7 +36,13 @@ ThunkAction<AppState> loginThunkFunction(String username, String password) {
       sharedPrefUtil.setUserHasLogin(userLogin.isLogin);
       store.dispatch(NavigateReplaceAction("/home"));
     } else {
-      showSnackBar("Username or password is wrong.");
+      checkInternetConnection().then((onValue) {
+        if (onValue) {
+          showSnackBar("Username or password is wrong.");
+        }else{
+          showSnackBar("No internet connection.");
+        }
+      });
       userLogin.status = STATUS.FAIL;
       store.dispatch(LoginAction(status: STATUS.FAIL));
     }
