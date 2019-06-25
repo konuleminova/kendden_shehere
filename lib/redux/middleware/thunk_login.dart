@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:kendden_shehere/data/model/newmodel/new_user_model.dart';
 import 'package:kendden_shehere/main.dart';
 import 'package:kendden_shehere/navigation/navigator_action.dart';
+import 'package:kendden_shehere/util/helper_class.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/data/model/app_state_model.dart';
 import 'package:kendden_shehere/data/model/login_model.dart';
@@ -35,15 +36,7 @@ ThunkAction<AppState> loginThunkFunction(String username, String password) {
       sharedPrefUtil.setUserHasLogin(userLogin.isLogin);
       store.dispatch(NavigateReplaceAction("/home"));
     } else {
-      scaffoldKey.currentState.showSnackBar(
-        SnackBar(
-          content: Text("Username or password is wrong."),
-          duration: Duration(seconds: 3),action: SnackBarAction(
-            label: "Try Again", onPressed: (){
-
-        }),
-        ),
-      );
+      showSnackBar("Username or password is wrong.");
       userLogin.status = STATUS.FAIL;
       store.dispatch(LoginAction(status: STATUS.FAIL));
     }
