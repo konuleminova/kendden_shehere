@@ -17,22 +17,13 @@ class LoginPage extends StatefulWidget {
   }
 }
 
-void _showToast(BuildContext context, String content) {
-  final scaffold = Scaffold.of(context);
-  scaffold.showSnackBar(SnackBar(
-    content: Text(content),
-    action: SnackBarAction(
-        label: "Try Again", onPressed: scaffold.hideCurrentSnackBar),
-  ));
-}
-
 class LoginState extends State<LoginPage> {
   TextEditingController _controllerUsername, _controllerPass;
   FocusNode userFocus, passFocus;
   bool _validateUsername = false;
   bool _validatePassword = false;
   double opacity;
-  bool status=false;
+  bool status = false;
 
   @override
   Widget build(BuildContext context) {
@@ -40,35 +31,15 @@ class LoginState extends State<LoginPage> {
     return StoreConnector(
       converter: (Store<AppState> store) => ViewModel.create(store),
       onInit: (store) {
-     /*   store.onChange.listen((state) {
-        /*  if (state != null) {
-            if (state.user_info.status == STATUS.SUCCESS) {
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                  '/home', (Route<dynamic> route) => false);
-              //Navigator.pushNamed(context, "/home");
-              // Navigator.pushReplacementNamed(context, "/home");
-            } else if (state.user_info.status == STATUS.LOADING) {
-              print("loading..");
-              status=true;
-              if (state.user_info.status == STATUS.NETWORK_ERROR) {
-                _showToast(context, "No internet connection");
-              }
-            } else if (state.user_info.status == STATUS.FAIL) {
-              status=false;
-              _showToast(context, "Username or Password is wrong.");
-              setState(() {
-                opacity = 0.5;
-              });
-            }
-
+        store.onChange.listen((state) {
+          if (state.user_info.status == STATUS.FAIL||state.user_info.status == STATUS.NETWORK_ERROR) {
+            status = false;
           }
-          */
         });
-        */
       },
       builder: (BuildContext context, ViewModel viewModel) => Scaffold(
           key: scaffoldKey,
-              body: SingleChildScrollView(
+          body: SingleChildScrollView(
             child: Container(
               decoration: new BoxDecoration(color: Colors.lightGreen),
               height: MediaQuery.of(context).size.height,
@@ -145,6 +116,9 @@ class LoginState extends State<LoginPage> {
                               if (_validateUsername && _validatePassword) {
                                 viewModel.buildLogin(_controllerUsername.text,
                                     _controllerPass.text);
+                                setState(() {
+                                  status=true;
+                                });
                               }
                             },
                             onChanged: (value) {
@@ -202,13 +176,16 @@ class LoginState extends State<LoginPage> {
                                 if (_validateUsername && _validatePassword) {
                                   viewModel.buildLogin(_controllerUsername.text,
                                       _controllerPass.text);
+                                  setState(() {
+                                    status = true;
+                                  });
                                 }
                               },
                               elevation: 7,
                               shape: RoundedRectangleBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10.0))),
-                              child: _statusWidget(),
+                              child: _showProgress(),
                             ),
                           ),
                         ),
@@ -304,7 +281,7 @@ class LoginState extends State<LoginPage> {
     super.dispose();
   }
 
-  _statusWidget() {
+  _showProgress() {
     if (!status) {
       return Text("Login", style: TextStyle(color: Colors.white70));
     } else {

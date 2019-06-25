@@ -39,12 +39,14 @@ ThunkAction<AppState> loginThunkFunction(String username, String password) {
       checkInternetConnection().then((onValue) {
         if (onValue) {
           showSnackBar("Username or password is wrong.");
+          userLogin.status = STATUS.FAIL;
+          store.dispatch(LoginAction(status: STATUS.FAIL));
         }else{
           showSnackBar("No internet connection.");
+          userLogin.status = STATUS.NETWORK_ERROR;
+          store.dispatch(LoginAction(status: STATUS.NETWORK_ERROR));
         }
       });
-      userLogin.status = STATUS.FAIL;
-      store.dispatch(LoginAction(status: STATUS.FAIL));
     }
     /* if (responseBody != null) {
       userLogin.name = username;
