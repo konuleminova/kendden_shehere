@@ -48,25 +48,5 @@ ThunkAction<AppState> loginThunkFunction(String username, String password) {
         }
       });
     }
-    /* if (responseBody != null) {
-      userLogin.name = username;
-      userLogin.surname = password;
-      userLogin.email = responseBody.email;
-      userLogin.mobile = responseBody.mobile;
-      userLogin.address = responseBody.address;
-      userLogin.isLogin = true;
-      userLogin.status = STATUS.SUCCESS;
-      SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
-      sharedPrefUtil.setUserHasLogin(userLogin.isLogin);
-      store.dispatch(LoginAction(
-          username: username,
-          password: password,
-          isLogin: true,
-          status: STATUS.SUCCESS));
-    } else {
-      userLogin.status = STATUS.FAIL;
-      store.dispatch(LoginAction(status: STATUS.FAIL));
-    }
-    */
   };
 }
