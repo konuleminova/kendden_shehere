@@ -20,11 +20,7 @@ ThunkAction<AppState> loginThunkFunction(String username, String password) {
     userLogin.status = STATUS.LOADING;
     store.dispatch(LoginAction(status: STATUS.LOADING));
     NewUserModel responseBody = await Networks.login(username, password);
-    print(responseBody.toString());
-    print(responseBody.toString() + "..");
-    print("konul");
     if (responseBody != null) {
-      print("not null");
       userLogin.name = username;
       userLogin.surname = password;
       userLogin.email = responseBody.email;
