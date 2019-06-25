@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:kendden_shehere/data/model/newmodel/new_user_model.dart';
+import 'package:kendden_shehere/navigation/navigator_action.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/data/model/app_state_model.dart';
 import 'package:kendden_shehere/data/model/login_model.dart';
@@ -18,7 +19,24 @@ ThunkAction<AppState> loginThunkFunction(String username, String password) {
     NewUserModel responseBody = await Networks.login(username, password);
     print(responseBody.toString());
     print(responseBody.toString() + "..");
-    if (responseBody != null) {
+    print("konul");
+    if(responseBody!=null){
+      print("not null");
+      userLogin.name = username;
+      userLogin.surname = password;
+      userLogin.email = responseBody.email;
+      userLogin.mobile = responseBody.mobile;
+      userLogin.address = responseBody.address;
+      userLogin.isLogin = true;
+      userLogin.status = STATUS.SUCCESS;
+      SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
+      sharedPrefUtil.setUserHasLogin(userLogin.isLogin);
+      store.dispatch( NavigateReplaceAction("/home"));
+    }else{
+      userLogin.status = STATUS.FAIL;
+      store.dispatch(LoginAction(status: STATUS.FAIL));
+    }
+    /* if (responseBody != null) {
       userLogin.name = username;
       userLogin.surname = password;
       userLogin.email = responseBody.email;
@@ -37,7 +55,6 @@ ThunkAction<AppState> loginThunkFunction(String username, String password) {
       userLogin.status = STATUS.FAIL;
       store.dispatch(LoginAction(status: STATUS.FAIL));
     }
+    */
   };
 }
-
-

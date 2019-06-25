@@ -67,7 +67,6 @@ class Networks {
       final response = await http.get(LOGIN);
       print(response.statusCode.toString() + "..");
       if (response.statusCode == 200) {
-        print(response.body);
         return NewUserModel.fromJson(json.decode(response.body)[0]);
       } else {
         return null;

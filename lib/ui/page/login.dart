@@ -39,8 +39,8 @@ class LoginState extends State<LoginPage> {
     return StoreConnector(
       converter: (Store<AppState> store) => ViewModel.create(store),
       onInit: (store) {
-        store.onChange.listen((state) {
-          if (state != null) {
+     /*   store.onChange.listen((state) {
+        /*  if (state != null) {
             if (state.user_info.status == STATUS.SUCCESS) {
               Navigator.of(context).pushNamedAndRemoveUntil(
                   '/home', (Route<dynamic> route) => false);
@@ -59,8 +59,11 @@ class LoginState extends State<LoginPage> {
                 opacity = 0.5;
               });
             }
+
           }
+          */
         });
+        */
       },
       builder: (BuildContext context, ViewModel viewModel) => Scaffold(
               body: SingleChildScrollView(

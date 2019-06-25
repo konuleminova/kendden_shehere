@@ -6,6 +6,8 @@ import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/localization/app_translations_delegate.dart';
 import 'package:kendden_shehere/localization/application.dart';
 import 'package:kendden_shehere/localization/localizations.dart';
+import 'package:kendden_shehere/navigation/navigation_middleware.dart';
+import 'package:kendden_shehere/navigation/navigation_observer.dart';
 import 'package:kendden_shehere/ui/page/grocery/new_grocery/grocery_categories.dart';
 import 'package:kendden_shehere/ui/page/menu/about_us.dart';
 import 'package:kendden_shehere/ui/page/menu/delivery.dart';
@@ -41,10 +43,12 @@ import 'package:redux_thunk/redux_thunk.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() => runApp(MyApp());
+final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 
 class MyApp extends StatefulWidget {
   final Store<AppState> store = Store<AppState>(appStateReducer,
-      initialState: AppState.initialState(), middleware: [thunkMiddleware]);
+      initialState: AppState.initialState(),
+      middleware: [thunkMiddleware]..addAll(createNavigationMiddleware()));
 
   @override
   State<StatefulWidget> createState() {
@@ -72,6 +76,8 @@ class MyAppState extends State<MyApp> {
     return StoreProvider<AppState>(
       store: widget.store,
       child: new MaterialApp(
+        navigatorKey: navigatorKey,
+        navigatorObservers: [routeObserver],
         locale: _locale,
         onGenerateTitle: (BuildContext context) =>
             AppTranslations.of(context).text("title_select_language"),
