@@ -20,20 +20,29 @@ class GroceryListItemOne extends StatefulWidget {
 
 class GroceryListItemOneState extends State<GroceryListItemOne> {
   NewProduct product;
+  String title;
 
   @override
   Widget build(BuildContext context) {
     product = widget.product;
     String s = product.img.trim();
-    if(s==""){
-      s=null;
+    if (s == "") {
+      s = null;
+    }
+    String langCode = Localizations.localeOf(context).languageCode;
+    if (langCode == "tr") {
+      title = product.name_az.trim();
+    } else if (langCode == "en") {
+      title = product.name_en.trim();
+    } else if (langCode == "ru") {
+      title = product.name_ru.trim();
     }
 
     // TODO: implement build
     return Container(
       decoration: BoxDecoration(
           color: Colors.white,
-          border: Border.all(color:Colors.grey[300]),
+          border: Border.all(color: Colors.grey[300]),
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(5.0), topRight: Radius.circular(5.0)),
           boxShadow: [
@@ -55,7 +64,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                   GestureDetector(
                     child: Container(
                         child: Image.network(s ??
-                            "https://res.cloudinary.com/demo/image/upload/sample.jpg"),
+                            "https://via.placeholder.com/300/ffff/0000.png"),
                         height: 150,
                         padding: EdgeInsets.only(
                             left: 10, right: 10, top: 10, bottom: 4)),
@@ -63,7 +72,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                       Navigator.pushNamed(context, "/product_detail");
                     },
                   ),
-                  new GroceryTitle(text: product.name_en),
+                  new GroceryTitle(text: title),
                   new Container(
                       height: 20,
                       child: new Row(
@@ -107,7 +116,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       new GrocerySubtitle(text: product.counttype),
-                      new GrocerySubtitle(text: product.price+" AZN"),
+                      new GrocerySubtitle(text: product.price + " AZN"),
                     ],
                   ),
                   addedWidget(),
