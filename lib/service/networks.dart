@@ -89,9 +89,13 @@ class Networks {
     } catch (exception) {}
   }
 
-  static dynamic productsInCategory(String id) async {
+  static dynamic productsInCategory(
+      String id, String order, String lang, String limit, String start) async {
     try {
-      final response = await http.get(PRODUCTS_IN_CATEGORY + id);
+      final response = await http.get(PRODUCTS_IN_CATEGORY +
+          id +
+          "&order=${order}&lang=${lang}&limit=${limit}&start=${start}");
+      print(id+".. product id ");
       if (response.statusCode == 200) {
         return ProductsInCategory.fromJson(json.decode(response.body));
       } else {
