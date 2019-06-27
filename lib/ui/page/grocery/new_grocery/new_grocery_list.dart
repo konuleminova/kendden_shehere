@@ -41,47 +41,43 @@ class GroceryListPageState extends State<NewGroceryListPage> {
     return StoreConnector(
       onInitialBuild: (ProductListViewModel viewModel) {
         this.viewModel = viewModel;
-        viewModel.onFetchProductList(widget.id, "4", "0");
+        viewModel.onFetchProductList(widget.id, "10", "0");
       },
-      onInit: (store) {
-        store.onChange.listen((onData) {
-          if (onData != null) {
-            try {
-              productList.addAll(onData.newProducts);
-            } catch (exceptoon) {}
-            // print("//" + onData.campaign.data.toString() + "...");
-          }
-        });
+      onWillChange: (ProductListViewModel viewModel) {
+        productList.addAll(viewModel.productList);
       },
       converter: (Store<AppState> store) => ProductListViewModel.create(store),
       builder: (BuildContext context, ProductListViewModel) {
-        return new CustomScrollView(
-          controller: _scrollController,
-          slivers: <Widget>[
-            SliverPadding(
-                padding: const EdgeInsets.all(8),
-                sliver: new SliverGrid(
-                    gridDelegate:
-                    SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisSpacing: 1,
-                        mainAxisSpacing: 1,
-                        crossAxisCount: 2,
-                        childAspectRatio: 0.55),
-                    delegate: new SliverChildBuilderDelegate(
-                            (BuildContext context, int index) {
-                          return Container(
-                              width:
-                              MediaQuery.of(context).size.width * 0.6,
-                              height: 360,
-                              child: InkWell(
-                                child: GroceryListItemOne(
-                                  product: productList[index],
-                                ),
-                              ));
-                        }, childCount: productList.length)))
-          ],
-          // controller: _scrollController,
-        );
+        return productList != null
+            ? new CustomScrollView(
+                controller: _scrollController,
+                slivers: <Widget>[
+                  SliverPadding(
+                      padding: const EdgeInsets.all(8),
+                      sliver: new SliverGrid(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisSpacing: 1,
+                                  mainAxisSpacing: 1,
+                                  crossAxisCount: 2,
+                                  childAspectRatio: 0.55),
+                          delegate: new SliverChildBuilderDelegate(
+                              (BuildContext context, int index) {
+                            return Container(
+                                width: MediaQuery.of(context).size.width * 0.6,
+                                height: 360,
+                                child: InkWell(
+                                  child: GroceryListItemOne(
+                                    product: productList[index],
+                                  ),
+                                ));
+                          }, childCount: productList.length)))
+                ],
+                // controller: _scrollController,
+              )
+            : Center(
+                child: CircularProgressIndicator(),
+              );
       },
     );
   }
@@ -95,9 +91,9 @@ class GroceryListPageState extends State<NewGroceryListPage> {
   }
 
   void loadMore() {
-    page = page + 4;
+    page = page + 10;
     print(productList.toString() + "initial");
-    viewModel.onFetchProductList(widget.id,"4", page.toString());
+    viewModel.onFetchProductList(widget.id, "10", page.toString());
   }
 
   _scrollListener() {
