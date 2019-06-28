@@ -5,7 +5,6 @@ import 'package:kendden_shehere/redux/login/new_user_model.dart';
 import 'package:kendden_shehere/redux/data/model/product_model.dart';
 import 'package:kendden_shehere/ui/page/test/shop_item_model.dart';
 import 'package:kendden_shehere/redux/shoplist/shop_model.dart';
-import 'package:kendden_shehere/redux/data/model/login_model.dart';
 
 class AppState {
   NewUserModel user_info;
