@@ -1,5 +1,5 @@
-import 'package:kendden_shehere/redux/data/model/category_item.dart';
-import 'package:kendden_shehere/redux/data/model/newmodel/new_product_model.dart';
+import 'package:kendden_shehere/redux/categories/category_item.dart';
+import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 
 class ProductsInCategory {
   List<NewProduct> productsInCategory;

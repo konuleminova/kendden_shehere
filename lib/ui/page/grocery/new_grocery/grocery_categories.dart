@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kendden_shehere/redux/data/model/category_item.dart';
-import 'package:kendden_shehere/redux/data/model/newmodel/list_categories.dart';
+import 'package:kendden_shehere/redux/categories/category_item.dart';
+import 'package:kendden_shehere/redux/categories/list_categories.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/grocery/new_grocery/new_grocery_list.dart';
 

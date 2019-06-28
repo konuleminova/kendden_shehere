@@ -1,4 +1,4 @@
-import 'package:kendden_shehere/redux/data/model/category_item.dart';
+import 'package:kendden_shehere/redux/categories/category_item.dart';
 import 'package:kendden_shehere/redux/data/model/product_model.dart';
 
 class ListCategories {

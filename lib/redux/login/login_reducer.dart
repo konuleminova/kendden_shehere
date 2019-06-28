@@ -1,7 +1,7 @@
-import 'package:kendden_shehere/redux/data/model/newmodel/new_user_model.dart';
+import 'package:kendden_shehere/redux/login/new_user_model.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/data/model/login_model.dart';
-import 'package:kendden_shehere/redux/action/login_action.dart';
+import 'package:kendden_shehere/redux/login/login_action.dart';
 
 Reducer<NewUserModel> loginReducer = combineReducers<NewUserModel>(
     [TypedReducer<NewUserModel, LoginAction>(signInReducer)]);

@@ -2,14 +2,14 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:kendden_shehere/redux/data/model/newmodel/new_user_model.dart';
+import 'package:kendden_shehere/redux/login/new_user_model.dart';
 import 'package:kendden_shehere/main.dart';
 import 'package:kendden_shehere/navigation/navigator_action.dart';
 import 'package:kendden_shehere/util/helper_class.dart';
 import 'package:redux/redux.dart';
-import 'package:kendden_shehere/redux/data/model/app_state_model.dart';
+import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/data/model/login_model.dart';
-import 'package:kendden_shehere/redux/action/login_action.dart';
+import 'package:kendden_shehere/redux/login/login_action.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 import 'package:redux_thunk/redux_thunk.dart';

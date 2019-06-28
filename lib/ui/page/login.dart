@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:kendden_shehere/redux/data/model/newmodel/new_user_model.dart';
+import 'package:kendden_shehere/redux/login/new_user_model.dart';
 import 'package:kendden_shehere/main.dart';
 import 'package:redux/redux.dart';
-import 'package:kendden_shehere/redux/data/model/app_state_model.dart';
+import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/data/model/login_model.dart';
-import 'package:kendden_shehere/redux/data/viewmodel/login_viewmodel.dart';
-import 'package:kendden_shehere/redux/reducer/app_state_reducer.dart';
+import 'package:kendden_shehere/redux/login/login_viewmodel.dart';
+import 'package:kendden_shehere/redux/app/app_state_reducer.dart';
 import 'package:kendden_shehere/ui/page/index.dart';
 
 class LoginPage extends StatefulWidget {

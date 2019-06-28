@@ -1,13 +1,13 @@
-import 'package:kendden_shehere/redux/data/viewmodel/wishlist_viewmodel.dart';
-import 'package:kendden_shehere/redux/action/lang_action.dart';
-import 'package:kendden_shehere/redux/action/wishlist_action.dart';
+import 'package:kendden_shehere/redux/wishlist/wishlist_viewmodel.dart';
+import 'package:kendden_shehere/redux/lang/lang_action.dart';
+import 'package:kendden_shehere/redux/wishlist/wishlist_action.dart';
 import 'package:kendden_shehere/ui/page/test/shop_item_model.dart';
-import 'package:kendden_shehere/redux/action/shop_action.dart';
+import 'package:kendden_shehere/redux/shoplist/shop_action.dart';
 import 'package:redux/redux.dart';
-import 'package:kendden_shehere/redux/data/model/app_state_model.dart';
+import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/data/model/product_model.dart';
-import 'package:kendden_shehere/redux/action/home_action.dart';
-import 'package:kendden_shehere/redux/middleware/thunk_home.dart';
+import 'package:kendden_shehere/redux/home/home_action.dart';
+import 'package:kendden_shehere/redux/home/thunk_home.dart';
 
 class HomeViewModel {
   Function(int limit, int page) onFetchProductList;

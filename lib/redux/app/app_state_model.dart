@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:kendden_shehere/redux/data/model/home_model.dart';
-import 'package:kendden_shehere/redux/data/model/newmodel/new_product_model.dart';
-import 'package:kendden_shehere/redux/data/model/newmodel/new_user_model.dart';
+import 'package:kendden_shehere/redux/home/home_model.dart';
+import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
+import 'package:kendden_shehere/redux/login/new_user_model.dart';
 import 'package:kendden_shehere/redux/data/model/product_model.dart';
 import 'package:kendden_shehere/ui/page/test/shop_item_model.dart';
-import 'package:kendden_shehere/redux/data/model/shop_model.dart';
+import 'package:kendden_shehere/redux/shoplist/shop_model.dart';
 import 'package:kendden_shehere/redux/data/model/login_model.dart';
 
 class AppState {

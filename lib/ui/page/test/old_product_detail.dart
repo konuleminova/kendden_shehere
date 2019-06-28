@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
-import 'package:kendden_shehere/redux/data/model/app_state_model.dart';
-import 'package:kendden_shehere/redux/data/viewmodel/shop_viewmodel.dart';
+import 'package:kendden_shehere/redux/app/app_state_model.dart';
+import 'package:kendden_shehere/redux/shoplist/shop_viewmodel.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class ProductDetailPage extends StatefulWidget {

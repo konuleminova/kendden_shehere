@@ -1,13 +1,13 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:kendden_shehere/redux/data/model/app_state_model.dart';
-import 'package:kendden_shehere/redux/data/model/home_model.dart';
-import 'package:kendden_shehere/redux/data/model/newmodel/list_categories.dart';
-import 'package:kendden_shehere/redux/data/model/newmodel/new_user_model.dart';
+import 'package:kendden_shehere/redux/app/app_state_model.dart';
+import 'package:kendden_shehere/redux/home/home_model.dart';
+import 'package:kendden_shehere/redux/categories/list_categories.dart';
+import 'package:kendden_shehere/redux/login/new_user_model.dart';
 import 'package:kendden_shehere/redux/data/model/product_model.dart';
-import 'package:kendden_shehere/redux/data/model/newmodel/products_in_category_model.dart';
-import 'package:kendden_shehere/redux/middleware/thunk_login.dart';
+import 'package:kendden_shehere/redux/categories/products_in_category_model.dart';
+import 'package:kendden_shehere/redux/login/thunk_login.dart';
 
 class Networks {
   static final String BASE_URL = "http://35.240.80.11/app/";
