@@ -5,7 +5,6 @@ import 'package:kendden_shehere/data/viewmodel/login_viewmodel.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/localization/app_translations_delegate.dart';
 import 'package:kendden_shehere/localization/application.dart';
-import 'package:kendden_shehere/localization/localizations.dart';
 import 'package:kendden_shehere/navigation/navigation_middleware.dart';
 import 'package:kendden_shehere/navigation/navigation_observer.dart';
 import 'package:kendden_shehere/ui/page/grocery/new_grocery/grocery_categories.dart';

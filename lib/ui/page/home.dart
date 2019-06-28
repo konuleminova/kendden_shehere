@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/localization/application.dart';
-import 'package:kendden_shehere/localization/localizations.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/data/model/app_state_model.dart';
