@@ -1,6 +1,6 @@
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
-import 'package:kendden_shehere/redux/categories/products_in_category_model.dart';
+import 'package:kendden_shehere/redux/productlist/products_in_category_model.dart';
 import 'package:kendden_shehere/redux/productlist/productlist_action.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:redux/redux.dart';

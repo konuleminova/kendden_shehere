@@ -6,7 +6,7 @@ import 'package:kendden_shehere/redux/home/home_model.dart';
 import 'package:kendden_shehere/redux/categories/list_categories.dart';
 import 'package:kendden_shehere/redux/login/user_model.dart';
 import 'package:kendden_shehere/redux/common/model/product_model.dart';
-import 'package:kendden_shehere/redux/categories/products_in_category_model.dart';
+import 'package:kendden_shehere/redux/productlist/products_in_category_model.dart';
 import 'package:kendden_shehere/redux/login/thunk_login.dart';
 
 class Networks {
