@@ -1,4 +1,4 @@
-import 'package:kendden_shehere/navigation/navigator_action.dart';
+import 'package:kendden_shehere/redux/navigation/navigator_action.dart';
 import 'package:redux/redux.dart';
 
 final navigationReducer = combineReducers<List<String>>([
