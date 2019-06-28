@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/home/home_model.dart';
 import 'package:kendden_shehere/redux/categories/list_categories.dart';
-import 'package:kendden_shehere/redux/login/new_user_model.dart';
+import 'package:kendden_shehere/redux/login/user_model.dart';
 import 'package:kendden_shehere/redux/model/product_model.dart';
 import 'package:kendden_shehere/redux/categories/products_in_category_model.dart';
 import 'package:kendden_shehere/redux/login/thunk_login.dart';
@@ -67,7 +67,7 @@ class Networks {
       final response = await http.get(LOGIN);
       print(response.statusCode.toString() + "..");
       if (response.statusCode == 200) {
-        return NewUserModel.fromJson(json.decode(response.body)[0]);
+        return UserModel.fromJson(json.decode(response.body)[0]);
       } else {
         return null;
       }

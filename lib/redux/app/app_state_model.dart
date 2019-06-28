@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/redux/home/home_model.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
-import 'package:kendden_shehere/redux/login/new_user_model.dart';
+import 'package:kendden_shehere/redux/login/user_model.dart';
 import 'package:kendden_shehere/redux/model/product_model.dart';
 import 'package:kendden_shehere/ui/page/test/shop_item_model.dart';
 import 'package:kendden_shehere/redux/shoplist/shop_model.dart';
 
 class AppState {
-  NewUserModel user_info;
+  UserModel user_info;
   Home home;
   List<Product> products;
   int code;
@@ -17,7 +17,7 @@ class AppState {
   List<NewProduct> newProducts;
 
   AppState.initialState()
-      : user_info = NewUserModel(),
+      : user_info = UserModel(),
         home = Home(),
         shopItems = new List<Product>(),
         products = new List<Product>(),

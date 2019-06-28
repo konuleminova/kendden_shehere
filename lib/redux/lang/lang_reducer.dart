@@ -1,5 +1,5 @@
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
-import 'package:kendden_shehere/redux/login/new_user_model.dart';
+import 'package:kendden_shehere/redux/login/user_model.dart';
 import 'package:kendden_shehere/redux/lang/lang_action.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/login/login_action.dart';

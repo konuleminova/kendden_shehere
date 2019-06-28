@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:kendden_shehere/redux/login/new_user_model.dart';
+import 'package:kendden_shehere/redux/login/user_model.dart';
 import 'package:kendden_shehere/main.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';

@@ -8,7 +8,7 @@ import 'dart:convert' as convert;
 
 enum STATUS { SUCCESS, FAIL, LOADING, NETWORK_ERROR }
 
-class NewUserModel {
+class UserModel {
   String id;
   String name;
   String surname;
@@ -21,7 +21,7 @@ class NewUserModel {
   String error;
   String message;
 
-  NewUserModel(
+  UserModel(
       {this.id,
       this.name,
       this.surname,
@@ -35,7 +35,7 @@ class NewUserModel {
       this.password});
 
   static fromJson(json) {
-    return NewUserModel(
+    return UserModel(
         id: json['id'],
         name: json['name'],
         surname: json['surname'],
@@ -46,7 +46,7 @@ class NewUserModel {
         message: json['message']);
   }
 
-  NewUserModel copyWith(
+  UserModel copyWith(
       {String name,
       String surname,
       String email,
@@ -57,7 +57,7 @@ class NewUserModel {
       String message,
       STATUS status,
       String password}) {
-    return NewUserModel(
+    return UserModel(
         name: name ?? this.name,
         surname: surname ?? this.surname,
         email: email ?? this.email,

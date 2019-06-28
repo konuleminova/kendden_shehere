@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:kendden_shehere/redux/login/new_user_model.dart';
+import 'package:kendden_shehere/redux/login/user_model.dart';
 import 'package:kendden_shehere/main.dart';
 import 'package:kendden_shehere/navigation/navigator_action.dart';
 import 'package:kendden_shehere/util/helper_class.dart';
@@ -15,10 +15,10 @@ import 'package:redux_thunk/redux_thunk.dart';
 
 ThunkAction<AppState> loginThunkFunction(String username, String password) {
   return (Store<AppState> store) async {
-    NewUserModel userLogin = new NewUserModel();
+    UserModel userLogin = new UserModel();
     userLogin.status = STATUS.LOADING;
     store.dispatch(LoginAction(status: STATUS.LOADING));
-    NewUserModel responseBody = await Networks.login(username, password);
+    UserModel responseBody = await Networks.login(username, password);
     if (responseBody != null) {
       userLogin.status = STATUS.SUCCESS;
       store.dispatch(LoginAction(status: STATUS.SUCCESS));

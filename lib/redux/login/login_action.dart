@@ -1,4 +1,4 @@
-import 'package:kendden_shehere/redux/login/new_user_model.dart';
+import 'package:kendden_shehere/redux/login/user_model.dart';
 
 class LoginAction {
   String username;
