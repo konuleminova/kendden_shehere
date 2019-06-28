@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoder/geocoder.dart';
-import 'package:kendden_shehere/redux/data/model/place_model.dart';
+import 'package:kendden_shehere/redux/model/place_model.dart';
 import 'package:kendden_shehere/ui/page/map/map_view.dart';
 import 'dart:math';
 

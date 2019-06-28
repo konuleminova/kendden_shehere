@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:google_maps_webservice/places.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:flutter/material.dart';
-import 'package:kendden_shehere/redux/data/model/place_model.dart';
+import 'package:kendden_shehere/redux/model/place_model.dart';
 import 'package:kendden_shehere/ui/page/map/flutter_map.dart';
 
 const kGoogleApiKey = "AIzaSyC1XWcwMQ-WDLXUWZOTwQW7325Wb-OeysU";

@@ -3,7 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
-import 'package:kendden_shehere/redux/data/model/product_model.dart';
+import 'package:kendden_shehere/redux/model/product_model.dart';
 import 'package:kendden_shehere/redux/home/home_viewmodel.dart';
 import 'package:kendden_shehere/ui/widgets/dropdown.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/glistitem1.dart';

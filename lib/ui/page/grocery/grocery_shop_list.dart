@@ -3,7 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/ui/page/test/shop_item_model.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
-import 'package:kendden_shehere/redux/data/model/product_model.dart';
+import 'package:kendden_shehere/redux/model/product_model.dart';
 import 'package:kendden_shehere/redux/shoplist/shop_model.dart';
 import 'package:kendden_shehere/redux/shoplist/shop_viewmodel.dart';
 import 'package:kendden_shehere/ui/widgets/oval_tap.dart';

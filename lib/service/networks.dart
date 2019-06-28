@@ -5,7 +5,7 @@ import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/home/home_model.dart';
 import 'package:kendden_shehere/redux/categories/list_categories.dart';
 import 'package:kendden_shehere/redux/login/new_user_model.dart';
-import 'package:kendden_shehere/redux/data/model/product_model.dart';
+import 'package:kendden_shehere/redux/model/product_model.dart';
 import 'package:kendden_shehere/redux/categories/products_in_category_model.dart';
 import 'package:kendden_shehere/redux/login/thunk_login.dart';
 
