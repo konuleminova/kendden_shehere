@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kendden_shehere/redux/model/product_model.dart';
+import 'package:kendden_shehere/redux/common/model/product_model.dart';
 import 'package:kendden_shehere/ui/widgets/gtile_title.dart';
 import 'package:kendden_shehere/ui/widgets/rating_star.dart';
 

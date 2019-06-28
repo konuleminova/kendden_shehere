@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
-import 'package:kendden_shehere/redux/model/order_history_model.dart';
-import 'package:kendden_shehere/redux/model/product_model.dart';
+import 'package:kendden_shehere/redux/common/model/order_history_model.dart';
+import 'package:kendden_shehere/redux/common/model/product_model.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/glistitem3.dart';
 
 class OrderHistoryPage extends StatelessWidget {

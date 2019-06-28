@@ -6,7 +6,7 @@ import 'package:kendden_shehere/localization/application.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
-import 'package:kendden_shehere/redux/model/product_model.dart';
+import 'package:kendden_shehere/redux/common/model/product_model.dart';
 import 'package:kendden_shehere/redux/shoplist/shop_model.dart';
 import 'package:kendden_shehere/redux/home/home_viewmodel.dart';
 import 'package:kendden_shehere/ui/page/test/old_test_cards.dart';

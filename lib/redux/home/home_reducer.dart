@@ -1,6 +1,6 @@
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/home/home_model.dart';
-import 'package:kendden_shehere/redux/model/product_model.dart';
+import 'package:kendden_shehere/redux/common/model/product_model.dart';
 import 'package:kendden_shehere/redux/home/home_action.dart';
 
 Reducer<List<Product>> homeReducer = combineReducers<List<Product>>(
