@@ -1,11 +1,11 @@
-import 'package:kendden_shehere/data/viewmodel/wishlist_viewmodel.dart';
+import 'package:kendden_shehere/redux/data/viewmodel/wishlist_viewmodel.dart';
 import 'package:kendden_shehere/redux/action/lang_action.dart';
 import 'package:kendden_shehere/redux/action/wishlist_action.dart';
 import 'package:kendden_shehere/ui/page/test/shop_item_model.dart';
 import 'package:kendden_shehere/redux/action/shop_action.dart';
 import 'package:redux/redux.dart';
-import 'package:kendden_shehere/data/model/app_state_model.dart';
-import 'package:kendden_shehere/data/model/product_model.dart';
+import 'package:kendden_shehere/redux/data/model/app_state_model.dart';
+import 'package:kendden_shehere/redux/data/model/product_model.dart';
 import 'package:kendden_shehere/redux/action/home_action.dart';
 import 'package:kendden_shehere/redux/middleware/thunk_home.dart';
 

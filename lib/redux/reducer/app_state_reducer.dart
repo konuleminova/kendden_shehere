@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kendden_shehere/data/model/app_state_model.dart';
+import 'package:kendden_shehere/redux/data/model/app_state_model.dart';
 import 'package:kendden_shehere/redux/reducer/home_reducer.dart';
 import 'package:kendden_shehere/redux/reducer/lang_reducer.dart';
 import 'package:kendden_shehere/redux/reducer/login_reducer.dart';

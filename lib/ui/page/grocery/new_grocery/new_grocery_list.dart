@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:kendden_shehere/data/model/app_state_model.dart';
-import 'package:kendden_shehere/data/model/newmodel/new_product_model.dart';
-import 'package:kendden_shehere/data/model/newmodel/products_in_category_model.dart';
-import 'package:kendden_shehere/data/model/product_model.dart';
-import 'package:kendden_shehere/data/viewmodel/productlist_viewmodel.dart';
+import 'package:kendden_shehere/redux/data/model/app_state_model.dart';
+import 'package:kendden_shehere/redux/data/model/newmodel/new_product_model.dart';
+import 'package:kendden_shehere/redux/data/model/newmodel/products_in_category_model.dart';
+import 'package:kendden_shehere/redux/data/model/product_model.dart';
+import 'package:kendden_shehere/redux/data/viewmodel/productlist_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem1.dart';
 import 'package:redux/redux.dart';

@@ -1,5 +1,5 @@
-import 'package:kendden_shehere/data/model/home_model.dart';
-import 'package:kendden_shehere/data/model/product_model.dart';
+import 'package:kendden_shehere/redux/data/model/home_model.dart';
+import 'package:kendden_shehere/redux/data/model/product_model.dart';
 
 class FetchProductsAction {
   String result;

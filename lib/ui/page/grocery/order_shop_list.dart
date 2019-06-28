@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kendden_shehere/data/model/order_history_model.dart';
-import 'package:kendden_shehere/data/model/product_model.dart';
+import 'package:kendden_shehere/redux/data/model/order_history_model.dart';
+import 'package:kendden_shehere/redux/data/model/product_model.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/profile_edit_dialog.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/payment_success_dialog.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/rating_star_dialog.dart';

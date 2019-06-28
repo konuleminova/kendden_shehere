@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:redux/redux.dart';
-import 'package:kendden_shehere/data/model/app_state_model.dart';
-import 'package:kendden_shehere/data/model/login_model.dart';
+import 'package:kendden_shehere/redux/data/model/app_state_model.dart';
+import 'package:kendden_shehere/redux/data/model/login_model.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;

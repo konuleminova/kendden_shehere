@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:kendden_shehere/data/model/login_model.dart';
-import 'package:kendden_shehere/data/viewmodel/login_viewmodel.dart';
+import 'package:kendden_shehere/redux/data/model/login_model.dart';
+import 'package:kendden_shehere/redux/data/viewmodel/login_viewmodel.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/localization/app_translations_delegate.dart';
 import 'package:kendden_shehere/localization/application.dart';
@@ -32,7 +32,7 @@ import 'package:kendden_shehere/ui/page/login.dart';
 import 'package:kendden_shehere/ui/page/test/old_product_detail.dart';
 import 'package:kendden_shehere/ui/page/payment/payment_method.dart';
 import 'package:kendden_shehere/ui/page/register.dart';
-import 'package:kendden_shehere/data/model/app_state_model.dart';
+import 'package:kendden_shehere/redux/data/model/app_state_model.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/reducer/app_state_reducer.dart';
 import 'package:kendden_shehere/ui/page/test/old_shopping_cart.dart';

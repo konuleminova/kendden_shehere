@@ -1,5 +1,5 @@
-import 'package:kendden_shehere/data/model/app_state_model.dart';
-import 'package:kendden_shehere/data/model/newmodel/new_product_model.dart';
+import 'package:kendden_shehere/redux/data/model/app_state_model.dart';
+import 'package:kendden_shehere/redux/data/model/newmodel/new_product_model.dart';
 import 'package:kendden_shehere/redux/middleware/thunk_productlist.dart';
 import 'package:redux/redux.dart';
 
