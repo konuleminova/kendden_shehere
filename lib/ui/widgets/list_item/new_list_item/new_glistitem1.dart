@@ -71,8 +71,13 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                 children: <Widget>[
                   GestureDetector(
                     child: Container(
-                        child: Image.network(img ??
-                            "https://via.placeholder.com/300/ffff/0000.png"),
+                        child: img == null
+                            ? Image.asset(
+                                'images/noimage.png',
+                                width: 285.0,
+                                alignment: Alignment.center,
+                              )
+                            : Image.network(img),
                         height: 150,
                         padding: EdgeInsets.only(
                             left: 10, right: 10, top: 10, bottom: 4)),

@@ -69,6 +69,7 @@ flutter:
   - images/img1.jpg
   - images/img2.jpg
   - images/img3.jpg
+  - images/noimage.png
   - images/desc.txt
   - images/delivery_terms.txt
   - images/fag.txt
