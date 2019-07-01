@@ -11,6 +11,7 @@ class NewProduct {
   String img;
   String price;
   String hasphoto;
+  String code;
 
   NewProduct(
       {this.id,
@@ -24,7 +25,7 @@ class NewProduct {
       this.counttype,
       this.img,
       this.price,
-      this.hasphoto});
+      this.hasphoto,this.code});
 
   factory NewProduct.fromJson(Map<String, dynamic> json) {
     return NewProduct(
@@ -39,7 +40,8 @@ class NewProduct {
         count: json["count"] ?? "1",
         counttype: json["counttype"] ?? "eded",
         hasphoto: json["hasphoto"] ?? "0",
-        price: json["price"] ?? "AZN");
+        price: json["price"] ?? "AZN",
+        code: json["code"] ?? "");
   }
 
   @override

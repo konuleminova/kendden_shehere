@@ -25,9 +25,12 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
   @override
   Widget build(BuildContext context) {
     product = widget.product;
-    String s = product.img.trim();
-    if (s == "") {
-      s = null;
+    String img = product.hasphoto;
+    if (img == "1") {
+      print(product.code);
+      img = "https://kenddenshehere.az/images/pr/th/" + product.code+".jpg";
+    } else {
+      img = null;
     }
     String langCode = Localizations.localeOf(context).languageCode;
     if (langCode == "tr") {
@@ -63,7 +66,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                 children: <Widget>[
                   GestureDetector(
                     child: Container(
-                        child: Image.network(s ??
+                        child: Image.network(img ??
                             "https://via.placeholder.com/300/ffff/0000.png"),
                         height: 150,
                         padding: EdgeInsets.only(
