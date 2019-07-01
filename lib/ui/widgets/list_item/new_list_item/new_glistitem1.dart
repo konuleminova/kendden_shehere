@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/redux/common/model/product_model.dart';
+import 'package:kendden_shehere/ui/page/grocery/grocery_details_page.dart';
 import 'package:kendden_shehere/ui/page/test/shop_item_model.dart';
 import 'package:kendden_shehere/redux/home/home_viewmodel.dart';
 import 'package:kendden_shehere/ui/widgets/gtile_title.dart';
@@ -82,7 +83,9 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                         padding: EdgeInsets.only(
                             left: 10, right: 10, top: 10, bottom: 4)),
                     onTap: () {
-                      Navigator.pushNamed(context, "/product_detail");
+                   //   Navigator.pushNamed(context, "/product_detail");
+                      Route route=MaterialPageRoute(builder: (BuildContext context)=>GroceryDetailsPage(product));
+                      Navigator.push(context, route);
                     },
                   ),
                   new GroceryTitle(text: title),

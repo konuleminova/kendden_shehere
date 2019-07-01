@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/redux/common/model/product_model.dart';
+import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/ui/widgets/rating_star.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/glistitem2.dart';
 import 'package:kendden_shehere/ui/widgets/gtile_title.dart';
 import 'package:share/share.dart';
 
 class GroceryDetailsPage extends StatefulWidget {
+  NewProduct product;
+
+  GroceryDetailsPage(this.product);
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -15,15 +20,28 @@ class GroceryDetailsPage extends StatefulWidget {
 
 class GroceryDetailsState extends State<GroceryDetailsPage> {
   bool isAdded = false, isLiked = false;
-
   var amount = 1;
+  String title, description;
+  NewProduct product;
+  String img;
 
   @override
   Widget build(BuildContext context) {
+    String langCode = Localizations.localeOf(context).languageCode;
+    if (langCode == "tr") {
+      title = product.name_az.trim();
+      description = product.maininfo_az.trim();
+    } else if (langCode == "en") {
+      title = product.name_en.trim();
+      description = product.maininfo_en.trim();
+    } else if (langCode == "ru") {
+      title = product.name_ru.trim();
+      description = product.maininfo_ru.trim();
+    }
     // TODO: implement build
     return Scaffold(
         appBar: new AppBar(
-            title: new Text("Product List"),
+            title: new Text(title),
             backgroundColor: Colors.lightGreen,
             actions: <Widget>[
               GestureDetector(
@@ -36,13 +54,25 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                 ),
                 onTap: () {
                   final RenderBox box = context.findRenderObject();
-                  Share.share("https://pulapul.com/PulaPul/?action=GetImage&module=Campaigns&fileid=2&d=20190503",
+                  Share.share(img,
                       sharePositionOrigin:
                           box.localToGlobal(Offset.zero) & box.size);
                 },
               )
             ]),
         body: _buildPageContent(context));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    product = widget.product;
+    img = product.hasphoto;
+    if (img == "1") {
+      img = "https://kenddenshehere.az/images/pr/th/" + product.code + ".jpg";
+    } else {
+      img = null;
+    }
   }
 
   Widget _buildPageContent(context) {
@@ -52,9 +82,7 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
           child: ListView(
             children: <Widget>[
               //_buildItemCard(context),
-              _buildItemImage(
-                  image:
-                      'https://pulapul.com/PulaPul/?action=GetImage&module=Campaigns&fileid=2&d=20190501'),
+              _buildItemImage(),
               new Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
@@ -67,11 +95,12 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                             SizedBox(
                               height: 10.0,
                             ),
-                            GroceryTitle(text: "Local Cabbage"),
+                            GroceryTitle(text: title),
                             SizedBox(
                               height: 5.0,
                             ),
-                            GrocerySubtitle(text: "1 kg" + "/ 1 azn"),
+                            GrocerySubtitle(
+                                text: product.counttype + " " + product.price),
                             new Container(
                               margin: EdgeInsets.all(6),
                               child: RatingStarWidget(5, 4, 22),
@@ -91,9 +120,7 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
               ),
               Container(
                   padding: EdgeInsets.all(20.0),
-                  child: GrocerySubtitle(
-                      text:
-                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras scelerisque nibh ut eros suscipit, vel cursus dolor imperdiet. Proin volutpat ligula eget purus maximus tristique. Pellentesque ullamcorper libero vitae metus feugiat fringilla. Ut luctus neque sed tortor placerat, faucibus mollis risus ullamcorper. Cras at nunc et odio ultrices tempor et.")),
+                  child: GrocerySubtitle(text: description)),
               new Container(
                 decoration: BoxDecoration(
                     border: new Border.all(
@@ -236,21 +263,23 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
     }
   }
 
-  Container _buildItemImage({String image}) {
+  Container _buildItemImage() {
     return Container(
-      padding: EdgeInsets.only(left: 16.0, top: 8.0, right: 16.0, bottom: 16.0),
+      padding: EdgeInsets.only(left: 20.0, top: 16.0, right: 20.0, bottom: 16.0),
       child: Material(
-        elevation: 5.0,
+        elevation: 3.0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
         child: Stack(
           children: <Widget>[
             ClipRRect(
                 borderRadius: BorderRadius.circular(5.0),
                 child: new Center(
-                  child: Image.network(
-                    "https://pulapul.com/PulaPul/?action=GetImage&module=Campaigns&fileid=5&d=20190429",
-                    fit: BoxFit.cover,
-                  ),
+                  child:img!=null? Image.network(
+                    img,
+                    fit: BoxFit.contain,
+                    scale: 1.4,
+
+                  ):Image.asset("images/noimage.png"),
                 )),
             Positioned(
               bottom: 8.0,

@@ -99,7 +99,6 @@ class MyAppState extends State<MyApp> {
           "/register": (BuildContext context) => RegisterPage(),
           "/home": (BuildContext context) => HomePage(),
           "/shopping_cart": (BuildContext context) => GroceryShopCartPage(),
-          "/product_detail": (BuildContext context) => GroceryDetailsPage(),
           "/drop_down": (BuildContext context) => DropdownMenu(),
           "/wish_list": (BuildContext context) => GroceryWishListPage(),
           "/confirm_order": (context) => ConfirmOrderPage(),
