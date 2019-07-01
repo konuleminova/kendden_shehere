@@ -83,14 +83,6 @@ class GroceryListPageState extends State<NewGroceryListPage> {
     );
   }
 
-  Future<List<NewProduct>> getProductsInCategory(
-      String limit, String page) async {
-    ProductsInCategory productsInCategory =
-        await Networks.productsInCategory(widget.id, "0", "2", limit, page);
-    print(productsInCategory.productsInCategory.toString());
-    return productsInCategory.productsInCategory;
-  }
-
   void loadMore() {
     page = page + 10;
     print(productList.toString() + "initial");
