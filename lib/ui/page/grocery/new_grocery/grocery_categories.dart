@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/redux/categories/category_item.dart';
 import 'package:kendden_shehere/redux/categories/list_categories.dart';
 import 'package:kendden_shehere/service/networks.dart';
@@ -26,6 +27,24 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
         appBar: new AppBar(
           title: new Text(widget.title.trim()),
           backgroundColor: Colors.lightGreen,
+          actions: <Widget>[
+            categories.length > 0
+                ? SizedBox(
+                    width: 0.0,
+                    height: 0.0,
+                  )
+                : PopupMenuButton<String>(
+                    onSelected: choiceAction,
+                    itemBuilder: (BuildContext context) {
+                      return Constants.choices.map((String choice) {
+                        return PopupMenuItem<String>(
+                          value: choice,
+                          child: Text(choice),
+                        );
+                      }).toList();
+                    },
+                  )
+          ],
         ),
         body: FutureBuilder(
             future: getCategories(),
@@ -87,6 +106,16 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
                 );
               }
             }));
+  }
+
+  void choiceAction(String choice) {
+    if (choice == Constants.FirstItem) {
+      print('A-Z');
+    } else if (choice == Constants.SecondItem) {
+      print('Z-A');
+    } else if (choice == Constants.ThirdItem) {
+      print('Higher to Lower');
+    }
   }
 
   @override
