@@ -21,17 +21,23 @@ class GroceryListItemOne extends StatefulWidget {
 class GroceryListItemOneState extends State<GroceryListItemOne> {
   NewProduct product;
   String title;
+  String img;
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     product = widget.product;
-    String img = product.hasphoto;
+    img = product.hasphoto;
     if (img == "1") {
       print(product.code);
-      img = "https://kenddenshehere.az/images/pr/th/" + product.code+".jpg";
+      img = "https://kenddenshehere.az/images/pr/th/" + product.code + ".jpg";
     } else {
       img = null;
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     String langCode = Localizations.localeOf(context).languageCode;
     if (langCode == "tr") {
       title = product.name_az.trim();
@@ -40,7 +46,6 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
     } else if (langCode == "ru") {
       title = product.name_ru.trim();
     }
-
     // TODO: implement build
     return Container(
       decoration: BoxDecoration(
