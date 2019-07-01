@@ -11,8 +11,9 @@ import 'package:redux/redux.dart';
 
 class NewGroceryListPage extends StatefulWidget {
   String id;
+  String order;
 
-  NewGroceryListPage({this.id});
+  NewGroceryListPage({this.id,this.order});
 
   @override
   State<StatefulWidget> createState() {
@@ -41,7 +42,7 @@ class GroceryListPageState extends State<NewGroceryListPage> {
     return StoreConnector(
       onInitialBuild: (ProductListViewModel viewModel) {
         this.viewModel = viewModel;
-        viewModel.onFetchProductList(widget.id, "10", "0");
+        viewModel.onFetchProductList(widget.id, "10", "0",widget.order);
       },
       onWillChange: (ProductListViewModel viewModel) {
         productList.addAll(viewModel.productList);
@@ -93,7 +94,7 @@ class GroceryListPageState extends State<NewGroceryListPage> {
   void loadMore() {
     page = page + 10;
     print(productList.toString() + "initial");
-    viewModel.onFetchProductList(widget.id, "10", page.toString());
+    viewModel.onFetchProductList(widget.id, "10", page.toString(),widget.order);
   }
 
   _scrollListener() {

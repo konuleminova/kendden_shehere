@@ -19,6 +19,7 @@ class GroceryCategoriesPage extends StatefulWidget {
 
 class GroceryCategoriesState extends State<GroceryCategoriesPage> {
   List<Category> categories = new List();
+  String order = "0";
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +98,10 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
                       itemCount: categories.length,
                     );
                   } else {
-                    return new NewGroceryListPage(id: widget.id);
+                    return new NewGroceryListPage(
+                      id: widget.id,
+                      order: order,
+                    );
                   }
                 }
               } else {
@@ -109,13 +113,20 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
   }
 
   void choiceAction(String choice) {
-    if (choice == Constants.FirstItem) {
-      print('A-Z');
-    } else if (choice == Constants.SecondItem) {
-      print('Z-A');
-    } else if (choice == Constants.ThirdItem) {
-      print('Higher to Lower');
-    }
+    setState(() {
+      if (choice == Constants.FirstItem) {
+        order = "1";
+        print("choice ACTION>>");
+      } else if (choice == Constants.SecondItem) {
+        order = "2";
+        print("choice ACTION>>");
+        //  order = "2";
+      } else if (choice == Constants.ThirdItem) {
+        order = "3";
+      } else {
+        order = "4";
+      }
+    });
   }
 
   @override
