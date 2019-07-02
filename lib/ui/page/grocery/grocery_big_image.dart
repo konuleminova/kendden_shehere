@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zoomable_image/zoomable_image.dart';
 
 class GroceryBigImage extends StatelessWidget {
   String code;
@@ -7,25 +8,15 @@ class GroceryBigImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String img = "https://kenddenshehere.az/images/pr/" + code + ".jpg";
     // TODO: implement build
     return new Scaffold(
-     backgroundColor: Colors.black87,
-      body: FutureBuilder(
-          future: getImage(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.hasData) {
-              return Center(child: new Container(
-              child: Image.network(snapshot.data),
-            ),);
-            } else {
-              return Center(child: new  CircularProgressIndicator(),);
-            }
-          })
-    );
-  }
-
-  Future<String> getImage() async {
-    String img = await "https://kenddenshehere.az/images/pr/" + code + ".jpg";
-    return img;
+        backgroundColor: Colors.black87,
+        body: Center(
+            child: new Container(
+                child: ZoomableImage(
+          NetworkImage(img),
+          placeholder: const Center(child: const CircularProgressIndicator()),
+        ))));
   }
 }
