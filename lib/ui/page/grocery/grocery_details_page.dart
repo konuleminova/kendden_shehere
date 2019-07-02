@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/redux/common/model/product_model.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
+import 'package:kendden_shehere/ui/page/grocery/grocery_big_image.dart';
 import 'package:kendden_shehere/ui/widgets/rating_star.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/glistitem2.dart';
 import 'package:kendden_shehere/ui/widgets/gtile_title.dart';
@@ -82,7 +83,13 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
           child: ListView(
             children: <Widget>[
               //_buildItemCard(context),
-              _buildItemImage(),
+              GestureDetector(
+                child: _buildItemImage(),
+                onTap: () {
+                  Route route=MaterialPageRoute(builder: (BuildContext context)=>GroceryBigImage(code: product.code,));
+                  Navigator.push(context, route);
+                },
+              ),
               new Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
@@ -265,7 +272,8 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
 
   Container _buildItemImage() {
     return Container(
-      padding: EdgeInsets.only(left: 20.0, top: 16.0, right: 20.0, bottom: 16.0),
+      padding:
+          EdgeInsets.only(left: 20.0, top: 16.0, right: 20.0, bottom: 16.0),
       child: Material(
         elevation: 3.0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
@@ -274,12 +282,13 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
             ClipRRect(
                 borderRadius: BorderRadius.circular(5.0),
                 child: new Center(
-                  child:img!=null? Image.network(
-                    img,
-                    fit: BoxFit.contain,
-                    scale: 1.4,
-
-                  ):Image.asset("images/noimage.png"),
+                  child: img != null
+                      ? Image.network(
+                          img,
+                          fit: BoxFit.contain,
+                          scale: 1.4,
+                        )
+                      : Image.asset("images/noimage.png"),
                 )),
             Positioned(
               bottom: 8.0,
