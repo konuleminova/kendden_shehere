@@ -23,6 +23,8 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
   NewProduct product;
   String title;
   String img;
+  bool isAdded = false, isLiked = false;
+  int amount = 1;
 
   @override
   void initState() {
@@ -83,8 +85,10 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                         padding: EdgeInsets.only(
                             left: 10, right: 10, top: 10, bottom: 4)),
                     onTap: () {
-                   //   Navigator.pushNamed(context, "/product_detail");
-                      Route route=MaterialPageRoute(builder: (BuildContext context)=>GroceryDetailsPage(product));
+                      //   Navigator.pushNamed(context, "/product_detail");
+                      Route route = MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              GroceryDetailsPage(product));
                       Navigator.push(context, route);
                     },
                   ),
@@ -106,21 +110,15 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                           new Container(
                             child: IconButton(
                               icon: Icon(
-                                Icons.favorite_border,
+                                isLiked
+                                    ? Icons.favorite
+                                    : Icons.favorite_border,
                                 color: Colors.pink[400],
                                 size: 30,
                               ),
                               onPressed: () {
                                 setState(() {
-                                  if (product != null) {
-                                    //  product.isLiked = false;
-                                    //  widget.viewModel.removeWishItem(product);
-                                    // widget.viewModel.onAddedProduct(shopItem);
-                                  } else {
-                                    //product.isLiked = true;
-                                    //  widget.viewModel.addWishItem(product);
-                                    // widget.viewModel.onAddedProduct(shopItem);
-                                  }
+                                  isLiked = !isLiked;
                                 });
                               },
                             ),
@@ -146,7 +144,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
   }
 
   addedWidget() {
-    if (product != null) {
+    if (!isAdded) {
       return new Container(
         alignment: Alignment.bottomRight,
         child: IconButton(
@@ -157,7 +155,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
             ),
             onPressed: () {
               setState(() {
-                // product.isAdded = true;
+                isAdded = true;
                 //  widget.viewModel.addShopItem(product);
               });
             }),
@@ -179,24 +177,24 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
               child: new Icon(Icons.remove),
               onTap: () {
                 setState(() {
-                  //   product.amount--;
-                  //  if (product.amount < 1) {
-                  // product.isAdded = false;
-                  // product.amount = 1;
-                  // }
+                  amount--;
+                  if (amount < 1) {
+                    isAdded = false;
+                    amount = 1;
+                  }
                   // widget.viewModel.removeShopItem(product);
                 });
               },
             ),
             new Text(
-              product.count,
+              amount.toString(),
               style: new TextStyle(fontSize: 18),
             ),
             new GestureDetector(
               child: new Icon(Icons.add),
               onTap: () {
                 setState(() {
-                  //  product.amount++;
+                  amount++;
                 });
               },
             ),
