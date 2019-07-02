@@ -6,9 +6,9 @@ class ProductsInCategory {
   ProductsInCategory({this.productsInCategory});
 
   factory ProductsInCategory.fromJson(List<dynamic> json) {
-    List<NewProduct> photos = new List<NewProduct>();
-    photos = json.map((i) => NewProduct.fromJson(i)).toList();
-    return ProductsInCategory(productsInCategory: photos);
+    List<NewProduct> products = new List<NewProduct>();
+    products = json.map((i) => NewProduct.fromJson(i)).toList();
+    return ProductsInCategory(productsInCategory: products);
   }
 
   ProductsInCategory copyWith({List<NewProduct> productsInCategory}) {

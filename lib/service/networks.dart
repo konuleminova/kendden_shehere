@@ -8,6 +8,8 @@ import 'package:kendden_shehere/redux/login/user_model.dart';
 import 'package:kendden_shehere/redux/common/model/product_model.dart';
 import 'package:kendden_shehere/redux/productlist/products_in_category_model.dart';
 import 'package:kendden_shehere/redux/login/thunk_login.dart';
+import 'package:kendden_shehere/redux/wishlist/list_wish_model.dart';
+import 'package:kendden_shehere/redux/wishlist/wishlist_model.dart';
 
 class Networks {
   static final String BASE_URL = "http://35.240.80.11/app/";
@@ -60,6 +62,7 @@ class Networks {
   static String LIST_CATEGORIES = BASE_KS_URL + "list_categories";
   static var PRODUCTS_IN_CATEGORY = BASE_KS_URL + "productincat&id=";
   static var BANNER_IMAGES = BASE_KS_URL + "bannerimages";
+  static var WISH_LIST = BASE_KS_URL + "wishlist";
 
   static dynamic login(String username, String password) async {
     String LOGIN = BASE_KS_URL + "login&l=" + username + "&p=" + password;
@@ -95,7 +98,7 @@ class Networks {
       final response = await http.get(PRODUCTS_IN_CATEGORY +
           id +
           "&order=${order}&lang=${lang}&limit=${limit}&start=${start}");
-      print(id+".. product id ");
+      print(id + ".. product id ");
       if (response.statusCode == 200) {
         return ProductsInCategory.fromJson(json.decode(response.body));
       } else {
@@ -111,6 +114,20 @@ class Networks {
         List<String> photos =
             json.decode(response.body).map<String>((m) => m as String).toList();
         return photos;
+      } else {
+        return null;
+      }
+    } catch (exception) {}
+  }
+
+  static dynamic wishList(String id) async {
+    try {
+      final response = await http.get(WISH_LIST+"&id=${id}");
+      if (response.statusCode == 200) {
+       // print(WishListModel.fromJson(json.decode(response.body)));
+       // print(WishListModel.fromJson(json.decode(response.body)));
+        print("code");
+         return List_Wish_Model.fromJson(json.decode(response.body));
       } else {
         return null;
       }

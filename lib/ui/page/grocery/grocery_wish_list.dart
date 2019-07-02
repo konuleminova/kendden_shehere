@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
+import 'package:kendden_shehere/redux/wishlist/list_wish_model.dart';
 import 'package:kendden_shehere/redux/wishlist/wishlist_viewmodel.dart';
+import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/test/shop_item_model.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
@@ -20,10 +23,23 @@ class GroceryWishListPage extends StatefulWidget {
 
 class GroceryWishListPageState extends State<GroceryWishListPage> {
   List<Product> wishItems;
+  List<NewProduct>tempWishItems;
   double width;
   WishListViewModel viewModel;
 
   var increment = 1;
+
+  @override
+  void initState() {
+    super.initState();
+    wishItems = new List<Product>();
+    tempWishItems = new List<NewProduct>();
+    // store.state.products[0].status=true;
+    // wishItems.clear();
+
+
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,17 +48,22 @@ class GroceryWishListPageState extends State<GroceryWishListPage> {
     return new StoreConnector(
         onInitialBuild: (WishListViewModel viewModel) {},
         onInit: (store) {
-          wishItems = new List<Product>();
-          // store.state.products[0].status=true;
-          // wishItems.clear();
-          for (int i = 0; i < store.state.wishItems.length; i++) {
+          Future<dynamic> response= Networks.wishList("179");
+          response.then((onValue){
+            print(onValue.productsInCategory[0].list[0].name_en);
+            tempWishItems.addAll(onValue.productsInCategory[0].list);
+            print(tempWishItems);
+            for (int i = 0; i < tempWishItems.length; i++) {
               wishItems.add(new Product(
-                title: store.state.wishItems[i].title,
-                subtitle:store.state.wishItems[i].subtitle,
+                title:tempWishItems[i].name_en,
+                subtitle: tempWishItems[i].maininfo_en,
                 price: "2 Azn",
-                image: store.state.wishItems[i].image,
+                image:  "https://kenddenshehere.az/images/pr/th/" +  tempWishItems[i].code + ".jpg",
               ));
-          }
+
+            }
+            print(wishItems);
+          });
           /*if(store.state.products[0].status){
             wishItems.add(new ShopItem(
                 title: store.state.products[0].title,
@@ -51,11 +72,10 @@ class GroceryWishListPageState extends State<GroceryWishListPage> {
           }
           */
           //store.state.shopItems.clear();
-       //   store.state.shopItems.addAll(wishItems);
+          //   store.state.shopItems.addAll(wishItems);
           //this.wishItems=store.state.wishItems;
         },
-        converter: (Store<AppState> store) =>
-            WishListViewModel.create(store),
+        converter: (Store<AppState> store) => WishListViewModel.create(store),
         builder: (BuildContext context, WishListViewModel viewModel) {
           this.viewModel = viewModel;
           return new Scaffold(
@@ -87,9 +107,9 @@ class GroceryWishListPageState extends State<GroceryWishListPage> {
   Widget _shopBody() => new Container(
         margin: EdgeInsets.only(bottom: 16, top: 16, left: 10, right: 12),
         child: new ListView(
-          shrinkWrap: true,
-          physics: ClampingScrollPhysics(),
-          children: viewModel.wishItems
+          //shrinkWrap: true,
+         // physics: ClampingScrollPhysics(),
+          children: wishItems
               .map((Product shopItem) => _buildWishListItem(shopItem))
               .toList(),
         ),
@@ -100,7 +120,7 @@ class GroceryWishListPageState extends State<GroceryWishListPage> {
           GroceryListItemTwo(new Product(
               image: shopItem.image,
               title: shopItem.title,
-              subtitle: shopItem.subtitle,
+              subtitle: shopItem.title,
               price: shopItem.price,
               isLiked: true,
               isAdded: false,
