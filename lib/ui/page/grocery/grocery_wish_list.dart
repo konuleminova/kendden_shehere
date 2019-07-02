@@ -46,7 +46,7 @@ class GroceryWishListPageState extends State<GroceryWishListPage> {
         onInitialBuild: (WishListViewModel viewModel) {
           viewModel.onFetchWishList("179");
         },
-       /* onInit: (store) {
+        /* onInit: (store) {
           Future<dynamic> response = Networks.wishList("179");
           response.then((onValue) {
             print(onValue.productsInCategory[0].list[0].name_en);
@@ -82,39 +82,38 @@ class GroceryWishListPageState extends State<GroceryWishListPage> {
         converter: (Store<AppState> store) => WishListViewModel.create(store),
         builder: (BuildContext context, WishListViewModel viewModel) {
           this.viewModel = viewModel;
-          return FutureBuilder(
-              future: getWishList("179"),
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (snapshot.hasData) {
-                  return new Scaffold(
-                    appBar: new AppBar(
-                      backgroundColor: Colors.lightGreen,
-                      title: new Text("Wish List"),
-                      actions: <Widget>[
-                        new Container(
-                          child: new Icon(
-                            Icons.delete,
-                            color: Colors.white,
+          return new Scaffold(
+              appBar: new AppBar(
+                backgroundColor: Colors.lightGreen,
+                title: new Text("Wish List"),
+                actions: <Widget>[
+                  new Container(
+                    child: new Icon(
+                      Icons.delete,
+                      color: Colors.white,
+                    ),
+                    margin: EdgeInsets.only(right: 16),
+                  )
+                ],
+              ),
+              body: FutureBuilder(
+                  future: getWishList("179"),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if (snapshot.hasData) {
+                      return Column(
+                        children: <Widget>[
+                          Expanded(child: _shopBody()),
+                          SizedBox(
+                            height: 10.0,
                           ),
-                          margin: EdgeInsets.only(right: 16),
-                        )
-                      ],
-                    ),
-                    body: Column(
-                      children: <Widget>[
-                        Expanded(child: _shopBody()),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                      ],
-                    ),
-                  );
-                } else {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              });
+                        ],
+                      );
+                    } else {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  }));
         });
   }
 
@@ -132,7 +131,9 @@ class GroceryWishListPageState extends State<GroceryWishListPage> {
   Widget _buildWishListItem(NewProduct shopItem) => new Stack(
         children: <Widget>[
           GroceryListItemTwo(new Product(
-              image: "https://kenddenshehere.az/images/pr/th/" +shopItem.code + ".jpg",
+              image: "https://kenddenshehere.az/images/pr/th/" +
+                  shopItem.code +
+                  ".jpg",
               title: shopItem.name_en,
               subtitle: shopItem.name_en,
               price: shopItem.price,
