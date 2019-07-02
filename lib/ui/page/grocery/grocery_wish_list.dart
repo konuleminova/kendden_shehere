@@ -26,6 +26,7 @@ class GroceryWishListPageState extends State<GroceryWishListPage> {
   List<NewProduct> tempWishItems;
   double width;
   WishListViewModel viewModel;
+  String title, description;
 
   var increment = 1;
 
@@ -34,8 +35,6 @@ class GroceryWishListPageState extends State<GroceryWishListPage> {
     super.initState();
     wishItems = new List<Product>();
     tempWishItems = new List<NewProduct>();
-    // store.state.products[0].status=true;
-    // wishItems.clear();
   }
 
   @override
@@ -46,36 +45,6 @@ class GroceryWishListPageState extends State<GroceryWishListPage> {
         onInitialBuild: (WishListViewModel viewModel) {
           viewModel.onFetchWishList("179");
         },
-        /* onInit: (store) {
-          Future<dynamic> response = Networks.wishList("179");
-          response.then((onValue) {
-            print(onValue.productsInCategory[0].list[0].name_en);
-            tempWishItems.addAll(onValue.productsInCategory[0].list);
-            print(tempWishItems);
-            for (int i = 0; i < tempWishItems.length; i++) {
-              wishItems.add(new Product(
-                title: tempWishItems[i].name_en,
-                subtitle: tempWishItems[i].maininfo_en,
-                price: "2 Azn",
-                image: "https://kenddenshehere.az/images/pr/th/" +
-                    tempWishItems[i].code +
-                    ".jpg",
-              ));
-            }
-            print(wishItems);
-          });
-          /*if(store.state.products[0].status){
-            wishItems.add(new ShopItem(
-                title: store.state.products[0].title,
-                description: "Dummy Text",
-                price: "2 Azn"));
-          }
-          */
-          //store.state.shopItems.clear();
-          //   store.state.shopItems.addAll(wishItems);
-          //this.wishItems=store.state.wishItems;
-        },
-        */
         onWillChange: (WishListViewModel viewModel) {
           tempWishItems.addAll(viewModel.wishItems);
         },
@@ -128,20 +97,30 @@ class GroceryWishListPageState extends State<GroceryWishListPage> {
         ),
       );
 
-  Widget _buildWishListItem(NewProduct shopItem) => new Stack(
-        children: <Widget>[
-          GroceryListItemTwo(new Product(
-              image: "https://kenddenshehere.az/images/pr/th/" +
-                  shopItem.code +
-                  ".jpg",
-              title: shopItem.name_en,
-              subtitle: shopItem.name_en,
-              price: shopItem.price,
-              isLiked: true,
-              isAdded: false,
-              amount: 1)),
-        ],
-      );
+  Widget _buildWishListItem(NewProduct shopItem) {
+    String langCode = Localizations.localeOf(context).languageCode;
+    if (langCode == "tr") {
+      title = shopItem.name_az.trim();
+    } else if (langCode == "en") {
+      title = shopItem.name_en.trim();
+    } else if (langCode == "ru") {
+      title = shopItem.name_ru.trim();
+    }
+    return new Stack(
+      children: <Widget>[
+        GroceryListItemTwo(new Product(
+            image: "https://kenddenshehere.az/images/pr/th/" +
+                shopItem.code +
+                ".jpg",
+            title: title,
+            subtitle: title,
+            price: shopItem.price,
+            isLiked: true,
+            isAdded: false,
+            amount: 1)),
+      ],
+    );
+  }
 
   Future<List_Wish_Model> getWishList(id) async {
     List_Wish_Model wishList = await Networks.wishList(id);
