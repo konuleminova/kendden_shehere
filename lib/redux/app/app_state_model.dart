@@ -15,6 +15,7 @@ class AppState {
   List<Product> wishItems;
   String lang;
   List<NewProduct> newProducts;
+  String filterOrder;
 
   AppState.initialState()
       : user_info = UserModel(),
@@ -23,7 +24,7 @@ class AppState {
         products = new List<Product>(),
         wishItems = new List<Product>(),
         newProducts = new List<NewProduct>(),
-        lang = "tr";
+        lang = "tr",filterOrder="0";
 
   AppState(
       {this.user_info,
@@ -33,7 +34,7 @@ class AppState {
       this.products,
       this.wishItems,
       this.lang,
-      this.newProducts});
+      this.newProducts,this.filterOrder});
 
   @override
   String toString() {
