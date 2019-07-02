@@ -13,7 +13,7 @@ class NewGroceryListPage extends StatefulWidget {
   String id;
   String order;
 
-  NewGroceryListPage({this.id,this.order});
+  NewGroceryListPage({this.id, this.order});
 
   @override
   State<StatefulWidget> createState() {
@@ -42,15 +42,17 @@ class GroceryListPageState extends State<NewGroceryListPage> {
     return StoreConnector(
       onInitialBuild: (ProductListViewModel viewModel) {
         this.viewModel = viewModel;
-        viewModel.onFetchProductList(widget.id, "10", "0",viewModel.order);
+        viewModel.onFetchProductList(widget.id, "10", "0", viewModel.order);
       },
       onWillChange: (ProductListViewModel viewModel) {
         productList.addAll(viewModel.productList);
-
+        if (viewModel.order != widget.order) {
+         // productList.clear();
+        }
       },
       onDidChange: (ProductListViewModel viewModel){
-       // productList.clear();
-
+        //viewModel.onFetchProductList(widget.id, "10", "0", viewModel.order);
+       // productList.addAll(viewModel.productList);
       },
       converter: (Store<AppState> store) => ProductListViewModel.create(store),
       builder: (BuildContext context, ProductListViewModel) {
@@ -91,7 +93,8 @@ class GroceryListPageState extends State<NewGroceryListPage> {
   void loadMore() {
     page = page + 10;
     print(productList.toString() + "initial");
-    viewModel.onFetchProductList(widget.id, "10", page.toString(),widget.order);
+    viewModel.onFetchProductList(
+        widget.id, "10", page.toString(), widget.order);
   }
 
   _scrollListener() {
