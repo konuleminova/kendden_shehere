@@ -12,7 +12,7 @@ class AppState {
   List<Product> products;
   int code;
   List<Product> shopItems;
-  List<Product> wishItems;
+  List<NewProduct> wishItems;
   String lang;
   List<NewProduct> newProducts;
   String filterOrder;
@@ -22,7 +22,7 @@ class AppState {
         home = Home(),
         shopItems = new List<Product>(),
         products = new List<Product>(),
-        wishItems = new List<Product>(),
+        wishItems = new List<NewProduct>(),
         newProducts = new List<NewProduct>(),
         lang = "tr",filterOrder="0";
 

@@ -23,7 +23,7 @@ class GroceryWishListPage extends StatefulWidget {
 
 class GroceryWishListPageState extends State<GroceryWishListPage> {
   List<Product> wishItems;
-  List<NewProduct>tempWishItems;
+  List<NewProduct> tempWishItems;
   double width;
   WishListViewModel viewModel;
 
@@ -36,9 +36,6 @@ class GroceryWishListPageState extends State<GroceryWishListPage> {
     tempWishItems = new List<NewProduct>();
     // store.state.products[0].status=true;
     // wishItems.clear();
-
-
-
   }
 
   @override
@@ -46,21 +43,24 @@ class GroceryWishListPageState extends State<GroceryWishListPage> {
     width = MediaQuery.of(context).size.width;
     // TODO: implement build
     return new StoreConnector(
-        onInitialBuild: (WishListViewModel viewModel) {},
-        onInit: (store) {
-          Future<dynamic> response= Networks.wishList("179");
-          response.then((onValue){
+        onInitialBuild: (WishListViewModel viewModel) {
+          viewModel.onFetchWishList("179");
+        },
+       /* onInit: (store) {
+          Future<dynamic> response = Networks.wishList("179");
+          response.then((onValue) {
             print(onValue.productsInCategory[0].list[0].name_en);
             tempWishItems.addAll(onValue.productsInCategory[0].list);
             print(tempWishItems);
             for (int i = 0; i < tempWishItems.length; i++) {
               wishItems.add(new Product(
-                title:tempWishItems[i].name_en,
+                title: tempWishItems[i].name_en,
                 subtitle: tempWishItems[i].maininfo_en,
                 price: "2 Azn",
-                image:  "https://kenddenshehere.az/images/pr/th/" +  tempWishItems[i].code + ".jpg",
+                image: "https://kenddenshehere.az/images/pr/th/" +
+                    tempWishItems[i].code +
+                    ".jpg",
               ));
-
             }
             print(wishItems);
           });
@@ -75,32 +75,46 @@ class GroceryWishListPageState extends State<GroceryWishListPage> {
           //   store.state.shopItems.addAll(wishItems);
           //this.wishItems=store.state.wishItems;
         },
+        */
+        onWillChange: (WishListViewModel viewModel) {
+          tempWishItems.addAll(viewModel.wishItems);
+        },
         converter: (Store<AppState> store) => WishListViewModel.create(store),
         builder: (BuildContext context, WishListViewModel viewModel) {
           this.viewModel = viewModel;
-          return new Scaffold(
-            appBar: new AppBar(
-              backgroundColor: Colors.lightGreen,
-              title: new Text("Wish List"),
-              actions: <Widget>[
-                new Container(
-                  child: new Icon(
-                    Icons.delete,
-                    color: Colors.white,
-                  ),
-                  margin: EdgeInsets.only(right: 16),
-                )
-              ],
-            ),
-            body: Column(
-              children: <Widget>[
-                Expanded(child: _shopBody()),
-                SizedBox(
-                  height: 10.0,
-                ),
-              ],
-            ),
-          );
+          return FutureBuilder(
+              future: getWishList("179"),
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                if (snapshot.hasData) {
+                  return new Scaffold(
+                    appBar: new AppBar(
+                      backgroundColor: Colors.lightGreen,
+                      title: new Text("Wish List"),
+                      actions: <Widget>[
+                        new Container(
+                          child: new Icon(
+                            Icons.delete,
+                            color: Colors.white,
+                          ),
+                          margin: EdgeInsets.only(right: 16),
+                        )
+                      ],
+                    ),
+                    body: Column(
+                      children: <Widget>[
+                        Expanded(child: _shopBody()),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                      ],
+                    ),
+                  );
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              });
         });
   }
 
@@ -108,23 +122,28 @@ class GroceryWishListPageState extends State<GroceryWishListPage> {
         margin: EdgeInsets.only(bottom: 16, top: 16, left: 10, right: 12),
         child: new ListView(
           //shrinkWrap: true,
-         // physics: ClampingScrollPhysics(),
-          children: wishItems
-              .map((Product shopItem) => _buildWishListItem(shopItem))
+          // physics: ClampingScrollPhysics(),
+          children: tempWishItems
+              .map((NewProduct shopItem) => _buildWishListItem(shopItem))
               .toList(),
         ),
       );
 
-  Widget _buildWishListItem(Product shopItem) => new Stack(
+  Widget _buildWishListItem(NewProduct shopItem) => new Stack(
         children: <Widget>[
           GroceryListItemTwo(new Product(
-              image: shopItem.image,
-              title: shopItem.title,
-              subtitle: shopItem.title,
+              image: "https://kenddenshehere.az/images/pr/th/" +shopItem.code + ".jpg",
+              title: shopItem.name_en,
+              subtitle: shopItem.name_en,
               price: shopItem.price,
               isLiked: true,
               isAdded: false,
               amount: 1)),
         ],
       );
+
+  Future<List_Wish_Model> getWishList(id) async {
+    List_Wish_Model wishList = await Networks.wishList(id);
+    return wishList;
+  }
 }

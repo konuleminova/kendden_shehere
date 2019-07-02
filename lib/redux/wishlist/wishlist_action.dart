@@ -1,14 +1,19 @@
 import 'package:kendden_shehere/redux/common/model/product_model.dart';
+import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 
 class RemoveWishItemAction {
-  List<Product> wishItems;
-  Product removeWishItem;
+  List<NewProduct> wishItems;
+  NewProduct removeWishItem;
 
   RemoveWishItemAction({this.wishItems, this.removeWishItem});
 }
 
 class AddWishItemAction {
-  Product product;
+  NewProduct product;
 
   AddWishItemAction({this.product});
+}
+class FetchWishListAction {
+  List<NewProduct> data;
+  FetchWishListAction({this.data});
 }

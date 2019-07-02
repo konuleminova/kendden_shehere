@@ -40,11 +40,11 @@ class HomeViewModel {
     }
 
     _addWishItem(Product product) {
-      store.dispatch(AddWishItemAction(product: product));
+     // store.dispatch(AddWishItemAction(product: product));
     }
 
     _removeWishItem(Product product) {
-      store.dispatch(RemoveWishItemAction(removeWishItem: product));
+    //  store.dispatch(RemoveWishItemAction(removeWishItem: product));
     }
 
     _changeLang(String lang) {
