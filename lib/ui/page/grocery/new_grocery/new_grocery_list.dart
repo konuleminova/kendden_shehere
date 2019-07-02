@@ -42,10 +42,15 @@ class GroceryListPageState extends State<NewGroceryListPage> {
     return StoreConnector(
       onInitialBuild: (ProductListViewModel viewModel) {
         this.viewModel = viewModel;
-        viewModel.onFetchProductList(widget.id, "10", "0",widget.order);
+        viewModel.onFetchProductList(widget.id, "10", "0",viewModel.order);
       },
       onWillChange: (ProductListViewModel viewModel) {
         productList.addAll(viewModel.productList);
+
+      },
+      onDidChange: (ProductListViewModel viewModel){
+       // productList.clear();
+
       },
       converter: (Store<AppState> store) => ProductListViewModel.create(store),
       builder: (BuildContext context, ProductListViewModel) {
