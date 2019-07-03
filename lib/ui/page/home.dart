@@ -3,7 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/localization/application.dart';
+import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
+import 'package:kendden_shehere/redux/productlist/productlist_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
+import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem1.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/common/model/product_model.dart';
@@ -12,7 +15,6 @@ import 'package:kendden_shehere/redux/home/home_viewmodel.dart';
 import 'package:kendden_shehere/ui/page/test/old_test_cards.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_list.dart';
 import 'package:kendden_shehere/ui/widgets/drawer.dart';
-import 'package:kendden_shehere/ui/widgets/list_item/glistitem1.dart';
 import 'package:kendden_shehere/ui/page/test/old_product_list_item.dart';
 import 'package:kendden_shehere/ui/widgets/rating_star.dart';
 import 'package:kendden_shehere/ui/widgets/search.dart';
@@ -29,11 +31,11 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-  List<Product> productList;
+  List<NewProduct> productList;
   ScrollController _scrollController, _scrollControllerSecond;
   String message;
   final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
-  HomeViewModel viewModel;
+  ProductListViewModel viewModel;
   int page = 0;
   double height = 0;
   double width = 0;
@@ -68,49 +70,15 @@ class HomePageState extends State<HomePage> {
     height = MediaQuery.of(context).size.height;
     // TODO: implement build
     return StoreConnector(
-        onInitialBuild: (HomeViewModel viewModel) {
-          viewModel.onFetchProductList(10, page);
+        onInitialBuild: (ProductListViewModel viewModel) {
           this.viewModel = viewModel;
+          viewModel.onFetchProductList("15", "10", "0", viewModel.order);
         },
-        converter: (Store<AppState> store) => HomeViewModel.create(store),
-        onInit: (store) {
-          store.onChange.listen((onData) {
-            if (onData != null) {
-              try {
-                productList.addAll(onData.products);
-                // productList[0].status = true;
-                //onData.home.data = productList;
-                for (int i = 0; i < productList.length; i++) {
-                  if (productList[i].isAdded) {
-                    counter = 0;
-                    print(productList[i].isAdded.toString() + i.toString());
-                    setState(() {
-                      counter++;
-                    });
-                  } else {
-                    //counter--;
-                  }
-                }
-                onData.home.products = productList;
-                productList.clear();
-                // productList[0].status=true;
-                /*   for(int i=0;i<productList.length;i++){
-
-                  if (productList[i].status) {
-                    onData.shopItems.add(new ShopItem(
-                        title: productList[i].title,
-                        description: "Dummy Text",
-                        price: "2 Azn"));
-                  }
-                }
-                */
-
-              } catch (exceptoon) {}
-              // print("//" + onData.campaign.data.toString() + "...");
-            }
-          });
+        onWillChange: (ProductListViewModel viewModel) {
+          productList.addAll(viewModel.productList);
         },
-        builder: (BuildContext context, HomeViewModel viewModel) {
+        converter: (Store<AppState> store) => ProductListViewModel.create(store),
+        builder: (BuildContext context, ProductListViewModel viewModel) {
           return new Scaffold(
               key: scaffoldKey,
               appBar: new AppBar(
@@ -361,13 +329,11 @@ class HomePageState extends State<HomePage> {
         print(message);
       });
     }
-  }
-
-  void loadMore() {
-    page++;
-    if (viewModel != null) {
-      viewModel.onFetchProductList(10, page);
-    }
+  } void loadMore() {
+    page = page + 10;
+    print(productList.toString() + "initial");
+    viewModel.onFetchProductList(
+        "15", "10", page.toString(), "0");
   }
 
   _buildCard() => new Container(
@@ -377,19 +343,18 @@ class HomePageState extends State<HomePage> {
           controller: _scrollController,
           itemBuilder: (BuildContext context, int index) {
             return Container(
-                width: width * 0.48,
-                height: 350,
+                width: MediaQuery.of(context).size.width * 0.5,
+                height: 360,
                 child: InkWell(
                   child: GroceryListItemOne(
                     product: productList[index],
-                    viewModel: viewModel,
                   ),
                 ));
           },
           itemCount: productList.length,
         ),
         width: width,
-        height: 340,
+        height: 360,
       );
 }
 //Search Widget
