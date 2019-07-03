@@ -137,7 +137,7 @@ class Networks {
 
   static dynamic search(String lang, String query) async {
     try {
-      final response = await http.get(SEARCh + "&q=a&lang=0");
+      final response = await http.get(SEARCh + "&q=${query}+&lang=${lang}");
       // print(WishListModel.fromJson(json.decode(response.body)));
       // print(WishListModel.fromJson(json.decode(response.body)));
       print("code");

@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
+import 'package:kendden_shehere/redux/productlist/productlist_viewmodel.dart';
 import 'package:kendden_shehere/redux/productlist/products_in_category_model.dart';
+import 'package:kendden_shehere/redux/search/search_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_list.dart';
 import 'package:kendden_shehere/ui/page/test/old_test_cards.dart';
+import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem1.dart';
+import 'package:redux/redux.dart';
 
 class SearchWidget extends SearchDelegate<String> {
+  ScrollController _scrollController;
+  int page = 0;
+  List<NewProduct> productList=new List();
+  SearchListViewModel viewModel;
   final vegetables = [
     "apple",
     "alfalfa sprout",
@@ -164,7 +174,55 @@ class SearchWidget extends SearchDelegate<String> {
   Widget buildResults(BuildContext context) {
     // print(products.productsInCategory);
     // TODO: implement buildResults
-    return CardsPage();
+      // TODO: implement build
+      return StoreConnector(
+        onInitialBuild: (SearchListViewModel viewModel) {
+          this.viewModel = viewModel;
+          viewModel.onFetchProductList("0",query);
+          productList.clear();
+        },
+        onWillChange: (SearchListViewModel viewModel) {
+
+          productList.addAll(viewModel.productList);
+        },
+        onDidChange: (SearchListViewModel viewModel){
+          //viewModel.onFetchProductList(widget.id, "10", "0", viewModel.order);
+          // productList.addAll(viewModel.productList);
+        },
+        converter: (Store<AppState> store) => SearchListViewModel.create(store),
+        builder: (BuildContext context, SearchListViewModel) {
+          return productList != null
+              ? new CustomScrollView(
+            controller: _scrollController,
+            slivers: <Widget>[
+              SliverPadding(
+                  padding: const EdgeInsets.all(8),
+                  sliver: new SliverGrid(
+                      gridDelegate:
+                      SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisSpacing: 1,
+                          mainAxisSpacing: 1,
+                          crossAxisCount: 2,
+                          childAspectRatio: 0.5),
+                      delegate: new SliverChildBuilderDelegate(
+                              (BuildContext context, int index) {
+                            return Container(
+                                width: MediaQuery.of(context).size.width * 0.6,
+                                height: 370,
+                                child: InkWell(
+                                  child: GroceryListItemOne(
+                                    product: productList[index],
+                                  ),
+                                ));
+                          }, childCount: productList.length)))
+            ],
+            // controller: _scrollController,
+          )
+              : Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      );
   }
 
   @override
