@@ -64,8 +64,9 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemTwo> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       new GroceryTitle(text: title),
-                      new GrocerySubtitle(text: subtitle),
-                      new GrocerySubtitle(text: product.price),
+                      new GrocerySubtitle(text: product.price+" AZN"),
+                      new GrocerySubtitle(text: product.counttype),
+
                     ],
                   ),
                 ),

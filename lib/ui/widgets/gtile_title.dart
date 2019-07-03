@@ -29,6 +29,6 @@ class GroceryTitle extends StatelessWidget {
     return Text(text, style: TextStyle(
       fontWeight: FontWeight.w700,
       fontSize: 15.0
-    ),maxLines: 1,);
+    ));
   }
 }
