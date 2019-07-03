@@ -20,7 +20,7 @@ class NewGroceryListItemTwo extends StatefulWidget {
 class NewGroceryListItemTwoState extends State<NewGroceryListItemTwo> {
   NewProduct product;
   String image, title, subtitle;
-  bool isAdded, isLiked;
+  bool isAdded=false, isLiked=false;
 
   int amount;
 
@@ -36,8 +36,6 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemTwo> {
     } else if (langCode == "ru") {
       title = product.name_ru.trim();
     }
-    isLiked = true;
-    isAdded = false;
     subtitle = title;
     amount = 0;
 
@@ -74,16 +72,15 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemTwo> {
                   children: <Widget>[
                     IconButton(
                       icon: Icon(
-                        isLiked ? Icons.favorite : Icons.favorite_border,
+                        isLiked
+                            ? Icons.favorite
+                            : Icons.favorite_border,
                         color: Colors.pink[400],
+                        size: 25,
                       ),
                       onPressed: () {
                         setState(() {
-                          if (isLiked) {
-                            isLiked = false;
-                          } else {
-                            isLiked = true;
-                          }
+                          isLiked = !isLiked;
                         });
                       },
                     ),
