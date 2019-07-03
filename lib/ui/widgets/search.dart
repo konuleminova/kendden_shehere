@@ -14,7 +14,7 @@ import 'package:redux/redux.dart';
 class SearchWidget extends SearchDelegate<String> {
   ScrollController _scrollController;
   int page = 0;
-  List<NewProduct> productList=new List();
+  List<NewProduct> productList = new List();
   SearchListViewModel viewModel;
   final vegetables = [
     "apple",
@@ -174,37 +174,36 @@ class SearchWidget extends SearchDelegate<String> {
   Widget buildResults(BuildContext context) {
     // print(products.productsInCategory);
     // TODO: implement buildResults
-      // TODO: implement build
-      return StoreConnector(
-        onInitialBuild: (SearchListViewModel viewModel) {
-          this.viewModel = viewModel;
-          viewModel.onFetchProductList("0",query);
-          productList.clear();
-        },
-        onWillChange: (SearchListViewModel viewModel) {
-
-          productList.addAll(viewModel.productList);
-        },
-        onDidChange: (SearchListViewModel viewModel){
-          //viewModel.onFetchProductList(widget.id, "10", "0", viewModel.order);
-          // productList.addAll(viewModel.productList);
-        },
-        converter: (Store<AppState> store) => SearchListViewModel.create(store),
-        builder: (BuildContext context, SearchListViewModel) {
-          return productList != null
-              ? new CustomScrollView(
-            controller: _scrollController,
-            slivers: <Widget>[
-              SliverPadding(
-                  padding: const EdgeInsets.all(8),
-                  sliver: new SliverGrid(
-                      gridDelegate:
-                      SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisSpacing: 1,
-                          mainAxisSpacing: 1,
-                          crossAxisCount: 2,
-                          childAspectRatio: 0.5),
-                      delegate: new SliverChildBuilderDelegate(
+    // TODO: implement build
+    return StoreConnector(
+      onInitialBuild: (SearchListViewModel viewModel) {
+        this.viewModel = viewModel;
+        viewModel.onFetchProductList("0", query);
+        productList.clear();
+      },
+      onWillChange: (SearchListViewModel viewModel) {
+        productList.addAll(viewModel.productList);
+      },
+      onDidChange: (SearchListViewModel viewModel) {
+        //viewModel.onFetchProductList(widget.id, "10", "0", viewModel.order);
+        // productList.addAll(viewModel.productList);
+      },
+      converter: (Store<AppState> store) => SearchListViewModel.create(store),
+      builder: (BuildContext context, SearchListViewModel) {
+        return productList != null
+            ? new CustomScrollView(
+                controller: _scrollController,
+                slivers: <Widget>[
+                  SliverPadding(
+                      padding: const EdgeInsets.all(8),
+                      sliver: new SliverGrid(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisSpacing: 1,
+                                  mainAxisSpacing: 1,
+                                  crossAxisCount: 2,
+                                  childAspectRatio: 0.5),
+                          delegate: new SliverChildBuilderDelegate(
                               (BuildContext context, int index) {
                             return Container(
                                 width: MediaQuery.of(context).size.width * 0.6,
@@ -215,14 +214,14 @@ class SearchWidget extends SearchDelegate<String> {
                                   ),
                                 ));
                           }, childCount: productList.length)))
-            ],
-            // controller: _scrollController,
-          )
-              : Center(
-            child: CircularProgressIndicator(),
-          );
-        },
-      );
+                ],
+                // controller: _scrollController,
+              )
+            : Center(
+                child: CircularProgressIndicator(),
+              );
+      },
+    );
   }
 
   @override
