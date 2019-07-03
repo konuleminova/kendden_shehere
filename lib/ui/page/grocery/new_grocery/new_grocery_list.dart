@@ -68,12 +68,12 @@ class GroceryListPageState extends State<NewGroceryListPage> {
                                   crossAxisSpacing: 1,
                                   mainAxisSpacing: 1,
                                   crossAxisCount: 2,
-                                  childAspectRatio: 0.55),
+                                  childAspectRatio: 0.5),
                           delegate: new SliverChildBuilderDelegate(
                               (BuildContext context, int index) {
                             return Container(
                                 width: MediaQuery.of(context).size.width * 0.6,
-                                height: 360,
+                                height: 370,
                                 child: InkWell(
                                   child: GroceryListItemOne(
                                     product: productList[index],

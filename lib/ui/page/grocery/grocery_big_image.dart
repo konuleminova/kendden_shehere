@@ -17,6 +17,7 @@ class GroceryBigImage extends StatelessWidget {
                 child: ZoomableImage(
           NetworkImage(img),
           placeholder: const Center(child: const CircularProgressIndicator()),
+                  minScale: 0.5,
         ))));
   }
 }
