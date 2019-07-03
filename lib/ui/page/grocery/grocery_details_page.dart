@@ -6,6 +6,9 @@ import 'package:kendden_shehere/ui/widgets/rating_star.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/glistitem2.dart';
 import 'package:kendden_shehere/ui/widgets/gtile_title.dart';
 import 'package:share/share.dart';
+import 'package:zoomable_image/zoomable_image.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:http/http.dart' as http;
 
 class GroceryDetailsPage extends StatefulWidget {
   NewProduct product;
@@ -86,7 +89,10 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
               GestureDetector(
                 child: _buildItemImage(),
                 onTap: () {
-                  Route route=MaterialPageRoute(builder: (BuildContext context)=>GroceryBigImage(code: product.code,));
+                  Route route = MaterialPageRoute(
+                      builder: (BuildContext context) => GroceryBigImage(
+                            code: product.code,
+                          ));
                   Navigator.push(context, route);
                 },
               ),
@@ -275,52 +281,65 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
       padding:
           EdgeInsets.only(left: 20.0, top: 16.0, right: 20.0, bottom: 16.0),
       child: Material(
-        elevation: 3.0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-        child: Stack(
-          children: <Widget>[
-            ClipRRect(
-                borderRadius: BorderRadius.circular(5.0),
-                child: new Center(
-                  child: img != null
-                      ? Image.network(
-                          img,
-                          fit: BoxFit.contain,
-                          scale: 1.4,
-                        )
-                      : Image.asset("images/noimage.png"),
-                )),
-            Positioned(
-              bottom: 8.0,
-              right: 8.0,
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-                color: Colors.black.withOpacity(0.6),
-                child: Container(
-                  child: IconButton(
-                    icon: Icon(
-                      isLiked ? Icons.favorite : Icons.favorite_border,
-                      color: Colors.pink[400],
-                      size: 30,
+          elevation: 3.0,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+          child: FutureBuilder(
+              future: http.get(img),
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                if (snapshot.hasData) {
+                  return Stack(
+                    children: <Widget>[
+                      ClipRRect(
+                          borderRadius: BorderRadius.circular(5.0),
+                          child: new Center(
+                            child: img != null
+                                ? Image.network(img)
+                                : Image.asset("images/noimage.png"),
+                          )),
+                      Positioned(
+                        bottom: 8.0,
+                        right: 8.0,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 10.0, vertical: 6.0),
+                          color: Colors.black.withOpacity(0.6),
+                          child: Container(
+                            child: IconButton(
+                              icon: Icon(
+                                isLiked
+                                    ? Icons.favorite
+                                    : Icons.favorite_border,
+                                color: Colors.pink[400],
+                                size: 30,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  if (isLiked) {
+                                    isLiked = false;
+                                    // widget.viewModel.onAddedProduct(product);
+                                  } else {
+                                    isLiked = true;
+                                    //   widget.viewModel.onAddedProduct(product);
+                                  }
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                } else {
+                  return Container(
+                    child: Center(
+                      child: CircularProgressIndicator(),
                     ),
-                    onPressed: () {
-                      setState(() {
-                        if (isLiked) {
-                          isLiked = false;
-                          // widget.viewModel.onAddedProduct(product);
-                        } else {
-                          isLiked = true;
-                          //   widget.viewModel.onAddedProduct(product);
-                        }
-                      });
-                    },
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+                    width: 180,
+                    height: 180,
+                  );
+                }
+              })),
     );
   }
 }
