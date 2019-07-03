@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/redux/common/model/product_model.dart';
+import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
+import 'package:kendden_shehere/ui/page/grocery/grocery_details_page.dart';
 import 'package:kendden_shehere/ui/widgets/gtile_title.dart';
 import 'package:kendden_shehere/ui/widgets/rating_star.dart';
 
-class GroceryListItemTwo extends StatefulWidget {
-  Product product;
+class NewGroceryListItemTwo extends StatefulWidget {
+  NewProduct product;
 
-  GroceryListItemTwo(this.product);
+  NewGroceryListItemTwo(this.product);
 
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return GroceryListItemTwoState();
+    return NewGroceryListItemTwoState();
   }
 }
 
-class GroceryListItemTwoState extends State<GroceryListItemTwo> {
-  Product product;
+class NewGroceryListItemTwoState extends State<NewGroceryListItemTwo> {
+  NewProduct product;
   String image, title, subtitle;
   bool isAdded, isLiked;
 
@@ -25,12 +27,19 @@ class GroceryListItemTwoState extends State<GroceryListItemTwo> {
   @override
   Widget build(BuildContext context) {
     product = widget.product;
-    image = product.image;
-    title = product.title;
-    isLiked = product.isLiked;
-    isAdded = product.isAdded;
-    subtitle = product.subtitle;
-    amount = widget.product.amount;
+    image =  "https://kenddenshehere.az/images/pr/th/" + product.code + ".jpg";
+    String langCode = Localizations.localeOf(context).languageCode;
+    if (langCode == "tr") {
+      title = product.name_az.trim();
+    } else if (langCode == "en") {
+      title = product.name_en.trim();
+    } else if (langCode == "ru") {
+      title = product.name_ru.trim();
+    }
+    isLiked = true;
+    isAdded = false;
+    subtitle = title;
+    amount = 0;
 
     // TODO: implement build
     return GestureDetector(
@@ -64,17 +73,15 @@ class GroceryListItemTwoState extends State<GroceryListItemTwo> {
                   children: <Widget>[
                     IconButton(
                       icon: Icon(
-                        product.isLiked
-                            ? Icons.favorite
-                            : Icons.favorite_border,
+                        isLiked ? Icons.favorite : Icons.favorite_border,
                         color: Colors.pink[400],
                       ),
                       onPressed: () {
                         setState(() {
-                          if (product.isLiked) {
-                            product.isLiked = false;
+                          if (isLiked) {
+                            isLiked = false;
                           } else {
-                            product.isLiked = true;
+                            isLiked = true;
                           }
                         });
                       },
@@ -87,7 +94,9 @@ class GroceryListItemTwoState extends State<GroceryListItemTwo> {
             )),
       ),
       onTap: () {
-       // Navigator.pushNamed(context, "/product_detail");
+        Route route = MaterialPageRoute(
+            builder: (BuildContext context) => GroceryDetailsPage(product));
+        Navigator.push(context, route);
       },
     );
   }
@@ -111,7 +120,7 @@ class GroceryListItemTwoState extends State<GroceryListItemTwo> {
         ),
         onTap: () {
           setState(() {
-            widget.product.isAdded = true;
+            isAdded = true;
           });
         },
       );
@@ -133,23 +142,23 @@ class GroceryListItemTwoState extends State<GroceryListItemTwo> {
               child: new Icon(Icons.remove),
               onTap: () {
                 setState(() {
-                  widget.product.amount--;
-                  if (widget.product.amount < 1) {
-                    widget.product.isAdded = false;
-                    widget.product.amount = 1;
+                  amount--;
+                  if (amount < 1) {
+                    isAdded = false;
+                    amount = 1;
                   }
                 });
               },
             ),
             new Text(
-              widget.product.amount.toString(),
+              amount.toString(),
               style: new TextStyle(fontSize: 18),
             ),
             new GestureDetector(
               child: new Icon(Icons.add),
               onTap: () {
                 setState(() {
-                  widget.product.amount++;
+                  amount++;
                 });
               },
             ),

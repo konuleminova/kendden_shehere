@@ -5,6 +5,7 @@ import 'package:kendden_shehere/redux/wishlist/list_wish_model.dart';
 import 'package:kendden_shehere/redux/wishlist/wishlist_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/test/shop_item_model.dart';
+import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem2.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/common/model/product_model.dart';
@@ -87,37 +88,28 @@ class GroceryWishListPageState extends State<GroceryWishListPage> {
   }
 
   Widget _shopBody() => new Container(
-        margin: EdgeInsets.only(bottom: 16, top: 16, left: 10, right: 12),
-        child: new ListView(
-          //shrinkWrap: true,
-          // physics: ClampingScrollPhysics(),
-          children: tempWishItems
-              .map((NewProduct shopItem) => _buildWishListItem(shopItem))
-              .toList(),
-        ),
-      );
+    margin: EdgeInsets.only(bottom: 16, top: 16, left: 10, right: 12),
+    child: new ListView(
+      //shrinkWrap: true,
+      // physics: ClampingScrollPhysics(),
+      children: tempWishItems
+          .map((NewProduct wishItem) => _buildWishListItem(wishItem))
+          .toList(),
+    ),
+  );
 
-  Widget _buildWishListItem(NewProduct shopItem) {
+  Widget _buildWishListItem(NewProduct wishItem) {
     String langCode = Localizations.localeOf(context).languageCode;
     if (langCode == "tr") {
-      title = shopItem.name_az.trim();
+      title = wishItem.name_az.trim();
     } else if (langCode == "en") {
-      title = shopItem.name_en.trim();
+      title = wishItem.name_en.trim();
     } else if (langCode == "ru") {
-      title = shopItem.name_ru.trim();
+      title = wishItem.name_ru.trim();
     }
     return new Stack(
       children: <Widget>[
-        GroceryListItemTwo(new Product(
-            image: "https://kenddenshehere.az/images/pr/th/" +
-                shopItem.code +
-                ".jpg",
-            title: title,
-            subtitle: title,
-            price: shopItem.price,
-            isLiked: true,
-            isAdded: false,
-            amount: 1)),
+        NewGroceryListItemTwo(wishItem),
       ],
     );
   }
