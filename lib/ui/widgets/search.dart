@@ -145,6 +145,8 @@ class SearchWidget extends SearchDelegate<String> {
     "banana",
   ];
 
+  String lang;
+
   @override
   List<Widget> buildActions(BuildContext context) {
     // TODO: implement buildActions
@@ -172,13 +174,21 @@ class SearchWidget extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
+    String langCode = Localizations.localeOf(context).languageCode;
+    if (langCode == "tr") {
+    lang="0";
+    } else if (langCode == "en") {
+    lang="2";
+    } else if (langCode == "ru") {
+      lang="1";
+    }
     // print(products.productsInCategory);
     // TODO: implement buildResults
     // TODO: implement build
     return StoreConnector(
       onInitialBuild: (SearchListViewModel viewModel) {
         this.viewModel = viewModel;
-        viewModel.onFetchProductList("0", query);
+        viewModel.onFetchProductList(lang, query);
         productList.clear();
       },
       onWillChange: (SearchListViewModel viewModel) {
