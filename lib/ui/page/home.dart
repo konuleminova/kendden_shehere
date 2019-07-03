@@ -31,7 +31,7 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-  List<NewProduct> productList;
+  List<NewProduct> productListOne,productListTwo;
   ScrollController _scrollController, _scrollControllerSecond;
   String message;
   final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -49,7 +49,8 @@ class HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    productList = new List();
+    productListOne = new List();
+    productListTwo = new List();
     _scrollController = new ScrollController();
     _scrollController.addListener(_scrollListener);
     _scrollControllerSecond = new ScrollController();
@@ -72,12 +73,15 @@ class HomePageState extends State<HomePage> {
     return StoreConnector(
         onInitialBuild: (ProductListViewModel viewModel) {
           this.viewModel = viewModel;
-          viewModel.onFetchProductList("15", "10", "0", viewModel.order);
+          viewModel.onFetchProductList("66", "10", "0", viewModel.order);
+         // viewModel.onFetchProductList("49", "10", "0", viewModel.order);
         },
         onWillChange: (ProductListViewModel viewModel) {
-          productList.addAll(viewModel.productList);
+          productListOne.addAll(viewModel.productList);
+          productListTwo.addAll(viewModel.productList);
         },
-        converter: (Store<AppState> store) => ProductListViewModel.create(store),
+        converter: (Store<AppState> store) =>
+            ProductListViewModel.create(store),
         builder: (BuildContext context, ProductListViewModel viewModel) {
           return new Scaffold(
               key: scaffoldKey,
@@ -91,7 +95,8 @@ class HomePageState extends State<HomePage> {
                   onPressed: () => scaffoldKey.currentState.openDrawer(),
                 ),
                 title: GestureDetector(
-                  child: new Text(AppTranslations.of(context).text("title_select_language")),
+                  child: new Text(AppTranslations.of(context)
+                      .text("title_select_language")),
                   onTap: () {
                     print("click");
                     application.onLocaleChanged(Locale("ru"));
@@ -202,6 +207,7 @@ class HomePageState extends State<HomePage> {
                 GestureDetector(
                   child: _titleContainer(),
                 ),
+                _buildCardTwo()
                 //  _buildCard()
               ]));
         });
@@ -298,7 +304,7 @@ class HomePageState extends State<HomePage> {
       setState(() {
         message = "reach the bottom";
         print(message);
-        loadMore();
+        loadMore("66");
       });
     }
     if (_scrollController.offset <=
@@ -318,7 +324,7 @@ class HomePageState extends State<HomePage> {
       setState(() {
         message = "reach the bottom";
         print(message);
-        loadMore();
+        loadMore("66");
       });
     }
     if (_scrollControllerSecond.offset <=
@@ -329,11 +335,12 @@ class HomePageState extends State<HomePage> {
         print(message);
       });
     }
-  } void loadMore() {
+  }
+
+  void loadMore(String id) {
     page = page + 10;
-    print(productList.toString() + "initial");
-    viewModel.onFetchProductList(
-        "15", "10", page.toString(), "0");
+    print(productListOne.toString() + "initial");
+    viewModel.onFetchProductList(id, "66", page.toString(), "0");
   }
 
   _buildCard() => new Container(
@@ -347,11 +354,32 @@ class HomePageState extends State<HomePage> {
                 height: 360,
                 child: InkWell(
                   child: GroceryListItemOne(
-                    product: productList[index],
+                    product: productListOne[index],
                   ),
                 ));
           },
-          itemCount: productList.length,
+          itemCount: productListOne.length,
+        ),
+        width: width,
+        height: 360,
+      );
+
+  _buildCardTwo() => new Container(
+        padding: EdgeInsets.all(8.0),
+        child: new ListView.builder(
+          scrollDirection: Axis.horizontal,
+          controller: _scrollControllerSecond,
+          itemBuilder: (BuildContext context, int index) {
+            return Container(
+                width: MediaQuery.of(context).size.width * 0.5,
+                height: 360,
+                child: InkWell(
+                  child: GroceryListItemOne(
+                    product: productListTwo[index],
+                  ),
+                ));
+          },
+          itemCount: productListTwo.length,
         ),
         width: width,
         height: 360,
