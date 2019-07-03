@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
+import 'package:kendden_shehere/redux/productlist/products_in_category_model.dart';
+import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_list.dart';
 import 'package:kendden_shehere/ui/page/test/old_test_cards.dart';
-
 
 class SearchWidget extends SearchDelegate<String> {
   final vegetables = [
@@ -160,6 +162,7 @@ class SearchWidget extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
+    // print(products.productsInCategory);
     // TODO: implement buildResults
     return CardsPage();
   }
@@ -184,7 +187,6 @@ class SearchWidget extends SearchDelegate<String> {
       itemCount: suggesstionList.length,
     );
   }
-
 
   @override
   ThemeData appBarTheme(BuildContext context) {

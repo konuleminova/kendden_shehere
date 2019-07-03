@@ -63,6 +63,7 @@ class Networks {
   static var PRODUCTS_IN_CATEGORY = BASE_KS_URL + "productincat&id=";
   static var BANNER_IMAGES = BASE_KS_URL + "bannerimages";
   static var WISH_LIST = BASE_KS_URL + "wishlist";
+  static var SEARCh = BASE_KS_URL + "search";
 
   static dynamic login(String username, String password) async {
     String LOGIN = BASE_KS_URL + "login&l=" + username + "&p=" + password;
@@ -122,12 +123,27 @@ class Networks {
 
   static dynamic wishList(String id) async {
     try {
-      final response = await http.get(WISH_LIST+"&id=${id}");
+      final response = await http.get(WISH_LIST + "&id=${id}");
       if (response.statusCode == 200) {
-       // print(WishListModel.fromJson(json.decode(response.body)));
-       // print(WishListModel.fromJson(json.decode(response.body)));
+        // print(WishListModel.fromJson(json.decode(response.body)));
+        // print(WishListModel.fromJson(json.decode(response.body)));
         print("code");
-         return List_Wish_Model.fromJson(json.decode(response.body));
+        return List_Wish_Model.fromJson(json.decode(response.body));
+      } else {
+        return null;
+      }
+    } catch (exception) {}
+  }
+
+  static dynamic search(String lang, String query) async {
+    try {
+      final response = await http.get(SEARCh + "&q=a&lang=0");
+      // print(WishListModel.fromJson(json.decode(response.body)));
+      // print(WishListModel.fromJson(json.decode(response.body)));
+      print("code");
+      if (response.statusCode == 200) {
+        // print(json.decode(response.body));
+        return ProductsInCategory.fromJson(json.decode(response.body));
       } else {
         return null;
       }
