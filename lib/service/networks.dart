@@ -8,6 +8,7 @@ import 'package:kendden_shehere/redux/login/user_model.dart';
 import 'package:kendden_shehere/redux/common/model/product_model.dart';
 import 'package:kendden_shehere/redux/productlist/products_in_category_model.dart';
 import 'package:kendden_shehere/redux/login/thunk_login.dart';
+import 'package:kendden_shehere/redux/register/register_model.dart';
 import 'package:kendden_shehere/redux/wishlist/list_wish_model.dart';
 import 'package:kendden_shehere/redux/wishlist/wishlist_model.dart';
 
@@ -149,11 +150,13 @@ class Networks {
   static dynamic register(String lang, UserModel userModel) async {
     try {
       final response = await http.get(REGISTER +
-          "&lang=${lang}+&name=${userModel.name}+&surname=${userModel.surname}"
+          "&lang=${lang}+&login=${userModel.email}+&name=${userModel.name}+&surname=${userModel.surname}"
           "+&mobile=${userModel.mobile}+&pass=${userModel.password}"
           "+&pass2=${userModel.surname}");
       if (response.statusCode == 200) {
-        return ProductsInCategory.fromJson(json.decode(response.body));
+        print("code");
+        print(RegisterModel.fromJson(json.decode(response.body)).login);
+        return RegisterModel.fromJson(json.decode(response.body));
       } else {
         return null;
       }

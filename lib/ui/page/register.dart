@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kendden_shehere/redux/login/user_model.dart';
+import 'package:kendden_shehere/service/networks.dart';
 
 class RegisterPage extends StatelessWidget {
   @override
@@ -158,7 +160,14 @@ class RegisterPage extends StatelessWidget {
             child: RaisedButton(
               padding: EdgeInsets.symmetric(vertical: 16.0),
               color: Colors.green[700],
-              onPressed: () {},
+              onPressed: () {
+                UserModel userModel=new UserModel();
+                userModel.name="Ilham";
+                userModel.surname="Kazimov";
+                userModel.email="empirer";
+                userModel.password="12345678";
+                Networks.register("0", userModel);
+              },
               elevation: 11,
               shape: RoundedRectangleBorder(
                   borderRadius:
