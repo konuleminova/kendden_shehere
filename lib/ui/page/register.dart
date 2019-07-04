@@ -166,7 +166,7 @@ class RegisterPageState extends State<RegisterPage> {
                                 _validatePassword &&
                                 _validateName &&
                                 _validateSurname &&
-                                _validateMobile & _validatePass2) {
+                                _validateMobile && _validatePass2) {
                               opacity = 1;
                             } else {
                               opacity = 0.5;
@@ -211,7 +211,7 @@ class RegisterPageState extends State<RegisterPage> {
                                 _validatePassword &&
                                 _validateName &&
                                 _validateSurname &&
-                                _validateMobile & _validatePass2) {
+                                _validateMobile && _validatePass2) {
                               opacity = 1;
                             } else {
                               opacity = 0.5;
@@ -258,7 +258,7 @@ class RegisterPageState extends State<RegisterPage> {
                                 _validatePassword &&
                                 _validateName &&
                                 _validateSurname &&
-                                _validateMobile & _validatePass2) {
+                                _validateMobile && _validatePass2) {
                               opacity = 1;
                             } else {
                               opacity = 0.5;
@@ -303,7 +303,7 @@ class RegisterPageState extends State<RegisterPage> {
                                 _validatePassword &&
                                 _validateName &&
                                 _validateSurname &&
-                                _validateMobile & _validatePass2) {
+                                _validateMobile && _validatePass2) {
                               opacity = 1;
                             } else {
                               opacity = 0.5;
@@ -349,7 +349,7 @@ class RegisterPageState extends State<RegisterPage> {
                                 _validatePassword &&
                                 _validateName &&
                                 _validateSurname &&
-                                _validateMobile & _validatePass2) {
+                                _validateMobile && _validatePass2) {
                               opacity = 1;
                             } else {
                               opacity = 0.5;
@@ -421,7 +421,7 @@ class RegisterPageState extends State<RegisterPage> {
                                 _validatePassword &&
                                 _validateName &&
                                 _validateSurname &&
-                                _validateMobile & _validatePass2) {
+                                _validateMobile && _validatePass2) {
                               opacity = 1;
                             } else {
                               opacity = 0.5;
