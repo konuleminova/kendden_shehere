@@ -18,7 +18,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 class RegisterPageState extends State<RegisterPage> {
-  bool status=false;
+  bool status = false;
   RegisterViewModel viewModel;
   bool _validateUsername = false;
   bool _validateName = false;
@@ -315,6 +315,7 @@ class RegisterPageState extends State<RegisterPage> {
                           mobileFocus.unfocus();
                           FocusScope.of(context).requestFocus(passFocus);
                         },
+                        keyboardType: TextInputType.phone,
                         decoration: InputDecoration(
                             hintText: "Phone Number",
                             hintStyle: TextStyle(color: Colors.blue.shade200),
@@ -360,6 +361,7 @@ class RegisterPageState extends State<RegisterPage> {
                           passFocus.unfocus();
                           FocusScope.of(context).requestFocus(pass2Focus);
                         },
+                        obscureText: true,
                         decoration: InputDecoration(
                             hintText: "Password",
                             hintStyle: TextStyle(color: Colors.blue.shade200),
@@ -383,6 +385,32 @@ class RegisterPageState extends State<RegisterPage> {
                         focusNode: pass2Focus,
                         style: TextStyle(color: Colors.blue),
                         textInputAction: TextInputAction.done,
+                        onSubmitted: (onvalue) {
+                          passFocus.unfocus();
+                          userFocus.unfocus();
+                          pass2Focus.unfocus();
+                          nameFocus.unfocus();
+                          surnameFocus.unfocus();
+                          mobileFocus.unfocus();
+                          if (_validateUsername &&
+                              _validatePassword &&
+                              _validateMobile &&
+                              _validateSurname &&
+                              _validateName &&
+                              _validatePass2) {
+                            UserModel userModel = new UserModel();
+                            userModel.name = _controllerName.text;
+                            userModel.surname = _controllerSurname.text;
+                            userModel.username = _controllerUsername.text;
+                            userModel.password = _controllerPass.text;
+                            userModel.password2 = _controllerPass2.text;
+                            viewModel.buildRegister(lang, userModel);
+
+                            setState(() {
+                              status = true;
+                            });
+                          }
+                        },
                         onChanged: (value) {
                           // passFocus.unfocus();
                           setState(() {
@@ -400,6 +428,7 @@ class RegisterPageState extends State<RegisterPage> {
                             }
                           });
                         },
+                        obscureText: true,
                         decoration: InputDecoration(
                             hintText: "Confirm password",
                             hintStyle: TextStyle(color: Colors.blue.shade200),
@@ -433,6 +462,10 @@ class RegisterPageState extends State<RegisterPage> {
                 onPressed: () {
                   passFocus.unfocus();
                   userFocus.unfocus();
+                  pass2Focus.unfocus();
+                  nameFocus.unfocus();
+                  surnameFocus.unfocus();
+                  mobileFocus.unfocus();
                   if (_validateUsername &&
                       _validatePassword &&
                       _validateMobile &&
@@ -444,7 +477,7 @@ class RegisterPageState extends State<RegisterPage> {
                     userModel.surname = _controllerSurname.text;
                     userModel.username = _controllerUsername.text;
                     userModel.password = _controllerPass.text;
-                    userModel.password2=_controllerPass2.text;
+                    userModel.password2 = _controllerPass2.text;
                     viewModel.buildRegister(lang, userModel);
 
                     setState(() {
