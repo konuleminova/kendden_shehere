@@ -152,9 +152,10 @@ class Networks {
       final response = await http.get(REGISTER +
           "&lang=${lang}+&login=${userModel.username}+&name=${userModel.name}+&surname=${userModel.surname}"
           "+&mobile=${userModel.mobile}+&pass=${userModel.password}"
-          "+&pass2=${userModel.surname}");
+          "+&pass2=${userModel.password}");
       if (response.statusCode == 200) {
         print("code");
+        print(json.decode(response.body));
         print(RegisterModel.fromJson(json.decode(response.body)).login);
         return RegisterModel.fromJson(json.decode(response.body));
       } else {

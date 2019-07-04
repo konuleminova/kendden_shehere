@@ -23,12 +23,14 @@ class RegisterModel {
       mobile: ErrorModel.fromJson(json["mobile"]),
       login: ErrorModel.fromJson(json["login"]),
       pass: ErrorModel.fromJson(json["pass"]),
-      msuccess: json["msuccess"],
+      msuccess: json["msuccess"]??"0",
     );
   }
 
   @override
   String toString() {
-    return 'RegisterModel{name: $name, surname: $surname, mobile: $mobile, login: $login, pass: $pass}';
+    return 'RegisterModel{name: $name, surname: $surname, mobile: $mobile, login: $login, pass: $pass, msuccess: $msuccess}';
   }
+
+
 }
