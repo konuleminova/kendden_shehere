@@ -147,20 +147,22 @@ class Networks {
     } catch (exception) {}
   }
 
-  static dynamic register(String lang, UserModel userModel) async {
-    try {
-      final response = await http.get(REGISTER +
-          "&lang=${lang}+&login=${userModel.username}+&name=${userModel.name}+&surname=${userModel.surname}"
-          "+&mobile=${userModel.mobile}+&pass=${userModel.password}"
-          "+&pass2=${userModel.password2}");
-      if (response.statusCode == 200) {
-        print("code");
-        print(json.decode(response.body));
-        print(RegisterModel.fromJson(json.decode(response.body)).login);
-        return RegisterModel.fromJson(json.decode(response.body));
-      } else {
-        return null;
-      }
-    } catch (exception) {}
+  static Future<RegisterModel> register(String lang, UserModel userModel) async {
+    final response = await http.get(REGISTER +
+        "&lang=${lang}+&login=${userModel.username}+&name=${userModel.name}+&surname=${userModel.surname}"
+            "+&mobile=${userModel.mobile}+&pass=${userModel.password}"
+            "+&pass2=${userModel.password2}");
+    if (response.statusCode == 200) {
+      print("code");
+      print(json.decode(response.body));
+//        print(RegisterModel.fromJson(json.decode(response.body)).login);
+      print('IF WORKS');
+      print('RESPONSE: --> ${response.body}');
+      print('JSON RESPONSE: --> ${jsonDecode(response.body)}');
+      return RegisterModel.fromJson(json.decode(response.body));
+    } else {
+      print('ELSE WORKS');
+      return null;
+    }
   }
 }

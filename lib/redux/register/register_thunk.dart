@@ -20,42 +20,46 @@ ThunkAction<AppState> registerThunkFunction(String lang, UserModel userModel) {
     userLogin.status = STATUS.LOADING;
     store.dispatch(LoginAction(status: STATUS.LOADING));
     RegisterModel responseBody = await Networks.register(lang, userModel);
+    print('RESPONSE IS NOT NULL: ${responseBody != null}');
+    print('MSUCCESS: ${responseBody.msuccess}');
     try {
-      if (responseBody != null) {
-        checkInternetConnection().then((onValue) {
-          if (onValue) {
-            userLogin.status = STATUS.FAIL;
-            store.dispatch(LoginAction(status: STATUS.FAIL));
-            if(responseBody.login.error!="no-error"){
-              showSnackBar(responseBody.login.error, scaffoldRegisterKey);
-            }else
-            if(responseBody.pass.error!="no-error"){
-              showSnackBar(responseBody.pass.error, scaffoldRegisterKey);
-            }else
-            if(responseBody.mobile.error!="no-error"){
-              showSnackBar(responseBody.mobile.error, scaffoldRegisterKey);
+      if(responseBody != null) {
+        if (responseBody.msuccess != '1') {
+          checkInternetConnection().then((onValue) {
+            if (onValue) {
+              userLogin.status = STATUS.FAIL;
+              store.dispatch(LoginAction(status: STATUS.FAIL));
+              if(responseBody.login.error!="no-error"){
+                showSnackBar(responseBody.login.error, scaffoldRegisterKey);
+              }else
+              if(responseBody.pass.error!="no-error"){
+                showSnackBar(responseBody.pass.error, scaffoldRegisterKey);
+              }else
+              if(responseBody.mobile.error!="no-error"){
+                showSnackBar(responseBody.mobile.error, scaffoldRegisterKey);
+              }
+              if(responseBody.name.error!="no-error"){
+                showSnackBar(responseBody.name.error, scaffoldRegisterKey);
+              }else
+              if(responseBody.surname.error!="no-error"){
+                showSnackBar(responseBody.surname.error, scaffoldRegisterKey);
+              }
+              //showSnackBar(responseBody.toString(), scaffoldRegisterKey);
+            } else {
+              userLogin.status = STATUS.NETWORK_ERROR;
+              store.dispatch(LoginAction(status: STATUS.NETWORK_ERROR));
+              showSnackBar("No internet connection.", scaffoldRegisterKey);
             }
-            if(responseBody.name.error!="no-error"){
-              showSnackBar(responseBody.name.error, scaffoldRegisterKey);
-            }else
-            if(responseBody.surname.error!="no-error"){
-              showSnackBar(responseBody.surname.error, scaffoldRegisterKey);
-            }
-            //showSnackBar(responseBody.toString(), scaffoldRegisterKey);
-          } else {
-            userLogin.status = STATUS.NETWORK_ERROR;
-            store.dispatch(LoginAction(status: STATUS.NETWORK_ERROR));
-            showSnackBar("No internet connection.", scaffoldRegisterKey);
-          }
-        });
-      } else {
-        userLogin.status = STATUS.SUCCESS;
-        store.dispatch(LoginAction(status: STATUS.SUCCESS));
-        userLogin.isLogin = true;
-        SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
-        sharedPrefUtil.setUserHasLogin(userLogin.isLogin);
-        store.dispatch(NavigateReplaceAction("/home"));
-        store.state.user_info = userModel;
+          });
+        } else {
+          userLogin.status = STATUS.SUCCESS;
+          store.dispatch(LoginAction(status: STATUS.SUCCESS));
+          userLogin.isLogin = true;
+          SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
+          sharedPrefUtil.setUserHasLogin(userLogin.isLogin);
+          store.dispatch(NavigateReplaceAction("/home"));
+          store.state.user_info = userModel;
+        }
       }
     } catch (e) {}
   };
