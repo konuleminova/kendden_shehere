@@ -18,7 +18,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 class RegisterPageState extends State<RegisterPage> {
-  bool status;
+  bool status=false;
   RegisterViewModel viewModel;
   bool _validateUsername = false;
   bool _validateName = false;
@@ -69,11 +69,10 @@ class RegisterPageState extends State<RegisterPage> {
     String langCode = Localizations.localeOf(context).languageCode;
     if (langCode == "tr") {
       lang = "0";
-    } else if (langCode == "en")
-    {
+    } else if (langCode == "en") {
       lang = "2";
     } else if (langCode == "ru") {
-      lang="1";
+      lang = "1";
     }
     // TODO: implement build
     return StoreConnector(
@@ -84,7 +83,6 @@ class RegisterPageState extends State<RegisterPage> {
                 state.user_info.status == STATUS.NETWORK_ERROR ||
                 state.user_info.status == STATUS.SUCCESS) {
               status = false;
-              print(state.user_info.status);
             }
           });
         },
@@ -441,12 +439,13 @@ class RegisterPageState extends State<RegisterPage> {
                       _validateSurname &&
                       _validateName &&
                       _validatePass2) {
-                      UserModel userModel = new UserModel();
-                      userModel.name = _controllerName.text;
-                      userModel.surname = _controllerSurname.text;
-                      userModel.username =_controllerUsername.text;
-                      userModel.password = _controllerPass.text;
-                      viewModel.buildRegister(lang, userModel);
+                    UserModel userModel = new UserModel();
+                    userModel.name = _controllerName.text;
+                    userModel.surname = _controllerSurname.text;
+                    userModel.username = _controllerUsername.text;
+                    userModel.password = _controllerPass.text;
+                    userModel.password2=_controllerPass2.text;
+                    viewModel.buildRegister(lang, userModel);
 
                     setState(() {
                       status = true;
@@ -458,10 +457,14 @@ class RegisterPageState extends State<RegisterPage> {
                 elevation: 11,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(40.0))),
-                child: Text(
-                  "Sign Up",
-                  style: TextStyle(color: Colors.white70),
-                ),
+                child: !status
+                    ? Text(
+                        "Sign Up",
+                        style: TextStyle(color: Colors.white70),
+                      )
+                    : Center(
+                        child: CircularProgressIndicator(),
+                      ),
               ),
               alignment: AlignmentDirectional.bottomCenter,
             ),

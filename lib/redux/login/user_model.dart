@@ -13,6 +13,7 @@ class UserModel {
   String name;
   String surname;
   String password;
+  String password2;
   String username;
   String mobile;
   String address;
@@ -32,7 +33,7 @@ class UserModel {
       this.status,
       this.error,
       this.message,
-      this.password});
+      this.password,this.password2});
 
   static fromJson(json) {
     return UserModel(
@@ -67,7 +68,8 @@ class UserModel {
         status: status ?? this.status,
         error: error ?? this.error,
         message: message ?? this.message,
-        password: password ?? this.password);
+        password: password ?? this.password,
+        password2: password2 ?? this.password2);
   }
 
   @override
