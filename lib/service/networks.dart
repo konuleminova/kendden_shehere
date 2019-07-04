@@ -150,7 +150,7 @@ class Networks {
   static dynamic register(String lang, UserModel userModel) async {
     try {
       final response = await http.get(REGISTER +
-          "&lang=${lang}+&login=${userModel.email}+&name=${userModel.name}+&surname=${userModel.surname}"
+          "&lang=${lang}+&login=${userModel.username}+&name=${userModel.name}+&surname=${userModel.surname}"
           "+&mobile=${userModel.mobile}+&pass=${userModel.password}"
           "+&pass2=${userModel.surname}");
       if (response.statusCode == 200) {

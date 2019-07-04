@@ -203,7 +203,7 @@ class RegisterPage extends StatelessWidget {
                 UserModel userModel = new UserModel();
                 userModel.name = "Ilham";
                 userModel.surname = "Kazimov";
-                userModel.email = "empirer";
+                userModel.username = "empirer";
                 userModel.password = "12345678";
                 Networks.register("0", userModel);
               },

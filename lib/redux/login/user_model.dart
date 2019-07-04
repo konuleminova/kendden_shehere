@@ -13,7 +13,7 @@ class UserModel {
   String name;
   String surname;
   String password;
-  String email;
+  String username;
   String mobile;
   String address;
   bool isLogin = false;
@@ -25,7 +25,7 @@ class UserModel {
       {this.id,
       this.name,
       this.surname,
-      this.email,
+      this.username,
       this.mobile,
       this.address,
       this.isLogin,
@@ -39,7 +39,7 @@ class UserModel {
         id: json['id'],
         name: json['name'],
         surname: json['surname'],
-        email: json['email'],
+        username: json['email'],
         mobile: json['mobile'],
         address: json['address'],
         error: json['error'],
@@ -60,7 +60,7 @@ class UserModel {
     return UserModel(
         name: name ?? this.name,
         surname: surname ?? this.surname,
-        email: email ?? this.email,
+        username: email ?? this.username,
         mobile: mobile ?? this.mobile,
         address: addresss ?? this.address,
         isLogin: isLogin ?? this.isLogin,
@@ -72,6 +72,6 @@ class UserModel {
 
   @override
   String toString() {
-    return 'NewUserModel{id: $id, name: $name, surname: $surname, password: $password, email: $email, mobile: $mobile, address: $address, isLogin: $isLogin, status: $status, error: $error, message: $message}';
+    return 'NewUserModel{id: $id, name: $name, surname: $surname, password: $password, email: $username, mobile: $mobile, address: $address, isLogin: $isLogin, status: $status, error: $error, message: $message}';
   }
 }
