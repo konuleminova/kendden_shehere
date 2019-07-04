@@ -59,7 +59,6 @@ class RegisterPage extends StatelessWidget {
         children: <Widget>[
           ClipPath(
             child: Container(
-              height: 380,
               padding: EdgeInsets.all(10.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(40.0)),
@@ -73,11 +72,51 @@ class RegisterPage extends StatelessWidget {
                       child: TextField(
                         style: TextStyle(color: Colors.blue),
                         decoration: InputDecoration(
-                            hintText: "Email address",
+                            hintText: "Username",
                             hintStyle: TextStyle(color: Colors.blue.shade200),
                             border: InputBorder.none,
                             icon: Icon(
-                              Icons.email,
+                              Icons.verified_user,
+                              color: Colors.blue,
+                            )),
+                      )),
+                  Container(
+                    child: Divider(
+                      color: Colors.blue.shade400,
+                    ),
+                    padding:
+                        EdgeInsets.only(left: 20.0, right: 20.0, bottom: 10.0),
+                  ),
+                  Container(
+                      padding: EdgeInsets.symmetric(horizontal: 20.0),
+                      child: TextField(
+                        style: TextStyle(color: Colors.blue),
+                        decoration: InputDecoration(
+                            hintText: "Name",
+                            hintStyle: TextStyle(color: Colors.blue.shade200),
+                            border: InputBorder.none,
+                            icon: Icon(
+                              Icons.person,
+                              color: Colors.blue,
+                            )),
+                      )),
+                  Container(
+                    child: Divider(
+                      color: Colors.blue.shade400,
+                    ),
+                    padding:
+                        EdgeInsets.only(left: 20.0, right: 20.0, bottom: 10.0),
+                  ),
+                  Container(
+                      padding: EdgeInsets.symmetric(horizontal: 20.0),
+                      child: TextField(
+                        style: TextStyle(color: Colors.blue),
+                        decoration: InputDecoration(
+                            hintText: "Surname",
+                            hintStyle: TextStyle(color: Colors.blue.shade200),
+                            border: InputBorder.none,
+                            icon: Icon(
+                              Icons.person,
                               color: Colors.blue,
                             )),
                       )),
@@ -156,26 +195,27 @@ class RegisterPage extends StatelessWidget {
             ),
           ),
           Container(
-            height: 420,
+            height: 500,
             child: RaisedButton(
               padding: EdgeInsets.symmetric(vertical: 16.0),
               color: Colors.green[700],
               onPressed: () {
-                UserModel userModel=new UserModel();
-                userModel.name="Ilham";
-                userModel.surname="Kazimov";
-                userModel.email="empirer";
-                userModel.password="12345678";
+                UserModel userModel = new UserModel();
+                userModel.name = "Ilham";
+                userModel.surname = "Kazimov";
+                userModel.email = "empirer";
+                userModel.password = "12345678";
                 Networks.register("0", userModel);
               },
               elevation: 11,
               shape: RoundedRectangleBorder(
-                  borderRadius:
-                  BorderRadius.all(Radius.circular(40.0))),
-              child: Text("Sign Up",
-                style: TextStyle(color: Colors.white70),),
-
-            ),alignment: AlignmentDirectional.bottomCenter,
+                  borderRadius: BorderRadius.all(Radius.circular(40.0))),
+              child: Text(
+                "Sign Up",
+                style: TextStyle(color: Colors.white70),
+              ),
+            ),
+            alignment: AlignmentDirectional.bottomCenter,
           )
         ],
       ),
