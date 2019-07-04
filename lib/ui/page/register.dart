@@ -1,55 +1,79 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:kendden_shehere/main.dart';
+import 'package:kendden_shehere/redux/app/app_state_model.dart';
+import 'package:kendden_shehere/redux/login/login_viewmodel.dart';
 import 'package:kendden_shehere/redux/login/user_model.dart';
+import 'package:kendden_shehere/redux/register/register_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
+import 'package:redux/redux.dart';
 
 class RegisterPage extends StatelessWidget {
+  bool status;
+  RegisterViewModel viewModel;
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          Container(
-            color: Colors.lightGreen,
-            child: ListView(
+    return StoreConnector(
+        converter: (Store<AppState> store) => RegisterViewModel.create(store),
+        onInit: (store) {
+          store.onChange.listen((state) {
+            if (state.user_info.status == STATUS.FAIL ||
+                state.user_info.status == STATUS.NETWORK_ERROR ||
+                state.user_info.status == STATUS.SUCCESS) {
+              status = false;
+              print(state.user_info.status);
+            }
+          });
+        },
+        builder: (BuildContext context, RegisterViewModel viewModel) {
+          this.viewModel = viewModel;
+          return Scaffold(
+            body: Stack(
               children: <Widget>[
-                new Container(
-                  child: Text("Register",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.white70,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 28.0)),
-                  margin: EdgeInsets.only(top: 16),
-                ),
-                _buildLoginForm(),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                Container(
+                  color: Colors.lightGreen,
+                  child: ListView(
                     children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text("Do you have an account?"),
-                          FlatButton(
-                            child: Text("Sign in"),
-                            textColor: Colors.indigo,
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          )
-                        ],
+                      new Container(
+                        child: Text("Register",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.white70,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 28.0)),
+                        margin: EdgeInsets.only(top: 16),
+                      ),
+                      _buildLoginForm(),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text("Do you have an account?"),
+                                FlatButton(
+                                  child: Text("Sign in"),
+                                  textColor: Colors.indigo,
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                )
+                              ],
+                            )
+                          ],
+                        ),
                       )
                     ],
                   ),
                 )
               ],
             ),
-          )
-        ],
-      ),
-    );
+          );
+        });
   }
 
   Container _buildLoginForm() {
@@ -205,7 +229,8 @@ class RegisterPage extends StatelessWidget {
                 userModel.surname = "Kazimov";
                 userModel.username = "empirer";
                 userModel.password = "12345678";
-                Networks.register("0", userModel);
+                viewModel.buildRegister("0", userModel);
+                // Networks.register("0", userModel);
               },
               elevation: 11,
               shape: RoundedRectangleBorder(

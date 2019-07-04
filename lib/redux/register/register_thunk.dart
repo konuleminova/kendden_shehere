@@ -20,25 +20,27 @@ ThunkAction<AppState> registerThunkFunction(String lang, UserModel userModel) {
     userLogin.status = STATUS.LOADING;
     store.dispatch(LoginAction(status: STATUS.LOADING));
     RegisterModel responseBody = await Networks.register(lang, userModel);
-    if (responseBody.msuccess == "1") {
-      userLogin.status = STATUS.SUCCESS;
-      store.dispatch(LoginAction(status: STATUS.SUCCESS));
+    if (responseBody != null) {
+      if (responseBody.msuccess == "1") {
+        userLogin.status = STATUS.SUCCESS;
+        store.dispatch(LoginAction(status: STATUS.SUCCESS));
 //      userLogin.name = userModel.name;
 //      userLogin.surname = userModel.surname;
 //      userLogin.username = userModel.username;
 //      userLogin.mobile = userModel.mobile;
 //      userLogin.password = userModel.password;
-      userLogin.isLogin = true;
-      SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
-      sharedPrefUtil.setUserHasLogin(userLogin.isLogin);
-      store.dispatch(NavigateReplaceAction("/home"));
-      store.state.user_info = userModel;
+        userLogin.isLogin = true;
+        SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
+        sharedPrefUtil.setUserHasLogin(userLogin.isLogin);
+        store.dispatch(NavigateReplaceAction("/home"));
+        store.state.user_info = userModel;
+      }
     } else {
       checkInternetConnection().then((onValue) {
         if (onValue) {
           userLogin.status = STATUS.FAIL;
           store.dispatch(LoginAction(status: STATUS.FAIL));
-          showSnackBar(responseBody.login.error);
+          showSnackBar("error");
         } else {
           userLogin.status = STATUS.NETWORK_ERROR;
           store.dispatch(LoginAction(status: STATUS.NETWORK_ERROR));
