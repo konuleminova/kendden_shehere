@@ -18,12 +18,12 @@ class RegisterModel {
 
   factory RegisterModel.fromJson(Map<String, dynamic> json) {
     return RegisterModel(
+      msuccess:  json['msuccess'] as String,
       name: ErrorModel.fromJson(json["name"]),
       surname: ErrorModel.fromJson(json["surname"]),
       mobile: ErrorModel.fromJson(json["mobile"]),
       login: ErrorModel.fromJson(json["login"]),
       pass: ErrorModel.fromJson(json["pass"]),
-      msuccess: json["msuccess"]??"0",
     );
   }
 

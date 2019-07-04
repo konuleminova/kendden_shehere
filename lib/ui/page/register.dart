@@ -441,17 +441,13 @@ class RegisterPageState extends State<RegisterPage> {
                       _validateSurname &&
                       _validateName &&
                       _validatePass2) {
-                    if (_controllerPass.text.trim() ==
-                        _controllerPass2.text.trim()) {
                       UserModel userModel = new UserModel();
                       userModel.name = _controllerName.text;
                       userModel.surname = _controllerSurname.text;
                       userModel.username =_controllerUsername.text;
                       userModel.password = _controllerPass.text;
                       viewModel.buildRegister(lang, userModel);
-                    } else {
-                      showSnackBar("Password doesn't match", scaffoldRegisterKey);
-                    }
+
                     setState(() {
                       status = true;
                     });
