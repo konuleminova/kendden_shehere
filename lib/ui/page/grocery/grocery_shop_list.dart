@@ -36,7 +36,7 @@ class GroceryCartState extends State<GroceryShopCartPage> {
           // shopItems.clear();
           for (int i = 0; i < store.state.shopItems.length; i++) {
             shopItems.add(new Product(
-              title: store.state.shopItems[i].title,
+              title: store.state.shopItems[i].lang,
               subtitle: store.state.shopItems[i].subtitle,
               price: "2 Azn",
               image: store.state.shopItems[i].image,

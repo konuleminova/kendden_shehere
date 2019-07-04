@@ -42,6 +42,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 void main() => runApp(MyApp());
 final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
+final GlobalKey<ScaffoldState> scaffoldRegisterKey = new GlobalKey<ScaffoldState>();
 
 class MyApp extends StatefulWidget {
   final Store<AppState> store = Store<AppState>(appStateReducer,

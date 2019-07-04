@@ -6,6 +6,7 @@ import 'package:kendden_shehere/redux/login/login_viewmodel.dart';
 import 'package:kendden_shehere/redux/login/user_model.dart';
 import 'package:kendden_shehere/redux/register/register_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
+import 'package:kendden_shehere/util/helper_class.dart';
 import 'package:redux/redux.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -29,8 +30,10 @@ class RegisterPageState extends State<RegisterPage> {
   TextEditingController _controllerName, _controllerSurname;
   TextEditingController _controllerMobile;
   FocusNode userFocus, passFocus;
+  FocusNode nameFocus, pass2Focus;
+  FocusNode surnameFocus, mobileFocus;
   double opacity;
-
+  String lang;
 
   @override
   void initState() {
@@ -44,6 +47,10 @@ class RegisterPageState extends State<RegisterPage> {
     _controllerPass2 = TextEditingController();
     userFocus = new FocusNode();
     passFocus = new FocusNode();
+    pass2Focus = new FocusNode();
+    nameFocus = new FocusNode();
+    surnameFocus = new FocusNode();
+    mobileFocus = new FocusNode();
   }
 
   @override
@@ -54,13 +61,20 @@ class RegisterPageState extends State<RegisterPage> {
     _controllerName.dispose();
     _controllerSurname.dispose();
     _controllerMobile.dispose();
-
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
+    String langCode = Localizations.localeOf(context).languageCode;
+    if (langCode == "tr") {
+      lang = "0";
+    } else if (langCode == "en")
+    {
+      lang = "2";
+    } else if (langCode == "ru") {
+      lang="1";
+    }
     // TODO: implement build
     return StoreConnector(
         converter: (Store<AppState> store) => RegisterViewModel.create(store),
@@ -77,6 +91,7 @@ class RegisterPageState extends State<RegisterPage> {
         builder: (BuildContext context, RegisterViewModel viewModel) {
           this.viewModel = viewModel;
           return Scaffold(
+            key: scaffoldRegisterKey,
             body: Stack(
               children: <Widget>[
                 Container(
@@ -141,11 +156,12 @@ class RegisterPageState extends State<RegisterPage> {
                   Container(
                       padding: EdgeInsets.symmetric(horizontal: 20.0),
                       child: TextField(
+                        focusNode: userFocus,
                         controller: _controllerUsername,
                         onChanged: (value) {
                           passFocus.unfocus();
                           setState(() {
-                            _controllerUsername.text.isEmpty
+                            _controllerUsername.text.trim().isEmpty
                                 ? _validateUsername = false
                                 : _validateUsername = true;
                             if (_validateUsername &&
@@ -159,7 +175,13 @@ class RegisterPageState extends State<RegisterPage> {
                             }
                           });
                         },
+                        onSubmitted: (value) {
+                          //_controllerUsername.text=value;
+                          userFocus.unfocus();
+                          FocusScope.of(context).requestFocus(nameFocus);
+                        },
                         style: TextStyle(color: Colors.blue),
+                        textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
                             hintText: "Username",
                             hintStyle: TextStyle(color: Colors.blue.shade200),
@@ -179,11 +201,12 @@ class RegisterPageState extends State<RegisterPage> {
                   Container(
                       padding: EdgeInsets.symmetric(horizontal: 20.0),
                       child: TextField(
+                        focusNode: nameFocus,
                         controller: _controllerName,
                         onChanged: (value) {
                           passFocus.unfocus();
                           setState(() {
-                            _controllerUsername.text.isEmpty
+                            _controllerUsername.text.trim().isEmpty
                                 ? _validateName = false
                                 : _validateName = true;
                             if (_validateUsername &&
@@ -197,7 +220,13 @@ class RegisterPageState extends State<RegisterPage> {
                             }
                           });
                         },
+                        onSubmitted: (value) {
+                          //_controllerUsername.text=value;
+                          nameFocus.unfocus();
+                          FocusScope.of(context).requestFocus(surnameFocus);
+                        },
                         style: TextStyle(color: Colors.blue),
+                        textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
                             hintText: "Name",
                             hintStyle: TextStyle(color: Colors.blue.shade200),
@@ -217,12 +246,14 @@ class RegisterPageState extends State<RegisterPage> {
                   Container(
                       padding: EdgeInsets.symmetric(horizontal: 20.0),
                       child: TextField(
+                        focusNode: surnameFocus,
                         controller: _controllerSurname,
                         style: TextStyle(color: Colors.blue),
+                        textInputAction: TextInputAction.next,
                         onChanged: (value) {
                           passFocus.unfocus();
                           setState(() {
-                            _controllerUsername.text.isEmpty
+                            _controllerUsername.text.trim().isEmpty
                                 ? _validateSurname = false
                                 : _validateSurname = true;
                             if (_validateUsername &&
@@ -235,6 +266,11 @@ class RegisterPageState extends State<RegisterPage> {
                               opacity = 0.5;
                             }
                           });
+                        },
+                        onSubmitted: (value) {
+                          //_controllerUsername.text=value;
+                          surnameFocus.unfocus();
+                          FocusScope.of(context).requestFocus(mobileFocus);
                         },
                         decoration: InputDecoration(
                             hintText: "Surname",
@@ -255,12 +291,14 @@ class RegisterPageState extends State<RegisterPage> {
                   Container(
                       padding: EdgeInsets.symmetric(horizontal: 20.0),
                       child: TextField(
+                        focusNode: mobileFocus,
                         controller: _controllerMobile,
                         style: TextStyle(color: Colors.blue),
+                        textInputAction: TextInputAction.next,
                         onChanged: (value) {
                           passFocus.unfocus();
                           setState(() {
-                            _controllerUsername.text.isEmpty
+                            _controllerUsername.text.trim().isEmpty
                                 ? _validateMobile = false
                                 : _validateMobile = true;
                             if (_validateUsername &&
@@ -273,6 +311,11 @@ class RegisterPageState extends State<RegisterPage> {
                               opacity = 0.5;
                             }
                           });
+                        },
+                        onSubmitted: (value) {
+                          //_controllerUsername.text=value;
+                          mobileFocus.unfocus();
+                          FocusScope.of(context).requestFocus(passFocus);
                         },
                         decoration: InputDecoration(
                             hintText: "Phone Number",
@@ -293,12 +336,14 @@ class RegisterPageState extends State<RegisterPage> {
                   Container(
                       padding: EdgeInsets.symmetric(horizontal: 20.0),
                       child: TextField(
+                        focusNode: passFocus,
                         controller: _controllerPass,
                         style: TextStyle(color: Colors.blue),
+                        textInputAction: TextInputAction.next,
                         onChanged: (value) {
-                          passFocus.unfocus();
+                          //  passFocus.unfocus();
                           setState(() {
-                            _controllerUsername.text.isEmpty
+                            _controllerUsername.text.trim().isEmpty
                                 ? _validatePassword = false
                                 : _validatePassword = true;
                             if (_validateUsername &&
@@ -311,6 +356,11 @@ class RegisterPageState extends State<RegisterPage> {
                               opacity = 0.5;
                             }
                           });
+                        },
+                        onSubmitted: (value) {
+                          //_controllerUsername.text=value;
+                          passFocus.unfocus();
+                          FocusScope.of(context).requestFocus(pass2Focus);
                         },
                         decoration: InputDecoration(
                             hintText: "Password",
@@ -332,11 +382,13 @@ class RegisterPageState extends State<RegisterPage> {
                       padding: EdgeInsets.symmetric(horizontal: 20.0),
                       child: TextField(
                         controller: _controllerPass2,
+                        focusNode: pass2Focus,
                         style: TextStyle(color: Colors.blue),
+                        textInputAction: TextInputAction.done,
                         onChanged: (value) {
-                          passFocus.unfocus();
+                          // passFocus.unfocus();
                           setState(() {
-                            _controllerUsername.text.isEmpty
+                            _controllerUsername.text.trim().isEmpty
                                 ? _validatePass2 = false
                                 : _validatePass2 = true;
                             if (_validateUsername &&
@@ -389,12 +441,17 @@ class RegisterPageState extends State<RegisterPage> {
                       _validateSurname &&
                       _validateName &&
                       _validatePass2) {
-                    UserModel userModel = new UserModel();
-                    userModel.name = "Ilham";
-                    userModel.surname = "Kazimov";
-                    userModel.username = "empirer";
-                    userModel.password = "12345678";
-                    viewModel.buildRegister("0", userModel);
+                    if (_controllerPass.text.trim() ==
+                        _controllerPass2.text.trim()) {
+                      UserModel userModel = new UserModel();
+                      userModel.name = _controllerName.text;
+                      userModel.surname = _controllerSurname.text;
+                      userModel.username =_controllerUsername.text;
+                      userModel.password = _controllerPass.text;
+                      viewModel.buildRegister(lang, userModel);
+                    } else {
+                      showSnackBar("Password doesn't match", scaffoldRegisterKey);
+                    }
                     setState(() {
                       status = true;
                     });

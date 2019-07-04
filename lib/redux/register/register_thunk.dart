@@ -40,11 +40,11 @@ ThunkAction<AppState> registerThunkFunction(String lang, UserModel userModel) {
         if (onValue) {
           userLogin.status = STATUS.FAIL;
           store.dispatch(LoginAction(status: STATUS.FAIL));
-          showSnackBar("error");
+          showSnackBar(responseBody.login.error,scaffoldRegisterKey);
         } else {
           userLogin.status = STATUS.NETWORK_ERROR;
           store.dispatch(LoginAction(status: STATUS.NETWORK_ERROR));
-          showSnackBar("No internet connection.");
+          showSnackBar("No internet connection.",scaffoldRegisterKey);
         }
       });
     }

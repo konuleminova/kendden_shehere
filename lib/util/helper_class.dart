@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/main.dart';
 
-void showSnackBar(String content)  {
+void showSnackBar(String content,GlobalKey<ScaffoldState> scaffoldKey)  {
   scaffoldKey.currentState.showSnackBar(
     SnackBar(
       content: Text(content),
