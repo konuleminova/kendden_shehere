@@ -31,11 +31,11 @@ class FAGState extends State<FagPage> {
     String langCode =
         Localizations.localeOf(context).languageCode;
     if (langCode == "tr") {
-      title = "assets/fag.txt";
+      title = "assets/fag_az.txt";
     } else if (langCode == "en") {
       title = "assets/fag.txt";
     } else if (langCode == "ru") {
-      title = "assets/fag.txt";
+      title = "assets/fag_ru.txt";
     }
 
     // TODO: implement build
@@ -47,7 +47,7 @@ class FAGState extends State<FagPage> {
         body:new Container(
           margin: EdgeInsets.all(16),
           child: new FutureBuilder(
-              future: getFileData('assets/fag.txt'),
+              future: getFileData(title),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {
                   if (snapshot.data != null) {
