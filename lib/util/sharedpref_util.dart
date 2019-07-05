@@ -4,9 +4,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefUtil {
    static String isLoginKey = "User has login";
-   static String setUserName = "User name";
-   static String setUserSurname = "User surname";
-
+   static String name = "User name";
+   static String surname = "User surname";
+   static String username = "User username";
+   static String mobile = "User mobile ";
   Future<bool> getBool(String key) async {
     // sleep(const Duration(seconds:5));
     await Future.delayed(Duration(milliseconds: 2000));

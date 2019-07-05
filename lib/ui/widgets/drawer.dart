@@ -144,8 +144,8 @@ class DrawerState extends State<DrawerWidget> {
   }
 
   _getUserInfo() async {
-    name = await SharedPrefUtil().getString(SharedPrefUtil.setUserName);
-    surname = await SharedPrefUtil().getString(SharedPrefUtil.setUserSurname);
+    name = await SharedPrefUtil().getString(SharedPrefUtil.name);
+    surname = await SharedPrefUtil().getString(SharedPrefUtil.surname);
     return name+" "+ surname;
   }
 }
