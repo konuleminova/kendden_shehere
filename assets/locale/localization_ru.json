@@ -4,5 +4,12 @@
   "tab_profile": "Perfil",
   "tab_notifications": "Notificaciones",
   "categories": "Kатегории",
-  "title_select_language": "домашняя страница"
+  "title_select_language": "домашняя страница",
+  "wish_list":"Избранные товары",
+  "order_history":"История заказов",
+  "notifications":"Уведомления",
+  "delivery_terms":"Условия доставки",
+  "fag":"Вопрос/Ответ ",
+  "about_us":"О Компании",
+  "contact_us":"Контакты"
 }

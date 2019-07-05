@@ -3,6 +3,13 @@
   "tab_categories": "Categories",
   "tab_profile": "Profile",
   "tab_notifications": "Notifications",
+  "title_select_language": "Home",
   "categories": "Categories",
-  "title_select_language": "Home"
+  "wish_list":"Selected Products",
+  "order_history":"Order History",
+  "notifications":"Notifications",
+  "delivery_terms":"Delivery Terms",
+  "fag":"FAG",
+  "about_us":"About Company",
+  "contact_us":"Contacts"
 }

@@ -92,7 +92,7 @@ class DrawerState extends State<DrawerWidget> {
           GestureDetector(
             child: ListTile(
               leading: Icon(Icons.favorite),
-              title: Text("WhishList"),
+              title: Text(AppTranslations.of(context).text("wish_list")),
             ),
             onTap: () {
               Navigator.pushNamed(context, "/wish_list");
@@ -101,7 +101,7 @@ class DrawerState extends State<DrawerWidget> {
           GestureDetector(
             child: ListTile(
               leading: Icon(Icons.history),
-              title: Text("Order History"),
+              title:  Text(AppTranslations.of(context).text("order_history")),
             ),
             onTap: () {
               Navigator.pushNamed(context, "/order_history");
@@ -109,30 +109,30 @@ class DrawerState extends State<DrawerWidget> {
           ),
           ListTile(
             leading: Icon(Icons.notifications_active),
-            title: Text("Notifications"),
+            title:  Text(AppTranslations.of(context).text("notifications")),
           ),
           ListTile(
             leading: Icon(Icons.feedback),
-            title: Text("Delivery Terms"),
+            title:  Text(AppTranslations.of(context).text("delivery_terms")),
             onTap: () {
               Navigator.pushNamed(context, '/delivery_terms');
             },
           ),
           ListTile(
             leading: Icon(Icons.question_answer),
-            title: Text("FAG"),
+            title: Text(AppTranslations.of(context).text("fag")),
             onTap: () {
               Navigator.pushNamed(context, '/fag');
             },
           ),
           ListTile(
             leading: Icon(Icons.info),
-            title: Text("About Us"),
+            title:  Text(AppTranslations.of(context).text("about_us")),
             onTap: () {
               Navigator.pushNamed(context, '/about_us');
             },
           ),
-          ListTile(leading: Icon(Icons.phone), title: Text("Contact Us")),
+          ListTile(leading: Icon(Icons.phone), title: Text(AppTranslations.of(context).text("contact_us")),),
         ],
       ),
     );
