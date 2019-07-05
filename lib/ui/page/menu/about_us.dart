@@ -15,7 +15,7 @@ class AboutUsPage extends StatelessWidget {
           child: new Container(
             margin: EdgeInsets.all(16),
             child: new FutureBuilder(
-                future: getFileData('images/desc.txt'),
+                future: getFileData('assets/desc.txt'),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
                     if (snapshot.data != null) {

@@ -15,7 +15,7 @@ class DeliveryPage extends StatelessWidget {
           child: new Container(
             margin: EdgeInsets.all(16),
             child: new FutureBuilder(
-                future: getFileData('images/delivery_terms.txt'),
+                future: getFileData('assets/delivery_terms.txt'),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
                     if (snapshot.data != null) {

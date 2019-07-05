@@ -72,9 +72,9 @@ flutter:
   - images/img2.jpg
   - images/img3.jpg
   - images/noimage.png
-  - images/desc.txt
-  - images/delivery_terms.txt
-  - images/fag.txt
+  - assets/desc.txt
+  - assets/delivery_terms.txt
+  - assets/fag.txt
   - images/smwallet/
   - assets/locale/localization_en.json
   - assets/locale/localization_ru.json

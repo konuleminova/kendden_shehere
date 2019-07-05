@@ -37,7 +37,7 @@ class FAGState extends State<FagPage> {
         body:new Container(
           margin: EdgeInsets.all(16),
           child: new FutureBuilder(
-              future: getFileData('images/fag.txt'),
+              future: getFileData('assets/fag.txt'),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {
                   if (snapshot.data != null) {
