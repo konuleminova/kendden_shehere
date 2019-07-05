@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/ui/page/grocery/new_grocery/grocery_categories.dart';
+import 'package:kendden_shehere/util/sharedpref_util.dart';
 
 class DrawerWidget extends StatefulWidget {
   @override
@@ -11,6 +12,8 @@ class DrawerWidget extends StatefulWidget {
 }
 
 class DrawerState extends State<DrawerWidget> {
+  String name;
+  String surname;
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +24,21 @@ class DrawerState extends State<DrawerWidget> {
           new Stack(
             children: <Widget>[
               UserAccountsDrawerHeader(
-                accountName: new Text(
-                  "Name Surname",
-                  style: new TextStyle(fontSize: 20),
+                accountName: new FutureBuilder(
+                  future: _getUserInfo(),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if (snapshot.hasData) {
+                      return new Text(
+                       snapshot.data,
+                        style: new TextStyle(fontSize: 20),
+                      );
+                    } else {
+                      // default show loading while state is waiting
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  },
                 ),
                 accountEmail: new Text("300 Bonus"),
                 currentAccountPicture: CircleAvatar(
@@ -68,9 +83,10 @@ class DrawerState extends State<DrawerWidget> {
                   new MaterialPageRoute(
                       builder: (BuildContext context) =>
                       new GroceryCategoriesPage(
-                        id: "0",title: AppTranslations.of(context).text("categories")
-                      )));
-             // Navigator.pushNamed(context, "/categories");
+                          id: "0",
+                          title: AppTranslations.of(context)
+                              .text("categories"))));
+              // Navigator.pushNamed(context, "/categories");
             },
           ),
           GestureDetector(
@@ -125,6 +141,11 @@ class DrawerState extends State<DrawerWidget> {
   @override
   void initState() {
     super.initState();
+  }
 
+  _getUserInfo() async {
+    name = await SharedPrefUtil().getString(SharedPrefUtil.setUserName);
+    surname = await SharedPrefUtil().getString(SharedPrefUtil.setUserSurname);
+    return name+" "+ surname;
   }
 }
