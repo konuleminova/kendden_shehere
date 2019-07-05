@@ -226,7 +226,7 @@ class ProfileState extends State<ProfilePage> {
               onPressed: () {
                 // Navigator.of(context).pushNamedAndRemoveUntil(
                 //  '/login', (Route<dynamic> route) => false);
-                SharedPrefUtil().setUserHasLogin(false);
+                SharedPrefUtil().setBool(SharedPrefUtil.isLoginKey,false);
                 // Navigator.pushNamed(context, "/login");
                 //  Navigator.of(context).popUntil(ModalRoute.withName('/login'));
                 // Navigator.pushNamed(context, "/");

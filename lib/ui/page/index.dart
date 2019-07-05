@@ -16,7 +16,7 @@ class _IndexPageState extends State<IndexPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       body: new FutureBuilder(
-        future: SharedPrefUtil().getUserHasLogin(),
+        future: SharedPrefUtil().getBool(SharedPrefUtil.isLoginKey),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null) {

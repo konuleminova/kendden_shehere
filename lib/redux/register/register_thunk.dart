@@ -56,7 +56,7 @@ ThunkAction<AppState> registerThunkFunction(String lang, UserModel userModel) {
           store.dispatch(LoginAction(status: STATUS.SUCCESS));
           userLogin.isLogin = true;
           SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
-          sharedPrefUtil.setUserHasLogin(userLogin.isLogin);
+          sharedPrefUtil.setBool(SharedPrefUtil.isLoginKey,userLogin.isLogin);
           store.dispatch(NavigateReplaceAction("/home"));
           store.state.user_info = userModel;
         }

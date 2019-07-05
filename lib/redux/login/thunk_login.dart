@@ -29,7 +29,7 @@ ThunkAction<AppState> loginThunkFunction(String username, String password) {
       userLogin.address = responseBody.address;
       userLogin.isLogin = true;
       SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
-      sharedPrefUtil.setUserHasLogin(userLogin.isLogin);
+      sharedPrefUtil.setBool(SharedPrefUtil.isLoginKey,userLogin.isLogin);
       store.dispatch(NavigateReplaceAction("/home"));
     } else {
       checkInternetConnection().then((onValue) {

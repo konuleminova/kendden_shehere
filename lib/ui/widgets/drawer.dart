@@ -11,6 +11,7 @@ class DrawerWidget extends StatefulWidget {
 }
 
 class DrawerState extends State<DrawerWidget> {
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -119,5 +120,11 @@ class DrawerState extends State<DrawerWidget> {
         ],
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
   }
 }
