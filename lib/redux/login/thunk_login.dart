@@ -24,7 +24,7 @@ ThunkAction<AppState> loginThunkFunction(String username, String password) {
       store.dispatch(LoginAction(status: STATUS.SUCCESS));
       userLogin.name = responseBody.name;
       userLogin.username = username;
-      userLogin.surname = password;
+      userLogin.surname =responseBody.surname;
       userLogin.mobile = responseBody.mobile;
       userLogin.address = responseBody.address;
       userLogin.isLogin = true;
