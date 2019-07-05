@@ -75,6 +75,10 @@ flutter:
   - assets/desc.txt
   - assets/delivery_terms.txt
   - assets/fag.txt
+  - assets/desc_az.txt
+  - assets/delivery_terms_az.txt
+  - assets/desc_ru.txt
+  - assets/delivery_terms_ru.txt
   - images/smwallet/
   - assets/locale/localization_en.json
   - assets/locale/localization_ru.json

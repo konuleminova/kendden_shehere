@@ -13,6 +13,7 @@ class FagPage extends StatefulWidget {
 class FAGState extends State<FagPage> {
   double width;
   List<bool> expanded = new List();
+  String title;
 
 
   @override
@@ -27,6 +28,15 @@ class FAGState extends State<FagPage> {
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
+    String langCode =
+        Localizations.localeOf(context).languageCode;
+    if (langCode == "tr") {
+      title = "assets/fag.txt";
+    } else if (langCode == "en") {
+      title = "assets/fag.txt";
+    } else if (langCode == "ru") {
+      title = "assets/fag.txt";
+    }
 
     // TODO: implement build
     return new Scaffold(
