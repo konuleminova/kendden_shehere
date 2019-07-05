@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:kendden_shehere/localization/app_translations.dart';
 
 class AboutUsPage extends StatelessWidget {
   String title;
@@ -18,7 +19,7 @@ class AboutUsPage extends StatelessWidget {
     // TODO: implement build
     return new Scaffold(
         appBar: new AppBar(
-          title: Text("About Us"),
+          title:  Text(AppTranslations.of(context).text("about_us")),
           backgroundColor: Colors.lightGreen,
         ),
         body: SingleChildScrollView(

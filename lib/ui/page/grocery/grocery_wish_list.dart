@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/redux/wishlist/list_wish_model.dart';
 import 'package:kendden_shehere/redux/wishlist/wishlist_viewmodel.dart';
@@ -56,7 +57,7 @@ class GroceryWishListPageState extends State<GroceryWishListPage> {
           return new Scaffold(
               appBar: new AppBar(
                 backgroundColor: Colors.lightGreen,
-                title: new Text("Wish List"),
+                title: Text(AppTranslations.of(context).text("wish_list")),
                 actions: <Widget>[
                   new Container(
                     child: new Icon(

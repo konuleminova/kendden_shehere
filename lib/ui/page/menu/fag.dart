@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:kendden_shehere/localization/app_translations.dart';
 
 class FagPage extends StatefulWidget {
   @override
@@ -41,7 +42,7 @@ class FAGState extends State<FagPage> {
     // TODO: implement build
     return new Scaffold(
         appBar: new AppBar(
-          title: Text("FAG"),
+          title: Text(AppTranslations.of(context).text("fag")),
           backgroundColor: Colors.lightGreen,
         ),
         body:new Container(

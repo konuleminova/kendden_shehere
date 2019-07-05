@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
+import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/common/model/order_history_model.dart';
 import 'package:kendden_shehere/redux/common/model/product_model.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/glistitem3.dart';
 
 class OrderHistoryPage extends StatelessWidget {
   List<OrderItem> orderItems = new List();
-  BuildContext context;
+  //BuildContext context;
 
   @override
   Widget build(BuildContext context) {
-    context = this.context;
+    //context = this.context;
     orderItems.add(
       new OrderItem(
           title: "Order Name",
@@ -43,7 +44,7 @@ class OrderHistoryPage extends StatelessWidget {
     return new Scaffold(
       appBar: new AppBar(
         backgroundColor: Colors.lightGreen,
-        title: new Text("Order History"),
+        title:  Text(AppTranslations.of(context).text("order_history")),
         actions: <Widget>[
           PopupMenuButton<String>(
             icon: new Icon(Icons.date_range),

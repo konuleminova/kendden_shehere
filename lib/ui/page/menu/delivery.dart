@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:kendden_shehere/localization/app_translations.dart';
 
 class DeliveryPage extends StatelessWidget {
   String title;
@@ -18,7 +19,7 @@ class DeliveryPage extends StatelessWidget {
     // TODO: implement build
     return new Scaffold(
         appBar: new AppBar(
-          title: Text("Delivery Terms"),
+          title: Text(AppTranslations.of(context).text("delivery_terms")),
           backgroundColor: Colors.lightGreen,
         ),
         body: SingleChildScrollView(
