@@ -182,9 +182,21 @@ class ProfileState extends State<ProfilePage> {
                     },
                   ),
                   ListTile(
-                    title: Text("Email"),
+                    title: Text("Name"),
                     subtitle: Text("keminova@gmail.com"),
-                    leading: Icon(Icons.email),
+                    leading: Icon(Icons.person),
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (buildContext) {
+                            return ProfileEditDialog("Email");
+                          });
+                    },
+                  ),
+                  ListTile(
+                    title: Text("Surname"),
+                    subtitle: Text("keminova@gmail.com"),
+                    leading: Icon(Icons.person_outline),
                     onTap: () {
                       showDialog(
                           context: context,
@@ -204,16 +216,6 @@ class ProfileState extends State<ProfilePage> {
                             return ProfileEditDialog("Phone");
                           });
                     },
-                  ),
-                  ListTile(
-                    title: Text("Birthday"),
-                    subtitle: Text("11.11.2011"),
-                    leading: Icon(Icons.date_range),
-                  ),
-                  ListTile(
-                    title: Text("Gender"),
-                    subtitle: Text("Female"),
-                    leading: Icon(Icons.person),
                   ),
                 ],
               )),
