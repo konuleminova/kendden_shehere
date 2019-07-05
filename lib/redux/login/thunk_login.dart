@@ -22,8 +22,8 @@ ThunkAction<AppState> loginThunkFunction(String username, String password) {
     if (responseBody != null) {
       userLogin.status = STATUS.SUCCESS;
       store.dispatch(LoginAction(status: STATUS.SUCCESS));
-      userLogin.name =responseBody.name;
-      userLogin.username=username;
+      userLogin.name = responseBody.name;
+      userLogin.username = username;
       userLogin.surname = password;
       userLogin.mobile = responseBody.mobile;
       userLogin.address = responseBody.address;
@@ -31,12 +31,10 @@ ThunkAction<AppState> loginThunkFunction(String username, String password) {
       SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
       sharedPrefUtil.setBool(SharedPrefUtil.isLoginKey, userLogin.isLogin);
       sharedPrefUtil.setString(SharedPrefUtil.name, userLogin.name);
-      sharedPrefUtil.setString(
-          SharedPrefUtil.surname, userLogin.surname);
-      sharedPrefUtil.setString(
-          SharedPrefUtil.username, userLogin.username);
-      sharedPrefUtil.setString(
-          SharedPrefUtil.mobile, userLogin.mobile);
+      sharedPrefUtil.setString(SharedPrefUtil.surname, userLogin.surname);
+      sharedPrefUtil.setString(SharedPrefUtil.username, userLogin.username);
+      sharedPrefUtil.setString(SharedPrefUtil.mobile, userLogin.mobile);
+      sharedPrefUtil.setString(SharedPrefUtil.id, responseBody.id);
       store.dispatch(NavigateReplaceAction("/home"));
     } else {
       checkInternetConnection().then((onValue) {

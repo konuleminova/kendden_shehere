@@ -12,7 +12,7 @@ class WishListViewModel {
   Function(NewProduct shopItem) removeWishItem;
   Function(NewProduct product) addWishItem;
   List<NewProduct> wishItems;
-  Function(String) onFetchWishList;
+  Function() onFetchWishList;
 
   WishListViewModel(
       {this.removeWishItem,
@@ -21,8 +21,8 @@ class WishListViewModel {
       this.onFetchWishList});
 
   factory WishListViewModel.create(Store<AppState> store) {
-    _onFetchWishList(String id) {
-      store.dispatch(wishListThunkAction(id));
+    _onFetchWishList() {
+      store.dispatch(wishListThunkAction());
     }
 
     _removeShopItem(NewProduct product) {
