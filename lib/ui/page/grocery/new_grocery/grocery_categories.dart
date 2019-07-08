@@ -28,6 +28,7 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
 
   @override
   Widget build(BuildContext context) {
+
     // TODO: implement build
     return StoreConnector(
       onInitialBuild: (ProductListViewModel viewModel) {
@@ -151,6 +152,7 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
   @override
   void initState() {
     super.initState();
+    categories.clear();
   }
 
   @override
