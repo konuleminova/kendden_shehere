@@ -91,19 +91,17 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
                       ),
                       onTap: () {
                         print(categories[index].id);
-                        bool catId = false;
-                        for (int i = 0; i <tempCategories.length; i++) {
-                          print(tempCategories[i].parent+"parent");
-                          print(categories[index].id+"index");
+                        bool isCategory = false;
+                        for (int i = 0; i < tempCategories.length; i++) {
                           if (categories[index].id ==
                               tempCategories[i].parent) {
-                            catId = true;
+                            isCategory = true;
                             break;
                           } else {
-                            catId = false;
+                            isCategory = false;
                           }
                         }
-                        if (catId) {
+                        if (isCategory) {
                           Navigator.push(
                               context,
                               new MaterialPageRoute(
@@ -174,7 +172,7 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
           }
           tempCategories.addAll(onValue);
         }
-       /* if (categories.length <= 0) {
+        /* if (categories.length <= 0) {
           Route route = MaterialPageRoute(
               builder: (BuildContext context) => NewGroceryListPage(
                     title: widget.title,
