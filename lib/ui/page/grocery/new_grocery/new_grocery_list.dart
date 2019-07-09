@@ -28,6 +28,7 @@ class GroceryListPageState extends State<NewGroceryListPage> {
   ScrollController _scrollController;
   int page = 0;
   List<NewProduct> productList;
+  List<NewProduct> productListTemp;
   ProductListViewModel viewModel;
   String order;
 
@@ -37,7 +38,9 @@ class GroceryListPageState extends State<NewGroceryListPage> {
     _scrollController = new ScrollController();
     _scrollController.addListener(_scrollListener);
     productList = new List();
-    order = this.order;
+    productListTemp = new List();
+    order = widget.order;
+    init();
   }
 
   @override
@@ -61,84 +64,90 @@ class GroceryListPageState extends State<NewGroceryListPage> {
             )
           ],
         ),
-        body: StoreConnector(
-          onInitialBuild: (ProductListViewModel viewModel) {
-            this.viewModel = viewModel;
-            viewModel.onFetchProductList(widget.id, "10", "0", order);
-          },
-          onWillChange: (ProductListViewModel viewModel) {
-            productList.addAll(viewModel.productList);
-            if (viewModel.order != widget.order) {
-               //productList.clear();
-             // viewModel.onFetchProductList(widget.id, "10", "0", viewModel.order);
-            }
-          },
-          onDidChange: (ProductListViewModel viewModel) {
-            //viewModel.onFetchProductList(widget.id, "10", "0", viewModel.order);
-            // productList.addAll(viewModel.productList);
-          },
-          converter: (Store<AppState> store) =>
-              ProductListViewModel.create(store),
-          builder: (BuildContext context, ProductListViewModel) {
-            return productList != null
-                ? new CustomScrollView(
-                    controller: _scrollController,
-                    slivers: <Widget>[
-                      SliverPadding(
-                          padding: const EdgeInsets.all(8),
-                          sliver: new SliverGrid(
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisSpacing: 1,
-                                      mainAxisSpacing: 1,
-                                      crossAxisCount: 2,
-                                      childAspectRatio: 0.5),
-                              delegate: new SliverChildBuilderDelegate(
-                                  (BuildContext context, int index) {
-                                return Container(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.6,
-                                    height: 370,
-                                    child: InkWell(
-                                      child: GroceryListItemOne(
-                                        product: productList[index],
-                                      ),
-                                    ));
-                              }, childCount: productList.length)))
-                    ],
-                    // controller: _scrollController,
-                  )
-                : Center(
-                    child: CircularProgressIndicator(),
-                  );
-          },
-        ));
+        body: FutureBuilder(
+            future: getData(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.hasData) {
+                return new CustomScrollView(
+                  controller: _scrollController,
+                  slivers: <Widget>[
+                    SliverPadding(
+                        padding: const EdgeInsets.all(8),
+                        sliver: new SliverGrid(
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisSpacing: 1,
+                                    mainAxisSpacing: 1,
+                                    crossAxisCount: 2,
+                                    childAspectRatio: 0.5),
+                            delegate: new SliverChildBuilderDelegate(
+                                (BuildContext context, int index) {
+                              return Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.6,
+                                  height: 370,
+                                  child: InkWell(
+                                    child: GroceryListItemOne(
+                                      product: productList[index],
+                                    ),
+                                  ));
+                            }, childCount: productList.length)))
+                  ],
+                  // controller: _scrollController,
+                );
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            }));
   }
 
   void choiceAction(String choice) {
     if (choice == Constants.FirstItem) {
-      order = "1";
       print("choice ACTION>>");
-      viewModel.changeOrder("1");
+      productList.clear();
+      setState(() {
+        order = "1";
+        page = 0;
+        init();
+      });
+      //viewModel.changeOrder("1");
     } else if (choice == Constants.SecondItem) {
-      order = "2";
-      viewModel.changeOrder("2");
+      //viewModel.changeOrder("2");
+      productList.clear();
+      setState(() {
+        order = "2";
+        page = 0;
+        init();
+      });
       print("choice ACTION>>");
       //  order = "2";
     } else if (choice == Constants.ThirdItem) {
-      order = "3";
-      viewModel.changeOrder("3");
+      productList.clear();
+      setState(() {
+        order = "3";
+        page = 0;
+        init();
+      });
+      // viewModel.changeOrder("3");
     } else {
-      order = "4";
-      viewModel.changeOrder("4");
+      productList.clear();
+      setState(() {
+        order = "4";
+        page = 0;
+        init();
+      });
+      // viewModel.changeOrder("4");
     }
   }
 
-  void loadMore() {
+  void loadMore() async {
     page = page + 10;
     print(productList.toString() + "initial");
-    viewModel.onFetchProductList(
-        widget.id, "10", page.toString(), widget.order);
+    // viewModel.onFetchProductList(
+    //   widget.id, "10", page.toString(), widget.order);
+    init();
   }
 
   _scrollListener() {
@@ -156,6 +165,26 @@ class GroceryListPageState extends State<NewGroceryListPage> {
       setState(() {
         print("reach the top");
       });
+    }
+  }
+
+  init() {
+    getData().then((onvalue) {
+      productList.addAll(onvalue);
+      // productList.addAll(onvalue);
+    });
+  }
+
+  Future<List<NewProduct>> getData() async {
+    ProductsInCategory response = await Networks.productsInCategory(
+        widget.id, order, "0", "10", page.toString());
+    if (response != null) {
+      // productList.clear();
+      productListTemp.clear();
+      productListTemp.addAll(response.productsInCategory);
+      return productListTemp;
+    } else {
+      return [];
     }
   }
 }
