@@ -46,24 +46,6 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
                 appBar: new AppBar(
                   title: new Text(widget.title.trim()),
                   backgroundColor: Colors.lightGreen,
-                  actions: <Widget>[
-                    categories.length > 0
-                        ? SizedBox(
-                            width: 0.0,
-                            height: 0.0,
-                          )
-                        : PopupMenuButton<String>(
-                            onSelected: choiceAction,
-                            itemBuilder: (BuildContext context) {
-                              return Constants.choices.map((String choice) {
-                                return PopupMenuItem<String>(
-                                  value: choice,
-                                  child: Text(choice),
-                                );
-                              }).toList();
-                            },
-                          )
-                  ],
                 ),
                 body: new ListView.builder(
                   itemBuilder: (BuildContext context, int index) {
@@ -137,24 +119,6 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
         });
   }
 
-  void choiceAction(String choice) {
-    if (choice == Constants.FirstItem) {
-      order = "1";
-      print("choice ACTION>>");
-      viewModel.changeOrder("1");
-    } else if (choice == Constants.SecondItem) {
-      order = "2";
-      viewModel.changeOrder("2");
-      print("choice ACTION>>");
-      //  order = "2";
-    } else if (choice == Constants.ThirdItem) {
-      order = "3";
-      viewModel.changeOrder("3");
-    } else {
-      order = "4";
-      viewModel.changeOrder("4");
-    }
-  }
 
   @override
   void initState() {
