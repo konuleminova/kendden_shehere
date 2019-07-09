@@ -10,10 +10,11 @@ import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem
 import 'package:redux/redux.dart';
 
 class NewGroceryListPage extends StatefulWidget {
+  String title;
   String id;
   String order;
 
-  NewGroceryListPage({this.id, this.order});
+  NewGroceryListPage({this.title, this.id, this.order});
 
   @override
   State<StatefulWidget> createState() {
@@ -39,55 +40,62 @@ class GroceryListPageState extends State<NewGroceryListPage> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return StoreConnector(
-      onInitialBuild: (ProductListViewModel viewModel) {
-        this.viewModel = viewModel;
-        viewModel.onFetchProductList(widget.id, "10", "0", viewModel.order);
-      },
-      onWillChange: (ProductListViewModel viewModel) {
-        productList.addAll(viewModel.productList);
-        if (viewModel.order != widget.order) {
-         // productList.clear();
-        }
-      },
-      onDidChange: (ProductListViewModel viewModel){
-        //viewModel.onFetchProductList(widget.id, "10", "0", viewModel.order);
-       // productList.addAll(viewModel.productList);
-      },
-      converter: (Store<AppState> store) => ProductListViewModel.create(store),
-      builder: (BuildContext context, ProductListViewModel) {
-        return productList != null
-            ? new CustomScrollView(
-                controller: _scrollController,
-                slivers: <Widget>[
-                  SliverPadding(
-                      padding: const EdgeInsets.all(8),
-                      sliver: new SliverGrid(
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisSpacing: 1,
-                                  mainAxisSpacing: 1,
-                                  crossAxisCount: 2,
-                                  childAspectRatio: 0.5),
-                          delegate: new SliverChildBuilderDelegate(
-                              (BuildContext context, int index) {
-                            return Container(
-                                width: MediaQuery.of(context).size.width * 0.6,
-                                height: 370,
-                                child: InkWell(
-                                  child: GroceryListItemOne(
-                                    product: productList[index],
-                                  ),
-                                ));
-                          }, childCount: productList.length)))
-                ],
-                // controller: _scrollController,
-              )
-            : Center(
-                child: CircularProgressIndicator(),
-              );
-      },
-    );
+    return new Scaffold(
+        appBar: new AppBar(
+          title: new Text(widget.title),
+          backgroundColor: Colors.lightGreen,
+        ),
+        body: StoreConnector(
+          onInitialBuild: (ProductListViewModel viewModel) {
+            this.viewModel = viewModel;
+            viewModel.onFetchProductList(widget.id, "10", "0", viewModel.order);
+          },
+          onWillChange: (ProductListViewModel viewModel) {
+            productList.addAll(viewModel.productList);
+            if (viewModel.order != widget.order) {
+              // productList.clear();
+            }
+          },
+          onDidChange: (ProductListViewModel viewModel) {
+            //viewModel.onFetchProductList(widget.id, "10", "0", viewModel.order);
+            // productList.addAll(viewModel.productList);
+          },
+          converter: (Store<AppState> store) =>
+              ProductListViewModel.create(store),
+          builder: (BuildContext context, ProductListViewModel) {
+            return productList != null
+                ? new CustomScrollView(
+                    controller: _scrollController,
+                    slivers: <Widget>[
+                      SliverPadding(
+                          padding: const EdgeInsets.all(8),
+                          sliver: new SliverGrid(
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisSpacing: 1,
+                                      mainAxisSpacing: 1,
+                                      crossAxisCount: 2,
+                                      childAspectRatio: 0.5),
+                              delegate: new SliverChildBuilderDelegate(
+                                  (BuildContext context, int index) {
+                                return Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.6,
+                                    height: 370,
+                                    child: InkWell(
+                                      child: GroceryListItemOne(
+                                        product: productList[index],
+                                      ),
+                                    ));
+                              }, childCount: productList.length)))
+                    ],
+                    // controller: _scrollController,
+                  )
+                : Center(
+                    child: CircularProgressIndicator(),
+                  );
+          },
+        ));
   }
 
   void loadMore() {
