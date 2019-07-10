@@ -45,72 +45,80 @@ class GroceryListPageState extends State<NewGroceryListPage> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return new Scaffold(
-        appBar: new AppBar(
-          title: new Text(widget.title),
-          backgroundColor: Colors.lightGreen,
-          actions: <Widget>[
-            PopupMenuButton<String>(
-              onSelected: choiceAction,
-              itemBuilder: (BuildContext context) {
-                return Constants.choices.map((String choice) {
-                  return PopupMenuItem<String>(
-                    value: choice,
-                    child: Text(choice),
-                  );
-                }).toList();
-              },
-            )
-          ],
-        ),
-        body: FutureBuilder(
-            future: getData(),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if (snapshot.hasData) {
-                return new CustomScrollView(
-                  controller: _scrollController,
-                  slivers: <Widget>[
-                    SliverPadding(
-                        padding: const EdgeInsets.all(8),
-                        sliver: new SliverGrid(
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisSpacing: 1,
-                                    mainAxisSpacing: 1,
-                                    crossAxisCount: 2,
-                                    childAspectRatio: 0.5),
-                            delegate: new SliverChildBuilderDelegate(
-                                (BuildContext context, int index) {
-                              return Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.6,
-                                  height: 370,
-                                  child: InkWell(
-                                    child: GroceryListItemOne(
-                                      product: productList[index],
-                                    ),
-                                  ));
-                            }, childCount: productList.length)))
-                  ],
-                  // controller: _scrollController,
-                );
-              } else {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-            }));
+   return StoreConnector(
+        onInitialBuild: (ProductListViewModel viewModel) {
+          this.viewModel = viewModel;
+          viewModel.onFetchProductList(widget.id, "10", page.toString(), order);
+        },
+        onWillChange: (ProductListViewModel viewModel) {
+          productList.addAll(viewModel.productList);
+        },
+        converter: (Store<AppState> store) =>
+            ProductListViewModel.create(store),
+        builder: (BuildContext context, ProductListViewModel) {
+          return new Scaffold(
+              appBar: new AppBar(
+                title: new Text(widget.title),
+                backgroundColor: Colors.lightGreen,
+                actions: <Widget>[
+                  PopupMenuButton<String>(
+                    onSelected: choiceAction,
+                    itemBuilder: (BuildContext context) {
+                      return Constants.choices.map((String choice) {
+                        return PopupMenuItem<String>(
+                          value: choice,
+                          child: Text(choice),
+                        );
+                      }).toList();
+                    },
+                  )
+                ],
+              ),
+              body: productList != null
+                  ?  new CustomScrollView(
+                        controller: _scrollController,
+                        slivers: <Widget>[
+                          SliverPadding(
+                              padding: const EdgeInsets.all(8),
+                              sliver: new SliverGrid(
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisSpacing: 1,
+                                          mainAxisSpacing: 1,
+                                          crossAxisCount: 2,
+                                          childAspectRatio: 0.5),
+                                  delegate: new SliverChildBuilderDelegate(
+                                      (BuildContext context, int index) {
+                                    return Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.6,
+                                        height: 370,
+                                        child: InkWell(
+                                          child: GroceryListItemOne(
+                                            product: productList[index],
+                                          ),
+                                        ));
+                                  }, childCount: productList.length)))
+                        ],
+                        // controller: _scrollController,
+                    )
+                  : Center(
+                      child: CircularProgressIndicator(),
+                    ));
+        });
   }
 
   void choiceAction(String choice) {
     if (choice == Constants.FirstItem) {
       print("choice ACTION>>");
-      productList.clear();
       setState(() {
+        productList.clear();
         order = "1";
         page = 0;
-        init();
+        getData().then((onvalue) {
+           productList.addAll(onvalue);
+        });
       });
       //viewModel.changeOrder("1");
     } else if (choice == Constants.SecondItem) {
@@ -145,9 +153,9 @@ class GroceryListPageState extends State<NewGroceryListPage> {
   void loadMore() async {
     page = page + 10;
     print(productList.toString() + "initial");
-    // viewModel.onFetchProductList(
-    //   widget.id, "10", page.toString(), widget.order);
-    init();
+    viewModel.onFetchProductList(
+     widget.id, "10", page.toString(), widget.order);
+   // init();
   }
 
   _scrollListener() {
@@ -170,7 +178,7 @@ class GroceryListPageState extends State<NewGroceryListPage> {
 
   init() {
     getData().then((onvalue) {
-      productList.addAll(onvalue);
+     // productList.addAll(onvalue);
       // productList.addAll(onvalue);
     });
   }
