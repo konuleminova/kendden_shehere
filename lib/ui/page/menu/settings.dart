@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/localization/application.dart';
+import 'package:kendden_shehere/util/sharedpref_util.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -10,7 +11,8 @@ class SettingsPage extends StatefulWidget {
 }
 
 class SettingsState extends State<SettingsPage> {
-  String _value = "en";
+  SharedPrefUtil sharedPref = new SharedPrefUtil();
+  String _value;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +55,8 @@ class SettingsState extends State<SettingsPage> {
                     child: RaisedButton(
                       color: Colors.green,
                       onPressed: () {
-                        application.onLocaleChanged(Locale(_value,""));
+                        sharedPref.setString(SharedPrefUtil.lang, _value);
+                        application.onLocaleChanged(Locale(_value, ""));
                         Navigator.pop(context);
                       },
                       child: Text(
@@ -110,5 +113,15 @@ class SettingsState extends State<SettingsPage> {
           isExpanded: true,
         );
     return _itemDown();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    sharedPref.getString(SharedPrefUtil.lang).then((onvalue) {
+      setState(() {
+        _value = onvalue;
+      });
+    });
   }
 }
