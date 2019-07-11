@@ -12,7 +12,7 @@ class SettingsPage extends StatefulWidget {
 
 class SettingsState extends State<SettingsPage> {
   SharedPrefUtil sharedPref = new SharedPrefUtil();
-  String _value;
+  String _value = "en";
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +120,11 @@ class SettingsState extends State<SettingsPage> {
     super.initState();
     sharedPref.getString(SharedPrefUtil.lang).then((onvalue) {
       setState(() {
-        _value = onvalue;
+        if (onvalue == "") {
+          _value = "en";
+        } else {
+          _value = onvalue;
+        }
       });
     });
   }

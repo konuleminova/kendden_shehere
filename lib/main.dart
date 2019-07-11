@@ -42,7 +42,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 void main() => runApp(MyApp());
 final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
-final GlobalKey<ScaffoldState> scaffoldRegisterKey = new GlobalKey<ScaffoldState>();
+final GlobalKey<ScaffoldState> scaffoldRegisterKey =
+    new GlobalKey<ScaffoldState>();
 
 class MyApp extends StatefulWidget {
   final Store<AppState> store = Store<AppState>(appStateReducer,
@@ -67,6 +68,12 @@ class MyAppState extends State<MyApp> {
     _newLocaleDelegate = AppTranslationsDelegate(newLocale: new Locale("en"));
     application.onLocaleChanged = onLocaleChange;
     _locale = new Locale("en", "");
+    SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
+    sharedPrefUtil.getString(SharedPrefUtil.lang).then((onvalue) {
+      if (onvalue != "") {
+        application.onLocaleChanged(Locale(onvalue, ""));
+      }
+    });
   }
 
   @override
