@@ -172,8 +172,9 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                   padding: EdgeInsets.only(left: 20.0, bottom: 10.0),
                   child: GroceryTitle(text: "Related Items")),
               GroceryListItemTwo(new Product(
-                  image:
-                      "https://pulapul.com/PulaPul/?action=GetImage&module=Campaigns&fileid=5&d=20190429",
+                  image: "https://kenddenshehere.az/images/pr/th/" +
+                      product.code +
+                      ".jpg",
                   title: "Sample",
                   subtitle: "Subtitle",
                   price: "1 AZN",
@@ -181,8 +182,9 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                   isAdded: false,
                   amount: 1)),
               GroceryListItemTwo(new Product(
-                  image:
-                      "https://pulapul.com/PulaPul/?action=GetImage&module=Campaigns&fileid=2&d=20190501",
+                  image: "https://kenddenshehere.az/images/pr/th/" +
+                      product.code +
+                      ".jpg",
                   title: "Sample",
                   subtitle: "Subtitle",
                   price: "2 AZN",
