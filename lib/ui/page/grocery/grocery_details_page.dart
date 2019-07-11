@@ -298,12 +298,8 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                                 : Image.asset("images/noimage.png"),
                           )),
                       Positioned(
-                        bottom: 8.0,
-                        right: 8.0,
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 10.0, vertical: 6.0),
-                          color: Colors.black.withOpacity(0.6),
+                          bottom: 8.0,
+                          right: 8.0,
                           child: Container(
                             child: IconButton(
                               icon: Icon(
@@ -311,7 +307,7 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                                     ? Icons.favorite
                                     : Icons.favorite_border,
                                 color: Colors.pink[400],
-                                size: 30,
+                                size: 36,
                               ),
                               onPressed: () {
                                 setState(() {
@@ -325,9 +321,7 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                                 });
                               },
                             ),
-                          ),
-                        ),
-                      ),
+                          )),
                     ],
                   );
                 } else {
