@@ -1,0 +1,9 @@
+"C:\Program Files\Java\jdk-12.0.1\bin\keytool" -genkey -v -keystore C:\SINAM\kendden_shehere\Keystore\key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias key
+
+Key Password:kenddenshehere
+keyAlias:alias
+
+storePassword=kenddenshehere
+keyPassword=kenddenshehere
+keyAlias=alias
+storeFile=C:\SINAM\kendden_shehere\Keystore\key.jks
