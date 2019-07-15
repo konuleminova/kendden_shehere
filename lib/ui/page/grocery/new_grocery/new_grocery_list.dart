@@ -74,7 +74,7 @@ class GroceryListPageState extends State<NewGroceryListPage> {
                   )
                 ],
               ),
-              body: productList != null
+              body: productList.length>0
                   ?  new CustomScrollView(
                         controller: _scrollController,
                         slivers: <Widget>[
