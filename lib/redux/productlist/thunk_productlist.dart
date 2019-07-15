@@ -13,6 +13,8 @@ ThunkAction<AppState> productListThunkAction(
         await Networks.productsInCategory(id, order, lang, limit, page);
     if (response != null) {
       store.dispatch(FetchProductListAction(data: response.productsInCategory));
+    } else {
+      store.dispatch(FetchProductListAction(data: []));
     }
   };
 }

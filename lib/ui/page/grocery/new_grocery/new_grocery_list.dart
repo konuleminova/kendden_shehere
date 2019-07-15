@@ -32,6 +32,7 @@ class GroceryListPageState extends State<NewGroceryListPage> {
   ProductListViewModel viewModel;
   String order;
   bool isLoading = false;
+  bool isScrolling = false;
 
   String lang;
 
@@ -66,7 +67,9 @@ class GroceryListPageState extends State<NewGroceryListPage> {
             productList.clear();
           }
           productList.addAll(viewModel.productList);
+          print(viewModel.productList);
           isLoading = false;
+          isScrolling = false;
         },
         converter: (Store<AppState> store) =>
             ProductListViewModel.create(store),
@@ -90,32 +93,47 @@ class GroceryListPageState extends State<NewGroceryListPage> {
                 ],
               ),
               body: productList.length > 0 && !isLoading
-                  ? new CustomScrollView(
-                      controller: _scrollController,
-                      slivers: <Widget>[
-                        SliverPadding(
-                            padding: const EdgeInsets.all(8),
-                            sliver: new SliverGrid(
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisSpacing: 1,
-                                        mainAxisSpacing: 1,
-                                        crossAxisCount: 2,
-                                        childAspectRatio: 0.5),
-                                delegate: new SliverChildBuilderDelegate(
-                                    (BuildContext context, int index) {
-                                  return Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.6,
-                                      height: 370,
-                                      child: InkWell(
-                                        child: GroceryListItemOne(
-                                          product: productList[index],
-                                        ),
-                                      ));
-                                }, childCount: productList.length)))
+                  ? new Stack(
+                      children: <Widget>[
+                        new CustomScrollView(
+                          controller: _scrollController,
+                          slivers: <Widget>[
+                            SliverPadding(
+                                padding: const EdgeInsets.all(8),
+                                sliver: new SliverGrid(
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisSpacing: 1,
+                                            mainAxisSpacing: 1,
+                                            crossAxisCount: 2,
+                                            childAspectRatio: 0.5),
+                                    delegate: new SliverChildBuilderDelegate(
+                                        (BuildContext context, int index) {
+                                      return Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.6,
+                                          height: 370,
+                                          child: InkWell(
+                                            child: GroceryListItemOne(
+                                              product: productList[index],
+                                            ),
+                                          ));
+                                    }, childCount: productList.length)))
+                          ],
+                          // controller: _scrollController,
+                        ),
+                        isScrolling&&viewModel.productList.length>0
+                            ? new Container(
+                                child: CircularProgressIndicator(),
+                                alignment: Alignment.bottomCenter,
+                              )
+                            : SizedBox(
+                                height: 0.0,
+                                width: 0.0,
+                              )
                       ],
-                      // controller: _scrollController,
                     )
                   : Center(
                       child: viewModel.productList.length > 0
@@ -162,10 +180,9 @@ class GroceryListPageState extends State<NewGroceryListPage> {
   }
 
   void loadMore() async {
+    isScrolling = true;
     page = page + 10;
-    print(productList.toString() + "initial");
     fetchProductList();
-    // init();
   }
 
   _scrollListener() {
