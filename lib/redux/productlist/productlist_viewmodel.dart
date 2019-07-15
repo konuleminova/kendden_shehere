@@ -27,8 +27,8 @@ class ProductListViewModel {
     }
 
     return ProductListViewModel(
-        onFetchProductList: _onFetchProductList,
         productList: store.state.newProducts,
+        onFetchProductList: _onFetchProductList,
         changeOrder: _changeOrder,
         order: store.state.filterOrder);
   }

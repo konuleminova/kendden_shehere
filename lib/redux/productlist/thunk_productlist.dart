@@ -10,9 +10,10 @@ ThunkAction<AppState> productListThunkAction(
     String id, String limit, String page,String order) {
   return (Store<AppState> store) async {
     ProductsInCategory response =
-        await Networks.productsInCategory(id, store.state.filterOrder, "0", limit, page);
+        await Networks.productsInCategory(id, order, "0", limit, page);
     if (response != null) {
-      store.state.newProducts = response.productsInCategory;
+      store.state.newProducts.clear();
+      store.state.newProducts.addAll(response.productsInCategory);
       store.dispatch(FetchProductListAction(data: response.productsInCategory));
     }
   };
