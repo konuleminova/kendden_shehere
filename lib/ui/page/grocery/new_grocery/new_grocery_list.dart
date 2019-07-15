@@ -108,7 +108,9 @@ class GroceryListPageState extends State<NewGroceryListPage> {
                       // controller: _scrollController,
                     )
                   : Center(
-                      child: CircularProgressIndicator(),
+                      child: viewModel.productList!=null&&productList.length>0
+                          ? CircularProgressIndicator()
+                          : Text("Product is not found."),
                     ));
         });
   }
