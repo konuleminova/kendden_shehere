@@ -58,8 +58,7 @@ class GroceryListPageState extends State<NewGroceryListPage> {
     return StoreConnector(
         onInitialBuild: (ProductListViewModel viewModel) {
           this.viewModel = viewModel;
-          viewModel.onFetchProductList(
-              widget.id, lang, "10", page.toString(), order);
+          fetchProductList();
         },
         onWillChange: (ProductListViewModel viewModel) {
           //  viewModel.productList.clear();
@@ -133,8 +132,7 @@ class GroceryListPageState extends State<NewGroceryListPage> {
         isLoading = true;
         order = "1";
         page = 0;
-        viewModel.onFetchProductList(
-            widget.id, lang, "10", page.toString(), order);
+        fetchProductList();
       });
     } else if (choice == Constants.SecondItem) {
       print("choice ACTION 2>>");
@@ -142,16 +140,14 @@ class GroceryListPageState extends State<NewGroceryListPage> {
         isLoading = true;
         order = "2";
         page = 0;
-        viewModel.onFetchProductList(
-            widget.id, lang, "10", page.toString(), order);
+        fetchProductList();
       });
     } else if (choice == Constants.ThirdItem) {
       setState(() {
         isLoading = true;
         order = "3";
         page = 0;
-        viewModel.onFetchProductList(
-            widget.id, lang, "10", page.toString(), order);
+        fetchProductList();
       });
       // viewModel.changeOrder("3");
     } else {
@@ -159,8 +155,7 @@ class GroceryListPageState extends State<NewGroceryListPage> {
         isLoading = true;
         order = "4";
         page = 0;
-        viewModel.onFetchProductList(
-            widget.id, lang, "10", page.toString(), order);
+        fetchProductList();
       });
       // viewModel.changeOrder("4");
     }
@@ -169,7 +164,7 @@ class GroceryListPageState extends State<NewGroceryListPage> {
   void loadMore() async {
     page = page + 10;
     print(productList.toString() + "initial");
-    viewModel.onFetchProductList(widget.id, lang, "10", page.toString(), order);
+    fetchProductList();
     // init();
   }
 
@@ -189,5 +184,9 @@ class GroceryListPageState extends State<NewGroceryListPage> {
         print("reach the top");
       });
     }
+  }
+
+  void fetchProductList() {
+    viewModel.onFetchProductList(widget.id, lang, "10", page.toString(), order);
   }
 }
