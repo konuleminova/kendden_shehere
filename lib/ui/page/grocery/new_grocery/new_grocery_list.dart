@@ -33,6 +33,8 @@ class GroceryListPageState extends State<NewGroceryListPage> {
   String order;
   bool isLoading = false;
 
+  String lang;
+
   @override
   void initState() {
     super.initState();
@@ -45,10 +47,19 @@ class GroceryListPageState extends State<NewGroceryListPage> {
 
   @override
   Widget build(BuildContext context) {
+    String langCode = Localizations.localeOf(context).languageCode;
+    if (langCode == "tr") {
+      lang = "0";
+    } else if (langCode == "en") {
+      lang = "2";
+    } else if (langCode == "ru") {
+      lang = "1";
+    }
     return StoreConnector(
         onInitialBuild: (ProductListViewModel viewModel) {
           this.viewModel = viewModel;
-          viewModel.onFetchProductList(widget.id, "10", page.toString(), order);
+          viewModel.onFetchProductList(
+              widget.id, lang, "10", page.toString(), order);
         },
         onWillChange: (ProductListViewModel viewModel) {
           //  viewModel.productList.clear();
@@ -108,7 +119,7 @@ class GroceryListPageState extends State<NewGroceryListPage> {
                       // controller: _scrollController,
                     )
                   : Center(
-                      child: viewModel.productList.length>0
+                      child: viewModel.productList.length > 0
                           ? CircularProgressIndicator()
                           : Text("Product is not found."),
                     ));
@@ -122,7 +133,8 @@ class GroceryListPageState extends State<NewGroceryListPage> {
         isLoading = true;
         order = "1";
         page = 0;
-        viewModel.onFetchProductList(widget.id, "10", page.toString(), order);
+        viewModel.onFetchProductList(
+            widget.id, lang, "10", page.toString(), order);
       });
     } else if (choice == Constants.SecondItem) {
       print("choice ACTION 2>>");
@@ -130,14 +142,16 @@ class GroceryListPageState extends State<NewGroceryListPage> {
         isLoading = true;
         order = "2";
         page = 0;
-        viewModel.onFetchProductList(widget.id, "10", page.toString(), order);
+        viewModel.onFetchProductList(
+            widget.id, lang, "10", page.toString(), order);
       });
     } else if (choice == Constants.ThirdItem) {
       setState(() {
         isLoading = true;
         order = "3";
         page = 0;
-        viewModel.onFetchProductList(widget.id, "10", page.toString(), order);
+        viewModel.onFetchProductList(
+            widget.id, lang, "10", page.toString(), order);
       });
       // viewModel.changeOrder("3");
     } else {
@@ -145,7 +159,8 @@ class GroceryListPageState extends State<NewGroceryListPage> {
         isLoading = true;
         order = "4";
         page = 0;
-        viewModel.onFetchProductList(widget.id, "10", page.toString(), order);
+        viewModel.onFetchProductList(
+            widget.id, lang, "10", page.toString(), order);
       });
       // viewModel.changeOrder("4");
     }
@@ -154,7 +169,7 @@ class GroceryListPageState extends State<NewGroceryListPage> {
   void loadMore() async {
     page = page + 10;
     print(productList.toString() + "initial");
-    viewModel.onFetchProductList(widget.id, "10", page.toString(), order);
+    viewModel.onFetchProductList(widget.id, lang, "10", page.toString(), order);
     // init();
   }
 

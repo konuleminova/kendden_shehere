@@ -31,7 +31,7 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-  List<NewProduct> productListOne,productListTwo;
+  List<NewProduct> productListOne, productListTwo;
   ScrollController _scrollController, _scrollControllerSecond;
   String message;
   final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -73,8 +73,8 @@ class HomePageState extends State<HomePage> {
     return StoreConnector(
         onInitialBuild: (ProductListViewModel viewModel) {
           this.viewModel = viewModel;
-          viewModel.onFetchProductList("66", "10", "0", viewModel.order);
-         // viewModel.onFetchProductList("49", "10", "0", viewModel.order);
+          viewModel.onFetchProductList("66", "0", "10", "0", viewModel.order);
+          // viewModel.onFetchProductList("49", "10", "0", viewModel.order);
         },
         onWillChange: (ProductListViewModel viewModel) {
           productListOne.addAll(viewModel.productList);
@@ -340,7 +340,7 @@ class HomePageState extends State<HomePage> {
   void loadMore(String id) {
     page = page + 10;
     print(productListOne.toString() + "initial");
-    viewModel.onFetchProductList(id, "66", page.toString(), "0");
+    viewModel.onFetchProductList(id, "0","66", page.toString(), "0");
   }
 
   _buildCard() => new Container(

@@ -5,7 +5,7 @@ import 'package:kendden_shehere/redux/productlist/thunk_productlist.dart';
 import 'package:redux/redux.dart';
 
 class ProductListViewModel {
-  Function(String id, String limit, String page, String order)
+  Function(String id,String lang, String limit, String page, String order)
       onFetchProductList;
   List<NewProduct> productList;
   Function(String order) changeOrder;
@@ -18,8 +18,8 @@ class ProductListViewModel {
       this.order});
 
   factory ProductListViewModel.create(Store<AppState> store) {
-    _onFetchProductList(String id, String limit, String page, String order) {
-      store.dispatch(productListThunkAction(id, limit, page, order));
+    _onFetchProductList(String id,String lang, String limit, String page, String order) {
+      store.dispatch(productListThunkAction(id,lang, limit, page, order));
     }
 
     _changeOrder(String order) {
