@@ -204,6 +204,6 @@ class GroceryListPageState extends State<NewGroceryListPage> {
   }
 
   void fetchProductList() {
-    viewModel.onFetchProductList(widget.id, lang, "10", page.toString(), order);
+    viewModel.onFetchProductList(widget.id, lang, "12", page.toString(), order);
   }
 }
