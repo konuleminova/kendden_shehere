@@ -124,7 +124,7 @@ class GroceryListPageState extends State<NewGroceryListPage> {
                           ],
                           // controller: _scrollController,
                         ),
-                        isScrolling&&viewModel.productList.length>0
+                        isScrolling && viewModel.productList.length > 0
                             ? new Container(
                                 child: CircularProgressIndicator(),
                                 alignment: Alignment.bottomCenter,
