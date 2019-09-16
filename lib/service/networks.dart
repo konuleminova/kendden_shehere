@@ -137,8 +137,10 @@ class Networks {
 
   static dynamic search(String lang, String query) async {
     try {
-      final response = await http.get(SEARCH + "&q=${query}+&lang=${lang}");
+      final response = await http.get(SEARCH + "&q=${query}+&start=${0}+&limit=${100}+&lang=${lang}");
       print("code");
+      print(response.statusCode);
+      print(response.toString());
       if (response.statusCode == 200) {
         return ProductsInCategory.fromJson(json.decode(response.body));
       } else {

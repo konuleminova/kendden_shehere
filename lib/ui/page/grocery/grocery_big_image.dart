@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zoomable_image/zoomable_image.dart';
+//import 'package:zoomable_image/zoomable_image.dart';
 
 class GroceryBigImage extends StatelessWidget {
   String code;
@@ -12,12 +12,11 @@ class GroceryBigImage extends StatelessWidget {
     // TODO: implement build
     return new Scaffold(
         backgroundColor: Colors.black87,
-        body: Center(
-            child: new Container(
-                child: ZoomableImage(
-          NetworkImage(img),
-          placeholder: const Center(child: const CircularProgressIndicator()),
-                  minScale: 0.5,
-        ))));
+        body: Center(child: new Container(child: Text("zoom"))));
   }
 }
+//ZoomableImage(
+//          NetworkImage(img),
+//          placeholder: const Center(child: const CircularProgressIndicator()),
+//                  minScale: 0.5,
+//        )

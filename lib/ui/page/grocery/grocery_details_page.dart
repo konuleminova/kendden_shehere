@@ -6,7 +6,7 @@ import 'package:kendden_shehere/ui/widgets/rating_star.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/glistitem2.dart';
 import 'package:kendden_shehere/ui/widgets/gtile_title.dart';
 import 'package:share/share.dart';
-import 'package:zoomable_image/zoomable_image.dart';
+//import 'package:zoomable_image/zoomable_image.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:http/http.dart' as http;
 
