@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
-import 'package:kendden_shehere/ui/page/grocery/new_grocery/grocery_categories.dart';
+import 'package:kendden_shehere/ui/page/grocery/grocery_categories.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 
 class DrawerWidget extends StatefulWidget {

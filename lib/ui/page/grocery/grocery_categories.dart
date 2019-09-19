@@ -6,7 +6,7 @@ import 'package:kendden_shehere/redux/categories/category_item.dart';
 import 'package:kendden_shehere/redux/categories/list_categories.dart';
 import 'package:kendden_shehere/redux/productlist/productlist_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
-import 'package:kendden_shehere/ui/page/grocery/new_grocery/new_grocery_list.dart';
+import 'package:kendden_shehere/ui/page/grocery/grocery_list.dart';
 import 'package:redux/redux.dart';
 
 class GroceryCategoriesPage extends StatefulWidget {
@@ -94,7 +94,7 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
                         } else {
                           Route route = MaterialPageRoute(
                               builder: (BuildContext context) =>
-                                  NewGroceryListPage(
+                                  GroceryListPage(
                                     title: title,
                                     id: categories[index].id,
                                     order: order,

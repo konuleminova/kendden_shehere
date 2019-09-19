@@ -5,7 +5,7 @@ import 'package:kendden_shehere/localization/app_translations_delegate.dart';
 import 'package:kendden_shehere/localization/application.dart';
 import 'package:kendden_shehere/redux/navigation/navigation_middleware.dart';
 import 'package:kendden_shehere/redux/navigation/navigation_observer.dart';
-import 'package:kendden_shehere/ui/page/grocery/new_grocery/grocery_categories.dart';
+import 'package:kendden_shehere/ui/page/grocery/grocery_categories.dart';
 import 'package:kendden_shehere/ui/page/menu/about_us.dart';
 import 'package:kendden_shehere/ui/page/menu/delivery.dart';
 import 'package:kendden_shehere/ui/page/menu/fag.dart';

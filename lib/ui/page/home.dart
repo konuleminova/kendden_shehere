@@ -9,11 +9,6 @@ import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem1.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
-import 'package:kendden_shehere/redux/common/model/product_model.dart';
-import 'package:kendden_shehere/redux/shoplist/shop_model.dart';
-import 'package:kendden_shehere/redux/home/home_viewmodel.dart';
-import 'package:kendden_shehere/ui/page/test/old_test_cards.dart';
-import 'package:kendden_shehere/ui/page/grocery/grocery_list.dart';
 import 'package:kendden_shehere/ui/widgets/drawer.dart';
 import 'package:kendden_shehere/ui/page/test/old_product_list_item.dart';
 import 'package:kendden_shehere/ui/widgets/rating_star.dart';
@@ -198,9 +193,7 @@ class HomePageState extends State<HomePage> {
                 GestureDetector(
                   child: _titleContainer(),
                   onTap: () {
-                    Route route = MaterialPageRoute(
-                        builder: (context) => GroceryListPage("titile"));
-                    return Navigator.push(context, route);
+
                   },
                 ),
                 _buildCard(),

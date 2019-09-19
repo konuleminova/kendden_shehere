@@ -6,7 +6,6 @@ import 'package:kendden_shehere/redux/productlist/productlist_viewmodel.dart';
 import 'package:kendden_shehere/redux/productlist/products_in_category_model.dart';
 import 'package:kendden_shehere/redux/search/search_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
-import 'package:kendden_shehere/ui/page/grocery/grocery_list.dart';
 import 'package:kendden_shehere/ui/page/test/old_test_cards.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem1.dart';
 import 'package:redux/redux.dart';
@@ -244,9 +243,6 @@ class SearchWidget extends SearchDelegate<String> {
       itemBuilder: (context, index) {
         return ListTile(
           onTap: () {
-            Route route = MaterialPageRoute(
-                builder: (context) => GroceryListPage("titile"));
-            return Navigator.push(context, route);
           },
           title: new Text(suggesstionList[index]),
         );
