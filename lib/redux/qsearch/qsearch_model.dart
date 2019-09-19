@@ -40,7 +40,7 @@ class QSearchModel {
     return new QSearchModel(
        type: json['type']??null,
         name: json['name']??null,
-      // cat_id: json['cat-id']??"",
+       // cat_id: json['catid']??null,
         id: json["id"],
         name_en: json["name_en"] ?? "Sample Title",
         name_az: json["name_az"] ?? "Sample Title",

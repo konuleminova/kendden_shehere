@@ -140,14 +140,29 @@ class SearchWidget extends SearchDelegate<String> {
                 }
                 return ListTile(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        new MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                new GroceryListPage(
-                                  id: "1-15",
-                                  title: "NEW",
-                                )));
+//                    if(qSearch.qsearchList[index].cat_id!=null){
+//                      var string=snapshot.data[index].cat_id;
+//                      if(string.contains('-')==true){
+//                        Navigator.push(
+//                            context,
+//                            new MaterialPageRoute(
+//                                builder: (BuildContext context) =>
+//                                new GroceryListPage(
+//                                  id: snapshot.data[index].cat_id,
+//                                  title: "NEW",
+//                                )));
+//                      }
+//                      else{
+//                        Navigator.push(
+//                            context,
+//                            new MaterialPageRoute(
+//                                builder: (BuildContext context) =>
+//                                new CategoryIndexPage(
+//                                  id: snapshot.data[index].cat_id,
+//                                  title: "NEW",
+//                                )));
+//                      }
+//                    }
                     //CategoriesIndex if(cat-id!=null,!contains("-"'),//GroceryListPage cat-id!=null&contains(" -") ,//GroceriesDetailsPage if(cat-id==null)
                   },
                   title: new Text(qSearch.qsearchList[index].type != null
