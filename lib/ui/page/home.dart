@@ -40,8 +40,10 @@ class HomePageState extends State<HomePage> {
   var increment = 1;
   int counter = 0;
   List<String> photos = new List();
-
+  String langCode;
   var _current = 0;
+
+  String title;
 
   @override
   void initState() {
@@ -61,6 +63,7 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
+    langCode = Localizations.localeOf(context).languageCode;
     // TODO: implement build
     return new Scaffold(
         key: scaffoldKey,
@@ -176,8 +179,8 @@ class HomePageState extends State<HomePage> {
           FutureBuilder(
               future: Networks.getCollections(),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
+                List<NewProduct> productsInCat = snapshot.data;
                 if (snapshot.hasData) {
-                  List<NewProduct> productsInCat = snapshot.data;
                   return ListView.builder(
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
@@ -187,50 +190,56 @@ class HomePageState extends State<HomePage> {
                         return FutureBuilder(
                             future: Networks.getCollectionItem(
                                 productsInCat[index].id),
-                            builder:
-                                (BuildContext context, AsyncSnapshot snapshot2) {
+                            builder: (BuildContext context,
+                                AsyncSnapshot snapshot2) {
                               if (snapshot2.hasData) {
-                                productListOne = snapshot2.data;
+                                if (langCode == "tr") {
+                                  title =snapshot.data[index].name_az;
+                                } else if (langCode == "en") {
+                                  title = snapshot.data[index].name_en;
+                                } else if (langCode == "ru") {
+                                  title = snapshot.data[index].name_ru;
+                                }
                                 return Container(
                                     child: Column(
-                                      children: <Widget>[
-                                        _titleContainer(
-                                            productsInCat[index].name_en),
-                                     Container(child:    ListView.builder(
-                                         physics: ClampingScrollPhysics(),
-                                         shrinkWrap: true,
-                                         scrollDirection: Axis.horizontal,
-                                         itemCount: snapshot2.data.length,
-                                         itemBuilder: (BuildContext context,
-                                             int index) {
-                                           return Container(
-                                             height: height*0.5,
-                                             child: Column(
-                                               children: <Widget>[
-                                                 Container(
-                                                     width: MediaQuery.of(
-                                                         context)
-                                                         .size
-                                                         .width *
-                                                         0.5,
-                                                     height: height*0.5,
-                                                     child: InkWell(
-                                                       child:
-                                                       GroceryListItemOne(
-                                                         product:
-                                                         snapshot2.data[
-                                                         index],
-                                                       ),
-                                                     ))
-                                               ],
-                                             ),
-                                           );
-                                         }),height: height*0.5,)
-                                      ],
-                                    ));
+                                  children: <Widget>[
+                                    _titleContainer(title),
+                                    Container(
+                                      child: ListView.builder(
+                                          physics: ClampingScrollPhysics(),
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: snapshot2.data.length,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return Container(
+                                              height: height * 0.5,
+                                              child: Column(
+                                                children: <Widget>[
+                                                  Container(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.5,
+                                                      height: height * 0.5,
+                                                      child: InkWell(
+                                                        child:
+                                                            GroceryListItemOne(
+                                                          product: snapshot2
+                                                              .data[index],
+                                                        ),
+                                                      ))
+                                                ],
+                                              ),
+                                            );
+                                          }),
+                                      height: height * 0.5,
+                                    )
+                                  ],
+                                ));
                               } else {
-                                return Container(
-                                );
+                                return Container();
                               }
                             });
                       });
