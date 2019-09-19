@@ -188,4 +188,29 @@ class Networks {
       return null;
     }
   }
+
+  static dynamic getCollections() async {
+    try {
+      final response = await http.get(BASE_KS_URL+"collection"+"&inf");
+      if (response.statusCode == 200) {
+        return ProductsInCategory.fromJson(json.decode(response.body)).productsInCategory;
+      } else {
+        return null;
+      }
+    } catch (exception) {}
+  }
+
+  static dynamic getCollectionItem(
+      String id) async {
+    try {
+      final response = await http.get(BASE_KS_URL + "collection"+"&inf=${id}");
+      print(id + ".. product id ");
+      if (response.statusCode == 200) {
+        print(response.body);
+        return ProductsInCategory.fromJson(json.decode(response.body)).productsInCategory;
+      } else {
+        return null;
+      }
+    } catch (exception) {}
+  }
 }
