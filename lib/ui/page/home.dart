@@ -229,8 +229,7 @@ class HomePageState extends State<HomePage> {
                                       ],
                                     ));
                               } else {
-                                return Center(
-                                  child: CircularProgressIndicator(),
+                                return Container(
                                 );
                               }
                             });
