@@ -8,6 +8,10 @@ import 'package:kendden_shehere/redux/qsearch/list_qsearch.dart';
 import 'package:kendden_shehere/redux/qsearch/qsearch_model.dart';
 import 'package:kendden_shehere/redux/search/search_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
+import 'package:kendden_shehere/ui/page/grocery/category_index.dart';
+import 'package:kendden_shehere/ui/page/grocery/grocery_categories.dart';
+import 'package:kendden_shehere/ui/page/grocery/grocery_details_page.dart';
+import 'package:kendden_shehere/ui/page/grocery/grocery_list.dart';
 import 'package:kendden_shehere/ui/page/test/old_test_cards.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem1.dart';
 import 'package:redux/redux.dart';
@@ -126,6 +130,7 @@ class SearchWidget extends SearchDelegate<String> {
             ListQSearch qSearch = snapshot.data;
             return ListView.builder(
               itemBuilder: (context, index) {
+                QSearchModel qSearchModel = qSearch.qsearchList[index];
                 if (lang == "0") {
                   title = qSearch.qsearchList[index].name_az.trim();
                 } else if (lang == "1") {
@@ -134,7 +139,16 @@ class SearchWidget extends SearchDelegate<String> {
                   title = qSearch.qsearchList[index].name_en.trim();
                 }
                 return ListTile(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                            new GroceryListPage(
+                                        id: "1-15",
+                                        title: "NEW",
+                                      )));
+                  },
                   title: new Text(qSearch.qsearchList[index].type != null
                       ? qSearch.qsearchList[index].name
                       : qSearch.qsearchList[index].name_en),
