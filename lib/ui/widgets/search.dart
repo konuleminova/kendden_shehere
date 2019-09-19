@@ -144,10 +144,11 @@ class SearchWidget extends SearchDelegate<String> {
                         context,
                         new MaterialPageRoute(
                             builder: (BuildContext context) =>
-                            new GroceryListPage(
-                                        id: "1-15",
-                                        title: "NEW",
-                                      )));
+                                new GroceryListPage(
+                                  id: "1-15",
+                                  title: "NEW",
+                                )));
+                    //CategoriesIndex if(cat-id!=null,!contains("-"'),//GroceryListPage cat-id!=null&contains(" -") ,//GroceriesDetailsPage if(cat-id==null)
                   },
                   title: new Text(qSearch.qsearchList[index].type != null
                       ? qSearch.qsearchList[index].name
