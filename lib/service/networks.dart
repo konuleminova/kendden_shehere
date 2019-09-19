@@ -8,6 +8,8 @@ import 'package:kendden_shehere/redux/login/user_model.dart';
 import 'package:kendden_shehere/redux/common/model/product_model.dart';
 import 'package:kendden_shehere/redux/productlist/products_in_category_model.dart';
 import 'package:kendden_shehere/redux/login/thunk_login.dart';
+import 'package:kendden_shehere/redux/qsearch/list_qsearch.dart';
+import 'package:kendden_shehere/redux/qsearch/qsearch_model.dart';
 import 'package:kendden_shehere/redux/register/register_model.dart';
 import 'package:kendden_shehere/redux/wishlist/list_wish_model.dart';
 import 'package:kendden_shehere/redux/wishlist/wishlist_model.dart';
@@ -137,7 +139,8 @@ class Networks {
 
   static dynamic search(String lang, String query) async {
     try {
-      final response = await http.get(SEARCH + "&q=${query}+&start=${0}+&limit=${100}+&lang=${lang}");
+      final response = await http
+          .get(SEARCH + "&q=${query}+&start=${0}+&limit=${100}+&lang=${lang}");
       print("code");
       print(response.statusCode);
       print(response.toString());
@@ -149,7 +152,25 @@ class Networks {
     } catch (exception) {}
   }
 
-  static Future<RegisterModel> register(String lang, UserModel userModel) async {
+  static dynamic qsearch(String lang, String query) async {
+    try {
+      final response = await http.get(BASE_KS_URL +
+          "qsearch" +
+          "&q=${query}+&start=${0}+&limit=${100}+&lang=${lang}");
+      print("code");
+      print(response.statusCode);
+      print(response.toString());
+      if (response.statusCode == 200) {
+        print(json.decode(response.body));
+        return ListQSearch.fromJson(json.decode(response.body));
+      } else {
+        return null;
+      }
+    } catch (exception) {}
+  }
+
+  static Future<RegisterModel> register(
+      String lang, UserModel userModel) async {
     final response = await http.get(REGISTER +
         "&lang=${lang}+&login=${userModel.username}+&name=${userModel.name}+&surname=${userModel.surname}"
             "+&mobile=${userModel.mobile}+&pass=${userModel.password}"

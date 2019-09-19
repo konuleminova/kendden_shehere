@@ -4,6 +4,8 @@ import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/redux/productlist/productlist_viewmodel.dart';
 import 'package:kendden_shehere/redux/productlist/products_in_category_model.dart';
+import 'package:kendden_shehere/redux/qsearch/list_qsearch.dart';
+import 'package:kendden_shehere/redux/qsearch/qsearch_model.dart';
 import 'package:kendden_shehere/redux/search/search_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/test/old_test_cards.dart';
@@ -14,136 +16,8 @@ class SearchWidget extends SearchDelegate<String> {
   ScrollController _scrollController;
   int page = 0;
   List<NewProduct> productList = new List();
+  List<NewProduct> suggesstionList = new List();
   SearchListViewModel viewModel;
-  final vegetables = [
-    "apple",
-    "alfalfa sprout",
-    "amaranth",
-    "anise",
-    "artichoke",
-    "arugula",
-    "asparagus",
-    "aubergine",
-    "azuki bean",
-    "banana squash",
-    "basil",
-    "bean sprout",
-    "beet",
-    "black bean",
-    "black-eyed pea",
-    "bok choy",
-    "borlotti bean",
-    "broad beans",
-    "broccoflower",
-    "broccoli",
-    "brussels sprout",
-    "butternut squash",
-    "cabbage",
-    "calabrese",
-    "caraway",
-    "carrot",
-    "cauliflower",
-    "cayenne pepper",
-    "celeriac",
-    "celery",
-    "chamomile",
-    "chard",
-    "chayote",
-    "chickpea",
-    "chives",
-    "cilantro",
-    "collard green",
-    "corn",
-    "corn salad",
-    "courgette",
-    "cucumber",
-    "daikon",
-    "delicata",
-    "dill",
-    "eggplant",
-    "endive",
-    "fennel",
-    "fiddlehead",
-    "frisee",
-    "garlic",
-    "gem squash",
-    "ginger",
-    "green bean",
-    "green pepper",
-    "habanero",
-    "herbs and spice",
-    "horseradish",
-    "hubbard squash",
-    "jalapeno",
-    "jerusalem artichoke",
-    "jicama",
-    "kale",
-    "kidney bean",
-    "kohlrabi",
-    "lavender",
-    "leek ",
-    "legume",
-    "lemon grass",
-    "lentils",
-    "lettuce",
-    "lima bean",
-    "mamey",
-    "mangetout",
-    "marjoram",
-    "mung bean",
-    "mushrooms",
-    "mustard green",
-    "navy bean",
-    "nettles",
-    "new zealand spinach",
-    "nopale",
-    "okra",
-    "onion",
-    "oregano",
-    "paprika",
-    "parsley",
-    "parsnip",
-    "patty pan",
-    "peas",
-    "pinto bean",
-    "potato",
-    "pumpkin",
-    "radicchio",
-    "radish",
-    "rhubarb",
-    "rosemary",
-    "runner bean",
-    "rutabaga",
-    "sage",
-    "scallion",
-    "shallot",
-    "skirret",
-    "snap pea",
-    "soy bean",
-    "spaghetti squash",
-    "spinach",
-    "squash ",
-    "sweet potato",
-    "tabasco pepper",
-    "taro",
-    "tat soi",
-    "thyme",
-    "tomato",
-    "topinambur",
-    "tubers",
-    "turnip",
-    "wasabi",
-    "water chestnut",
-    "watercress",
-    "white radish",
-    "yam",
-    "zucchini"
-  ];
-  final recentVegetables = [
-    "apple",
-    "banana",
-  ];
-
   String lang;
 
   @override
@@ -173,14 +47,14 @@ class SearchWidget extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    String langCode = Localizations.localeOf(context).languageCode;
-    if (langCode == "tr") {
-    lang="0";
-    } else if (langCode == "en") {
-    lang="2";
-    } else if (langCode == "ru") {
-      lang="1";
-    }
+//    String langCode = Localizations.localeOf(context).languageCode;
+//    if (langCode == "tr") {
+//      lang = "0";
+//    } else if (langCode == "en") {
+//      lang = "2";
+//    } else if (langCode == "ru") {
+//      lang = "1";
+//    }
     // print(products.productsInCategory);
     // TODO: implement buildResults
     // TODO: implement build
@@ -235,20 +109,43 @@ class SearchWidget extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final suggesstionList = query.isEmpty
-        ? vegetables
-        : vegetables.where((p) => p.startsWith(query)).toList();
+    String langCode = Localizations.localeOf(context).languageCode;
+    if (langCode == "tr") {
+      lang = "0";
+    } else if (langCode == "en") {
+      lang = "2";
+    } else if (langCode == "ru") {
+      lang = "1";
+    }
     // TODO: implement buildSuggestions
-    return ListView.builder(
-      itemBuilder: (context, index) {
-        return ListTile(
-          onTap: () {
-          },
-          title: new Text(suggesstionList[index]),
-        );
-      },
-      itemCount: suggesstionList.length,
-    );
+    return FutureBuilder(
+        future: Networks.qsearch(lang, query),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            String title;
+            ListQSearch qSearch = snapshot.data;
+            return ListView.builder(
+              itemBuilder: (context, index) {
+                if (lang == "0") {
+                  title = qSearch.qsearchList[index].name_az.trim();
+                } else if (lang == "1") {
+                  title = qSearch.qsearchList[index].name_ru.trim();
+                } else if (lang == "2") {
+                  title = qSearch.qsearchList[index].name_en.trim();
+                }
+                return ListTile(
+                  onTap: () {},
+                  title: new Text(qSearch.qsearchList[index].type != null
+                      ? qSearch.qsearchList[index].name
+                      : qSearch.qsearchList[index].name_en),
+                );
+              },
+              itemCount: qSearch.qsearchList.length,
+            );
+          } else {
+            return Center();
+          }
+        });
   }
 
   @override
