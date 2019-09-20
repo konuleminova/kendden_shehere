@@ -131,13 +131,16 @@ class SearchWidget extends SearchDelegate<String> {
             return ListView.builder(
               itemBuilder: (context, index) {
               //  QSearchModel qSearchModel = qSearch.qsearchList[index];
-                if (lang == "0") {
-                  title =snapshot.data.qsearchList[index].name_az.trim();
-                } else if (lang == "1") {
-                  title = snapshot.data.qsearchList[index].name_ru.trim();
-                } else if (lang == "2") {
-                  title = snapshot.data.qsearchList[index].name_en.trim();
+                if(  snapshot.data.qsearchList[index].name_en != null){
+                  if (lang == "0") {
+                    title =snapshot.data.qsearchList[index].name_az.trim();
+                  } else if (lang == "1") {
+                    title = snapshot.data.qsearchList[index].name_ru.trim();
+                  } else if (lang == "2") {
+                    title = snapshot.data.qsearchList[index].name_en.trim();
+                  }
                 }
+
                 return ListTile(
                     onTap: () {
                      // print(qSearch.qsearchList);
@@ -148,7 +151,7 @@ class SearchWidget extends SearchDelegate<String> {
                                 builder: (BuildContext context) =>
                                     new GroceryListPage(
                                       id: qSearch.qsearchList[index].catid,
-                                      title: "NEW",
+                                      title: qSearch.qsearchList[index].name,
                                     )));
                       }
                       if (qSearch.qsearchList[index].catIdParent != null &&
@@ -157,7 +160,7 @@ class SearchWidget extends SearchDelegate<String> {
                             context,
                             new MaterialPageRoute(
                                 builder: (BuildContext context) =>
-                                    new CategoryIndexPage(
+                                    new GroceryCategoriesPage(
                                       id: qSearch
                                           .qsearchList[index].catIdParent,
                                       title: qSearch.qsearchList[index].name,
