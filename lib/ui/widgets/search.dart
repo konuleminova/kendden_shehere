@@ -160,7 +160,7 @@ class SearchWidget extends SearchDelegate<String> {
                                     new CategoryIndexPage(
                                       id: qSearch
                                           .qsearchList[index].catIdParent,
-                                      title: "NEW",
+                                      title: qSearch.qsearchList[index].name,
                                     )));
                       }
                       if (qSearch.qsearchList[index].catIdParent == null &&
