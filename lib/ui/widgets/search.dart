@@ -127,13 +127,13 @@ class SearchWidget extends SearchDelegate<String> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             String title;
-           ListQSearch qSearch = snapshot.data;
+            ListQSearch qSearch = snapshot.data;
             return ListView.builder(
               itemBuilder: (context, index) {
-              //  QSearchModel qSearchModel = qSearch.qsearchList[index];
-                if(  snapshot.data.qsearchList[index].name_en != null){
+                //  QSearchModel qSearchModel = qSearch.qsearchList[index];
+                if (snapshot.data.qsearchList[index].name_en != null) {
                   if (lang == "0") {
-                    title =snapshot.data.qsearchList[index].name_az.trim();
+                    title = snapshot.data.qsearchList[index].name_az.trim();
                   } else if (lang == "1") {
                     title = snapshot.data.qsearchList[index].name_ru.trim();
                   } else if (lang == "2") {
@@ -143,7 +143,7 @@ class SearchWidget extends SearchDelegate<String> {
 
                 return ListTile(
                     onTap: () {
-                     // print(qSearch.qsearchList);
+                      // print(qSearch.qsearchList);
                       if (snapshot.data.qsearchList[index].catid != null) {
                         Navigator.push(
                             context,
@@ -189,7 +189,6 @@ class SearchWidget extends SearchDelegate<String> {
   ThemeData appBarTheme(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return theme.copyWith(
-        primaryColor: Colors.lightGreen,
-        primaryIconTheme: theme.primaryIconTheme);
+        primaryColor: Colors.lightGreen, primaryIconTheme: theme.primaryIconTheme);
   }
 }
