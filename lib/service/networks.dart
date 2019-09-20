@@ -6,6 +6,7 @@ import 'package:kendden_shehere/redux/home/home_model.dart';
 import 'package:kendden_shehere/redux/categories/list_categories.dart';
 import 'package:kendden_shehere/redux/login/user_model.dart';
 import 'package:kendden_shehere/redux/common/model/product_model.dart';
+import 'package:kendden_shehere/redux/orderhistory/orderhistory_listmodel.dart';
 import 'package:kendden_shehere/redux/productlist/products_in_category_model.dart';
 import 'package:kendden_shehere/redux/login/thunk_login.dart';
 import 'package:kendden_shehere/redux/qsearch/list_qsearch.dart';
@@ -191,23 +192,40 @@ class Networks {
 
   static dynamic getCollections() async {
     try {
-      final response = await http.get(BASE_KS_URL+"collection"+"&inf");
+      final response = await http.get(BASE_KS_URL + "collection" + "&inf");
       if (response.statusCode == 200) {
-        return ProductsInCategory.fromJson(json.decode(response.body)).productsInCategory;
+        return ProductsInCategory.fromJson(json.decode(response.body))
+            .productsInCategory;
       } else {
         return null;
       }
     } catch (exception) {}
   }
 
-  static dynamic getCollectionItem(
-      String id) async {
+  static dynamic getCollectionItem(String id) async {
     try {
-      final response = await http.get(BASE_KS_URL + "collection"+"&inf=${id}");
+      final response =
+          await http.get(BASE_KS_URL + "collection" + "&inf=${id}");
       print(id + ".. product id ");
       if (response.statusCode == 200) {
         print(response.body);
-        return ProductsInCategory.fromJson(json.decode(response.body)).productsInCategory;
+        return ProductsInCategory.fromJson(json.decode(response.body))
+            .productsInCategory;
+      } else {
+        return null;
+      }
+    } catch (exception) {}
+  }
+
+  static dynamic orderHistory(String id) async {
+    try {
+      final response =
+          await http.get(BASE_KS_URL + "orderhistory" + "&id=${id}");
+      print(id + ".. product id ");
+      if (response.statusCode == 200) {
+        print(response.body);
+        print(OrderHistoryListModel.fromJson(json.decode(response.body)));
+        return OrderHistoryListModel.fromJson(json.decode(response.body));
       } else {
         return null;
       }
