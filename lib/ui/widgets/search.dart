@@ -127,50 +127,54 @@ class SearchWidget extends SearchDelegate<String> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             String title;
-            ListQSearch qSearch = snapshot.data;
+           ListQSearch qSearch = snapshot.data;
             return ListView.builder(
               itemBuilder: (context, index) {
-                QSearchModel qSearchModel = qSearch.qsearchList[index];
+              //  QSearchModel qSearchModel = qSearch.qsearchList[index];
                 if (lang == "0") {
-                  title = qSearch.qsearchList[index].name_az.trim();
+                  title =snapshot.data.qsearchList[index].name_az.trim();
                 } else if (lang == "1") {
-                  title = qSearch.qsearchList[index].name_ru.trim();
+                  title = snapshot.data.qsearchList[index].name_ru.trim();
                 } else if (lang == "2") {
-                  title = qSearch.qsearchList[index].name_en.trim();
+                  title = snapshot.data.qsearchList[index].name_en.trim();
                 }
                 return ListTile(
-                  onTap: () {
-//                    if(qSearch.qsearchList[index].cat_id!=null){
-//                      var string=snapshot.data[index].cat_id;
-//                      if(string.contains('-')==true){
-//                        Navigator.push(
-//                            context,
-//                            new MaterialPageRoute(
-//                                builder: (BuildContext context) =>
-//                                new GroceryListPage(
-//                                  id: snapshot.data[index].cat_id,
-//                                  title: "NEW",
-//                                )));
-//                      }
-//                      else{
-//                        Navigator.push(
-//                            context,
-//                            new MaterialPageRoute(
-//                                builder: (BuildContext context) =>
-//                                new CategoryIndexPage(
-//                                  id: snapshot.data[index].cat_id,
-//                                  title: "NEW",
-//                                )));
-//                      }
-//                    }
-                    //CategoriesIndex if(cat-id!=null,!contains("-"'),//GroceryListPage cat-id!=null&contains(" -") ,//GroceriesDetailsPage if(cat-id==null)
-                  },
-                  title: new Text(qSearch.qsearchList[index].type != null
-                      ? qSearch.qsearchList[index].name
-                      : qSearch.qsearchList[index].name_en),
-                );
+                    onTap: () {
+                     // print(qSearch.qsearchList);
+                      if (snapshot.data.qsearchList[index].catid != null) {
+                        Navigator.push(
+                            context,
+                            new MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    new GroceryListPage(
+                                      id: qSearch.qsearchList[index].catid,
+                                      title: "NEW",
+                                    )));
+                      }
+                      if (qSearch.qsearchList[index].catIdParent != null &&
+                          qSearch.qsearchList[index].catid == null) {
+                        Navigator.push(
+                            context,
+                            new MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    new CategoryIndexPage(
+                                      id: qSearch
+                                          .qsearchList[index].catIdParent,
+                                      title: "NEW",
+                                    )));
+                      }
+                      if (qSearch.qsearchList[index].catIdParent == null &&
+                          qSearch.qsearchList[index].catid == null) {
+                        print("DETAILS");
+                      }
+                      //CategoriesIndex if(cat-id!=null,!contains("-"'),//GroceryListPage cat-id!=null&contains(" -") ,//GroceriesDetailsPage if(cat-id==null)
+                    },
+                    title: new Text(
+                        snapshot.data.qsearchList[index].name_en != null
+                            ? title
+                            : snapshot.data.qsearchList[index].name));
               },
-              itemCount: qSearch.qsearchList.length,
+              itemCount: snapshot.data.qsearchList.length,
             );
           } else {
             return Center();

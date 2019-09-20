@@ -3,7 +3,6 @@ import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 class QSearchModel {
   String type;
   String name;
-  Stream cat_id;
   String id;
   String name_az;
   String name_ru;
@@ -17,32 +16,37 @@ class QSearchModel {
   String price;
   String hasphoto;
   String code;
+  String catid;
+  String catIdParent;
 
-  QSearchModel(
-      {this.type,
-      this.name,
-      this.cat_id,
-      this.id,
-      this.name_az,
-      this.name_ru,
-      this.name_en,
-      this.maininfo_az,
-      this.maininfo_en,
-      this.maininfo_ru,
-      this.count,
-      this.counttype,
-      this.img,
-      this.price,
-      this.hasphoto,
-      this.code});
+  QSearchModel({
+    this.type,
+    this.name,
+    this.id,
+    this.name_az,
+    this.name_ru,
+    this.name_en,
+    this.maininfo_az,
+    this.maininfo_en,
+    this.maininfo_ru,
+    this.count,
+    this.counttype,
+    this.img,
+    this.price,
+    this.hasphoto,
+    this.code,
+    this.catid,
+    this.catIdParent
+  });
 
-  factory QSearchModel.fromJson(Map<String, dynamic> json) {
+  factory QSearchModel.fromJson(json) {
     return new QSearchModel(
-       type: json['type']??null,
-        name: json['name']??null,
-       // cat_id: json['catid']??null,
+        type: json['type'] ?? "",
+        name: json['name'] ?? "",
+        catid: json['cat_id'] ?? null,
+        catIdParent: json['cat-id'] ?? null,
         id: json["id"],
-        name_en: json["name_en"] ?? "Sample Title",
+        name_en: json["name_en"] ??null,
         name_az: json["name_az"] ?? "Sample Title",
         name_ru: json["name_ru"] ?? "Sample Title",
         img: json["img"] ??
@@ -55,5 +59,6 @@ class QSearchModel {
         hasphoto: json["hasphoto"] ?? "0",
         price: json["price"] ?? "AZN",
         code: json["code"] ?? "");
+    //  cat_id: json["cat_id"] ?? "Sample Title");
   }
 }
