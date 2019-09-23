@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/information/information.dart';
 import 'package:kendden_shehere/service/networks.dart';
+import 'package:html2md/html2md.dart' as html2md;
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 class FagPage extends StatefulWidget {
   @override
@@ -54,11 +54,15 @@ class FAGState extends State<FagPage> {
                 if (snapshot.data != null) {
                   //  String text = snapshot.data;
                   // List<String>  splits =text.split("\n");
+
                   return ListView.builder(
                       itemCount: information.info.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return _buildFagQuestionItem(information.info[index].q,
-                            information.info[index].a, expanded[index], index);
+                        return _buildFagQuestionItem(
+                            html2md.convert(information.info[index].q),
+                            html2md.convert(information.info[index].a),
+                            expanded[index],
+                            index);
                       });
                 }
               } else {
@@ -88,7 +92,7 @@ class FAGState extends State<FagPage> {
                 text,
                 style: TextStyle(
                     color: Colors.green,
-                    fontSize: 22,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold),
               ),
               margin: EdgeInsets.only(bottom: 5, top: 5),
@@ -105,10 +109,8 @@ class FAGState extends State<FagPage> {
                   margin: EdgeInsets.only(top: 8, bottom: 8),
                   padding: EdgeInsets.all(12),
                   width: width,
-                  child: new Text(
-                    subtitle,
-                    style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+                  child: new MarkdownBody(
+                    data: subtitle,
                   ),
                   decoration: BoxDecoration(
                       borderRadius: new BorderRadius.circular(5),
