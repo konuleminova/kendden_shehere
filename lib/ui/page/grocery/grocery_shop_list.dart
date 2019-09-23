@@ -4,6 +4,7 @@ import 'package:kendden_shehere/redux/orderhistory/orderhistory_listmodel.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/test/shop_item_model.dart';
+import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem2.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem3.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
@@ -146,16 +147,9 @@ class GroceryCartState extends State<GroceryShopCartPage> {
     );
   }
 
-  Widget _builShopListItem(Product shopItem) => new Stack(
+  Widget _builShopListItem(NewProduct shopItem) => new Stack(
         children: <Widget>[
-          GroceryListItemTwo(new Product(
-              image: shopItem.image,
-              title: shopItem.title,
-              subtitle: shopItem.subtitle,
-              price: shopItem.price,
-              isLiked: false,
-              isAdded: true,
-              amount: 1)),
+          NewGroceryListItemTwo(shopItem),
           Positioned(
             top: 5,
             right: 0,
@@ -173,8 +167,8 @@ class GroceryCartState extends State<GroceryShopCartPage> {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  return viewModel.removeShopItem(shopItem);
-                  print(viewModel.shopItems.toString());
+                  //return viewModel.removeShopItem(shopItem);
+                 // print(viewModel.shopItems.toString());
                 },
               ),
             ),

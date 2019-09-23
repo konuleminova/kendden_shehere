@@ -5,7 +5,7 @@ import 'package:kendden_shehere/redux/common/model/order_history_model.dart';
 import 'package:kendden_shehere/redux/common/model/product_model.dart';
 import 'package:kendden_shehere/redux/orderhistory/orderhistory_listmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
-import 'package:kendden_shehere/ui/widgets/list_item/glistitem3.dart';
+import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem4.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem1.dart';
 
 class OrderHistoryPage extends StatelessWidget {
@@ -85,7 +85,7 @@ class OrderHistoryPage extends StatelessWidget {
                     child: ListView.builder(
                       itemCount: order.orderList.length,
                         itemBuilder: (BuildContext context, int index) {
-                      return GroceryListItemThree(new OrderItem(
+                      return NewGroceryListItemFour(new OrderItem(
                           title: order.orderList[index].id,
                           subtitle: order.orderList[index].dtsubmit,
                           status: true,
