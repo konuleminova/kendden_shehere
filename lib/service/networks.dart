@@ -280,4 +280,17 @@ class Networks {
       }
     } catch (exception) {}
   }
+  static dynamic contacts(String lang) async {
+    try {
+      final response =
+      await http.get(BASE_KS_URL + "information&inf=contacts" + "&lang=${lang}");
+      if (response.statusCode == 200) {
+        var a=json.decode(response.body);
+
+        return a;
+      } else {
+        return null;
+      }
+    } catch (exception) {}
+  }
 }

@@ -132,7 +132,9 @@ class DrawerState extends State<DrawerWidget> {
               Navigator.pushNamed(context, '/about_us');
             },
           ),
-          ListTile(leading: Icon(Icons.phone), title: Text(AppTranslations.of(context).text("contact_us")),),
+          ListTile(leading: Icon(Icons.phone), title: Text(AppTranslations.of(context).text("contact_us")),onTap: (){
+            Navigator.pushNamed(context,"/contacts");
+          },),
         ],
       ),
     );
