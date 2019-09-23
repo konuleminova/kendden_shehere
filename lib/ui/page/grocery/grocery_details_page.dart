@@ -73,7 +73,7 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
     product = widget.product;
     img = product.hasphoto;
     if (img == "1") {
-      img = "https://kenddenshehere.az/images/pr/th/" + product.code + ".jpg";
+      img = "https://kenddenshehere.az/images/pr/" + product.code + ".jpg";
     } else {
       img = null;
     }
