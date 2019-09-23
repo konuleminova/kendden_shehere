@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/services.dart' show rootBundle;
-import 'package:kendden_shehere/localization/app_translations.dart';
-import 'package:kendden_shehere/redux/information/info.dart';
-import 'package:kendden_shehere/redux/information/information.dart';
 import 'package:kendden_shehere/service/networks.dart';
+import 'package:html2md/html2md.dart' as html2md;
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 class DeliveryPage extends StatelessWidget {
   String lang;
@@ -28,7 +25,8 @@ class DeliveryPage extends StatelessWidget {
            // ListInfo information = snapshot.data;
             if (snapshot.data != null) {
               String header  = snapshot.data[0]['header']??"";
-              String body  = snapshot.data[1]['body']??"";
+              String body = snapshot.data[1]['body'] ?? "";
+              String markdown = html2md.convert(body);
               return new Scaffold(
                   appBar: new AppBar(
                     title: Text(
@@ -38,8 +36,9 @@ class DeliveryPage extends StatelessWidget {
                   body: SingleChildScrollView(
                     child: new Container(
                       margin: EdgeInsets.all(16),
-                      child: new Text(body,
-                          style: new TextStyle(fontSize: 17)),
+                      child:new MarkdownBody(
+                        data: markdown,
+                      )
                     ),
                   ));
             }
