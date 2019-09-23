@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/service/networks.dart';
+import 'package:html2md/html2md.dart' as html2md;
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 class ContactsPage extends StatelessWidget {
   String lang;
@@ -27,6 +29,7 @@ class ContactsPage extends StatelessWidget {
             if (snapshot.data != null) {
               String header = snapshot.data['header'] ?? "";
               String body = snapshot.data['body'] ?? "";
+              String markdown = html2md.convert(body);
               return new Scaffold(
                   appBar: new AppBar(
                     title: Text(header),
@@ -34,9 +37,10 @@ class ContactsPage extends StatelessWidget {
                   ),
                   body: SingleChildScrollView(
                     child: new Container(
-                      margin: EdgeInsets.all(16),
-                      child: new Text(body, style: new TextStyle(fontSize: 17)),
-                    ),
+                        margin: EdgeInsets.all(16),
+                        child: new MarkdownBody(
+                          data: markdown,
+                        )),
                   ));
             }
           } else {
