@@ -1,4 +1,6 @@
 class NewProduct {
+  String type;
+  String name;
   String id;
   String name_az;
   String name_ru;
@@ -12,6 +14,8 @@ class NewProduct {
   String price;
   String hasphoto;
   String code;
+  String catid;
+  String catIdParent;
 
   NewProduct(
       {this.id,
@@ -25,23 +29,34 @@ class NewProduct {
       this.counttype,
       this.img,
       this.price,
-      this.hasphoto,this.code});
+      this.hasphoto,
+      this.code,
+      this.type,
+      this.name,
+      this.catid,
+      this.catIdParent});
 
   factory NewProduct.fromJson(Map<String, dynamic> json) {
     return NewProduct(
-        id: json["id"],
-        name_en: json["name_en"] ?? "Sample Title",
-        name_az: json["name_az"] ?? "Sample Title",
-        name_ru: json["name_ru"] ?? "Sample Title",
-        img: json["img"] ?? "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg",
-        maininfo_az: json["maininfo_az"] ?? "Description",
-        maininfo_en: json["maininfo_en"] ?? "Description",
-        maininfo_ru: json["maininfo_ru"] ?? "Description",
-        count: json["count"] ?? "1",
-        counttype: json["counttype"] ?? "eded",
-        hasphoto: json["hasphoto"] ?? "0",
-        price: json["price"] ?? "AZN",
-        code: json["code"] ?? "");
+      type: json['type'] ?? "",
+      name: json['name'] ?? "",
+      id: json["id"],
+      name_en: json["name_en"] ?? null,
+      name_az: json["name_az"] ?? "Sample Title",
+      name_ru: json["name_ru"] ?? "Sample Title",
+      img: json["img"] ??
+          "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg",
+      maininfo_az: json["maininfo_az"] ?? "Description",
+      maininfo_en: json["maininfo_en"] ?? "Description",
+      maininfo_ru: json["maininfo_ru"] ?? "Description",
+      count: json["count"] ?? "1",
+      counttype: json["counttype"] ?? "eded",
+      hasphoto: json["hasphoto"] ?? "0",
+      price: json["price"] ?? "AZN",
+      code: json["code"] ?? "",
+      catid: json['cat_id'] ?? null,
+      catIdParent: json['cat-id'] ?? null,
+    );
   }
 
   @override

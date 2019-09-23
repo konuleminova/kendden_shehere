@@ -127,57 +127,67 @@ class SearchWidget extends SearchDelegate<String> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             String title;
-            ListQSearch qSearch = snapshot.data;
+            ProductsInCategory qSearch = snapshot.data;
             return ListView.builder(
               itemBuilder: (context, index) {
                 //  QSearchModel qSearchModel = qSearch.qsearchList[index];
-                if (snapshot.data.qsearchList[index].name_en != null) {
+                if (snapshot.data.productsInCategory[index].name_en != null) {
                   if (lang == "0") {
-                    title = snapshot.data.qsearchList[index].name_az.trim();
+                    title = snapshot.data.productsInCategory[index].name_az.trim();
                   } else if (lang == "1") {
-                    title = snapshot.data.qsearchList[index].name_ru.trim();
+                    title = snapshot.data.productsInCategory[index].name_ru.trim();
                   } else if (lang == "2") {
-                    title = snapshot.data.qsearchList[index].name_en.trim();
+                    title = snapshot.data.productsInCategory[index].name_en.trim();
                   }
                 }
 
                 return ListTile(
                     onTap: () {
                       // print(qSearch.qsearchList);
-                      if (snapshot.data.qsearchList[index].catid != null) {
+                      if (snapshot.data.productsInCategory[index].catid != null) {
                         Navigator.push(
                             context,
                             new MaterialPageRoute(
                                 builder: (BuildContext context) =>
                                     new GroceryListPage(
-                                      id: qSearch.qsearchList[index].catid,
-                                      title: qSearch.qsearchList[index].name,
+                                      id: qSearch
+                                          .productsInCategory[index].catid,
+                                      title: qSearch
+                                          .productsInCategory[index].name,
                                     )));
                       }
-                      if (qSearch.qsearchList[index].catIdParent != null &&
-                          qSearch.qsearchList[index].catid == null) {
+                      if (qSearch.productsInCategory[index].catIdParent !=
+                              null &&
+                          qSearch.productsInCategory[index].catid == null) {
                         Navigator.push(
                             context,
                             new MaterialPageRoute(
                                 builder: (BuildContext context) =>
                                     new GroceryCategoriesPage(
-                                      id: qSearch
-                                          .qsearchList[index].catIdParent,
-                                      title: qSearch.qsearchList[index].name,
+                                      id: qSearch.productsInCategory[index]
+                                          .catIdParent,
+                                      title: qSearch
+                                          .productsInCategory[index].name,
                                     )));
                       }
-                      if (qSearch.qsearchList[index].catIdParent == null &&
-                          qSearch.qsearchList[index].catid == null) {
+                      if (qSearch.productsInCategory[index].catIdParent ==
+                              null &&
+                          qSearch.productsInCategory[index].catid == null) {
                         print("DETAILS");
+                        Route route = MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                GroceryDetailsPage(
+                                    qSearch.productsInCategory[index]));
+                        Navigator.push(context, route);
                       }
                       //CategoriesIndex if(cat-id!=null,!contains("-"'),//GroceryListPage cat-id!=null&contains(" -") ,//GroceriesDetailsPage if(cat-id==null)
                     },
                     title: new Text(
-                        snapshot.data.qsearchList[index].name_en != null
+                        snapshot.data.productsInCategory[index].name_en != null
                             ? title
-                            : snapshot.data.qsearchList[index].name));
+                            : snapshot.data.productsInCategory[index].name));
               },
-              itemCount: snapshot.data.qsearchList.length,
+              itemCount: snapshot.data.productsInCategory.length,
             );
           } else {
             return Center();
@@ -189,6 +199,7 @@ class SearchWidget extends SearchDelegate<String> {
   ThemeData appBarTheme(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return theme.copyWith(
-        primaryColor: Colors.lightGreen, primaryIconTheme: theme.primaryIconTheme);
+        primaryColor: Colors.lightGreen,
+        primaryIconTheme: theme.primaryIconTheme);
   }
 }

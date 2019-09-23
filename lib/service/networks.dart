@@ -163,7 +163,7 @@ class Networks {
       print(response.toString());
       if (response.statusCode == 200) {
         print(json.decode(response.body));
-        return ListQSearch.fromJson(json.decode(response.body));
+        return ProductsInCategory.fromJson(json.decode(response.body));
       } else {
         return null;
       }
