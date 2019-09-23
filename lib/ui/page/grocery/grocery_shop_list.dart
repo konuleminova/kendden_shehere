@@ -37,15 +37,6 @@ class GroceryCartState extends State<GroceryShopCartPage> {
         appBar: new AppBar(
           backgroundColor: Colors.lightGreen,
           title: new Text("Shopping List"),
-          actions: <Widget>[
-            new Container(
-              child: new Icon(
-                Icons.delete,
-                color: Colors.white,
-              ),
-              margin: EdgeInsets.only(right: 16),
-            )
-          ],
         ),
         body: FutureBuilder(
             future: Networks.basket("179"),

@@ -58,15 +58,6 @@ class GroceryWishListPageState extends State<GroceryWishListPage> {
               appBar: new AppBar(
                 backgroundColor: Colors.lightGreen,
                 title: Text(AppTranslations.of(context).text("wish_list")),
-                actions: <Widget>[
-                  new Container(
-                    child: new Icon(
-                      Icons.delete,
-                      color: Colors.white,
-                    ),
-                    margin: EdgeInsets.only(right: 16),
-                  )
-                ],
               ),
               body: FutureBuilder(
                   future: getWishList("179"),
