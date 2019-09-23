@@ -27,7 +27,7 @@ class GroceryCartState extends State<GroceryShopCartPage> {
   ShoppingCartViewModel viewModel;
 
   var increment = 1;
-  List<NewProduct>products=new List();
+  List<NewProduct> products = new List();
 
   @override
   Widget build(BuildContext context) {
@@ -54,14 +54,18 @@ class GroceryCartState extends State<GroceryShopCartPage> {
                 OrderHistoryListModel order = snapshot.data;
 //                print("konul!!");
 //                print(order.orderList[0].list);
-                products=order.orderList[0].list.productsInCategory;
+                products = order.orderList[0].list.productsInCategory;
                 return Column(
                   children: <Widget>[
                     Expanded(child: _shopBody()),
                     SizedBox(
                       height: 10.0,
                     ),
-                    _buildTotals()
+                    // _buildTotals();
+                    _buildTotals(
+                      order.orderList[0].delivery_price,
+                      order.orderList[0].bprice,
+                    )
                   ],
                 );
               } else
@@ -77,12 +81,15 @@ class GroceryCartState extends State<GroceryShopCartPage> {
           shrinkWrap: true,
           physics: ClampingScrollPhysics(),
           children: products
-              .map((NewProduct shopItem) =>   NewGroceryListItemThree(shopItem),)
+              .map(
+                (NewProduct shopItem) => NewGroceryListItemThree(shopItem),
+              )
               .toList(),
         ),
       );
 
-  Widget _buildTotals() {
+  Widget _buildTotals(String delivery, String subtotal) {
+    double total = double.parse(delivery) + double.parse(subtotal);
     return ClipOval(
       clipper: OvalTopBorderClipper(),
       child: Container(
@@ -104,7 +111,7 @@ class GroceryCartState extends State<GroceryShopCartPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text("Subtotal"),
-                Text("14 AZN"),
+                Text(subtotal + " AZN"),
               ],
             ),
             SizedBox(
@@ -114,7 +121,7 @@ class GroceryCartState extends State<GroceryShopCartPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text("Delivery fee"),
-                Text("2 AZN"),
+                Text(delivery + " AZN"),
               ],
             ),
             SizedBox(
@@ -124,7 +131,7 @@ class GroceryCartState extends State<GroceryShopCartPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text("Total"),
-                Text("35 AZN"),
+                Text(total.toString() + " AZN"),
               ],
             ),
             SizedBox(

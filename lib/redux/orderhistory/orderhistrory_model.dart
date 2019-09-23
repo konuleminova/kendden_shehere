@@ -6,10 +6,11 @@ class OrderHistoryModel {
   String bprice;
   String dtsubmit;
   String status;
+  String delivery_price;
  ProductsInCategory list;
 
   OrderHistoryModel(
-      {this.id, this.bprice, this.dtsubmit, this.status, this.list});
+      {this.id, this.bprice, this.dtsubmit, this.status, this.list,this.delivery_price});
 
   factory OrderHistoryModel.fromJson(Map<String, dynamic> json) {
     var list = json['list'] as List;
@@ -18,6 +19,7 @@ class OrderHistoryModel {
         bprice: json['bprice'],
         dtsubmit: json['dtsubmit'],
         status: json['status'],
+        delivery_price: json['delivery_price'],
         list: ProductsInCategory.fromJson(json['list']));
   }
 }
