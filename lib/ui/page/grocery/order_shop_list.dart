@@ -1,52 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/redux/common/model/order_history_model.dart';
 import 'package:kendden_shehere/redux/common/model/product_model.dart';
+import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/profile_edit_dialog.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/payment_success_dialog.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/rating_star_dialog.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem4.dart';
-import 'package:kendden_shehere/ui/widgets/list_item/glistitem4.dart';
+import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem5.dart';
 import 'package:kendden_shehere/ui/widgets/rating_star.dart';
 
 class OrderShopListPage extends StatelessWidget {
-  List<Product> products = new List();
+  List<NewProduct> products;
+
+  OrderShopListPage({this.products});
+
   BuildContext context;
 
   @override
   Widget build(BuildContext context) {
-    //context = this.context;
-    products.add(
-      new Product(
-          title: "Order Name",
-          subtitle: "27.02.2019",
-          price: "1 AZN",
-          image:
-              "https://pulapul.com/PulaPul/?action=GetImage&module=Campaigns&fileid=2&d=20190507"),
-    );
-    products.add(
-      new Product(
-          title: "Order Name",
-          subtitle: "28.05.2019",
-          price: "1 AZN",
-          image:
-              "https://pulapul.com/PulaPul/?action=GetImage&module=Campaigns&fileid=2&d=20190507"),
-    );
-    products.add(
-      new Product(
-          title: "Order Name",
-          subtitle: "1.02.2019",
-          price: "1 AZN",
-          image:
-              "https://pulapul.com/PulaPul/?action=GetImage&module=Campaigns&fileid=2&d=20190507"),
-    );
-    products.add(
-      new Product(
-          title: "Order Name",
-          subtitle: "3.04.2019",
-          price: "1 AZN",
-          image:
-              "https://pulapul.com/PulaPul/?action=GetImage&module=Campaigns&fileid=2&d=20190507"),
-    );
+    //context = this.context
     // TODO: implement build
     return new Scaffold(
       appBar: new AppBar(
@@ -85,20 +57,15 @@ class OrderShopListPage extends StatelessWidget {
           shrinkWrap: true,
           physics: ClampingScrollPhysics(),
           children: products
-              .map((Product product) => _builOrderListItem(product))
+              .map((NewProduct product) => _builOrderListItem(product))
               .toList(),
         ),
       );
 
-  Widget _builOrderListItem(Product product) => GestureDetector(
+  Widget _builOrderListItem(NewProduct product) => GestureDetector(
         child: new Stack(
           children: <Widget>[
-            GroceryListItemFour(new Product(
-                title: product.title,
-                subtitle: product.subtitle,
-                amount: 1,
-                price: product.price,
-                image: product.image)),
+            NewGroceryListItemFive(product),
           ],
         ),
         onTap: () {

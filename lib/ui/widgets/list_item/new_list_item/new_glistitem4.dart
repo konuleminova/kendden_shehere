@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/redux/common/model/order_history_model.dart';
 import 'package:kendden_shehere/redux/orderhistory/orderhistrory_model.dart';
+import 'package:kendden_shehere/ui/page/grocery/order_shop_list.dart';
 import 'package:kendden_shehere/ui/widgets/gtile_title.dart';
 import 'package:kendden_shehere/ui/widgets/rating_star.dart';
 
@@ -18,7 +19,7 @@ class NewGroceryListItemFour extends StatefulWidget {
 
 class NewGroceryListItemFourState extends State<NewGroceryListItemFour> {
   OrderHistoryModel orderItem;
-  bool status=true;
+  bool status = true;
   int amount;
 
   @override
@@ -37,7 +38,12 @@ class NewGroceryListItemFourState extends State<NewGroceryListItemFour> {
                   border: new Border.all(width: 0.5, color: Colors.lightGreen)),
               child: ListTile(
                   onTap: () {
-                    Navigator.pushNamed(context, "/order_shop_list");
+                    // Navigator.pushNamed(context, "/order_shop_list");
+                    Route route = MaterialPageRoute(
+                        builder: (BuildContext context) => OrderShopListPage(
+                              products: orderItem.list.productsInCategory,
+                            ));
+                    Navigator.push(context, route);
                   },
                   title: Container(
                     height: 90.0,
@@ -57,7 +63,7 @@ class NewGroceryListItemFourState extends State<NewGroceryListItemFour> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       mainAxisSize: MainAxisSize.max,
                       children: <Widget>[
-                        new GroceryTitle(text: orderItem.bprice+" AZN"),
+                        new GroceryTitle(text: orderItem.bprice + " AZN"),
                         // new RatingStarWidget(5, 0, 20),
                         _statusWidget(),
                         //new GrocerySubtitle(text: amount.toString()+" kq"),
