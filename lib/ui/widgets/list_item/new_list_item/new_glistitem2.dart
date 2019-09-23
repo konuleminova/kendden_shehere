@@ -19,15 +19,14 @@ class NewGroceryListItemTwo extends StatefulWidget {
 
 class NewGroceryListItemTwoState extends State<NewGroceryListItemTwo> {
   NewProduct product;
-  String image, title, subtitle;
-  bool isAdded=false, isLiked=false;
-
-  int amount;
+  String image, title;
+  bool isAdded = false, isLiked = true;
+  int amount = 0;
 
   @override
   Widget build(BuildContext context) {
     product = widget.product;
-    image =  "https://kenddenshehere.az/images/pr/th/" + product.code + ".jpg";
+    image = "https://kenddenshehere.az/images/pr/th/" + product.code + ".jpg";
     String langCode = Localizations.localeOf(context).languageCode;
     if (langCode == "tr") {
       title = product.name_az.trim();
@@ -36,8 +35,6 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemTwo> {
     } else if (langCode == "ru") {
       title = product.name_ru.trim();
     }
-    subtitle = title;
-    amount = 0;
 
     // TODO: implement build
     return GestureDetector(
@@ -62,9 +59,8 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemTwo> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       new GroceryTitle(text: title),
-                      new GrocerySubtitle(text: product.price+" AZN"),
+                      new GrocerySubtitle(text: product.price + " AZN"),
                       new GrocerySubtitle(text: product.counttype),
-
                     ],
                   ),
                 ),
@@ -72,9 +68,7 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemTwo> {
                   children: <Widget>[
                     IconButton(
                       icon: Icon(
-                        isLiked
-                            ? Icons.favorite
-                            : Icons.favorite_border,
+                        isLiked ? Icons.favorite : Icons.favorite_border,
                         color: Colors.pink[400],
                         size: 25,
                       ),
@@ -84,7 +78,7 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemTwo> {
                         });
                       },
                     ),
-                    _updateContainer(isAdded)
+                  //  _updateContainer(isAdded)
                   ],
                 ),
               ),
