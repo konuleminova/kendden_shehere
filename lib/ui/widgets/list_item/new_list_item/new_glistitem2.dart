@@ -41,49 +41,66 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemTwo> {
       child: Card(
         margin: EdgeInsets.all(12),
         child: Material(
-            borderRadius: BorderRadius.circular(20.0),
+           // borderRadius: BorderRadius.circular(20.0),
             elevation: 4.0,
             child: new Container(
-              child: ListTile(
-                leading: Container(
-                    height: 80.0,
-                    width: 100,
-                    child: Image.network(
-                      image,
-                      //height: 80.0,
-                    )),
-                title: Container(
-                  height: 110.0,
+              height: 120,
+              color: Colors.white,
+              //  decoration: BoxDecoration( borderRadius: BorderRadius.circular(20.0),),
+                child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: ListTile(
+                    leading: Container(
+                        height: 80.0,
+                        width: 100,
+                        child: Image.network(
+                          image,
+                          width: 80,
+                          fit: BoxFit.contain,
+                          //height: 80.0,
+                        )),
+                    title: Container(
+                      height: 110.0,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          new GroceryTitle(text: title),
+                          new GrocerySubtitle(text: product.price + " AZN"),
+                          new GrocerySubtitle(text: product.counttype),
+                        ],
+                      ),
+                    ),
+                  ),
+                  flex: 3,
+                ),
+                Expanded(
+                    child: Container(
+                      margin: EdgeInsets.only(right: 16),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
-                      new GroceryTitle(text: title),
-                      new GrocerySubtitle(text: product.price + " AZN"),
-                      new GrocerySubtitle(text: product.counttype),
+                      IconButton(
+                        icon: Icon(
+                          isLiked ? Icons.favorite : Icons.favorite_border,
+                          color: Colors.pink[400],
+                          size: 25,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isLiked = !isLiked;
+                          });
+                        },
+                      ),
+                        _updateContainer()
                     ],
                   ),
-                ),
-                trailing: Column(
-                  children: <Widget>[
-                    IconButton(
-                      icon: Icon(
-                        isLiked ? Icons.favorite : Icons.favorite_border,
-                        color: Colors.pink[400],
-                        size: 25,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          isLiked = !isLiked;
-                        });
-                      },
-                    ),
-                  //  _updateContainer(isAdded)
-                  ],
-                ),
-              ),
-              color: Colors.white,
-            )),
+                  height: MediaQuery.of(context).size.height,
+                ))
+              ],
+            ))),
       ),
       onTap: () {
         Route route = MaterialPageRoute(
@@ -93,7 +110,7 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemTwo> {
     );
   }
 
-  _updateContainer(bool isAdded) {
+  _updateContainer() {
     if (!isAdded) {
       return new GestureDetector(
         child: new Container(
