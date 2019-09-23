@@ -52,8 +52,4 @@ class DeliveryPage extends StatelessWidget {
           }
         });
   }
-
-//  Future<String> getFileData(String path) async {
-//    return await rootBundle.loadString(path);
-//  }
 }
