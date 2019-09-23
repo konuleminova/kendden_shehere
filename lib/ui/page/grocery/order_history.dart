@@ -85,12 +85,7 @@ class OrderHistoryPage extends StatelessWidget {
                     child: ListView.builder(
                       itemCount: order.orderList.length,
                         itemBuilder: (BuildContext context, int index) {
-                      return NewGroceryListItemFour(new OrderItem(
-                          title: order.orderList[index].id,
-                          subtitle: order.orderList[index].dtsubmit,
-                          status: true,
-                          amount: 1,
-                          price: order.orderList[index].bprice+" AZN"));
+                      return NewGroceryListItemFour(order.orderList[index]);
                     }));
               } else
                 return Center(

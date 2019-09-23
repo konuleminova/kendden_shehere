@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/redux/common/model/order_history_model.dart';
+import 'package:kendden_shehere/redux/orderhistory/orderhistrory_model.dart';
 import 'package:kendden_shehere/ui/widgets/gtile_title.dart';
 import 'package:kendden_shehere/ui/widgets/rating_star.dart';
 
 class NewGroceryListItemFour extends StatefulWidget {
-  OrderItem orderItem;
+  OrderHistoryModel orderItem;
 
   NewGroceryListItemFour(this.orderItem);
 
@@ -16,19 +17,13 @@ class NewGroceryListItemFour extends StatefulWidget {
 }
 
 class NewGroceryListItemFourState extends State<NewGroceryListItemFour> {
-  OrderItem orderItem;
-  String title, subtitle, price;
-  bool status;
+  OrderHistoryModel orderItem;
+  bool status=true;
   int amount;
 
   @override
   Widget build(BuildContext context) {
     orderItem = widget.orderItem;
-    title = orderItem.title;
-    status = orderItem.status;
-    subtitle = orderItem.subtitle;
-    amount = widget.orderItem.amount;
-    price = widget.orderItem.price;
 
     // TODO: implement build
     return Card(
@@ -38,19 +33,20 @@ class NewGroceryListItemFourState extends State<NewGroceryListItemFour> {
             elevation: 3.0,
             child: new Container(
               decoration: new BoxDecoration(
-                  color: Colors.white, border: new Border.all(width: 0.5,color: Colors.lightGreen)),
+                  color: Colors.white,
+                  border: new Border.all(width: 0.5, color: Colors.lightGreen)),
               child: ListTile(
-                onTap: (){
-                  Navigator.pushNamed(context, "/order_shop_list");
-                },
+                  onTap: () {
+                    Navigator.pushNamed(context, "/order_shop_list");
+                  },
                   title: Container(
                     height: 90.0,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        new GroceryTitle(text: title),
-                        new GrocerySubtitle(text: subtitle),
+                        new GroceryTitle(text: orderItem.id),
+                        new GrocerySubtitle(text: orderItem.dtsubmit),
                       ],
                     ),
                   ),
@@ -61,7 +57,7 @@ class NewGroceryListItemFourState extends State<NewGroceryListItemFour> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       mainAxisSize: MainAxisSize.max,
                       children: <Widget>[
-                        new GroceryTitle(text: price),
+                        new GroceryTitle(text: orderItem.bprice+" AZN"),
                         // new RatingStarWidget(5, 0, 20),
                         _statusWidget(),
                         //new GrocerySubtitle(text: amount.toString()+" kq"),
