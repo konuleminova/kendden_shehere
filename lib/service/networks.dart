@@ -231,4 +231,21 @@ class Networks {
       }
     } catch (exception) {}
   }
+  static dynamic basket(String uid) async {
+    try {
+      final response =
+      await http.get(BASE_KS_URL + "basket" + "&uid=${uid}");
+      print(uid + ".. product id ");
+      if (response.statusCode == 200) {
+      //  print(response.body);
+     //   var data=json.decode(response.body);
+        //var pro=data['list']as List;
+       // print("PRO"+pro.toString());
+         // print(OrderHistoryListModel.fromJson(json.decode(response.body)));
+        return OrderHistoryListModel.fromJson(json.decode(response.body));
+      } else {
+        return null;
+      }
+    } catch (exception) {}
+  }
 }
