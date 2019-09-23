@@ -368,6 +368,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.1"
+  photo_view:
+    dependency: "direct main"
+    description:
+      name: photo_view
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.5.0"
   pub_semver:
     dependency: transitive
     description:
@@ -550,4 +557,4 @@ packages:
     version: "2.1.15"
 sdks:
   dart: ">=2.2.2 <3.0.0"
-  flutter: ">=1.2.1 <2.0.0"
+  flutter: ">=1.5.9-pre.94 <2.0.0"
