@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:kendden_shehere/localization/app_translations.dart';
+import 'package:kendden_shehere/redux/information/information.dart';
+import 'package:kendden_shehere/service/networks.dart';
 
 class FagPage extends StatefulWidget {
   @override
@@ -14,8 +16,7 @@ class FagPage extends StatefulWidget {
 class FAGState extends State<FagPage> {
   double width;
   List<bool> expanded = new List();
-  String title;
-
+  String lang;
 
   @override
   void initState() {
@@ -23,74 +24,85 @@ class FAGState extends State<FagPage> {
     for (int i = 0; i < 12; i++) {
       expanded.add(false);
     }
-
   }
 
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
-    String langCode =
-        Localizations.localeOf(context).languageCode;
+    String langCode = Localizations.localeOf(context).languageCode;
     if (langCode == "tr") {
-      title = "assets/fag_az.txt";
+      lang = "0";
     } else if (langCode == "en") {
-      title = "assets/fag.txt";
+      lang = "2";
     } else if (langCode == "ru") {
-      title = "assets/fag_ru.txt";
+      lang = "1";
     }
 
     // TODO: implement build
     return new Scaffold(
-        appBar: new AppBar(
-          title: Text(AppTranslations.of(context).text("fag")),
-          backgroundColor: Colors.lightGreen,
-        ),
-        body:new Container(
-          margin: EdgeInsets.all(16),
-          child: new FutureBuilder(
-              future: getFileData(title),
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (snapshot.hasData) {
-                  if (snapshot.data != null) {
-                    String text = snapshot.data;
-                   // List<String>  splits =text.split("\n");
-                    return _buildFags(text,expanded);
-                  }
-                } else {
-                  return Center(
-                    child: new CircularProgressIndicator(),
-                  );
+      appBar: new AppBar(
+        title: Text(AppTranslations.of(context).text("fag")),
+        backgroundColor: Colors.lightGreen,
+      ),
+      body: new Container(
+        margin: EdgeInsets.all(16),
+        child: new FutureBuilder(
+            future: Networks.fag(lang),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.hasData) {
+                ListInfo information = snapshot.data;
+                if (snapshot.data != null) {
+                  //  String text = snapshot.data;
+                  // List<String>  splits =text.split("\n");
+                  return ListView.builder(
+                      itemCount: information.info.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return _buildFagQuestionItem(information.info[index].q,
+                            information.info[index].a, expanded[index], index);
+                      });
                 }
-              }),
-        ),);
+              } else {
+                return Center(
+                  child: new CircularProgressIndicator(),
+                );
+              }
+            }),
+      ),
+    );
   }
 
-  Future<String> getFileData(String path) async {
-    return await rootBundle.loadString(path);
-  }
+//
+//  Future<String> getFileData(String path) async {
+//    return await rootBundle.loadString(path);
+//  }
 
-  _buildFagQuestionItem(String text, String subtitle,bool expande,int index) => new Column(
+  _buildFagQuestionItem(
+          String text, String subtitle, bool expande, int index) =>
+      new Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           GestureDetector(
-            child:Container(child: new Text(
-              text,
-              style: TextStyle(
-                  color: Colors.green,
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold),
-            ),margin: EdgeInsets.only(bottom: 5,top: 5),),
+            child: Container(
+              child: new Text(
+                text,
+                style: TextStyle(
+                    color: Colors.green,
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold),
+              ),
+              margin: EdgeInsets.only(bottom: 5, top: 5),
+            ),
             onTap: () {
               setState(() {
-               expande = !expande;
-               expanded[index]=expande;
+                expande = !expande;
+                expanded[index] = expande;
               });
             },
           ),
           expande
               ? (new Container(
-                  margin: EdgeInsets.only(top: 8,bottom: 8),
+                  margin: EdgeInsets.only(top: 8, bottom: 8),
                   padding: EdgeInsets.all(12),
                   width: width,
                   child: new Text(
@@ -107,12 +119,5 @@ class FAGState extends State<FagPage> {
                   width: 0,
                 )
         ],
-      );
-
-  _buildFags(String text,List<bool> expanded) => ListView.builder(
-        itemBuilder: (BuildContext context, int index) {
-          return _buildFagQuestionItem(text.split("\n")[index], "Subtitle",expanded[index],index);
-        },
-        itemCount: 12,
       );
 }

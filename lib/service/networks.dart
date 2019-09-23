@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/home/home_model.dart';
 import 'package:kendden_shehere/redux/categories/list_categories.dart';
+import 'package:kendden_shehere/redux/information/information.dart';
 import 'package:kendden_shehere/redux/login/user_model.dart';
 import 'package:kendden_shehere/redux/common/model/product_model.dart';
 import 'package:kendden_shehere/redux/orderhistory/orderhistory_listmodel.dart';
@@ -206,9 +207,9 @@ class Networks {
     try {
       final response =
           await http.get(BASE_KS_URL + "collection" + "&inf=${id}");
-    //  print(id + ".. product id ");
+      //  print(id + ".. product id ");
       if (response.statusCode == 200) {
-       // print(response.body);
+        // print(response.body);
         return ProductsInCategory.fromJson(json.decode(response.body))
             .productsInCategory;
       } else {
@@ -223,26 +224,31 @@ class Networks {
           await http.get(BASE_KS_URL + "orderhistory" + "&id=${id}");
       print(id + ".. product id ");
       if (response.statusCode == 200) {
-        print(response.body);
-        print(OrderHistoryListModel.fromJson(json.decode(response.body)));
         return OrderHistoryListModel.fromJson(json.decode(response.body));
       } else {
         return null;
       }
     } catch (exception) {}
   }
+
   static dynamic basket(String uid) async {
     try {
-      final response =
-      await http.get(BASE_KS_URL + "basket" + "&uid=${uid}");
+      final response = await http.get(BASE_KS_URL + "basket" + "&uid=${uid}");
       print(uid + ".. product id ");
       if (response.statusCode == 200) {
-      //  print(response.body);
-     //   var data=json.decode(response.body);
-        //var pro=data['list']as List;
-       // print("PRO"+pro.toString());
-         // print(OrderHistoryListModel.fromJson(json.decode(response.body)));
         return OrderHistoryListModel.fromJson(json.decode(response.body));
+      } else {
+        return null;
+      }
+    } catch (exception) {}
+  }
+
+  static dynamic fag(String lang) async {
+    try {
+      final response =
+          await http.get(BASE_KS_URL + "information&inf=faq" + "&lang=${lang}");
+      if (response.statusCode == 200) {
+        return ListInfo.fromJson(json.decode(response.body));
       } else {
         return null;
       }
