@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kendden_shehere/redux/common/model/order_history_model.dart';
 import 'package:kendden_shehere/redux/common/model/product_model.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
+import 'package:kendden_shehere/ui/page/grocery/grocery_details_page.dart';
 import 'package:kendden_shehere/ui/widgets/gtile_title.dart';
 import 'package:kendden_shehere/ui/widgets/rating_star.dart';
 
@@ -72,7 +73,9 @@ class NewGroceryListItemFiveState extends State<NewGroceryListItemFive> {
                   ),
               ))),
       onTap: () {
-        Navigator.pushNamed(context, "/product_detail");
+        Route route = MaterialPageRoute(
+            builder: (BuildContext context) => GroceryDetailsPage(product));
+        Navigator.push(context, route);
       },
     );
   }

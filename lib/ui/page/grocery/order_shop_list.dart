@@ -9,6 +9,8 @@ import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem5.dart';
 import 'package:kendden_shehere/ui/widgets/rating_star.dart';
 
+import 'grocery_details_page.dart';
+
 class OrderShopListPage extends StatelessWidget {
   List<NewProduct> products;
 
@@ -63,7 +65,9 @@ class OrderShopListPage extends StatelessWidget {
           ],
         ),
         onTap: () {
-          Navigator.pushNamed(context, "/order_shop_list");
+          Route route = MaterialPageRoute(
+              builder: (BuildContext context) => GroceryDetailsPage(product));
+          Navigator.push(context, route);
         },
       );
 
