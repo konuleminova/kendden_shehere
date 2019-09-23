@@ -24,12 +24,6 @@ class OrderShopListPage extends StatelessWidget {
       appBar: new AppBar(
         backgroundColor: Colors.lightGreen,
         title: new Text("Order History"),
-        actions: <Widget>[
-          new Container(
-            child: new Icon(Icons.more_vert),
-            margin: EdgeInsets.only(right: 8),
-          ),
-        ],
       ),
       body: Column(
         children: <Widget>[
