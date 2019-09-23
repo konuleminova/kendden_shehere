@@ -52,14 +52,11 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemTwo> {
                 Expanded(
                   child: ListTile(
                     leading: Container(
-                        height: 80.0,
-                        width: 100,
                         child: Image.network(
                           image,
-                          width: 80,
-                          fit: BoxFit.contain,
+                          width: MediaQuery.of(context).size.width*0.2,
                           //height: 80.0,
-                        )),
+                        ),),
                     title: Container(
                       height: 110.0,
                       child: Column(
