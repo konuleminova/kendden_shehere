@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kendden_shehere/redux/common/model/product_model.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_big_image.dart';
+import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem2.dart';
 import 'package:kendden_shehere/ui/widgets/rating_star.dart';
-import 'package:kendden_shehere/ui/widgets/list_item/glistitem2.dart';
 import 'package:kendden_shehere/ui/widgets/gtile_title.dart';
 import 'package:share/share.dart';
 //import 'package:zoomable_image/zoomable_image.dart';
@@ -171,26 +171,8 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
               Container(
                   padding: EdgeInsets.only(left: 20.0, bottom: 10.0),
                   child: GroceryTitle(text: "Related Items")),
-              GroceryListItemTwo(new Product(
-                  image: "https://kenddenshehere.az/images/pr/th/" +
-                      product.code +
-                      ".jpg",
-                  title: "Sample",
-                  subtitle: "Subtitle",
-                  price: "1 AZN",
-                  isLiked: false,
-                  isAdded: false,
-                  amount: 1)),
-              GroceryListItemTwo(new Product(
-                  image: "https://kenddenshehere.az/images/pr/th/" +
-                      product.code +
-                      ".jpg",
-                  title: "Sample",
-                  subtitle: "Subtitle",
-                  price: "2 AZN",
-                  isLiked: false,
-                  isAdded: false,
-                  amount: 1)),
+              NewGroceryListItemTwo(product),
+              NewGroceryListItemTwo(product),
             ],
           ),
         ),

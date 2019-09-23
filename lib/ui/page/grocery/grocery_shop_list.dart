@@ -12,7 +12,6 @@ import 'package:kendden_shehere/redux/common/model/product_model.dart';
 import 'package:kendden_shehere/redux/shoplist/shop_model.dart';
 import 'package:kendden_shehere/redux/shoplist/shop_viewmodel.dart';
 import 'package:kendden_shehere/ui/widgets/oval_tap.dart';
-import 'package:kendden_shehere/ui/widgets/list_item/glistitem2.dart';
 
 class GroceryShopCartPage extends StatefulWidget {
   @override
