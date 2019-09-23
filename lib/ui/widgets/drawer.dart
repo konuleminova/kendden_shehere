@@ -108,10 +108,6 @@ class DrawerState extends State<DrawerWidget> {
             },
           ),
           ListTile(
-            leading: Icon(Icons.notifications_active),
-            title:  Text(AppTranslations.of(context).text("notifications")),
-          ),
-          ListTile(
             leading: Icon(Icons.feedback),
             title:  Text(AppTranslations.of(context).text("delivery_terms")),
             onTap: () {
