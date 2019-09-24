@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_calendar/flutter_calendar.dart';
 import 'package:kendden_shehere/redux/login/user_model.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/image_picker_dialog.dart';
@@ -8,6 +9,7 @@ import 'package:kendden_shehere/ui/widgets/dialog/profile_edit_dialog.dart';
 import 'package:kendden_shehere/ui/widgets/gender.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:kendden_shehere/util/util.dart';
 
 class ProfilePage extends StatefulWidget {
   final image = 'assets/img/2.jpg';
@@ -18,6 +20,7 @@ class ProfilePage extends StatefulWidget {
     return new ProfileState();
   }
 }
+
 enum SingingCharacter { lafayette, jefferson }
 
 class ProfileState extends State<ProfilePage> {
@@ -25,10 +28,46 @@ class ProfileState extends State<ProfilePage> {
   UserModel userModel;
   SingingCharacter _character = SingingCharacter.lafayette;
   bool _isRadioSelected = false;
+
+  List<DateTime> selectedMonthsDays;
+  Iterable<DateTime> selectedWeeksDays;
+  DateTime _selectedDate = new DateTime.now();
+  String currentMonth;
+  bool isExpanded = false;
+  String displayMonth;
+
+  DateTime get selectedDate => _selectedDate;
+
   @override
   void initState() {
     super.initState();
     userModel = new UserModel();
+  }
+
+  Future<Null> selectDateFromPicker() async {
+    DateTime selected = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate ?? new DateTime.now(),
+      firstDate: new DateTime(1920),
+      lastDate: new DateTime(2040),
+    );
+
+    if (selected != null) {
+      var firstDayOfCurrentWeek = Utils.firstDayOfWeek(selected);
+      var lastDayOfCurrentWeek = Utils.lastDayOfWeek(selected);
+
+      setState(() {
+        _selectedDate = selected;
+        selectedWeeksDays =
+            Utils.daysInRange(firstDayOfCurrentWeek, lastDayOfCurrentWeek)
+                .toList();
+        selectedMonthsDays = Utils.daysInMonth(selected);
+        displayMonth = Utils.formatMonth(selected);
+      });
+      // updating selected date range based on selected week
+//      updateSelectedRange(firstDayOfCurrentWeek, lastDayOfCurrentWeek);
+//      _launchDateSelectionCallback(selected);
+    }
   }
 
   @override
@@ -256,12 +295,13 @@ class ProfileState extends State<ProfilePage> {
                             Row(
                               children: <Widget>[
                                 Expanded(
-                                  child:Row(
+                                  child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <LabeledRadio>[
                                       LabeledRadio(
                                         label: 'Female',
-                                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 5.0),
                                         value: true,
                                         groupValue: _isRadioSelected,
                                         onChanged: (bool newValue) {
@@ -272,7 +312,8 @@ class ProfileState extends State<ProfilePage> {
                                       ),
                                       LabeledRadio(
                                         label: 'Male',
-                                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 5.0),
                                         value: false,
                                         groupValue: _isRadioSelected,
                                         onChanged: (bool newValue) {
@@ -285,19 +326,33 @@ class ProfileState extends State<ProfilePage> {
                                   ),
                                 ),
                                 Expanded(
-                                  child: ListTile(
-                                    title: Text("Date of birth"),
-                                    onTap: () {
-                                      showDialog(
-                                          context: context,
-                                          builder: (buildContext) {
-                                            return ProfileEditDialog("email");
-                                          });
-                                    },
-                                  ),
-                                )
+                                    child: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: GestureDetector(child: Container(
+
+                                          height: 40,
+                                          margin: EdgeInsets.only(right: 16),
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                           "Date of Birth: "+ _selectedDate.year.toString() +
+                                                " /" +
+                                                _selectedDate.month.toString() +
+                                                " /" +
+                                                _selectedDate.day.toString(),
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16),
+                                          ),
+                                          decoration: BoxDecoration(
+                                              color: Colors.blue,
+                                              border: Border.all(
+                                                  color: Colors.white)),
+                                        ),onTap: (){
+                                          selectDateFromPicker();
+                                        },)))
                               ],
-                            )
+                            ),
                           ],
                         )),
                     Container(
