@@ -200,50 +200,50 @@ class ProfileState extends State<ProfilePage> {
                             ),
                             Divider(),
                             ListTile(
-                              title: Text("Username"),
+                              title: Text("Name"),
                               subtitle: Text(userModel.username),
                               leading: Icon(Icons.verified_user),
                               onTap: () {
                                 showDialog(
                                     context: context,
                                     builder: (buildContext) {
-                                      return ProfileEditDialog("Username");
+                                      return ProfileEditDialog("name");
                                     });
                               },
                             ),
                             ListTile(
-                              title: Text("Name"),
+                              title: Text("Surname"),
                               subtitle: Text(userModel.name),
                               leading: Icon(Icons.person),
                               onTap: () {
                                 showDialog(
                                     context: context,
                                     builder: (buildContext) {
-                                      return ProfileEditDialog("Email");
+                                      return ProfileEditDialog("surname");
                                     });
                               },
                             ),
                             ListTile(
-                              title: Text("Surname"),
+                              title: Text("Mobile"),
                               subtitle: Text(userModel.surname),
                               leading: Icon(Icons.person_outline),
                               onTap: () {
                                 showDialog(
                                     context: context,
                                     builder: (buildContext) {
-                                      return ProfileEditDialog("Email");
+                                      return ProfileEditDialog("mobile");
                                     });
                               },
                             ),
                             ListTile(
-                              title: Text("Phone"),
+                              title: Text("Email"),
                               subtitle: Text(userModel.mobile),
                               leading: Icon(Icons.phone),
                               onTap: () {
                                 showDialog(
                                     context: context,
                                     builder: (buildContext) {
-                                      return ProfileEditDialog("Phone");
+                                      return ProfileEditDialog("email");
                                     });
                               },
                             ),

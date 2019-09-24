@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:kendden_shehere/service/networks.dart';
 
 class ProfileEditDialog extends StatelessWidget {
   String text;
+
+  TextEditingController _textController = new TextEditingController();
 
   ProfileEditDialog(this.text);
 
@@ -27,14 +30,19 @@ class ProfileEditDialog extends StatelessWidget {
                     SizedBox(height: 10.0),
                     Flexible(
                       child: Text(
-                          "Do you want to save changes?",style: TextStyle(color: Colors.pink),),
+                        "Do you want to save changes?",
+                        style: TextStyle(color: Colors.pink),
+                      ),
                     ),
                     SizedBox(height: 10.0),
                     Flexible(
                       child: new Container(
                           margin: EdgeInsets.only(left: 16, right: 16),
                           child: new TextField(
-                            decoration: InputDecoration(labelText: text,),
+                            controller: _textController,
+                            decoration: InputDecoration(
+                              labelText: text,
+                            ),
                           )),
                     ),
                     SizedBox(height: 10.0),
@@ -59,7 +67,8 @@ class ProfileEditDialog extends StatelessWidget {
                             color: Colors.green,
                             colorBrightness: Brightness.dark,
                             onPressed: () {
-                              Navigator.pop(context);
+                              Networks.updateUser(
+                                  context, "179", text, _textController.text);
                             },
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20.0)),

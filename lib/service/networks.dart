@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/home/home_model.dart';
@@ -254,12 +255,13 @@ class Networks {
       }
     } catch (exception) {}
   }
+
   static dynamic delivery(String lang) async {
     try {
-      final response =
-      await http.get(BASE_KS_URL + "information&inf=delivery" + "&lang=${lang}");
+      final response = await http
+          .get(BASE_KS_URL + "information&inf=delivery" + "&lang=${lang}");
       if (response.statusCode == 200) {
-        var a=json.decode(response.body) as List;
+        var a = json.decode(response.body) as List;
 
         return a;
       } else {
@@ -267,12 +269,13 @@ class Networks {
       }
     } catch (exception) {}
   }
+
   static dynamic aboutus(String lang) async {
     try {
-      final response =
-      await http.get(BASE_KS_URL + "information&inf=aboutus" + "&lang=${lang}");
+      final response = await http
+          .get(BASE_KS_URL + "information&inf=aboutus" + "&lang=${lang}");
       if (response.statusCode == 200) {
-        var a=json.decode(response.body) as List;
+        var a = json.decode(response.body) as List;
 
         return a;
       } else {
@@ -280,13 +283,30 @@ class Networks {
       }
     } catch (exception) {}
   }
+
   static dynamic contacts(String lang) async {
     try {
-      final response =
-      await http.get(BASE_KS_URL + "information&inf=contacts" + "&lang=${lang}");
+      final response = await http
+          .get(BASE_KS_URL + "information&inf=contacts" + "&lang=${lang}");
       if (response.statusCode == 200) {
-        var a=json.decode(response.body);
+        var a = json.decode(response.body);
 
+        return a;
+      } else {
+        return null;
+      }
+    } catch (exception) {}
+  }
+
+  static dynamic updateUser(BuildContext context,String uid, String inf, String data) async {
+    try {
+      final response = await http.get(BASE_KS_URL +
+          "updateuser&uid=${uid}" +
+          "&inf=${inf}" +
+          "&data=${data}");
+      if (response.statusCode == 200) {
+        var a = json.decode(response.body);
+        Navigator.pop(context);
         return a;
       } else {
         return null;
