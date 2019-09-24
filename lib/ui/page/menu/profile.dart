@@ -333,8 +333,7 @@ class ProfileState extends State<ProfilePage> {
                                           height: 40,
                                           margin: EdgeInsets.only(right: 16),
                                           alignment: Alignment.center,
-                                          child: Text(
-                                           "Date of Birth: "+ _selectedDate.year.toString() +
+                                          child: Text(_selectedDate.year.toString() +
                                                 " /" +
                                                 _selectedDate.month.toString() +
                                                 " /" +
