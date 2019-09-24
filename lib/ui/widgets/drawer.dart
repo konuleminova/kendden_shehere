@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
+import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_categories.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 
@@ -25,12 +26,12 @@ class DrawerState extends State<DrawerWidget> {
             children: <Widget>[
               UserAccountsDrawerHeader(
                 accountName: new FutureBuilder(
-                  future: _getUserInfo(),
+                  future: Networks.userinfo("179"),
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
                     if (snapshot.hasData) {
                       return new Text(
-                       snapshot.data,
-                        style: new TextStyle(fontSize: 20),
+                        snapshot.data[1]['name']+" "+ snapshot.data[1]['surname'],
+                        style: new TextStyle(fontSize: 18),
                       );
                     } else {
                       // default show loading while state is waiting
@@ -82,10 +83,10 @@ class DrawerState extends State<DrawerWidget> {
                   context,
                   new MaterialPageRoute(
                       builder: (BuildContext context) =>
-                      new GroceryCategoriesPage(
-                          id: "0",
-                          title: AppTranslations.of(context)
-                              .text("categories"))));
+                          new GroceryCategoriesPage(
+                              id: "0",
+                              title: AppTranslations.of(context)
+                                  .text("categories"))));
               // Navigator.pushNamed(context, "/categories");
             },
           ),
@@ -101,7 +102,7 @@ class DrawerState extends State<DrawerWidget> {
           GestureDetector(
             child: ListTile(
               leading: Icon(Icons.history),
-              title:  Text(AppTranslations.of(context).text("order_history")),
+              title: Text(AppTranslations.of(context).text("order_history")),
             ),
             onTap: () {
               Navigator.pushNamed(context, "/order_history");
@@ -109,7 +110,7 @@ class DrawerState extends State<DrawerWidget> {
           ),
           ListTile(
             leading: Icon(Icons.feedback),
-            title:  Text(AppTranslations.of(context).text("delivery_terms")),
+            title: Text(AppTranslations.of(context).text("delivery_terms")),
             onTap: () {
               Navigator.pushNamed(context, '/delivery_terms');
             },
@@ -123,14 +124,18 @@ class DrawerState extends State<DrawerWidget> {
           ),
           ListTile(
             leading: Icon(Icons.info),
-            title:  Text(AppTranslations.of(context).text("about_us")),
+            title: Text(AppTranslations.of(context).text("about_us")),
             onTap: () {
               Navigator.pushNamed(context, '/about_us');
             },
           ),
-          ListTile(leading: Icon(Icons.phone), title: Text(AppTranslations.of(context).text("contact_us")),onTap: (){
-            Navigator.pushNamed(context,"/contacts");
-          },),
+          ListTile(
+            leading: Icon(Icons.phone),
+            title: Text(AppTranslations.of(context).text("contact_us")),
+            onTap: () {
+              Navigator.pushNamed(context, "/contacts");
+            },
+          ),
         ],
       ),
     );
@@ -144,6 +149,6 @@ class DrawerState extends State<DrawerWidget> {
   _getUserInfo() async {
     name = await SharedPrefUtil().getString(SharedPrefUtil.name);
     surname = await SharedPrefUtil().getString(SharedPrefUtil.surname);
-    return name+" "+ surname;
+    return name + " " + surname;
   }
 }
