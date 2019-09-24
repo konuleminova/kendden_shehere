@@ -5,6 +5,7 @@ import 'package:kendden_shehere/redux/login/user_model.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/image_picker_dialog.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/profile_edit_dialog.dart';
+import 'package:kendden_shehere/ui/widgets/gender.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -17,11 +18,13 @@ class ProfilePage extends StatefulWidget {
     return new ProfileState();
   }
 }
+enum SingingCharacter { lafayette, jefferson }
 
 class ProfileState extends State<ProfilePage> {
   File imageFile;
   UserModel userModel;
-
+  SingingCharacter _character = SingingCharacter.lafayette;
+  bool _isRadioSelected = false;
   @override
   void initState() {
     super.initState();
@@ -45,7 +48,7 @@ class ProfileState extends State<ProfilePage> {
                 return ListView(
                   children: <Widget>[
                     Container(
-                      height: 210,
+                      height: 200,
                       decoration: BoxDecoration(
                           gradient: LinearGradient(
                               begin: Alignment.centerLeft,
@@ -198,10 +201,10 @@ class ProfileState extends State<ProfilePage> {
                         ),
                         child: Column(
                           children: <Widget>[
-                            ListTile(
-                              title: Text("User information"),
-                            ),
-                            Divider(),
+////                            ListTile(
+////                              title: Text("User information"),
+////                            ),
+//                            Divider(),
                             ListTile(
                               title: Text("Name"),
                               subtitle: Text(snapshot.data[1]['name']),
@@ -250,6 +253,51 @@ class ProfileState extends State<ProfilePage> {
                                     });
                               },
                             ),
+                            Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child:Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <LabeledRadio>[
+                                      LabeledRadio(
+                                        label: 'Female',
+                                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                                        value: true,
+                                        groupValue: _isRadioSelected,
+                                        onChanged: (bool newValue) {
+                                          setState(() {
+                                            _isRadioSelected = newValue;
+                                          });
+                                        },
+                                      ),
+                                      LabeledRadio(
+                                        label: 'Male',
+                                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                                        value: false,
+                                        groupValue: _isRadioSelected,
+                                        onChanged: (bool newValue) {
+                                          setState(() {
+                                            _isRadioSelected = newValue;
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Expanded(
+                                  child: ListTile(
+                                    title: Text("Date of birth"),
+                                    onTap: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (buildContext) {
+                                            return ProfileEditDialog("email");
+                                          });
+                                    },
+                                  ),
+                                )
+                              ],
+                            )
                           ],
                         )),
                     Container(
