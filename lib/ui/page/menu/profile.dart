@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/redux/login/user_model.dart';
+import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/image_picker_dialog.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/profile_edit_dialog.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
@@ -38,7 +39,7 @@ class ProfileState extends State<ProfilePage> {
           elevation: 0,
         ),
         body: FutureBuilder(
-            future: _getUserInfo(),
+            future: Networks.userinfo("179"),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
                 return ListView(
@@ -174,7 +175,9 @@ class ProfileState extends State<ProfilePage> {
                             height: 10,
                           ),
                           Text(
-                           userModel.name+" "+userModel.surname,
+                            snapshot.data[1]['name'] +
+                                " " +
+                                snapshot.data[1]['surname'],
                             style: TextStyle(
                                 fontSize: 22.0,
                                 color: Colors.white,
@@ -201,7 +204,7 @@ class ProfileState extends State<ProfilePage> {
                             Divider(),
                             ListTile(
                               title: Text("Name"),
-                              subtitle: Text(userModel.username),
+                              subtitle: Text(snapshot.data[1]['name']),
                               leading: Icon(Icons.verified_user),
                               onTap: () {
                                 showDialog(
@@ -213,7 +216,7 @@ class ProfileState extends State<ProfilePage> {
                             ),
                             ListTile(
                               title: Text("Surname"),
-                              subtitle: Text(userModel.name),
+                              subtitle: Text(snapshot.data[1]['surname']),
                               leading: Icon(Icons.person),
                               onTap: () {
                                 showDialog(
@@ -225,8 +228,8 @@ class ProfileState extends State<ProfilePage> {
                             ),
                             ListTile(
                               title: Text("Mobile"),
-                              subtitle: Text(userModel.surname),
-                              leading: Icon(Icons.person_outline),
+                              subtitle: Text(snapshot.data[1]['mobile']),
+                              leading: Icon(Icons.phone),
                               onTap: () {
                                 showDialog(
                                     context: context,
@@ -237,8 +240,8 @@ class ProfileState extends State<ProfilePage> {
                             ),
                             ListTile(
                               title: Text("Email"),
-                              subtitle: Text(userModel.mobile),
-                              leading: Icon(Icons.phone),
+                              leading: Icon(Icons.person_outline),
+                              subtitle: Text(snapshot.data[1]['email']),
                               onTap: () {
                                 showDialog(
                                     context: context,
@@ -291,13 +294,13 @@ class ProfileState extends State<ProfilePage> {
     print("You selected camera image : " + imageFile.path);
   }
 
-  _getUserInfo() async {
-    userModel.name = await SharedPrefUtil().getString(SharedPrefUtil.name);
-    userModel.surname =
-        await SharedPrefUtil().getString(SharedPrefUtil.surname);
-    userModel.username =
-        await SharedPrefUtil().getString(SharedPrefUtil.username);
-    userModel.mobile = await SharedPrefUtil().getString(SharedPrefUtil.mobile);
-    return userModel;
-  }
+//  _getUserInfo() async {
+//    userModel.name = await SharedPrefUtil().getString(SharedPrefUtil.name);
+//    userModel.surname =
+//        await SharedPrefUtil().getString(SharedPrefUtil.surname);
+//    userModel.username =
+//        await SharedPrefUtil().getString(SharedPrefUtil.username);
+//    userModel.mobile = await SharedPrefUtil().getString(SharedPrefUtil.mobile);
+//    return userModel;
+//  }
 }

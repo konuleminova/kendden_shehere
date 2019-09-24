@@ -313,4 +313,18 @@ class Networks {
       }
     } catch (exception) {}
   }
+  static dynamic userinfo(String uid) async {
+    try {
+      final response = await http.get(BASE_KS_URL +
+          "userinfo&id=${uid}");
+      if (response.statusCode == 200) {
+        var a = json.decode(response.body) as List;
+        print(a[1]['id']);
+        print("USER INFO");
+        return a;
+      } else {
+        return null;
+      }
+    } catch (exception) {}
+  }
 }
