@@ -145,10 +145,10 @@ class DrawerState extends State<DrawerWidget> {
   void initState() {
     super.initState();
   }
-
-  _getUserInfo() async {
-    name = await SharedPrefUtil().getString(SharedPrefUtil.name);
-    surname = await SharedPrefUtil().getString(SharedPrefUtil.surname);
-    return name + " " + surname;
-  }
+//
+//  _getUserInfo() async {
+//    name = await SharedPrefUtil().getString(SharedPrefUtil.name);
+//    surname = await SharedPrefUtil().getString(SharedPrefUtil.surname);
+//    return name + " " + surname;
+//  }
 }
