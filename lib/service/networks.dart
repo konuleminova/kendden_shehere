@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
@@ -9,6 +10,7 @@ import 'package:kendden_shehere/redux/information/information.dart';
 import 'package:kendden_shehere/redux/login/user_model.dart';
 import 'package:kendden_shehere/redux/common/model/product_model.dart';
 import 'package:kendden_shehere/redux/orderhistory/orderhistory_listmodel.dart';
+import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/redux/productlist/products_in_category_model.dart';
 import 'package:kendden_shehere/redux/login/thunk_login.dart';
 import 'package:kendden_shehere/redux/qsearch/list_qsearch.dart';
@@ -192,10 +194,11 @@ class Networks {
     }
   }
 
-  static dynamic getCollections() async {
+ static getCollections() async {
     try {
       final response = await http.get(BASE_KS_URL + "collection" + "&inf");
       if (response.statusCode == 200) {
+        print(".. HOME collection");
         return ProductsInCategory.fromJson(json.decode(response.body))
             .productsInCategory;
       } else {
@@ -204,15 +207,16 @@ class Networks {
     } catch (exception) {}
   }
 
-  static dynamic getCollectionItem(String id) async {
+  static getCollectionItem(String id) async {
     try {
       final response =
           await http.get(BASE_KS_URL + "collection" + "&inf=${id}");
-      //  print(id + ".. product id ");
+
       if (response.statusCode == 200) {
-        // print(response.body);
-        return ProductsInCategory.fromJson(json.decode(response.body))
-            .productsInCategory;
+        print(id + ".. HOME");
+       // print(response.body);
+     List<NewProduct> pro=  ProductsInCategory.fromJson(json.decode(response.body)).productsInCategory;
+        return pro;
       } else {
         return null;
       }

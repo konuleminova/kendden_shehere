@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -17,6 +20,8 @@ import 'package:kendden_shehere/ui/widgets/search.dart';
 import 'package:kendden_shehere/util/carousel.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class HomePage extends StatefulWidget {
   @override
@@ -43,7 +48,10 @@ class HomePageState extends State<HomePage> {
   String langCode;
   var _current = 0;
 
+// final AsyncMemoizer _memoizer = AsyncMemoizer();
   String title;
+  final _memoizer = new AsyncMemoizer();
+  final _memoizer2 = new AsyncMemoizer();
 
   @override
   void initState() {
@@ -177,7 +185,7 @@ class HomePageState extends State<HomePage> {
             ]),
           ),
           FutureBuilder(
-              future: Networks.getCollections(),
+              future: this._memoizer.runOnce( Networks.getCollections),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 List<NewProduct> productsInCat = snapshot.data;
                 if (snapshot.hasData) {
@@ -188,13 +196,27 @@ class HomePageState extends State<HomePage> {
                       itemCount: productsInCat.length,
                       itemBuilder: (BuildContext context, int index) {
                         return FutureBuilder(
-                            future: Networks.getCollectionItem(
-                                productsInCat[index].id),
+                            future: this._memoizer2.runOnce(()async {
+                          try {
+                            final response =
+                                await http.get(Networks.BASE_KS_URL + "collection" + "&inf=${productsInCat[index].id}");
+
+                            if (response.statusCode == 200) {
+                              print(productsInCat[index].id+ ".. HOME");
+                              // print(response.body);
+                              return ProductsInCategory.fromJson(json.decode(response.body))
+                                  .productsInCategory;
+                            } else {
+                              return null;
+                            }
+                          } catch (exception) {}
+
+                        }),
                             builder: (BuildContext context,
                                 AsyncSnapshot snapshot2) {
                               if (snapshot2.hasData) {
                                 if (langCode == "tr") {
-                                  title =snapshot.data[index].name_az;
+                                  title = snapshot.data[index].name_az;
                                 } else if (langCode == "en") {
                                   title = snapshot.data[index].name_en;
                                 } else if (langCode == "ru") {

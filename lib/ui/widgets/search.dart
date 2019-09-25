@@ -8,7 +8,6 @@ import 'package:kendden_shehere/redux/qsearch/list_qsearch.dart';
 import 'package:kendden_shehere/redux/qsearch/qsearch_model.dart';
 import 'package:kendden_shehere/redux/search/search_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
-import 'package:kendden_shehere/ui/page/grocery/category_index.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_categories.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_details_page.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_list.dart';
