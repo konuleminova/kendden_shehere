@@ -223,13 +223,14 @@ class Networks {
     } catch (exception) {}
   }
 
-  static dynamic orderHistory(String id) async {
+  static orderHistory() async {
     try {
       final response =
-          await http.get(BASE_KS_URL + "orderhistory" + "&id=${id}");
-      print(id + ".. product id ");
+          await http.get(BASE_KS_URL + "orderhistory" + "&id=${"179"}");
+      print("Order history");
+     // print(id + ".. product id ");
       if (response.statusCode == 200) {
-        return OrderHistoryListModel.fromJson(json.decode(response.body));
+        return OrderHistoryListModel.fromJson(json.decode(response.body)).orderList;
       } else {
         return null;
       }

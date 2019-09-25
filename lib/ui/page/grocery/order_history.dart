@@ -1,3 +1,4 @@
+import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
@@ -10,6 +11,7 @@ import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem
 
 class OrderHistoryPage extends StatelessWidget {
   List<OrderItem> orderItems = new List();
+  AsyncMemoizer memoizer = new AsyncMemoizer();
 
   var height;
 
@@ -75,18 +77,18 @@ class OrderHistoryPage extends StatelessWidget {
           ],
         ),
         body: FutureBuilder(
-            future: Networks.orderHistory("179"),
+            future: memoizer.runOnce(Networks.orderHistory),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
-                OrderHistoryListModel order = snapshot.data;
+                // OrderHistoryListModel order = snapshot.data;
                 return new Container(
                     margin: EdgeInsets.only(
                         bottom: 16, top: 16, left: 10, right: 12),
                     child: ListView.builder(
-                      itemCount: order.orderList.length,
+                        itemCount: snapshot.data.length,
                         itemBuilder: (BuildContext context, int index) {
-                      return NewGroceryListItemFour(order.orderList[index]);
-                    }));
+                          return NewGroceryListItemFour(snapshot.data[index]);
+                        }));
               } else
                 return Center(
                   child: CircularProgressIndicator(),
