@@ -194,7 +194,7 @@ class Networks {
     }
   }
 
- static getCollections() async {
+  static getCollections() async {
     try {
       final response = await http.get(BASE_KS_URL + "collection" + "&inf");
       if (response.statusCode == 200) {
@@ -214,8 +214,10 @@ class Networks {
 
       if (response.statusCode == 200) {
         print(id + ".. HOME");
-       // print(response.body);
-     List<NewProduct> pro=  ProductsInCategory.fromJson(json.decode(response.body)).productsInCategory;
+        // print(response.body);
+        List<NewProduct> pro =
+            ProductsInCategory.fromJson(json.decode(response.body))
+                .productsInCategory;
         return pro;
       } else {
         return null;
@@ -228,9 +230,10 @@ class Networks {
       final response =
           await http.get(BASE_KS_URL + "orderhistory" + "&id=${"179"}");
       print("Order history");
-     // print(id + ".. product id ");
+      // print(id + ".. product id ");
       if (response.statusCode == 200) {
-        return OrderHistoryListModel.fromJson(json.decode(response.body)).orderList;
+        return OrderHistoryListModel.fromJson(json.decode(response.body))
+            .orderList;
       } else {
         return null;
       }
@@ -303,7 +306,8 @@ class Networks {
     } catch (exception) {}
   }
 
-  static dynamic updateUser(BuildContext context,String uid, String inf, String data) async {
+  static dynamic updateUser(
+      BuildContext context, String uid, String inf, String data) async {
     try {
       final response = await http.get(BASE_KS_URL +
           "updateuser&uid=${uid}" +
@@ -318,14 +322,53 @@ class Networks {
       }
     } catch (exception) {}
   }
+
   static dynamic userinfo(String uid) async {
     try {
-      final response = await http.get(BASE_KS_URL +
-          "userinfo&id=${uid}");
+      final response = await http.get(BASE_KS_URL + "userinfo&id=${uid}");
       if (response.statusCode == 200) {
         var a = json.decode(response.body) as List;
         print(a[1]['id']);
         print("USER INFO");
+        return a;
+      } else {
+        return null;
+      }
+    } catch (exception) {}
+  }
+
+  static dynamic add_Remove_WishList(String uid, String id) async {
+    try {
+      final response =
+          await http.get(BASE_KS_URL + "addtowishlist&uid=${uid}&id=${id}");
+      if (response.statusCode == 200) {
+        var a = json.decode(response.body) as List;
+        return a;
+      } else {
+        return null;
+      }
+    } catch (exception) {}
+  }
+
+  static dynamic addToBasket(String uid, String id, String weight) async {
+    try {
+      final response = await http.get(
+          BASE_KS_URL + "addtobasket&uid=${uid}&id=${id}&weight=${weight}");
+      if (response.statusCode == 200) {
+        var a = json.decode(response.body) as List;
+        return a;
+      } else {
+        return null;
+      }
+    } catch (exception) {}
+  }
+
+  static dynamic removeFromBasket(String uid, String id) async {
+    try {
+      final response =
+          await http.get(BASE_KS_URL + "removefrombasket&uid=${uid}&id=${id}");
+      if (response.statusCode == 200) {
+        var a = json.decode(response.body) as List;
         return a;
       } else {
         return null;
