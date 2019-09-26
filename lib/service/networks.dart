@@ -342,7 +342,7 @@ class Networks {
       final response =
           await http.get(BASE_KS_URL + "addtowishlist&uid=${uid}&id=${id}");
       if (response.statusCode == 200) {
-        var a = json.decode(response.body) as List;
+        var a = json.decode(response.body);
         return a;
       } else {
         return null;
