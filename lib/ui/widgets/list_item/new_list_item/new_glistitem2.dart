@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/redux/common/model/product_model.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
+import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_details_page.dart';
 import 'package:kendden_shehere/ui/widgets/gtile_title.dart';
 import 'package:kendden_shehere/ui/widgets/rating_star.dart';
@@ -21,7 +22,7 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemTwo> {
   NewProduct product;
   String image, title;
   bool isAdded = false, isLiked = true;
-  int amount = 0;
+  int amount = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -89,6 +90,11 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemTwo> {
                           setState(() {
                             isLiked = !isLiked;
                           });
+                          Networks.add_Remove_WishList(
+                              "179", product.id)
+                              .then((onvalue) {
+                            print(onvalue);
+                          });
                         },
                       ),
                         _updateContainer()
@@ -127,6 +133,11 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemTwo> {
         onTap: () {
           setState(() {
             isAdded = true;
+            Networks.addToBasket("179", product.id, amount.toString())
+                .then((onvalue) {
+              print(onvalue);
+            });
+            //  widget.viewModel.addShopItem(product);
           });
         },
       );
@@ -152,7 +163,12 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemTwo> {
                   if (amount < 1) {
                     isAdded = false;
                     amount = 1;
+                    Networks.removeFromBasket("179", product.id)
+                        .then((onvalue) {
+                      print(onvalue);
+                    });
                   }
+                  // widget.viewModel.removeShopItem(product);
                 });
               },
             ),
@@ -166,6 +182,7 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemTwo> {
                 setState(() {
                   amount++;
                 });
+                Networks.addToBasket("179", product.id, amount.toString());
               },
             ),
           ],
