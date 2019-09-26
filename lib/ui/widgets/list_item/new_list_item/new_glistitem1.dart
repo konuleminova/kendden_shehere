@@ -4,6 +4,7 @@ import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/redux/common/model/product_model.dart';
 import 'package:kendden_shehere/redux/wishlist/wishlist_viewmodel.dart';
+import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_details_page.dart';
 import 'package:kendden_shehere/ui/page/test/shop_item_model.dart';
 import 'package:kendden_shehere/redux/home/home_viewmodel.dart';
@@ -185,6 +186,10 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
             onPressed: () {
               setState(() {
                 isAdded = true;
+                Networks.addToBasket("179", product.id, amount.toString())
+                    .then((onvalue) {
+                  print(onvalue);
+                });
                 //  widget.viewModel.addShopItem(product);
               });
             }),
@@ -210,6 +215,10 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                   if (amount < 1) {
                     isAdded = false;
                     amount = 1;
+                    Networks.removeFromBasket("179", product.id)
+                        .then((onvalue) {
+                      print(onvalue);
+                    });
                   }
                   // widget.viewModel.removeShopItem(product);
                 });
@@ -225,6 +234,8 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                 setState(() {
                   amount++;
                 });
+                Networks.addToBasket("179", product.id,amount.toString());
+
               },
             ),
           ],
