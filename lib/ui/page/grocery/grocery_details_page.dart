@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/redux/common/model/product_model.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
+import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_big_image.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem2.dart';
 import 'package:kendden_shehere/ui/widgets/rating_star.dart';
 import 'package:kendden_shehere/ui/widgets/gtile_title.dart';
 import 'package:share/share.dart';
+
 //import 'package:zoomable_image/zoomable_image.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:http/http.dart' as http;
@@ -213,6 +215,10 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
         onTap: () {
           setState(() {
             isAdded = true;
+            Networks.addToBasket("179", product.id, amount.toString())
+                .then((onvalue) {
+              print(onvalue);
+            });
             // widget.viewModel.onAddedProduct(product);
           });
         },
@@ -238,6 +244,10 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                   if (amount < 1) {
                     isAdded = false;
                     amount = 1;
+                    Networks.removeFromBasket("179", product.id)
+                        .then((onvalue) {
+                      print(onvalue);
+                    });
                   }
                 });
               },
@@ -251,6 +261,10 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
               onTap: () {
                 setState(() {
                   amount++;
+                });
+                Networks.addToBasket("179", product.id, amount.toString())
+                    .then((onvalue) {
+                  print(onvalue);
                 });
               },
             ),
@@ -295,13 +309,11 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                               ),
                               onPressed: () {
                                 setState(() {
-                                  if (isLiked) {
-                                    isLiked = false;
-                                    // widget.viewModel.onAddedProduct(product);
-                                  } else {
-                                    isLiked = true;
-                                    //   widget.viewModel.onAddedProduct(product);
-                                  }
+                                  isLiked = !isLiked;
+                                });
+                                Networks.add_Remove_WishList("179", product.id)
+                                    .then((onvalue) {
+                                  print(onvalue);
                                 });
                               },
                             ),

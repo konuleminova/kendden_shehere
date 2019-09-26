@@ -1,3 +1,4 @@
+import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/service/networks.dart';
@@ -15,6 +16,7 @@ class DrawerWidget extends StatefulWidget {
 class DrawerState extends State<DrawerWidget> {
   String name;
   String surname;
+  AsyncMemoizer memoizer=new AsyncMemoizer();
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,9 @@ class DrawerState extends State<DrawerWidget> {
             children: <Widget>[
               UserAccountsDrawerHeader(
                 accountName: new FutureBuilder(
-                  future: Networks.userinfo("179"),
+                  future: memoizer.runOnce((){
+                   return Networks.userinfo("179");
+                  }),
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
                     if (snapshot.hasData) {
                       return new Text(

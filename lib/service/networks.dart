@@ -323,7 +323,7 @@ class Networks {
     } catch (exception) {}
   }
 
-  static dynamic userinfo(String uid) async {
+  static  userinfo(String uid) async {
     try {
       final response = await http.get(BASE_KS_URL + "userinfo&id=${uid}");
       if (response.statusCode == 200) {
