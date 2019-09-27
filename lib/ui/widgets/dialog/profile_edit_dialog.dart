@@ -68,7 +68,7 @@ class ProfileEditDialog extends StatelessWidget {
                             colorBrightness: Brightness.dark,
                             onPressed: () {
                               Networks.updateUser(
-                                  context, "179", text, _textController.text);
+                                  context, text, _textController.text);
                             },
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20.0)),

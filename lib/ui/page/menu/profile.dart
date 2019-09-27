@@ -81,7 +81,7 @@ class ProfileState extends State<ProfilePage> {
           elevation: 0,
         ),
         body: FutureBuilder(
-            future: Networks.userinfo("179"),
+            future: Networks.userinfo(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
                 return ListView(

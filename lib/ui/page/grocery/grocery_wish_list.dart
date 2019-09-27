@@ -56,7 +56,7 @@ class GroceryWishListPageState extends State<GroceryWishListPage> {
                 title: Text(AppTranslations.of(context).text("wish_list")),
               ),
               body: FutureBuilder(
-                  future: getWishList("179"),
+                  future: getWishList(),
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
                     if (snapshot.hasData) {
                       return Column(
@@ -103,8 +103,8 @@ class GroceryWishListPageState extends State<GroceryWishListPage> {
     );
   }
 
-  Future<List_Wish_Model> getWishList(id) async {
-    List_Wish_Model wishList = await Networks.wishList(id);
+  Future<List_Wish_Model> getWishList() async {
+    List_Wish_Model wishList = await Networks.wishList();
     return wishList;
   }
 }

@@ -127,7 +127,7 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemThree> {
         onTap: () {
           setState(() {
             isAdded = true;
-            Networks.addToBasket("179", product.id, amount.toString())
+            Networks.addToBasket( product.id, amount.toString())
                 .then((onvalue) {
               print(onvalue);
             });
@@ -157,7 +157,7 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemThree> {
                   if (amount < 1) {
                     isAdded = false;
                     amount = 1;
-                    Networks.removeFromBasket("179", product.id)
+                    Networks.removeFromBasket( product.id)
                         .then((onvalue) {
                       print(onvalue);
                     });
@@ -176,7 +176,7 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemThree> {
                 setState(() {
                   amount++;
                 });
-                Networks.addToBasket("179", product.id, amount.toString());
+                Networks.addToBasket( product.id, amount.toString());
               },
             ),
           ],

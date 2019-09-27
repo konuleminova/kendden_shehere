@@ -11,8 +11,7 @@ import 'package:redux_thunk/redux_thunk.dart';
 
 ThunkAction<AppState> wishListThunkAction() {
   return (Store<AppState> store) async {
-   String id= await SharedPrefUtil().getString(SharedPrefUtil.id);
-    List_Wish_Model response = await Networks.wishList(id);
+    List_Wish_Model response = await Networks.wishList();
     if (response != null) {
       store.state.wishItems = response.productsInCategory[0].list;
       store.dispatch(

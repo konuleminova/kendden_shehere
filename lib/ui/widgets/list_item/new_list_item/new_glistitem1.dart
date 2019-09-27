@@ -148,8 +148,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                                     setState(() {
                                       isLiked = !isLiked;
                                     });
-                                    Networks.add_Remove_WishList(
-                                            "179", product.id)
+                                    Networks.add_Remove_WishList(product.id)
                                         .then((onvalue) {
                                       print(onvalue);
                                     });
@@ -191,7 +190,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
             onPressed: () {
               setState(() {
                 isAdded = true;
-                Networks.addToBasket("179", product.id, amount.toString())
+                Networks.addToBasket(product.id, amount.toString())
                     .then((onvalue) {
                   print(onvalue);
                 });
@@ -220,7 +219,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                   if (amount < 1) {
                     isAdded = false;
                     amount = 1;
-                    Networks.removeFromBasket("179", product.id)
+                    Networks.removeFromBasket( product.id)
                         .then((onvalue) {
                       print(onvalue);
                     });
@@ -239,7 +238,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                 setState(() {
                   amount++;
                 });
-                Networks.addToBasket("179", product.id, amount.toString());
+                Networks.addToBasket( product.id, amount.toString());
               },
             ),
           ],

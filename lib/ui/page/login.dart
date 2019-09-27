@@ -30,6 +30,13 @@ class LoginState extends State<LoginPage> {
     return StoreConnector(
       converter: (Store<AppState> store) => ViewModel.create(store),
       onInit: (store) {
+        _controllerUsername.text = store.state.user_info.username;
+        _controllerPass.text = store.state.user_info.password;
+        if(store.state.user_info.username!=null||store.state.user_info.password!=null){
+          opacity=1;
+          _validateUsername = true;
+          _validatePassword = true;
+        }
         store.onChange.listen((state) {
           if (state.user_info.status == STATUS.FAIL ||
               state.user_info.status == STATUS.NETWORK_ERROR ||

@@ -29,7 +29,7 @@ class DrawerState extends State<DrawerWidget> {
               UserAccountsDrawerHeader(
                 accountName: new FutureBuilder(
                   future: memoizer.runOnce((){
-                   return Networks.userinfo("179");
+                   return Networks.userinfo();
                   }),
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
                     if (snapshot.hasData) {
