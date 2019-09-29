@@ -17,6 +17,16 @@ class Category {
     );
   }
 
+  Category copyWith(
+      {String id, String parent, String name_az, String name_en, String name_ru}) {
+    return Category(id: id ?? this.id
+        ,
+        parent: parent ?? this.parent,
+        name_az: name_az ?? this.name_az,
+        name_en: name_en ?? this.name_en,
+        name_ru: name_ru ?? this.name_ru);
+  }
+
   @override
   String toString() {
     return 'Category{id: $id, parent: $parent, name_az: $name_az, name_en: $name_en, name_ru: $name_ru}';

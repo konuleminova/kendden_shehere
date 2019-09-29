@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/categories/category_item.dart';
+import 'package:kendden_shehere/redux/categories/category_viewmodel.dart';
 import 'package:kendden_shehere/redux/categories/list_categories.dart';
 import 'package:kendden_shehere/redux/productlist/productlist_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
@@ -22,26 +23,22 @@ class GroceryCategoriesPage extends StatefulWidget {
 }
 
 class GroceryCategoriesState extends State<GroceryCategoriesPage> {
-  List<Category> categories = new List();
+  //List<Category> categories = new List();
   List<Category> tempCategories = new List();
   String order = "0";
-  ProductListViewModel viewModel;
+  CategoryViewModel viewModel;
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return StoreConnector(
-        onInitialBuild: (ProductListViewModel viewModel) {
+        onInitialBuild: (CategoryViewModel viewModel) {
           this.viewModel = viewModel;
-          // viewModel.onFetchProductList(widget.id, "10", "0",widget.order);
+          viewModel.onFetchCategories(widget.id);
         },
-        onWillChange: (ProductListViewModel viewModel) {
-          // productList.addAll(viewModel.productList);
-        },
-        converter: (Store<AppState> store) =>
-            ProductListViewModel.create(store),
-        builder: (BuildContext context, ProductListViewModel) {
-          if (categories.length > 0) {
+        converter: (Store<AppState> store) => CategoryViewModel.create(store),
+        builder: (BuildContext context, CategoryViewModel viewModel) {
+          if (viewModel.categories!= null) {
             return new Scaffold(
                 appBar: new AppBar(
                   title: new Text(widget.title.trim()),
@@ -53,11 +50,11 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
                     String langCode =
                         Localizations.localeOf(context).languageCode;
                     if (langCode == "tr") {
-                      title = categories[index].name_az.trim();
+                      title = viewModel.categories[index].name_az.trim();
                     } else if (langCode == "en") {
-                      title = categories[index].name_en.trim();
+                      title = viewModel.categories[index].name_en.trim();
                     } else if (langCode == "ru") {
-                      title = categories[index].name_ru.trim();
+                      title = viewModel.categories[index].name_ru.trim();
                     }
                     return new Container(
                         child: ListTile(
@@ -72,10 +69,10 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
                         ),
                       ),
                       onTap: () {
-                        print(categories[index].id);
+                       // print(categories[index].id);
                         bool isCategory = false;
                         for (int i = 0; i < tempCategories.length; i++) {
-                          if (categories[index].id ==
+                          if (viewModel.categories[index].id ==
                               tempCategories[i].parent) {
                             isCategory = true;
                             break;
@@ -89,14 +86,14 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
                               new MaterialPageRoute(
                                   builder: (BuildContext context) =>
                                       new GroceryCategoriesPage(
-                                          id: categories[index].id,
+                                          id: viewModel.categories[index].id,
                                           title: title)));
                         } else {
                           Route route = MaterialPageRoute(
                               builder: (BuildContext context) =>
                                   GroceryListPage(
                                     title: title,
-                                    id: categories[index].id,
+                                    id: viewModel.categories[index].id,
                                     order: order,
                                   ));
                           Navigator.push(context, route);
@@ -104,7 +101,7 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
                       },
                     ));
                   },
-                  itemCount: categories.length,
+                  itemCount: viewModel.categories.length,
                 ));
           } else {
             return Container(
@@ -119,35 +116,34 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
         });
   }
 
-
   @override
   void initState() {
     super.initState();
-    categories.clear();
-    if (getCategories() != null) {
-      getCategories().then((onValue) {
-        if (onValue != null) {
-          for (int i = 0; i < onValue.length; i++) {
-            if (onValue[i].parent == widget.id) {
-              setState(() {
-                categories.add(onValue[i]);
-              });
-            }
-          }
-          tempCategories.addAll(onValue);
-        }
-        /* if (categories.length <= 0) {
-          Route route = MaterialPageRoute(
-              builder: (BuildContext context) => NewGroceryListPage(
-                    title: widget.title,
-                    id: widget.id,
-                    order: order,
-                  ));
-          Navigator.pushReplacement(context, route);
-        }
-        */
-      });
-    }
+//    categories.clear();
+//    if (getCategories() != null) {
+//      getCategories().then((onValue) {
+//        if (onValue != null) {
+//          for (int i = 0; i < onValue.length; i++) {
+//            if (onValue[i].parent == widget.id) {
+//              setState(() {
+//                categories.add(onValue[i]);
+//              });
+//            }
+//          }
+//          tempCategories.addAll(onValue);
+//        }
+//        /* if (categories.length <= 0) {
+//          Route route = MaterialPageRoute(
+//              builder: (BuildContext context) => NewGroceryListPage(
+//                    title: widget.title,
+//                    id: widget.id,
+//                    order: order,
+//                  ));
+//          Navigator.pushReplacement(context, route);
+//        }
+//        */
+//      });
+//    }
   }
 
   @override
