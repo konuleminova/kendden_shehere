@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/main.dart';
 import 'package:kendden_shehere/redux/checkout/checkout.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/map/flutter_map.dart';
 import 'package:kendden_shehere/ui/page/map/map_view.dart';
+import 'package:kendden_shehere/ui/page/payment/webview.dart';
 
 class CheckoutsPage extends StatefulWidget {
   @override
@@ -20,6 +22,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
   ScrollController _scrollController;
   bool _isOnTop = true;
   Checkout checkout = new Checkout();
+  final flutterWebviewPlugin = new FlutterWebviewPlugin();
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +58,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
               onPressed: () {
                 //Navigator.pushNamed(context, "/confirm_order");
 
-                checkout.id = "381";
+                checkout.id = "382";
                 checkout.username = "testt";
                 checkout.mobile = "23802";
                 checkout.address = "Baku Azerbaijan";
@@ -64,6 +67,23 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                 Networks.finishBasket(checkout).then((onValue) {
                   if (onValue['done'] == "1") {
                     if (onValue['redirectUrl'] != null) {
+//                      Route route = MaterialPageRoute(
+//                          builder: (BuildContext context) => WebViewPage(
+//                                url: onValue['redirectUrl'],
+//                              ));
+//                      Navigator.push(context, route);
+                      flutterWebviewPlugin.launch(
+                        onValue['redirectUrl'],
+                        withJavascript: true,
+                        withZoom: true,
+                        rect: new Rect.fromLTWH(
+                          0.0,
+                          0.0,
+                          MediaQuery.of(context).size.width,
+                          MediaQuery.of(context).size.height,
+                        ),
+                      );
+                    } else {
                       Navigator.pushNamed(context, "/confirm_order");
                     }
                   }
@@ -86,6 +106,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
   @override
   void dispose() {
     _scrollController.dispose();
+    flutterWebviewPlugin.close();
     super.dispose();
   }
 
@@ -105,7 +126,13 @@ class CheckoutsPageState extends State<CheckoutsPage> {
   void initState() {
     super.initState();
     _scrollController = ScrollController();
+    flutterWebviewPlugin.onUrlChanged.listen((String url) {
+      print("changed");
+      print(url);
+    //  Navigator.pushNamed(context, "/confirm_order");
+    });
   }
+
 
   Widget _getAccountTypeSection() {
     return Container(
