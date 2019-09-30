@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/main.dart';
+import 'package:kendden_shehere/redux/checkout/checkout.dart';
+import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/map/flutter_map.dart';
 import 'package:kendden_shehere/ui/page/map/map_view.dart';
 
@@ -17,6 +19,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
   String choice = "11:30-13:00";
   ScrollController _scrollController;
   bool _isOnTop = true;
+  Checkout checkout = new Checkout();
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +53,21 @@ class CheckoutsPageState extends State<CheckoutsPage> {
             child: RaisedButton(
               color: Colors.green,
               onPressed: () {
-                Navigator.pushNamed(context, "/confirm_order");
+                //Navigator.pushNamed(context, "/confirm_order");
+
+                checkout.id = "381";
+                checkout.username = "testt";
+                checkout.mobile = "23802";
+                checkout.address = "Baku Azerbaijan";
+                checkout.delivery_place = "40.4093°,49.8671° ";
+                checkout.delivery_price = "0";
+                Networks.finishBasket(checkout).then((onValue) {
+                  if (onValue['done'] == "1") {
+                    if (onValue['redirectUrl'] != null) {
+                      Navigator.pushNamed(context, "/confirm_order");
+                    }
+                  }
+                });
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -105,6 +122,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                 child: GestureDetector(
                   onTapUp: (tapDetail) {
                     selectedIndex = 0;
+                    checkout.dpayment_selected_val = "online";
                     setState(() {});
                   },
                   child: Container(
@@ -165,6 +183,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                 child: GestureDetector(
                   onTapUp: (tapDetail) {
                     selectedIndex = 1;
+                    checkout.dpayment_selected_val = "offline";
                     setState(() {});
                   },
                   child: Container(
@@ -303,12 +322,14 @@ class CheckoutsPageState extends State<CheckoutsPage> {
     setState(() {
       this.choice = choice;
     });
-    if (choice == Constants.FirstItem) {
-      print('I First Item');
-    } else if (choice == Constants.SecondItem) {
-      print('I Second Item');
-    } else if (choice == Constants.ThirdItem) {
-      print('I Thired Item');
+    if (choice == "11:30-13:00") {
+      checkout.dtime_selected_val = "11";
+    } else if (choice == "13:00-19:30") {
+      checkout.dtime_selected_val = "19";
+    } else if (choice == "Tecili catdirilma") {
+      checkout.dtime_selected_val = "T";
+    } else {
+      checkout.dtime_selected_val = "N";
     }
   }
 

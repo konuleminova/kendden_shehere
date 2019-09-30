@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
+import 'package:kendden_shehere/redux/checkout/checkout.dart';
 import 'package:kendden_shehere/redux/home/home_model.dart';
 import 'package:kendden_shehere/redux/categories/list_categories.dart';
 import 'package:kendden_shehere/redux/information/information.dart';
@@ -252,7 +253,7 @@ class Networks {
     try {
       var id = await sharedPrefUtil.getString(SharedPrefUtil.id);
       final response = await http.get(BASE_KS_URL + "basket" + "&uid=${id}");
-      print(id + ".. product id ");
+      print(response.body);
       if (response.statusCode == 200) {
         return OrderHistoryListModel.fromJson(json.decode(response.body));
       } else {
@@ -348,7 +349,7 @@ class Networks {
     } catch (exception) {}
   }
 
-  static dynamic add_Remove_WishList( String id) async {
+  static dynamic add_Remove_WishList(String id) async {
     try {
       var uid = await sharedPrefUtil.getString(SharedPrefUtil.id);
       final response =
@@ -376,13 +377,30 @@ class Networks {
     } catch (exception) {}
   }
 
-  static dynamic removeFromBasket( String id) async {
+  static dynamic removeFromBasket(String id) async {
     try {
       var uid = await sharedPrefUtil.getString(SharedPrefUtil.id);
       final response =
           await http.get(BASE_KS_URL + "removefrombasket&uid=${uid}&id=${id}");
       if (response.statusCode == 200) {
         var a = json.decode(response.body);
+        return a;
+      } else {
+        return null;
+      }
+    } catch (exception) {}
+  }
+
+  static dynamic finishBasket(Checkout checkout) async {
+    try {
+      var uid = await sharedPrefUtil.getString(SharedPrefUtil.id);
+      final response = await http.get(BASE_KS_URL +
+          "finishbasket&uid=${uid}&id=${checkout.id}&address=${checkout.address}&delivery_place=${checkout.delivery_place}"
+              "&mobile=${checkout.mobile}&dtime_selected_val=${checkout.dtime_selected_val}"
+              "&username=${checkout.username}&delivery_price=${checkout.username}&dpayment_selected_val=${checkout.dpayment_selected_val}");
+      if (response.statusCode == 200) {
+        var a = json.decode(response.body);
+        print(a);
         return a;
       } else {
         return null;
