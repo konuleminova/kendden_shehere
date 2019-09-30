@@ -137,7 +137,7 @@ class Networks {
 
   static dynamic wishList() async {
     try {
-      var id = await sharedPrefUtil.getString(SharedPrefUtil.id);
+      var id = await sharedPrefUtil.getString(SharedPrefUtil.uid);
       final response = await http.get(BASE_KS_URL + "wishlist" + "&id=${id}");
       if (response.statusCode == 200) {
         print("code");
@@ -235,7 +235,7 @@ class Networks {
 
   static orderHistory() async {
     try {
-      var id = await sharedPrefUtil.getString(SharedPrefUtil.id);
+      var id = await sharedPrefUtil.getString(SharedPrefUtil.uid);
       final response =
           await http.get(BASE_KS_URL + "orderhistory" + "&id=${id}");
       print("Order history");
@@ -251,10 +251,15 @@ class Networks {
 
   static dynamic basket() async {
     try {
-      var id = await sharedPrefUtil.getString(SharedPrefUtil.id);
+      var id = await sharedPrefUtil.getString(SharedPrefUtil.uid);
       final response = await http.get(BASE_KS_URL + "basket" + "&uid=${id}");
       print(response.body);
       if (response.statusCode == 200) {
+        OrderHistoryListModel order=OrderHistoryListModel.fromJson(json.decode(response.body));
+
+
+       await sharedPrefUtil.setString(
+            SharedPrefUtil.id,order.orderList[0].id);
         return OrderHistoryListModel.fromJson(json.decode(response.body));
       } else {
         return null;
@@ -319,7 +324,7 @@ class Networks {
   static dynamic updateUser(
       BuildContext context, String inf, String data) async {
     try {
-      var uid = await sharedPrefUtil.getString(SharedPrefUtil.id);
+      var uid = await sharedPrefUtil.getString(SharedPrefUtil.uid);
       final response = await http.get(BASE_KS_URL +
           "updateuser&uid=${uid}" +
           "&inf=${inf}" +
@@ -336,7 +341,7 @@ class Networks {
 
   static userinfo() async {
     try {
-      var uid = await sharedPrefUtil.getString(SharedPrefUtil.id);
+      var uid = await sharedPrefUtil.getString(SharedPrefUtil.uid);
       final response = await http.get(BASE_KS_URL + "userinfo&id=${uid}");
       if (response.statusCode == 200) {
         var a = json.decode(response.body) as List;
@@ -351,7 +356,7 @@ class Networks {
 
   static dynamic add_Remove_WishList(String id) async {
     try {
-      var uid = await sharedPrefUtil.getString(SharedPrefUtil.id);
+      var uid = await sharedPrefUtil.getString(SharedPrefUtil.uid);
       final response =
           await http.get(BASE_KS_URL + "addtowishlist&uid=${uid}&id=${id}");
       if (response.statusCode == 200) {
@@ -365,7 +370,7 @@ class Networks {
 
   static dynamic addToBasket(String id, String weight) async {
     try {
-      var uid = await sharedPrefUtil.getString(SharedPrefUtil.id);
+      var uid = await sharedPrefUtil.getString(SharedPrefUtil.uid);
       final response = await http.get(
           BASE_KS_URL + "addtobasket&uid=${uid}&id=${id}&weight=${weight}");
       if (response.statusCode == 200) {
@@ -379,7 +384,7 @@ class Networks {
 
   static dynamic removeFromBasket(String id) async {
     try {
-      var uid = await sharedPrefUtil.getString(SharedPrefUtil.id);
+      var uid = await sharedPrefUtil.getString(SharedPrefUtil.uid);
       final response =
           await http.get(BASE_KS_URL + "removefrombasket&uid=${uid}&id=${id}");
       if (response.statusCode == 200) {
@@ -392,9 +397,11 @@ class Networks {
   }
 
   static dynamic finishBasket(Checkout checkout) async {
+    print("BASKEt");
+    print(checkout);
     try {
       var uid = await sharedPrefUtil.getString(
-        SharedPrefUtil.id,
+        SharedPrefUtil.uid,
       );
       final response = await http.get(
         BASE_KS_URL +

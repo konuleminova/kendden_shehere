@@ -18,4 +18,10 @@ class Checkout {
       this.delivery_price,
       this.dpayment_selected_val});
 
+  @override
+  String toString() {
+    return 'Checkout{id: $id, address: $address, delivery_place: $delivery_place, mobile: $mobile, dtime_selected_val: $dtime_selected_val, username: $username, delivery_price: $delivery_price, dpayment_selected_val: $dpayment_selected_val}';
+  }
+
+
 }

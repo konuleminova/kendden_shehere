@@ -8,7 +8,8 @@ class SharedPrefUtil {
    static String surname = "User surname";
    static String username = "User username";
    static String mobile = "User mobile ";
-   static String id = "User id";
+   static String uid = "User id";
+   static String id = "Product id";
    static String lang = "lang";
   Future<bool> getBool(String key) async {
     // sleep(const Duration(seconds:5));

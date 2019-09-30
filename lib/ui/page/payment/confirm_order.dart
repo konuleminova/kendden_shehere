@@ -1,128 +1,169 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:kendden_shehere/redux/checkout/checkout.dart';
+import 'package:kendden_shehere/service/networks.dart';
+import 'package:kendden_shehere/util/sharedpref_util.dart';
 
-class ConfirmOrderPage extends StatelessWidget{
-  final String address = "Hesen bey zerdabi, Baki";
-  final String phone="9818522122";
-  final double total = 50;
-  final double delivery = 10;
+const kAndroidUserAgent =
+    'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Mobile Safari/537.36';
+
+class ConfirmOrderPage extends StatefulWidget {
+  Checkout checkout;
+
+  ConfirmOrderPage({this.checkout});
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return ConfirmPageState();
+  }
+}
+
+class ConfirmPageState extends State<ConfirmOrderPage> {
+  SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
+  final flutterWebviewPlugin = new FlutterWebviewPlugin();
+  Checkout checkout;
+
+  getSharedPref() async {
+    checkout.mobile = await sharedPrefUtil.getString(SharedPrefUtil.mobile);
+    checkout.username = await sharedPrefUtil.getString(SharedPrefUtil.username);
+    checkout.id = await sharedPrefUtil.getString(SharedPrefUtil.id);
+    return checkout;
+  }
+
+
+  @override
+  void initState() {
+    super.initState();
+    flutterWebviewPlugin.close();
+  }
+
+  @override
+  void dispose() {
+    flutterWebviewPlugin.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    checkout = widget.checkout;
+    // TODO: implement build
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.lightGreen,
-        title: Text("Confirm Order"),
-      ),
-      body: _buildBody(context),
-    );
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: Colors.lightGreen,
+          title: Text("Confirm Order"),
+        ),
+        body: Container(
+          child: FutureBuilder(
+              future: getSharedPref(),
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                if (snapshot.hasData) {
+                  return Column(
+                    children: <Widget>[
+                      ListTile(
+                        title: Text("Delivery Address"),
+                        subtitle: Text(checkout.address),
+                        trailing: IconButton(
+                          icon: Icon(Icons.edit),
+                          onPressed: null,
+                        ),
+                      ),
+                      Divider(),
+                      ListTile(
+                        title: Text("Mobile"),
+                        subtitle: Text(checkout.mobile),
+                        trailing: IconButton(
+                          icon: Icon(Icons.edit),
+                          onPressed: null,
+                        ),
+                      ),
+                      Divider(),
+                      ListTile(
+                        title: Text("Price"),
+                        subtitle: Text(checkout.delivery_price),
+                      ),
+                      Divider(),
+                      ListTile(
+                        title: Text("Username"),
+                        subtitle: Text(checkout.username),
+                      ),
+                      Divider(),
+                      ListTile(
+                        title: Text("Time"),
+                        subtitle: Text(checkout.dtime_selected_val),
+                      ),
+                      Divider(),
+                      ListTile(
+                        title: Text("Payment Option"),
+                        subtitle: Text(checkout.dpayment_selected_val),
+                      ),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      RaisedButton(
+                        color: Colors.green,
+                        onPressed: () {
+                          Networks.finishBasket(checkout).then((onValue) {
+                            if (onValue['done'] == "1") {
+                              if (onValue['redirectUrl'] != null) {
+//                      Route route = MaterialPageRoute(
+//                          builder: (BuildContext context) => WebViewPage(
+//                                url: onValue['redirectUrl'],
+//                              ));
+//                      Navigator.push(context, route);
+                                flutterWebviewPlugin.onUrlChanged
+                                    .listen((String url) {
+                                  if (url != onValue['redirectUrl'] ) {
+                                    print("CHNAGED");
+                                    Navigator.pop(context);
+                                    flutterWebviewPlugin.close();
+                                    flutterWebviewPlugin.dispose();
+                                   // flutterWebviewPlugin.goBack();
+                                   // flutterWebviewPlugin.goBack();
+//                                    flutterWebviewPlugin.dispose();
+                                    Navigator.pop(context);
+                                    Navigator.pushNamed(
+                                        context, "/shopping_cart");
+                                  }
+
+                                  //  Navigator.pushNamed(context, "/confirm_order");
+                                });
+                                print(onValue['redirectUrl']);
+                                flutterWebviewPlugin.launch(
+                                  onValue['redirectUrl'] ,
+                                  rect: Rect.fromLTWH(
+                                      0.0,
+                                      0.0,
+                                      MediaQuery.of(context).size.width,
+                                      MediaQuery.of(context).size.height),
+                                  userAgent: kAndroidUserAgent,
+                                  invalidUrlRegex:
+                                      r'^(https).+(twitter)', // prevent redirecting to twitter when user click on its icon in flutter website
+                                );
+                              } else {
+                                Navigator.pushNamed(context, "/shopping_cart");
+                              }
+                            }
+                          });
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: <Widget>[
+                            Text("Confirm Order",
+                                style: TextStyle(color: Colors.white)),
+                          ],
+                        ),
+                      )
+                    ],
+                  );
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              }),
+          margin: EdgeInsets.all(16.0),
+        ));
   }
-
-  Widget _buildBody(BuildContext context) {
-    return SingleChildScrollView(
-      padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0, bottom: 10.0),
-      child: Column(
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text("Subtotal"),
-              Text("AZN: $total"),
-            ],
-          ),
-          SizedBox(height: 10.0,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text("Delivery fee"),
-              Text("AZN: $delivery"),
-            ],
-          ),
-          SizedBox(height: 10.0,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text("Total", style: Theme.of(context).textTheme.title,),
-              Text("AZN: ${total+delivery}", style: Theme.of(context).textTheme.title),
-            ],
-          ),
-          SizedBox(height: 20.0,),
-          Container(
-              color: Colors.grey.shade200,
-              padding: EdgeInsets.all(8.0),
-              width: double.infinity,
-              child: Text("Delivery Address".toUpperCase())
-          ),
-          Column(
-            children: <Widget>[
-              RadioListTile(
-                activeColor: Colors.green[700],
-                selected: true,
-                value: address,
-                groupValue: address,
-                title: Text(address),
-                onChanged: (value){},
-              ),
-              RadioListTile(
-                selected: false,
-                value: "New Address",
-                groupValue: address,
-                title: Text("Choose another delivery address"),
-                onChanged: (value){},
-              ),
-              Container(
-                  color: Colors.grey.shade200,
-                  padding: EdgeInsets.all(8.0),
-                  width: double.infinity,
-                  child: Text("Contact".toUpperCase())
-              ),
-              RadioListTile(
-                activeColor: Colors.green[700],
-                selected: true,
-                value: phone,
-                groupValue: phone,
-                title: Text("Konul Eminova"),
-                onChanged: (value){},
-              ),
-              RadioListTile(
-                activeColor: Colors.green[700],
-                selected: true,
-                value: phone,
-                groupValue: phone,
-                title: Text("+"+phone),
-                onChanged: (value){},
-              ),
-            ],
-          ),
-          SizedBox(height: 20.0,),
-          Container(
-              color: Colors.grey.shade200,
-              padding: EdgeInsets.all(8.0),
-              width: double.infinity,
-              child: Text("Payment Option".toUpperCase())
-          ),
-          RadioListTile(
-            activeColor: Colors.green[700],
-            groupValue: true,
-            value: true,
-            title: Text("Cash on Delivery"),
-            onChanged: (value){},
-          ),
-          Container(
-            width: double.infinity,
-            child: RaisedButton(
-              color:  Colors.green,
-              onPressed: ()=> {
-                Navigator.pushNamed(context, "/card_storage")
-              },
-              child: Text("Confirm Order", style: TextStyle(
-                  color: Colors.white
-              ),),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-
 }

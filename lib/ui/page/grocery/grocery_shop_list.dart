@@ -6,6 +6,7 @@ import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/test/shop_item_model.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem2.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem3.dart';
+import 'package:kendden_shehere/util/sharedpref_util.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/common/model/product_model.dart';
@@ -46,6 +47,7 @@ class GroceryCartState extends State<GroceryShopCartPage> {
 //                print("konul!!");
 //                print(order.orderList[0].list);
                 products = order.orderList[0].list.productsInCategory;
+             //   products[0].id;
                 return Column(
                   children: <Widget>[
                     Expanded(child: _shopBody()),

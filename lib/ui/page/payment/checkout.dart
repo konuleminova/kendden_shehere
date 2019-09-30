@@ -6,6 +6,7 @@ import 'package:kendden_shehere/main.dart';
 import 'package:kendden_shehere/redux/checkout/checkout.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/map/flutter_map.dart';
+import 'package:kendden_shehere/ui/page/payment/confirm_order.dart';
 
 const kAndroidUserAgent =
     'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Mobile Safari/537.36';
@@ -25,6 +26,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
   bool _isOnTop = true;
   Checkout checkout = new Checkout();
   final flutterWebviewPlugin = new FlutterWebviewPlugin();
+
 
   @override
   Widget build(BuildContext context) {
@@ -60,50 +62,53 @@ class CheckoutsPageState extends State<CheckoutsPage> {
               onPressed: () {
                 //Navigator.pushNamed(context, "/confirm_order");
 
-                checkout.id = "382";
-                checkout.username = "testt";
-                checkout.mobile = "23802";
+                //checkout.id = "382";
                 checkout.address = "Baku Azerbaijan";
                 checkout.delivery_place = "40.4093°,49.8671° ";
                 checkout.delivery_price = "0";
-                Networks.finishBasket(checkout).then((onValue) {
-                  if (onValue['done'] == "1") {
-                    if (onValue['redirectUrl'] != null) {
-//                      Route route = MaterialPageRoute(
-//                          builder: (BuildContext context) => WebViewPage(
-//                                url: onValue['redirectUrl'],
-//                              ));
-//                      Navigator.push(context, route);
-                      flutterWebviewPlugin.onUrlChanged.listen((String url) {
-                        print("changed");
-                        print(url);
-                        print(onValue['redirectUrl']);
-                        if (url != onValue['redirectUrl']) {
-                          flutterWebviewPlugin.goBack();
-                          flutterWebviewPlugin.dispose();
-                          Navigator.pop(context);
-                          Navigator.pushNamed(context, "/shopping_cart");
-                        }
-
-                        //  Navigator.pushNamed(context, "/confirm_order");
-                      });
-                      print(onValue['redirectUrl']);
-                      flutterWebviewPlugin.launch(
-                        onValue['redirectUrl'],
-                        rect: Rect.fromLTWH(
-                            0.0,
-                            0.0,
-                            MediaQuery.of(context).size.width,
-                            MediaQuery.of(context).size.height),
-                        userAgent: kAndroidUserAgent,
-                        invalidUrlRegex:
-                            r'^(https).+(twitter)', // prevent redirecting to twitter when user click on its icon in flutter website
-                      );
-                    } else {
-                      Navigator.pushNamed(context, "/shopping_cart");
-                    }
-                  }
-                });
+                Route route = MaterialPageRoute(
+                    builder: (BuildContext context) => ConfirmOrderPage(
+                          checkout: checkout,
+                        ));
+                Navigator.push(context, route);
+//                Networks.finishBasket(checkout).then((onValue) {
+//                  if (onValue['done'] == "1") {
+//                    if (onValue['redirectUrl'] != null) {
+////                      Route route = MaterialPageRoute(
+////                          builder: (BuildContext context) => WebViewPage(
+////                                url: onValue['redirectUrl'],
+////                              ));
+////                      Navigator.push(context, route);
+//                      flutterWebviewPlugin.onUrlChanged.listen((String url) {
+//                        print("changed");
+//                        print(url);
+//                        print(onValue['redirectUrl']);
+//                        if (url != onValue['redirectUrl']) {
+//                          flutterWebviewPlugin.goBack();
+//                          flutterWebviewPlugin.dispose();
+//                          Navigator.pop(context);
+//                          Navigator.pushNamed(context, "/shopping_cart");
+//                        }
+//
+//                        //  Navigator.pushNamed(context, "/confirm_order");
+//                      });
+//                      print(onValue['redirectUrl']);
+//                      flutterWebviewPlugin.launch(
+//                        onValue['redirectUrl'],
+//                        rect: Rect.fromLTWH(
+//                            0.0,
+//                            0.0,
+//                            MediaQuery.of(context).size.width,
+//                            MediaQuery.of(context).size.height),
+//                        userAgent: kAndroidUserAgent,
+//                        invalidUrlRegex:
+//                            r'^(https).+(twitter)', // prevent redirecting to twitter when user click on its icon in flutter website
+//                      );
+//                    } else {
+//                      Navigator.pushNamed(context, "/shopping_cart");
+//                    }
+//                  }
+//                });
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -122,7 +127,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
   @override
   void dispose() {
     _scrollController.dispose();
-    flutterWebviewPlugin.close();
+   // flutterWebviewPlugin.close();
     super.dispose();
   }
 
@@ -142,6 +147,8 @@ class CheckoutsPageState extends State<CheckoutsPage> {
   void initState() {
     super.initState();
     _scrollController = ScrollController();
+    checkout.dpayment_selected_val = "online";
+    checkout.dtime_selected_val = "11";
   }
 
   Widget _getAccountTypeSection() {
@@ -159,8 +166,10 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                 child: GestureDetector(
                   onTapUp: (tapDetail) {
                     selectedIndex = 0;
-                    checkout.dpayment_selected_val = "online";
-                    setState(() {});
+
+                    setState(() {
+                      checkout.dpayment_selected_val = "online";
+                    });
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -220,8 +229,10 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                 child: GestureDetector(
                   onTapUp: (tapDetail) {
                     selectedIndex = 1;
-                    checkout.dpayment_selected_val = "offline";
-                    setState(() {});
+
+                    setState(() {
+                      checkout.dpayment_selected_val = "offline";
+                    });
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -358,16 +369,16 @@ class CheckoutsPageState extends State<CheckoutsPage> {
   void choiceAction(String choice) {
     setState(() {
       this.choice = choice;
+      if (choice == "11:30-13:00") {
+        checkout.dtime_selected_val = "11";
+      } else if (choice == "13:00-19:30") {
+        checkout.dtime_selected_val = "19";
+      } else if (choice == "Tecili catdirilma") {
+        checkout.dtime_selected_val = "T";
+      } else {
+        checkout.dtime_selected_val = "N";
+      }
     });
-    if (choice == "11:30-13:00") {
-      checkout.dtime_selected_val = "11";
-    } else if (choice == "13:00-19:30") {
-      checkout.dtime_selected_val = "19";
-    } else if (choice == "Tecili catdirilma") {
-      checkout.dtime_selected_val = "T";
-    } else {
-      checkout.dtime_selected_val = "N";
-    }
   }
 
   _getGoogleMap() => MapPage1();
