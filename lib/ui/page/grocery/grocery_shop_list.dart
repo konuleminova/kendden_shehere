@@ -80,7 +80,7 @@ class GroceryCartState extends State<GroceryShopCartPage> {
       );
 
   Widget _buildTotals(String delivery, String subtotal) {
-    double total = double.parse(delivery) + double.parse(subtotal);
+   // double total = double.parse(delivery) + double.parse(subtotal);
     return ClipOval(
       clipper: OvalTopBorderClipper(),
       child: Container(
@@ -122,7 +122,7 @@ class GroceryCartState extends State<GroceryShopCartPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text("Total"),
-                Text(total.toString() + " AZN"),
+                Text("" + " AZN"),
               ],
             ),
             SizedBox(

@@ -82,7 +82,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                           flutterWebviewPlugin.goBack();
                           flutterWebviewPlugin.dispose();
                           Navigator.pop(context);
-                          Navigator.pushNamed(context, "/confirm_order");
+                          Navigator.pushNamed(context, "/shopping_cart");
                         }
 
                         //  Navigator.pushNamed(context, "/confirm_order");
@@ -100,7 +100,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                             r'^(https).+(twitter)', // prevent redirecting to twitter when user click on its icon in flutter website
                       );
                     } else {
-                      Navigator.pushNamed(context, "/confirm_order");
+                      Navigator.pushNamed(context, "/shopping_cart");
                     }
                   }
                 });
