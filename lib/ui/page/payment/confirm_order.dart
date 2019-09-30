@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:kendden_shehere/redux/checkout/checkout.dart';
 import 'package:kendden_shehere/service/networks.dart';
+import 'package:kendden_shehere/ui/page/grocery/grocery_shop_list.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 
 const kAndroidUserAgent =
@@ -30,7 +31,6 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
     checkout.id = await sharedPrefUtil.getString(SharedPrefUtil.id);
     return checkout;
   }
-
 
   @override
   void initState() {
@@ -114,24 +114,29 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
 //                      Navigator.push(context, route);
                                 flutterWebviewPlugin.onUrlChanged
                                     .listen((String url) {
-                                  if (url != onValue['redirectUrl'] ) {
+                                  if (url != onValue['redirectUrl']) {
                                     print("CHNAGED");
                                     Navigator.pop(context);
                                     flutterWebviewPlugin.close();
                                     flutterWebviewPlugin.dispose();
-                                   // flutterWebviewPlugin.goBack();
-                                   // flutterWebviewPlugin.goBack();
+                                    // flutterWebviewPlugin.goBack();
+                                    // flutterWebviewPlugin.goBack();
 //                                    flutterWebviewPlugin.dispose();
                                     Navigator.pop(context);
-                                    Navigator.pushNamed(
-                                        context, "/shopping_cart");
+                                    Route route = MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            GroceryShopCartPage(
+                                              fromCheckout: true,
+                                            ));
+
+                                    Navigator.pushReplacement(context, route);
                                   }
 
                                   //  Navigator.pushNamed(context, "/confirm_order");
                                 });
                                 print(onValue['redirectUrl']);
                                 flutterWebviewPlugin.launch(
-                                  onValue['redirectUrl'] ,
+                                  onValue['redirectUrl'],
                                   rect: Rect.fromLTWH(
                                       0.0,
                                       0.0,
@@ -142,7 +147,13 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
                                       r'^(https).+(twitter)', // prevent redirecting to twitter when user click on its icon in flutter website
                                 );
                               } else {
-                                Navigator.pushNamed(context, "/shopping_cart");
+                                Route route = MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        GroceryShopCartPage(
+                                          fromCheckout: true,
+                                        ));
+
+                                Navigator.pushReplacement(context, route);
                               }
                             }
                           });

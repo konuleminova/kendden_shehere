@@ -4,6 +4,8 @@ import 'package:kendden_shehere/redux/orderhistory/orderhistory_listmodel.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/test/shop_item_model.dart';
+import 'package:kendden_shehere/ui/widgets/dialog/payment_success_dialog.dart';
+import 'package:kendden_shehere/ui/widgets/dialog/profile_edit_dialog.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem2.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem3.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
@@ -15,6 +17,10 @@ import 'package:kendden_shehere/redux/shoplist/shop_viewmodel.dart';
 import 'package:kendden_shehere/ui/widgets/oval_tap.dart';
 
 class GroceryShopCartPage extends StatefulWidget {
+  bool fromCheckout = false;
+
+  GroceryShopCartPage({this.fromCheckout});
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -31,6 +37,17 @@ class GroceryCartState extends State<GroceryShopCartPage> {
   List<NewProduct> products = new List();
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    widget.fromCheckout=false;
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     // TODO: implement build
@@ -43,24 +60,38 @@ class GroceryCartState extends State<GroceryShopCartPage> {
             future: Networks.basket(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
-                OrderHistoryListModel order = snapshot.data;
+                if (snapshot.data != "500") {
+                  OrderHistoryListModel order = snapshot.data;
 //                print("konul!!");
 //                print(order.orderList[0].list);
-                products = order.orderList[0].list.productsInCategory;
-             //   products[0].id;
-                return Column(
-                  children: <Widget>[
-                    Expanded(child: _shopBody()),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    // _buildTotals();
-                    _buildTotals(
-                      order.orderList[0].delivery_price,
-                      order.orderList[0].bprice,
-                    )
-                  ],
-                );
+                  products = order.orderList[0].list.productsInCategory;
+
+                  //   products[0].id;
+                  return Column(
+                    children: <Widget>[
+                      Expanded(child: _shopBody()),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      // _buildTotals();
+                      _buildTotals(
+                        order.orderList[0].delivery_price,
+                        order.orderList[0].bprice,
+                      )
+                    ],
+                  );
+                } else {
+                  if (widget.fromCheckout) {
+                    Future.delayed(
+                        Duration.zero,
+                        () => showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return PaymentSuccessDialog(context);
+                            }));
+                  }
+                  return Container();
+                }
               } else
                 return Center(
                   child: CircularProgressIndicator(),
@@ -82,7 +113,7 @@ class GroceryCartState extends State<GroceryShopCartPage> {
       );
 
   Widget _buildTotals(String delivery, String subtotal) {
-   // double total = double.parse(delivery) + double.parse(subtotal);
+    // double total = double.parse(delivery) + double.parse(subtotal);
     return ClipOval(
       clipper: OvalTopBorderClipper(),
       child: Container(
@@ -169,11 +200,19 @@ class GroceryCartState extends State<GroceryShopCartPage> {
                 ),
                 onPressed: () {
                   //return viewModel.removeShopItem(shopItem);
-                 // print(viewModel.shopItems.toString());
+                  // print(viewModel.shopItems.toString());
                 },
               ),
             ),
           ),
         ],
       );
+
+  void _checkAlertDialog() async {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return ProfileEditDialog("mobile");
+        });
+  }
 }

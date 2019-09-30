@@ -10,6 +10,7 @@ import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/redux/productlist/productlist_viewmodel.dart';
 import 'package:kendden_shehere/redux/productlist/products_in_category_model.dart';
 import 'package:kendden_shehere/service/networks.dart';
+import 'package:kendden_shehere/ui/page/grocery/grocery_shop_list.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem1.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
@@ -113,7 +114,13 @@ class HomePageState extends State<HomePage> {
                     onPressed: () {
                       setState(() {
                         counter = 0;
-                        Navigator.pushNamed(context, "/shopping_cart");
+                        Route route = MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                GroceryShopCartPage(
+                                  fromCheckout: false,
+                                ));
+
+                        Navigator.push(context, route);
                       });
                     }),
                 counter != 0
@@ -185,7 +192,7 @@ class HomePageState extends State<HomePage> {
             ]),
           ),
           FutureBuilder(
-              future: this._memoizer.runOnce( Networks.getCollections),
+              future: this._memoizer.runOnce(Networks.getCollections),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 List<NewProduct> productsInCat = snapshot.data;
                 if (snapshot.hasData) {
@@ -196,22 +203,24 @@ class HomePageState extends State<HomePage> {
                       itemCount: productsInCat.length,
                       itemBuilder: (BuildContext context, int index) {
                         return FutureBuilder(
-                            future: this._memoizer2.runOnce(()async {
-                          try {
-                            final response =
-                                await http.get(Networks.BASE_KS_URL + "collection" + "&inf=${productsInCat[index].id}");
+                            future: this._memoizer2.runOnce(() async {
+                              try {
+                                final response = await http.get(
+                                    Networks.BASE_KS_URL +
+                                        "collection" +
+                                        "&inf=${productsInCat[index].id}");
 
-                            if (response.statusCode == 200) {
-                              print(productsInCat[index].id+ ".. HOME");
-                              // print(response.body);
-                              return ProductsInCategory.fromJson(json.decode(response.body))
-                                  .productsInCategory;
-                            } else {
-                              return null;
-                            }
-                          } catch (exception) {}
-
-                        }),
+                                if (response.statusCode == 200) {
+                                  print(productsInCat[index].id + ".. HOME");
+                                  // print(response.body);
+                                  return ProductsInCategory.fromJson(
+                                          json.decode(response.body))
+                                      .productsInCategory;
+                                } else {
+                                  return null;
+                                }
+                              } catch (exception) {}
+                            }),
                             builder: (BuildContext context,
                                 AsyncSnapshot snapshot2) {
                               if (snapshot2.hasData) {

@@ -253,16 +253,17 @@ class Networks {
     try {
       var id = await sharedPrefUtil.getString(SharedPrefUtil.uid);
       final response = await http.get(BASE_KS_URL + "basket" + "&uid=${id}");
-      print(response.body);
+      print(response.body.toString());
       if (response.statusCode == 200) {
         OrderHistoryListModel order=OrderHistoryListModel.fromJson(json.decode(response.body));
+        print(order);
 
 
        await sharedPrefUtil.setString(
             SharedPrefUtil.id,order.orderList[0].id);
         return OrderHistoryListModel.fromJson(json.decode(response.body));
       } else {
-        return null;
+        return "500";
       }
     } catch (exception) {}
   }
