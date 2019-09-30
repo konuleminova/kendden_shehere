@@ -393,11 +393,16 @@ class Networks {
 
   static dynamic finishBasket(Checkout checkout) async {
     try {
-      var uid = await sharedPrefUtil.getString(SharedPrefUtil.id);
-      final response = await http.get(BASE_KS_URL +
-          "finishbasket&uid=${uid}&id=${checkout.id}&address=${checkout.address}&delivery_place=${checkout.delivery_place}"
-              "&mobile=${checkout.mobile}&dtime_selected_val=${checkout.dtime_selected_val}"
-              "&username=${checkout.username}&delivery_price=${checkout.username}&dpayment_selected_val=${checkout.dpayment_selected_val}");
+      var uid = await sharedPrefUtil.getString(
+        SharedPrefUtil.id,
+      );
+      final response = await http.get(
+        BASE_KS_URL +
+            "finishbasket&uid=${uid}&id=${checkout.id}&address=${checkout.address}&delivery_place=${checkout.delivery_place}"
+                "&mobile=${checkout.mobile}&dtime_selected_val=${checkout.dtime_selected_val}"
+                "&username=${checkout.username}&delivery_price=${checkout.username}&dpayment_selected_val=${checkout.dpayment_selected_val}",
+        headers: {"Content-Type": "application/json"},
+      );
       if (response.statusCode == 200) {
         var a = json.decode(response.body);
         print(a);

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as prefix0;
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/main.dart';
 import 'package:kendden_shehere/redux/checkout/checkout.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/map/flutter_map.dart';
-import 'package:kendden_shehere/ui/page/map/map_view.dart';
-import 'package:kendden_shehere/ui/page/payment/webview.dart';
+
+const kAndroidUserAgent =
+    'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Mobile Safari/537.36';
 
 class CheckoutsPage extends StatefulWidget {
   @override
@@ -72,16 +74,30 @@ class CheckoutsPageState extends State<CheckoutsPage> {
 //                                url: onValue['redirectUrl'],
 //                              ));
 //                      Navigator.push(context, route);
+                      flutterWebviewPlugin.onUrlChanged.listen((String url) {
+                        print("changed");
+                        print(url);
+                        print(onValue['redirectUrl']);
+                        if (url != onValue['redirectUrl']) {
+                          flutterWebviewPlugin.goBack();
+                          flutterWebviewPlugin.dispose();
+                          Navigator.pop(context);
+                          Navigator.pushNamed(context, "/confirm_order");
+                        }
+
+                        //  Navigator.pushNamed(context, "/confirm_order");
+                      });
+                      print(onValue['redirectUrl']);
                       flutterWebviewPlugin.launch(
                         onValue['redirectUrl'],
-                        withJavascript: true,
-                        withZoom: true,
-                        rect: new Rect.fromLTWH(
-                          0.0,
-                          0.0,
-                          MediaQuery.of(context).size.width,
-                          MediaQuery.of(context).size.height,
-                        ),
+                        rect: Rect.fromLTWH(
+                            0.0,
+                            0.0,
+                            MediaQuery.of(context).size.width,
+                            MediaQuery.of(context).size.height),
+                        userAgent: kAndroidUserAgent,
+                        invalidUrlRegex:
+                            r'^(https).+(twitter)', // prevent redirecting to twitter when user click on its icon in flutter website
                       );
                     } else {
                       Navigator.pushNamed(context, "/confirm_order");
@@ -126,13 +142,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
   void initState() {
     super.initState();
     _scrollController = ScrollController();
-    flutterWebviewPlugin.onUrlChanged.listen((String url) {
-      print("changed");
-      print(url);
-    //  Navigator.pushNamed(context, "/confirm_order");
-    });
   }
-
 
   Widget _getAccountTypeSection() {
     return Container(
