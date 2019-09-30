@@ -21,6 +21,7 @@ ThunkAction<AppState> loginThunkFunction(String username, String password) {
     UserModel responseBody = await Networks.login(username, password);
     if (responseBody != null) {
       userLogin.status = STATUS.SUCCESS;
+      userLogin.isLogin=true;
       store.dispatch(LoginAction(status: STATUS.SUCCESS));
       SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
       sharedPrefUtil.setBool(SharedPrefUtil.isLoginKey, userLogin.isLogin);
