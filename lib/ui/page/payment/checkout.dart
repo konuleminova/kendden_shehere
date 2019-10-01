@@ -27,7 +27,6 @@ class CheckoutsPageState extends State<CheckoutsPage> {
   Checkout checkout = new Checkout();
   final flutterWebviewPlugin = new FlutterWebviewPlugin();
 
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -124,7 +123,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
   @override
   void dispose() {
     _scrollController.dispose();
-   // flutterWebviewPlugin.close();
+    // flutterWebviewPlugin.close();
     super.dispose();
   }
 
@@ -145,7 +144,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
     super.initState();
     _scrollController = ScrollController();
     checkout.dpayment_selected_val = "online";
-    checkout.dtime_selected_val = "11";
+    checkout.dtime_selected_val = choice;
   }
 
   Widget _getAccountTypeSection() {
@@ -366,15 +365,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
   void choiceAction(String choice) {
     setState(() {
       this.choice = choice;
-      if (choice == "11:30-13:00") {
-        checkout.dtime_selected_val = "11";
-      } else if (choice == "13:00-19:30") {
-        checkout.dtime_selected_val = "19";
-      } else if (choice == "Tecili catdirilma") {
-        checkout.dtime_selected_val = "T";
-      } else {
-        checkout.dtime_selected_val = "N";
-      }
+      checkout.dtime_selected_val = choice;
     });
   }
 

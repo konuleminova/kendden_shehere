@@ -79,6 +79,15 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
   }
 
   _finishBAsket() {
+    if (checkout.dtime_selected_val == "11:30-13:00") {
+      checkout.dtime_selected_val = "11";
+    } else if (checkout.dtime_selected_val == "13:00-19:30") {
+      checkout.dtime_selected_val = "19";
+    } else if (checkout.dtime_selected_val == "Tecili catdirilma") {
+      checkout.dtime_selected_val = "T";
+    } else {
+      checkout.dtime_selected_val = "N";
+    }
     Networks.finishBasket(checkout).then((onValue) {
       if (onValue['done'] == "1") {
         if (onValue['redirectUrl'] != null) {
