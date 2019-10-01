@@ -4,6 +4,7 @@ import 'package:kendden_shehere/redux/checkout/checkout.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_shop_list.dart';
 import 'package:kendden_shehere/ui/page/payment/webview.dart';
+import 'package:kendden_shehere/ui/widgets/dialog/profile_edit_dialog.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 
 const kAndroidUserAgent =
@@ -144,8 +145,15 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
                           title: Text("Mobile"),
                           subtitle: Text(checkout.mobile),
                           trailing: IconButton(
+                            color: Colors.green,
                             icon: Icon(Icons.edit),
-                            onPressed: null,
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (buildContext) {
+                                    return ProfileEditDialog("mobile");
+                                  });
+                            },
                           ),
                         ),
                         Divider(),

@@ -4,10 +4,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefUtil {
    static String isLoginKey = "User has login";
-   static String name = "User name";
-   static String surname = "User surname";
-   static String username = "User username";
-   static String mobile = "User mobile ";
+   static String name = "name";
+   static String surname = "surname";
+   static String username = "username";
+   static String mobile = "mobile";
    static String uid = "User id";
    static String id = "Product id";
    static String lang = "lang";

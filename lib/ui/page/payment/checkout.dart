@@ -48,10 +48,10 @@ class CheckoutsPageState extends State<CheckoutsPage> {
               style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
             ),
           ),
-          GestureDetector(
-            child: _getGoogleMap(),
-            onTap: _isOnTop ? _scrollToBottom : _scrollToTop,
-          ),
+//          GestureDetector(
+//            child: _getGoogleMap(),
+//            onTap: _isOnTop ? _scrollToBottom : _scrollToTop,
+//          ),
           new Container(
             child: RaisedButton(
               color: Colors.green,

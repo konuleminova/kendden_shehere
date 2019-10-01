@@ -339,6 +339,7 @@ class Networks {
       if (response.statusCode == 200) {
         var a = json.decode(response.body);
         Navigator.pop(context);
+        sharedPrefUtil.setString(inf, data);
         return a;
       } else {
         return null;
