@@ -36,9 +36,6 @@ class CheckoutsPageState extends State<CheckoutsPage> {
         backgroundColor: Colors.lightGreen,
         title: Text("Checkout"),
         centerTitle: true,
-        actions: <Widget>[
-          IconButton(icon: Icon(Icons.more_vert), onPressed: () {})
-        ],
       ),
       body: new ListView(
         controller: _scrollController,
