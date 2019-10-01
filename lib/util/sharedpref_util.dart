@@ -11,6 +11,8 @@ class SharedPrefUtil {
    static String uid = "User id";
    static String id = "Product id";
    static String lang = "lang";
+
+  static String alkaqol="alkaqol";
   Future<bool> getBool(String key) async {
     // sleep(const Duration(seconds:5));
     await Future.delayed(Duration(milliseconds: 2000));
