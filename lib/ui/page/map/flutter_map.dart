@@ -40,6 +40,8 @@ class _MapPage1State extends PlacesAutocompleteState {
   TextEditingController _textEditingController = new TextEditingController();
   LatLng _lastMapPositon;
 
+  String p;
+
   @override
   void initState() {
     super.initState();
@@ -92,10 +94,7 @@ class _MapPage1State extends PlacesAutocompleteState {
       onTap: (p) {
         displayPrediction(p, searchScaffoldKey.currentState, context);
         print(p.description);
-        SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
-        sharedPrefUtil.setString(SharedPrefUtil.address, p.description);
-        sharedPrefUtil.setString(
-            SharedPrefUtil.coordinates, _lastMapPositon.toString());
+        this.p = p.description;
       },
       /* logo: Row(
         children: [FlutterLogo()],
@@ -114,7 +113,9 @@ class _MapPage1State extends PlacesAutocompleteState {
         shrinkWrap: true,
         physics: ClampingScrollPhysics(),
         children: <Widget>[
-          SizedBox(height: 16.0,),
+          SizedBox(
+            height: 16.0,
+          ),
           Container(
             child: AppBarPlacesAutoCompleteTextField(),
             margin: EdgeInsets.only(left: 8, right: 8),
@@ -157,9 +158,30 @@ class _MapPage1State extends PlacesAutocompleteState {
                     EdgeInsets.only(left: 16, right: 16, bottom: 20, top: 5),
               ),
               onTap: () {
-                MapDemoPage mp = new MapDemoPage();
-                mp.showMap();
+                //MapDemoPage mp = new MapDemoPage();
+                // mp.showMap();
               }),
+          Container(
+            margin: EdgeInsets.all(16.0),
+            child: RaisedButton(
+              color: Colors.green,
+              onPressed: () async {
+                SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
+                if (p != null) {
+                  await sharedPrefUtil.setString(SharedPrefUtil.address, p);
+                }
+                await sharedPrefUtil.setString(
+                    SharedPrefUtil.coordinates, _lastMapPositon.toString());
+                Navigator.pop(context);
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Text("Save", style: TextStyle(color: Colors.white)),
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );
