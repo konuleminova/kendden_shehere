@@ -11,6 +11,7 @@ import 'package:kendden_shehere/ui/page/map/map_view.dart';
 import 'dart:math';
 
 import 'package:google_maps_webservice/places.dart';
+import 'package:kendden_shehere/util/sharedpref_util.dart';
 
 const kGoogleApiKey = "AIzaSyC1XWcwMQ-WDLXUWZOTwQW7325Wb-OeysU";
 // "AIzaSyBbSJwbLSidCTD5AAn_QuAwuF5Du5ANAvg";
@@ -91,6 +92,9 @@ class _MapPage1State extends PlacesAutocompleteState {
       onTap: (p) {
         displayPrediction(p, searchScaffoldKey.currentState, context);
         print(p.description);
+        SharedPrefUtil sharedPrefUtil=new SharedPrefUtil();
+        sharedPrefUtil.setString(SharedPrefUtil.address, p.description);
+        sharedPrefUtil.setString(SharedPrefUtil.coordinates, _lastMapPositon.toString());
       },
       /* logo: Row(
         children: [FlutterLogo()],

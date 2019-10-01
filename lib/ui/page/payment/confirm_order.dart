@@ -27,10 +27,13 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
   String alkaqol;
 
   getSharedPref() async {
+
     checkout.mobile = await sharedPrefUtil.getString(SharedPrefUtil.mobile);
     checkout.username = await sharedPrefUtil.getString(SharedPrefUtil.username);
     checkout.id = await sharedPrefUtil.getString(SharedPrefUtil.id);
     alkaqol = await sharedPrefUtil.getString(SharedPrefUtil.alkaqol);
+    checkout.address=await sharedPrefUtil.getString(SharedPrefUtil.address);
+    checkout.delivery_place=await sharedPrefUtil.getString(SharedPrefUtil.coordinates);
     return checkout;
   }
 

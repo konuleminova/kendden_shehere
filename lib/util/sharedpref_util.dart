@@ -13,6 +13,9 @@ class SharedPrefUtil {
    static String lang = "lang";
 
   static String alkaqol="alkaqol";
+
+  static String address="Address";
+   static String coordinates="Coordinates";
   Future<bool> getBool(String key) async {
     // sleep(const Duration(seconds:5));
     await Future.delayed(Duration(milliseconds: 2000));
