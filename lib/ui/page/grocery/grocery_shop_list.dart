@@ -43,7 +43,7 @@ class GroceryCartState extends State<GroceryShopCartPage> {
 
   @override
   void dispose() {
-    widget.fromCheckout=false;
+    widget.fromCheckout = false;
     super.dispose();
   }
 
@@ -51,52 +51,61 @@ class GroceryCartState extends State<GroceryShopCartPage> {
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     // TODO: implement build
-    return new Scaffold(
-        appBar: new AppBar(
-          backgroundColor: Colors.lightGreen,
-          title: new Text("Shopping List"),
-        ),
-        body: FutureBuilder(
-            future: Networks.basket(),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if (snapshot.hasData) {
-                if (snapshot.data != "500") {
-                  OrderHistoryListModel order = snapshot.data;
+    return WillPopScope(
+        child: new Scaffold(
+            appBar: new AppBar(
+              backgroundColor: Colors.lightGreen,
+              title: new Text("Shopping List"),
+              leading: IconButton(icon: Icon(Icons.arrow_back),onPressed: (){
+                Navigator.pop(context);
+                Navigator.popUntil(context, ModalRoute.withName(Navigator.defaultRouteName));
+              },),
+            ),
+            body: FutureBuilder(
+                future: Networks.basket(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data != "500") {
+                      OrderHistoryListModel order = snapshot.data;
 //                print("konul!!");
 //                print(order.orderList[0].list);
-                  products = order.orderList[0].list.productsInCategory;
+                      products = order.orderList[0].list.productsInCategory;
 
-                  //   products[0].id;
-                  return Column(
-                    children: <Widget>[
-                      Expanded(child: _shopBody()),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      // _buildTotals();
-                      _buildTotals(
-                        order.orderList[0].delivery_price,
-                        order.orderList[0].bprice,
-                      )
-                    ],
-                  );
-                } else {
-                  if (widget.fromCheckout) {
-                    Future.delayed(
-                        Duration.zero,
-                        () => showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return PaymentSuccessDialog(context);
-                            }));
-                  }
-                  return Container();
-                }
-              } else
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-            }));
+                      //   products[0].id;
+                      return Column(
+                        children: <Widget>[
+                          Expanded(child: _shopBody()),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          // _buildTotals();
+                          _buildTotals(
+                            order.orderList[0].delivery_price,
+                            order.orderList[0].bprice,
+                          )
+                        ],
+                      );
+                    } else {
+                      if (widget.fromCheckout) {
+                        Future.delayed(
+                            Duration.zero,
+                            () => showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return PaymentSuccessDialog(context);
+                                }));
+                      }
+                      return Container();
+                    }
+                  } else
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                })),
+        onWillPop: () {
+         // Navigator.pushReplacementNamed(context, "/home");
+          Navigator.popUntil(context, ModalRoute.withName(Navigator.defaultRouteName));
+        });
   }
 
   Widget _shopBody() => new Container(
