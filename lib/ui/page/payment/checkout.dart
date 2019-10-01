@@ -48,10 +48,103 @@ class CheckoutsPageState extends State<CheckoutsPage> {
               style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
             ),
           ),
+          Container(
+            padding: EdgeInsets.only(left: 8),
+            child: TextField(
+              onTap: (){
+
+              },
+              decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintStyle: TextStyle(color: Colors.grey),
+                  hintText: "Please add address"),
+            ),
+            margin: EdgeInsets.all(16.0),
+            color: Colors.white,
+          ),
 //          GestureDetector(
 //            child: _getGoogleMap(),
 //            onTap: _isOnTop ? _scrollToBottom : _scrollToTop,
 //          ),
+          Container(
+            margin: EdgeInsets.all(16.0),
+            child: Column(
+              children: <Widget>[
+                Image.asset(
+                  "images/map.png",
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Container(
+                      width: 20,
+                      height: 20,
+                      color: Colors.red,
+                    ),
+                    SizedBox(
+                      width: 5.0,
+                    ),
+                    Flexible(
+                      child: Container(
+                        child: Text(
+                          "Delivery amount 4 AZN.When ordering from 20 AZN delivery is free. ",
+                        ),
+                        width: 250,
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 3.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Container(
+                      width: 20,
+                      height: 20,
+                      color: Colors.green,
+                    ),
+                    SizedBox(
+                      width: 5.0,
+                    ),
+                    Flexible(
+                      child: Container(
+                        child: Text(
+                          "Delivery amount 4 AZN.",
+                        ),
+                        width: 250,
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 3.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Container(
+                      width: 20,
+                      height: 20,
+                      color: Colors.blue,
+                    ),
+                    SizedBox(
+                      width: 5.0,
+                    ),
+                    Flexible(
+                      child: Container(
+                        child: Text(
+                          "Delivery amount 7 AZN. ",
+                        ),
+                        width: 250,
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
           new Container(
             child: RaisedButton(
               color: Colors.green,
