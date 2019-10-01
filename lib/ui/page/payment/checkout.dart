@@ -7,6 +7,7 @@ import 'package:kendden_shehere/redux/checkout/checkout.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/map/flutter_map.dart';
 import 'package:kendden_shehere/ui/page/payment/confirm_order.dart';
+import 'package:kendden_shehere/util/sharedpref_util.dart';
 
 const kAndroidUserAgent =
     'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Mobile Safari/537.36';
@@ -44,20 +45,31 @@ class CheckoutsPageState extends State<CheckoutsPage> {
           new Container(
             margin: EdgeInsets.only(left: 16, bottom: 8),
             child: Text(
-              'Unvani daxil edin',
+              'Unvan',
               style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
             ),
           ),
           Container(
             padding: EdgeInsets.only(left: 8),
-            child: TextField(
-              onTap: (){
-
-              },
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintStyle: TextStyle(color: Colors.grey),
-                  hintText: "Please add address"),
+            child: ListTile(
+              title: FutureBuilder(
+                  future: _getAddress(),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    return Text(
+                      snapshot.hasData
+                          ? snapshot.data
+                          : "Please add new address",
+                      style: TextStyle(color: Colors.grey),
+                    );
+                  }),
+              trailing: IconButton(
+                icon: Icon(Icons.edit),
+                onPressed: () {
+                  Route route = MaterialPageRoute(
+                      builder: (BuildContext context) => MapPage1());
+                  Navigator.push(context, route);
+                },
+              ),
             ),
             margin: EdgeInsets.all(16.0),
             color: Colors.white,
@@ -463,4 +475,9 @@ class CheckoutsPageState extends State<CheckoutsPage> {
   }
 
   _getGoogleMap() => MapPage1();
+
+  _getAddress() async {
+    SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
+    return await sharedPrefUtil.getString(SharedPrefUtil.address);
+  }
 }

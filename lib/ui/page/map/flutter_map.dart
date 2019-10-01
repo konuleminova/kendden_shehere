@@ -92,9 +92,10 @@ class _MapPage1State extends PlacesAutocompleteState {
       onTap: (p) {
         displayPrediction(p, searchScaffoldKey.currentState, context);
         print(p.description);
-        SharedPrefUtil sharedPrefUtil=new SharedPrefUtil();
+        SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
         sharedPrefUtil.setString(SharedPrefUtil.address, p.description);
-        sharedPrefUtil.setString(SharedPrefUtil.coordinates, _lastMapPositon.toString());
+        sharedPrefUtil.setString(
+            SharedPrefUtil.coordinates, _lastMapPositon.toString());
       },
       /* logo: Row(
         children: [FlutterLogo()],
@@ -104,55 +105,63 @@ class _MapPage1State extends PlacesAutocompleteState {
     );
     print(body.toString());
     // TODO: implement build
-    return new ListView(
-      shrinkWrap: true,
-      physics: ClampingScrollPhysics(),
-      children: <Widget>[
-        Container(
-          child: AppBarPlacesAutoCompleteTextField(),
-          margin: EdgeInsets.only(left: 8, right: 8),
-          decoration: BoxDecoration(
-              border: new Border.all(color: Colors.grey[300]),
-              color: Colors.white),
-        ),
-        Container(
-          child: body,
-          width: MediaQuery.of(context).size.width,
-        ),
-        GestureDetector(
-            child: new Container(
-              padding: EdgeInsets.all(1),
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.35,
-              alignment: AlignmentDirectional.topCenter,
-              color: Colors.white,
-              child: GoogleMap(
-                gestureRecognizers: Set()
-                  ..add(Factory<PanGestureRecognizer>(
-                      () => PanGestureRecognizer()))
-                  ..add(Factory<VerticalDragGestureRecognizer>(
-                      () => VerticalDragGestureRecognizer())),
-                onTap: (LatLng location) {
-                  MapDemoPage mp = new MapDemoPage();
-                  mp.showMap();
-                },
-                polygons: setPolygon(),
-                tiltGesturesEnabled: true,
-                scrollGesturesEnabled: true,
-                zoomGesturesEnabled: true,
-                markers: _markers,
-                onCameraMove: _onCameraMove,
-                onMapCreated: _onMapCreated,
-                initialCameraPosition:
-                    CameraPosition(target: _lastMapPositon, zoom: 11.00),
+    return new Scaffold(
+      appBar: AppBar(
+        title: Text("Add location"),
+        backgroundColor: Colors.lightGreen,
+      ),
+      body: new ListView(
+        shrinkWrap: true,
+        physics: ClampingScrollPhysics(),
+        children: <Widget>[
+          SizedBox(height: 16.0,),
+          Container(
+            child: AppBarPlacesAutoCompleteTextField(),
+            margin: EdgeInsets.only(left: 8, right: 8),
+            decoration: BoxDecoration(
+                border: new Border.all(color: Colors.grey[300]),
+                color: Colors.white),
+          ),
+          Container(
+            child: body,
+            width: MediaQuery.of(context).size.width,
+          ),
+          GestureDetector(
+              child: new Container(
+                padding: EdgeInsets.all(1),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.35,
+                alignment: AlignmentDirectional.topCenter,
+                color: Colors.white,
+                child: GoogleMap(
+                  gestureRecognizers: Set()
+                    ..add(Factory<PanGestureRecognizer>(
+                        () => PanGestureRecognizer()))
+                    ..add(Factory<VerticalDragGestureRecognizer>(
+                        () => VerticalDragGestureRecognizer())),
+                  onTap: (LatLng location) {
+                    MapDemoPage mp = new MapDemoPage();
+                    mp.showMap();
+                  },
+                  polygons: setPolygon(),
+                  tiltGesturesEnabled: true,
+                  scrollGesturesEnabled: true,
+                  zoomGesturesEnabled: true,
+                  markers: _markers,
+                  onCameraMove: _onCameraMove,
+                  onMapCreated: _onMapCreated,
+                  initialCameraPosition:
+                      CameraPosition(target: _lastMapPositon, zoom: 11.00),
+                ),
+                margin:
+                    EdgeInsets.only(left: 16, right: 16, bottom: 20, top: 5),
               ),
-              margin: EdgeInsets.only(left: 16, right: 16, bottom: 20, top: 5),
-            ),
-            onTap: () {
-              MapDemoPage mp = new MapDemoPage();
-              mp.showMap();
-            }),
-      ],
+              onTap: () {
+                MapDemoPage mp = new MapDemoPage();
+                mp.showMap();
+              }),
+        ],
+      ),
     );
   }
 
