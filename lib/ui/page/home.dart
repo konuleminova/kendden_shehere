@@ -120,10 +120,12 @@ class HomePageState extends State<HomePage> {
                     onPressed: () {
                       setState(() {
                         counter = 0;
-                        Navigator.push(context,  SlideLeftRoute(page: GroceryShopCartPage(
-                          fromCheckout: false,
-                        )));
-
+                        Navigator.push(
+                            context,
+                            SlideLeftRoute(
+                                page: GroceryShopCartPage(
+                              fromCheckout: false,
+                            )));
                       });
                     }),
                 counter != 0
@@ -194,93 +196,46 @@ class HomePageState extends State<HomePage> {
                   })
             ]),
           ),
-//          FutureBuilder(
-//              future: Networks.getCollections(),
-//              builder: (BuildContext context, AsyncSnapshot snapshot) {
-//                List<NewProduct> productsInCat = snapshot.data;
-//
-//                if (snapshot.hasData) {
-//                  return ListView.builder(
-//                      scrollDirection: Axis.vertical,
-//                      shrinkWrap: true,
-//                      physics: ClampingScrollPhysics(),
-//                      itemCount: productsInCat.length,
-//                      itemBuilder: (BuildContext context, int index) {
-//                        return FutureBuilder(
-//                            future: Networks.getCollectionItem(
-//                                productsInCat[index].id),
-//                            builder: (BuildContext context,
-//                                AsyncSnapshot snapshot2) {
-//                              if (snapshot2.hasData) {
-//                                if (langCode == "tr") {
-//                                  title = snapshot.data[index].name_az;
-//                                } else if (langCode == "en") {
-//                                  title = snapshot.data[index].name_en;
-//                                } else if (langCode == "ru") {
-//                                  title = snapshot.data[index].name_ru;
-//                                }
-//                                return Container(
-//                                    child: Column(
-//                                  children: <Widget>[
-//                                    _titleContainer(title),
-//                                    Container(
-//                                      child: ListView.builder(
-//                                          physics: ClampingScrollPhysics(),
-//                                          shrinkWrap: true,
-//                                          scrollDirection: Axis.horizontal,
-//                                          itemCount: snapshot2.data.length,
-//                                          itemBuilder: (BuildContext context,
-//                                              int index) {
-//                                            print( productsInCat[index]
-//                                                .id +
-//                                                snapshot2
-//                                                    .data[index]
-//                                                    .id);
-//                                            return Container(
-//                                              height: height * 0.5,
-//                                              child: Column(
-//                                                children: <Widget>[
-//                                                  Container(
-//                                                      width:
-//                                                          MediaQuery.of(context)
-//                                                                  .size
-//                                                                  .width *
-//                                                              0.5,
-//                                                      height: height * 0.5,
-//                                                      child: InkWell(
-//                                                        child: Text("test"),
-//                                                      ))
-////                                                        child:Hero(
-////                                                        child: GroceryListItemOne(
-////                                                          product: snapshot2
-////                                                              .data[index],
-////                                                        ),
-////                                                        tag:
-////                                                        productsInCat[index]
-////                                                            .id +
-////                                                        snapshot2
-////                                                            .data[index]
-////                                                        .id,
-////                                                      )))
-//                                                ],
-//                                              ),
-//                                            );
-//                                          }),
-//                                      height: height * 0.5,
-//                                    )
-//                                  ],
-//                                ));
-//                              } else {
-//                                return Container();
-//                              }
-//                            });
-//                      });
-//                } else {
-//                  return Center(
-//                    child: CircularProgressIndicator(),
-//                  );
-//                }
-//              })
+          FutureBuilder(
+              future: Networks.getCollectionItem("2"),
+              builder: (BuildContext context, AsyncSnapshot snapshot2) {
+                if (snapshot2.hasData) {
+                  return Container(
+                      child: Column(
+                    children: <Widget>[
+                      _titleContainer("Discount Products"),
+                      Container(
+                        child: ListView.builder(
+                            physics: ClampingScrollPhysics(),
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: snapshot2.data.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Container(
+                                height: height * 0.5,
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.5,
+                                        height: height * 0.5,
+                                        child: InkWell(
+                                            child: GroceryListItemOne(
+                                              product: snapshot2.data[index],
+                                            ),))
+                                  ],
+                                ),
+                              );
+                            }),
+                        height: height * 0.5,
+                      )
+                    ],
+                  ));
+                } else {
+                  return Container();
+                }
+              })
           //  _buildCard()
         ]));
   }
