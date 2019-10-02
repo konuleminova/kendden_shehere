@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/redux/common/model/product_model.dart';
+import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/ui/page/test/shop_item_model.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
@@ -113,7 +114,7 @@ class ShoppingCartPageState extends State<ShoppingCartPage> {
         ),
       );
 
-  Widget _shopListItem(ShoppingCartViewModel viewModel, Product shopItem) =>
+  Widget _shopListItem(ShoppingCartViewModel viewModel, NewProduct shopItem) =>
       new Container(
           decoration: new BoxDecoration(color: Colors.grey[100], boxShadow: [
             new BoxShadow(color: Colors.grey[100], blurRadius: 20)
@@ -151,7 +152,7 @@ class ShoppingCartPageState extends State<ShoppingCartPage> {
                               children: <Widget>[
                                 new Container(
                                   child: new Text(
-                                    shopItem.title,
+                                    shopItem.name_ru,
                                     style: new TextStyle(
                                         color: Colors.green, fontSize: 20),
                                   ),
@@ -271,7 +272,7 @@ class ShoppingCartPageState extends State<ShoppingCartPage> {
           shrinkWrap: true,
           physics: ClampingScrollPhysics(),
           children: viewModel.shopItems
-              .map((Product shopItem) => _shopListItem(viewModel, shopItem))
+              .map((NewProduct shopItem) => _shopListItem(viewModel, shopItem))
               .toList(),
         ),
       );

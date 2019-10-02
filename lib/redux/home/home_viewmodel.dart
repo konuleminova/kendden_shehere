@@ -1,3 +1,4 @@
+import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/redux/wishlist/wishlist_viewmodel.dart';
 import 'package:kendden_shehere/redux/lang/lang_action.dart';
 import 'package:kendden_shehere/redux/wishlist/wishlist_action.dart';
@@ -11,8 +12,8 @@ import 'package:kendden_shehere/redux/home/thunk_home.dart';
 
 class HomeViewModel {
   Function(int limit, int page) onFetchProductList;
-  Function(Product product) addShopItem;
-  Function(Product shopItem) removeShopItem;
+  Function(NewProduct product) addShopItem;
+  Function(NewProduct shopItem) removeShopItem;
   Function(Product shopItem) removeWishItem;
   Function(Product product) addWishItem;
   List<Product> wishItems;
@@ -31,11 +32,11 @@ class HomeViewModel {
       store.dispatch(getProductListThunkAction(limit, page));
     }
 
-    _addShopItem(Product product) {
+    _addShopItem(NewProduct product) {
       store.dispatch(AddProductAction(product: product));
     }
 
-    _removeShopItem(Product product) {
+    _removeShopItem(NewProduct product) {
       store.dispatch(RemoveShopItemAction(removeShopItem: product));
     }
 

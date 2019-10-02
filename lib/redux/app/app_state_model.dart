@@ -11,7 +11,7 @@ class AppState {
   UserModel user_info;
   Home home;
   int code;
-  List<Product> shopItems;
+  List<NewProduct> shopItems;
   List<NewProduct> wishItems;
   String lang;
   List<NewProduct> newProducts;
@@ -21,7 +21,7 @@ class AppState {
   AppState.initialState()
       : user_info = UserModel(),
         home = Home(),
-        shopItems = new List<Product>(),
+        shopItems = new List<NewProduct>(),
         wishItems = new List<NewProduct>(),
         newProducts = new List<NewProduct>(),
         lang = "tr",filterOrder="0",categories=new List<Category>();
