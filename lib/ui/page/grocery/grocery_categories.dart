@@ -93,11 +93,11 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
                         } else {
                           Navigator.push(
                               context,
-                              CupertinoPageRoute(builder: (BuildContext context)=> GroceryListPage(
-                                title: title,
-                                id: categories[index].id,
-                                order: order,
-                              )));
+                              SlideRightRoute(page:GroceryListPage(
+                              title: title,
+                              id: categories[index].id,
+                              order: order,
+                          )));
                         }
                       },
                     ));
