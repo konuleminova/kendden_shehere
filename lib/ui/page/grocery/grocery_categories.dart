@@ -9,6 +9,7 @@ import 'package:kendden_shehere/redux/categories/list_categories.dart';
 import 'package:kendden_shehere/redux/productlist/productlist_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/animation/scale.dart';
+import 'package:kendden_shehere/ui/animation/size.dart';
 import 'package:kendden_shehere/ui/animation/slide.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_list.dart';
 import 'package:redux/redux.dart';
@@ -86,7 +87,7 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
                         if (isCategory) {
                           Navigator.push(
                               context,
-                            ScaleRoute(
+                          SizeRoute(
                                   page: new GroceryCategoriesPage(
                                       id: categories[index].id, title: title)));
                         } else {
