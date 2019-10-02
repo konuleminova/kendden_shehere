@@ -280,13 +280,16 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
               ClipRRect(
                   borderRadius: BorderRadius.circular(5.0),
                   child: new Center(
-                      child: FadeInImage.assetNetwork(
-                    placeholder: "images/noimage.png",
-                    image: img,
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.5,
-                        fadeInCurve: Curves.bounceOut,
-                        fit: BoxFit.cover,
+                      child: Hero(
+                    child: FadeInImage.assetNetwork(
+                      placeholder: "images/noimage.png",
+                      image: img,
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.5,
+                      fadeInCurve: Curves.bounceOut,
+                      fit: BoxFit.cover,
+                    ),
+                    tag: product.id,
                   ))),
               Positioned(
                   bottom: 8.0,
@@ -312,13 +315,5 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
             ],
           )),
     );
-  }
-
-  getImage() async {
-    var image = await Image.network(
-      img,
-      fit: BoxFit.cover,
-    );
-    return image;
   }
 }

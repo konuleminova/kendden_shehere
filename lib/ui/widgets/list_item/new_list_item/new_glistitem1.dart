@@ -102,7 +102,26 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                     children: <Widget>[
                       GestureDetector(
                         child: Container(
-                            child: FadeInImage.assetNetwork(image: img,placeholder: "images/noimage.png",),
+                            child: Hero(
+                              child: FadeInImage.assetNetwork(
+                                image: img,
+                                placeholder: "images/noimage.png",
+                                fit: BoxFit.cover,
+                                height: 150,
+                              ),
+                              tag: product.id,
+//                              flightShuttleBuilder: (
+//                                BuildContext flightContext,
+//                                Animation<double> animation,
+//                                HeroFlightDirection flightDirection,
+//                                BuildContext fromHeroContext,
+//                                BuildContext toHeroContext,
+//                              ) {
+//                                return SingleChildScrollView(
+//                                  child: fromHeroContext.widget,
+//                                );
+//                              },
+                            ),
                             height: 150,
                             padding: EdgeInsets.only(
                                 left: 10, right: 10, top: 10, bottom: 4)),
@@ -213,8 +232,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                   if (amount < 1) {
                     isAdded = false;
                     amount = 1;
-                    Networks.removeFromBasket( product.id)
-                        .then((onvalue) {
+                    Networks.removeFromBasket(product.id).then((onvalue) {
                       print(onvalue);
                     });
                   }
@@ -232,7 +250,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                 setState(() {
                   amount++;
                 });
-                Networks.addToBasket( product.id, amount.toString());
+                Networks.addToBasket(product.id, amount.toString());
               },
             ),
           ],

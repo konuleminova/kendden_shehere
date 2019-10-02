@@ -191,95 +191,93 @@ class HomePageState extends State<HomePage> {
                   })
             ]),
           ),
-          FutureBuilder(
-              future: this._memoizer.runOnce(Networks.getCollections),
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                List<NewProduct> productsInCat = snapshot.data;
-                if (snapshot.hasData) {
-                  return ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      physics: ClampingScrollPhysics(),
-                      itemCount: productsInCat.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return FutureBuilder(
-                            future: this._memoizer2.runOnce(() async {
-                              try {
-                                final response = await http.get(
-                                    Networks.BASE_KS_URL +
-                                        "collection" +
-                                        "&inf=${productsInCat[index].id}");
-
-                                if (response.statusCode == 200) {
-                                  print(productsInCat[index].id + ".. HOME");
-                                  // print(response.body);
-                                  return ProductsInCategory.fromJson(
-                                          json.decode(response.body))
-                                      .productsInCategory;
-                                } else {
-                                  return null;
-                                }
-                              } catch (exception) {}
-                            }),
-                            builder: (BuildContext context,
-                                AsyncSnapshot snapshot2) {
-                              if (snapshot2.hasData) {
-                                if (langCode == "tr") {
-                                  title = snapshot.data[index].name_az;
-                                } else if (langCode == "en") {
-                                  title = snapshot.data[index].name_en;
-                                } else if (langCode == "ru") {
-                                  title = snapshot.data[index].name_ru;
-                                }
-                                return Container(
-                                    child: Column(
-                                  children: <Widget>[
-                                    _titleContainer(title),
-                                    Container(
-                                      child: ListView.builder(
-                                          physics: ClampingScrollPhysics(),
-                                          shrinkWrap: true,
-                                          scrollDirection: Axis.horizontal,
-                                          itemCount: snapshot2.data.length,
-                                          itemBuilder: (BuildContext context,
-                                              int index) {
-                                            return Container(
-                                              height: height * 0.5,
-                                              child: Column(
-                                                children: <Widget>[
-                                                  Container(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.5,
-                                                      height: height * 0.5,
-                                                      child: InkWell(
-                                                        child:
-                                                            GroceryListItemOne(
-                                                          product: snapshot2
-                                                              .data[index],
-                                                        ),
-                                                      ))
-                                                ],
-                                              ),
-                                            );
-                                          }),
-                                      height: height * 0.5,
-                                    )
-                                  ],
-                                ));
-                              } else {
-                                return Container();
-                              }
-                            });
-                      });
-                } else {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              })
+//          FutureBuilder(
+//              future: Networks.getCollections(),
+//              builder: (BuildContext context, AsyncSnapshot snapshot) {
+//                List<NewProduct> productsInCat = snapshot.data;
+//
+//                if (snapshot.hasData) {
+//                  return ListView.builder(
+//                      scrollDirection: Axis.vertical,
+//                      shrinkWrap: true,
+//                      physics: ClampingScrollPhysics(),
+//                      itemCount: productsInCat.length,
+//                      itemBuilder: (BuildContext context, int index) {
+//                        return FutureBuilder(
+//                            future: Networks.getCollectionItem(
+//                                productsInCat[index].id),
+//                            builder: (BuildContext context,
+//                                AsyncSnapshot snapshot2) {
+//                              if (snapshot2.hasData) {
+//                                if (langCode == "tr") {
+//                                  title = snapshot.data[index].name_az;
+//                                } else if (langCode == "en") {
+//                                  title = snapshot.data[index].name_en;
+//                                } else if (langCode == "ru") {
+//                                  title = snapshot.data[index].name_ru;
+//                                }
+//                                return Container(
+//                                    child: Column(
+//                                  children: <Widget>[
+//                                    _titleContainer(title),
+//                                    Container(
+//                                      child: ListView.builder(
+//                                          physics: ClampingScrollPhysics(),
+//                                          shrinkWrap: true,
+//                                          scrollDirection: Axis.horizontal,
+//                                          itemCount: snapshot2.data.length,
+//                                          itemBuilder: (BuildContext context,
+//                                              int index) {
+//                                            print( productsInCat[index]
+//                                                .id +
+//                                                snapshot2
+//                                                    .data[index]
+//                                                    .id);
+//                                            return Container(
+//                                              height: height * 0.5,
+//                                              child: Column(
+//                                                children: <Widget>[
+//                                                  Container(
+//                                                      width:
+//                                                          MediaQuery.of(context)
+//                                                                  .size
+//                                                                  .width *
+//                                                              0.5,
+//                                                      height: height * 0.5,
+//                                                      child: InkWell(
+//                                                        child: Text("test"),
+//                                                      ))
+////                                                        child:Hero(
+////                                                        child: GroceryListItemOne(
+////                                                          product: snapshot2
+////                                                              .data[index],
+////                                                        ),
+////                                                        tag:
+////                                                        productsInCat[index]
+////                                                            .id +
+////                                                        snapshot2
+////                                                            .data[index]
+////                                                        .id,
+////                                                      )))
+//                                                ],
+//                                              ),
+//                                            );
+//                                          }),
+//                                      height: height * 0.5,
+//                                    )
+//                                  ],
+//                                ));
+//                              } else {
+//                                return Container();
+//                              }
+//                            });
+//                      });
+//                } else {
+//                  return Center(
+//                    child: CircularProgressIndicator(),
+//                  );
+//                }
+//              })
           //  _buildCard()
         ]));
   }
@@ -368,26 +366,26 @@ class HomePageState extends State<HomePage> {
         ),
       );
 
-  _buildCard() => new Container(
-        padding: EdgeInsets.all(8.0),
-        child: new ListView.builder(
-          scrollDirection: Axis.horizontal,
-          controller: _scrollController,
-          itemBuilder: (BuildContext context, int index) {
-            return Container(
-                width: MediaQuery.of(context).size.width * 0.5,
-                height: 360,
-                child: InkWell(
-                  child: GroceryListItemOne(
-                    product: productListOne[index],
-                  ),
-                ));
-          },
-          itemCount: productListOne.length,
-        ),
-        width: width,
-        height: 360,
-      );
+//  _buildCard() => new Container(
+//        padding: EdgeInsets.all(8.0),
+//        child: new ListView.builder(
+//          scrollDirection: Axis.horizontal,
+//          controller: _scrollController,
+//          itemBuilder: (BuildContext context, int index) {
+//            return Container(
+//                width: MediaQuery.of(context).size.width * 0.5,
+//                height: 360,
+//                child: InkWell(
+//                  child: GroceryListItemOne(
+//                    product: productListOne[index],
+//                  ),
+//                ));
+//          },
+//          itemCount: productListOne.length,
+//        ),
+//        width: width,
+//        height: 360,
+//      );
 
   void loadMore(String id) {
     page = page + 10;
