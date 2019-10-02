@@ -1,5 +1,4 @@
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
-import 'package:kendden_shehere/redux/filter/filter_action.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/redux/productlist/thunk_productlist.dart';
 import 'package:redux/redux.dart';
@@ -22,14 +21,9 @@ class ProductListViewModel {
       store.dispatch(productListThunkAction(id,lang, limit, page, order));
     }
 
-    _changeOrder(String order) {
-      store.dispatch(ChangeFilterOrderAction(order: order));
-    }
-
     return ProductListViewModel(
         productList: store.state.newProducts,
         onFetchProductList: _onFetchProductList,
-        changeOrder: _changeOrder,
         order: store.state.filterOrder);
   }
 }
