@@ -79,12 +79,13 @@ class CheckoutsPageState extends State<CheckoutsPage> {
 //            onTap: _isOnTop ? _scrollToBottom : _scrollToTop,
 //          ),
           Container(
-            margin: EdgeInsets.all(16.0),
+            margin: EdgeInsets.only(left: 16,right: 16,bottom: 16),
             child: Column(
               children: <Widget>[
                 Image.asset(
                   "images/map.png",
                 ),
+                SizedBox(height: 8,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
