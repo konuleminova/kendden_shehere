@@ -18,6 +18,7 @@ import 'package:kendden_shehere/ui/animation/slide.dart';
 import 'package:kendden_shehere/ui/animation/slide_left.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_shop_list.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem1.dart';
+import 'package:kendden_shehere/util/sharedpref_util.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/ui/widgets/drawer.dart';
@@ -59,12 +60,18 @@ class HomePageState extends State<HomePage> {
   String title;
   final _memoizer = new AsyncMemoizer();
   final _memoizer2 = new AsyncMemoizer();
+  SharedPrefUtil sharedPrefUtil=new SharedPrefUtil();
 
   @override
   void initState() {
     productListOne = new List();
     _scrollController = new ScrollController();
     _scrollController.addListener(_scrollListener);
+    sharedPrefUtil.getString(SharedPrefUtil.count).then((onValue){
+      setState(() {
+        counter=int.parse(onValue);
+      });
+    });
     super.initState();
   }
 

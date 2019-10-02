@@ -11,6 +11,7 @@ class SharedPrefUtil {
    static String uid = "User id";
    static String id = "Product id";
    static String lang = "lang";
+   static String count="count";
 
   static String alkaqol="alkaqol";
 

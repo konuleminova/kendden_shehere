@@ -10,6 +10,7 @@ import 'package:kendden_shehere/ui/page/test/shop_item_model.dart';
 import 'package:kendden_shehere/redux/home/home_viewmodel.dart';
 import 'package:kendden_shehere/ui/widgets/gtile_title.dart';
 import 'package:kendden_shehere/ui/widgets/rating_star.dart';
+import 'package:kendden_shehere/util/sharedpref_util.dart';
 import 'package:redux/redux.dart';
 
 class GroceryListItemOne extends StatefulWidget {
@@ -31,6 +32,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
   bool isAdded = false, isLiked = false;
   int amount = 1;
   List<NewProduct> wishItems = new List();
+  SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
 
   @override
   void initState() {
@@ -206,6 +208,12 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                 Networks.addToBasket(product.id, amount.toString())
                     .then((onvalue) {
                   print(onvalue);
+                  sharedPrefUtil.setString(SharedPrefUtil.count, "0");
+                  sharedPrefUtil.getString(SharedPrefUtil.count).then((onValue){
+                    sharedPrefUtil.setString(
+                        SharedPrefUtil.count,(int.parse(onValue)+1).toString());
+                  });
+
                 });
                 //  widget.viewModel.addShopItem(product);
               });
@@ -234,6 +242,10 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                     amount = 1;
                     Networks.removeFromBasket(product.id).then((onvalue) {
                       print(onvalue);
+                    });
+                    sharedPrefUtil.getString(SharedPrefUtil.count).then((onValue){
+                      sharedPrefUtil.setString(
+                          SharedPrefUtil.count,(int.parse(onValue)-1).toString());
                     });
                   }
                   // widget.viewModel.removeShopItem(product);
