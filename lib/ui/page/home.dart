@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:async/async.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -10,6 +11,10 @@ import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/redux/productlist/productlist_viewmodel.dart';
 import 'package:kendden_shehere/redux/productlist/products_in_category_model.dart';
 import 'package:kendden_shehere/service/networks.dart';
+import 'package:kendden_shehere/ui/animation/enter_exit.dart';
+import 'package:kendden_shehere/ui/animation/scale.dart';
+import 'package:kendden_shehere/ui/animation/size.dart';
+import 'package:kendden_shehere/ui/animation/slide.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_shop_list.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem1.dart';
 import 'package:redux/redux.dart';
@@ -114,13 +119,10 @@ class HomePageState extends State<HomePage> {
                     onPressed: () {
                       setState(() {
                         counter = 0;
-                        Route route = MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                GroceryShopCartPage(
-                                  fromCheckout: false,
-                                ));
+                        Navigator.push(context,  EnterExitRoute(exitPage:HomePage(),enterPage:   GroceryShopCartPage(
+                          fromCheckout: false,
+                        )));
 
-                        Navigator.push(context, route);
                       });
                     }),
                 counter != 0
