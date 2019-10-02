@@ -10,7 +10,6 @@ import 'package:kendden_shehere/redux/shoplist/shop_model.dart';
 class AppState {
   UserModel user_info;
   Home home;
-  List<Product> products;
   int code;
   List<Product> shopItems;
   List<NewProduct> wishItems;
@@ -23,7 +22,6 @@ class AppState {
       : user_info = UserModel(),
         home = Home(),
         shopItems = new List<Product>(),
-        products = new List<Product>(),
         wishItems = new List<NewProduct>(),
         newProducts = new List<NewProduct>(),
         lang = "tr",filterOrder="0",categories=new List<Category>();
@@ -33,7 +31,6 @@ class AppState {
       this.code,
       this.home,
       this.shopItems,
-      this.products,
       this.wishItems,
       this.lang,
       this.newProducts,this.filterOrder,this.categories});

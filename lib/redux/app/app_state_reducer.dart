@@ -17,7 +17,6 @@ AppState appStateReducer(AppState state, dynamic action) {
       ),
       wishItems: wishListReducer(state.wishItems, action),
       user_info: loginReducer(state.user_info, action),
-      products: homeReducer(state.products, action),
       lang: langReducer(state.lang, action),
       newProducts: productListReducer(state.newProducts, action),
       filterOrder: filterReducer(state.filterOrder, action),
