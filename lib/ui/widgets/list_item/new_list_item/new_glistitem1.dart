@@ -102,13 +102,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                     children: <Widget>[
                       GestureDetector(
                         child: Container(
-                            child: img == null
-                                ? Image.asset(
-                                    'images/noimage.png',
-                                    width: 285.0,
-                                    alignment: Alignment.center,
-                                  )
-                                : Image.network(img),
+                            child: FadeInImage.assetNetwork(image: img,placeholder: "images/noimage.png",),
                             height: 150,
                             padding: EdgeInsets.only(
                                 left: 10, right: 10, top: 10, bottom: 4)),
