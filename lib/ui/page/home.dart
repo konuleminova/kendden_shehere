@@ -15,6 +15,7 @@ import 'package:kendden_shehere/ui/animation/enter_exit.dart';
 import 'package:kendden_shehere/ui/animation/scale.dart';
 import 'package:kendden_shehere/ui/animation/size.dart';
 import 'package:kendden_shehere/ui/animation/slide.dart';
+import 'package:kendden_shehere/ui/animation/slide_left.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_shop_list.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem1.dart';
 import 'package:redux/redux.dart';
@@ -119,7 +120,7 @@ class HomePageState extends State<HomePage> {
                     onPressed: () {
                       setState(() {
                         counter = 0;
-                        Navigator.push(context,  EnterExitRoute(exitPage:HomePage(),enterPage:   GroceryShopCartPage(
+                        Navigator.push(context,  SlideLeftRoute(page: GroceryShopCartPage(
                           fromCheckout: false,
                         )));
 

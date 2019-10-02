@@ -11,6 +11,7 @@ import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/animation/scale.dart';
 import 'package:kendden_shehere/ui/animation/size.dart';
 import 'package:kendden_shehere/ui/animation/slide.dart';
+import 'package:kendden_shehere/ui/animation/slide_left.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_list.dart';
 import 'package:redux/redux.dart';
 
