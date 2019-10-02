@@ -15,3 +15,7 @@ class AddProductAction {
 
   AddProductAction({this.product});
 }
+class FetchShopListAction {
+  List<NewProduct> data;
+  FetchShopListAction({this.data});
+}

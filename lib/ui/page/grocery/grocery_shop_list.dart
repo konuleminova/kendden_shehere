@@ -51,7 +51,20 @@ class GroceryCartState extends State<GroceryShopCartPage> {
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     // TODO: implement build
-    return WillPopScope(
+    return new StoreConnector(
+        onInitialBuild: (ShoppingCartViewModel  viewModel) {
+          this.viewModel=viewModel;
+          viewModel.onFetchShopList();
+
+        },
+        onWillChange: (ShoppingCartViewModel  viewModel) {
+          //tempWishItems.addAll(viewModel.wishItems);
+        },
+        converter: (Store<AppState> store) => ShoppingCartViewModel .create(store),
+        builder: (BuildContext context,ShoppingCartViewModel  viewModel) {
+          products=viewModel.shopItems;
+          this.viewModel = viewModel;
+          return  WillPopScope(
         child: new Scaffold(
             appBar: new AppBar(
               backgroundColor: Colors.lightGreen,
@@ -69,7 +82,7 @@ class GroceryCartState extends State<GroceryShopCartPage> {
                       OrderHistoryListModel order = snapshot.data;
 //                print("konul!!");
 //                print(order.orderList[0].list);
-                      products = order.orderList[0].list.productsInCategory;
+                     // products = order.orderList[0].list.productsInCategory;
 
                       //   products[0].id;
                       return Column(
@@ -105,7 +118,7 @@ class GroceryCartState extends State<GroceryShopCartPage> {
         onWillPop: () {
          // Navigator.pushReplacementNamed(context, "/home");
           Navigator.popUntil(context, ModalRoute.withName(Navigator.defaultRouteName));
-        });
+        });});
   }
 
   Widget _shopBody() => new Container(
@@ -113,9 +126,9 @@ class GroceryCartState extends State<GroceryShopCartPage> {
         child: new ListView(
           shrinkWrap: true,
           physics: ClampingScrollPhysics(),
-          children: products
+          children:products
               .map(
-                (NewProduct shopItem) => NewGroceryListItemThree(shopItem),
+                (NewProduct shopItem) => NewGroceryListItemThree(shopItem,viewModel),
               )
               .toList(),
         ),
