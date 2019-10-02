@@ -6,8 +6,6 @@ import 'package:kendden_shehere/redux/common/model/product_model.dart';
 import 'package:kendden_shehere/redux/wishlist/wishlist_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_details_page.dart';
-import 'package:kendden_shehere/ui/page/test/shop_item_model.dart';
-import 'package:kendden_shehere/redux/home/home_viewmodel.dart';
 import 'package:kendden_shehere/ui/widgets/gtile_title.dart';
 import 'package:kendden_shehere/ui/widgets/rating_star.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';

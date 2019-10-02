@@ -2,7 +2,6 @@ import 'package:kendden_shehere/redux/common/model/product_model.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/redux/wishlist/wishlist_action.dart';
 import 'package:kendden_shehere/redux/wishlist/wishlist_thunk.dart';
-import 'package:kendden_shehere/ui/page/test/shop_item_model.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/shoplist/shop_model.dart';
