@@ -41,49 +41,44 @@ class _MapPage1State extends State<MapPage1> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return GestureDetector(
-        child: new Container(
-          padding: EdgeInsets.all(1),
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height * 0.35,
-          alignment: AlignmentDirectional.topCenter,
-          color: Colors.white,
-          child: FutureBuilder(
-              future: _getAddress(),
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (snapshot.hasData) {
-                  return GoogleMap(
-                    gestureRecognizers: Set()
-                      ..add(Factory<PanGestureRecognizer>(
-                          () => PanGestureRecognizer()))
-                      ..add(Factory<VerticalDragGestureRecognizer>(
-                          () => VerticalDragGestureRecognizer())),
-                    onTap: (LatLng location) {
-                      MapDemoPage mp = new MapDemoPage();
-                      mp.showMap();
-                    },
-                    polygons: setPolygon(),
-                    tiltGesturesEnabled: true,
-                    scrollGesturesEnabled: true,
-                    zoomGesturesEnabled: true,
-                    markers: _markers,
-                    onCameraMove: _onCameraMove,
-                    onMapCreated: _onMapCreated,
-                    initialCameraPosition:
-                        CameraPosition(target: _lastMapPositon, zoom: 11.00),
-                  );
-                } else {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              }),
-          margin: EdgeInsets.only(left: 16, right: 16, bottom: 20, top: 5),
-        ),
-        onTap: () {
-          //MapDemoPage mp = new MapDemoPage();
-          // mp.showMap();
-        });
+    return new Container(
+      padding: EdgeInsets.all(1),
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height * 0.35,
+      alignment: AlignmentDirectional.topCenter,
+      color: Colors.white,
+      child: FutureBuilder(
+          future: _getAddress(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.hasData) {
+              return GoogleMap(
+                gestureRecognizers: Set()
+                  ..add(Factory<PanGestureRecognizer>(
+                      () => PanGestureRecognizer()))
+                  ..add(Factory<VerticalDragGestureRecognizer>(
+                      () => VerticalDragGestureRecognizer())),
+                onTap: (LatLng location) {
+                  MapDemoPage mp = new MapDemoPage();
+                  mp.showMap();
+                },
+                polygons: setPolygon(),
+                tiltGesturesEnabled: true,
+                scrollGesturesEnabled: true,
+                zoomGesturesEnabled: true,
+                markers: _markers,
+                onCameraMove: _onCameraMove,
+                onMapCreated: _onMapCreated,
+                initialCameraPosition:
+                    CameraPosition(target: _lastMapPositon, zoom: 11.00),
+              );
+            } else {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          }),
+      margin: EdgeInsets.only(left: 16, right: 16, bottom: 20, top: 5),
+    );
   }
 
   _onMapCreated(GoogleMapController controller) {
@@ -391,7 +386,7 @@ class _MapPage1State extends State<MapPage1> {
           geodesic: true,
           polygonId: new PolygonId("112"),
           points: points2,
-          strokeColor:const Color(0xFFAAD47D),
+          strokeColor: const Color(0xFFAAD47D),
           fillColor: const Color(0xFFA3F0A3),
           //  width: 10,
           zIndex: 1),
@@ -420,17 +415,17 @@ class _MapPage1State extends State<MapPage1> {
     _lastMapPositon = new LatLng(
         double.parse(await sharedPrefUtil.getString(SharedPrefUtil.lat)),
         double.parse(await sharedPrefUtil.getString(SharedPrefUtil.lng)));
-      _markers.clear();
-      _markers.add(Marker(
-          draggable: true,
-          markerId: MarkerId(_lastMapPositon.toString()),
-          position: _lastMapPositon,
-          infoWindow: InfoWindow(title: address, snippet: ""),
-          icon: BitmapDescriptor.defaultMarker));
-      if (_mapController != null) {
-        _mapController.animateCamera(CameraUpdate.newCameraPosition(
-            new CameraPosition(target: _lastMapPositon, zoom: 12.00)));
-      }
+    _markers.clear();
+    _markers.add(Marker(
+        draggable: true,
+        markerId: MarkerId(_lastMapPositon.toString()),
+        position: _lastMapPositon,
+        infoWindow: InfoWindow(title: address, snippet: ""),
+        icon: BitmapDescriptor.defaultMarker));
+    if (_mapController != null) {
+      _mapController.animateCamera(CameraUpdate.newCameraPosition(
+          new CameraPosition(target: _lastMapPositon, zoom: 12.00)));
+    }
     return address;
   }
 }
