@@ -50,32 +50,26 @@ class _MapPage1State extends State<MapPage1> {
       child: FutureBuilder(
           future: _getAddress(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.hasData) {
-              return GoogleMap(
-                gestureRecognizers: Set()
-                  ..add(Factory<PanGestureRecognizer>(
-                      () => PanGestureRecognizer()))
-                  ..add(Factory<VerticalDragGestureRecognizer>(
-                      () => VerticalDragGestureRecognizer())),
-                onTap: (LatLng location) {
-                  MapDemoPage mp = new MapDemoPage();
-                  mp.showMap();
-                },
-                polygons: setPolygon(),
-                tiltGesturesEnabled: true,
-                scrollGesturesEnabled: true,
-                zoomGesturesEnabled: true,
-                markers: _markers,
-                onCameraMove: _onCameraMove,
-                onMapCreated: _onMapCreated,
-                initialCameraPosition:
-                    CameraPosition(target: _lastMapPositon, zoom: 11.00),
-              );
-            } else {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
+            return GoogleMap(
+              gestureRecognizers: Set()
+                ..add(
+                    Factory<PanGestureRecognizer>(() => PanGestureRecognizer()))
+                ..add(Factory<VerticalDragGestureRecognizer>(
+                    () => VerticalDragGestureRecognizer())),
+              onTap: (LatLng location) {
+                MapDemoPage mp = new MapDemoPage();
+                mp.showMap();
+              },
+              polygons: setPolygon(),
+              tiltGesturesEnabled: true,
+              scrollGesturesEnabled: true,
+              zoomGesturesEnabled: true,
+              markers: _markers,
+              onCameraMove: _onCameraMove,
+              onMapCreated: _onMapCreated,
+              initialCameraPosition:
+                  CameraPosition(target: _lastMapPositon, zoom: 11.00),
+            );
           }),
       margin: EdgeInsets.only(left: 16, right: 16, bottom: 20, top: 5),
     );

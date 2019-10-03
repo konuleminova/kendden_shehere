@@ -57,7 +57,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                   future: _getAddress(),
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
                     return Text(
-                      snapshot.hasData
+                      snapshot.hasData&&snapshot.data!=""
                           ? snapshot.data
                           : "Please add new address",
                       style: TextStyle(color: Colors.grey),
