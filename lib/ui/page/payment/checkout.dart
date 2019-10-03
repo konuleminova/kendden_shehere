@@ -84,9 +84,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
             margin: EdgeInsets.only(left: 16, right: 16, bottom: 16),
             child: Column(
               children: <Widget>[
-                Image.asset(
-                  "images/map.png",
-                ),
+                _getGoogleMap(),
                 SizedBox(
                   height: 8,
                 ),
