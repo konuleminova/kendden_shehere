@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kendden_shehere/redux/common/model/product_model.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/service/networks.dart';
+import 'package:kendden_shehere/ui/animation/slide_left.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_big_image.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem2.dart';
 import 'package:kendden_shehere/ui/widgets/rating_star.dart';
@@ -11,6 +12,8 @@ import 'package:share/share.dart';
 //import 'package:zoomable_image/zoomable_image.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:http/http.dart' as http;
+
+import 'grocery_shop_list.dart';
 
 class GroceryDetailsPage extends StatefulWidget {
   NewProduct product;
@@ -50,21 +53,26 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
             title: new Text(title),
             backgroundColor: Colors.lightGreen,
             actions: <Widget>[
-              GestureDetector(
-                child: new Container(
-                  child: new Icon(
-                    Icons.share,
-                    color: Colors.white,
-                  ),
-                  margin: EdgeInsets.only(right: 16),
-                ),
-                onTap: () {
-                  final RenderBox box = context.findRenderObject();
-                  Share.share(img,
-                      sharePositionOrigin:
-                          box.localToGlobal(Offset.zero) & box.size);
-                },
-              )
+            InkWell(child:   IconButton(
+              icon: Icon(Icons.share,color: Colors.white,),
+              onPressed: (){
+                final RenderBox box = context.findRenderObject();
+                Share.share(img,
+                    sharePositionOrigin:
+                    box.localToGlobal(Offset.zero) & box.size);
+              },
+            ),),
+             InkWell(child:  IconButton(
+               icon: Icon(Icons.shopping_cart,color: Colors.white,),
+               onPressed: (){
+                 Navigator.push(
+                     context,
+                     SlideLeftRoute(
+                         page: GroceryShopCartPage(
+                           fromCheckout: false,
+                         )));
+               },
+             ),)
             ]),
         body: _buildPageContent(context));
   }
