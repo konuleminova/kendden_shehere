@@ -67,17 +67,18 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
     final appBar = AppBar(
       title: AppBarPlacesAutoCompleteTextField(),
       backgroundColor: Colors.lightGreen,
+
     );
     final body = PlacesAutocompleteResult(
       onTap: (p) {
         displayPrediction(p, searchScaffoldKey.currentState, context);
         //print(p.description);
       },
-      /* logo: Row(
-        children: [FlutterLogo()],
+       logo: Row(
+        children: [Container()],
         mainAxisAlignment: MainAxisAlignment.center,
       ),
-      */
+
     );
     return Scaffold(key: searchScaffoldKey, appBar: appBar, body: body);
   }
