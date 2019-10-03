@@ -94,7 +94,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                     Container(
                       width: 20,
                       height: 20,
-                      color: Colors.red,
+                      color: const Color(0xFFFDB2B4),
                     ),
                     SizedBox(
                       width: 5.0,
@@ -118,7 +118,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                     Container(
                       width: 20,
                       height: 20,
-                      color: Colors.green,
+                      color: const Color(0xFFAAD47D)
                     ),
                     SizedBox(
                       width: 5.0,
@@ -142,7 +142,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                     Container(
                       width: 20,
                       height: 20,
-                      color: Colors.blue,
+                      color: const Color(0xFFF8D986),
                     ),
                     SizedBox(
                       width: 5.0,

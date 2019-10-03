@@ -382,8 +382,8 @@ class _MapPage1State extends State<MapPage1> {
       new Polygon(
           polygonId: new PolygonId("111"),
           points: points,
-          fillColor: const Color(0xFFFAAEB0),
-          strokeColor: Colors.red[700],
+          fillColor: const Color(0xFFFCAEAE),
+          strokeColor: const Color(0xFFE2AD98),
           zIndex: 2),
     ];
     List<Polygon> _lines2 = <Polygon>[
@@ -391,8 +391,8 @@ class _MapPage1State extends State<MapPage1> {
           geodesic: true,
           polygonId: new PolygonId("112"),
           points: points2,
-          strokeColor: Colors.lightGreenAccent[700],
-          fillColor: const Color(0xFFB1FF50),
+          strokeColor:const Color(0xFFAAD47D),
+          fillColor: const Color(0xFFA3F0A3),
           //  width: 10,
           zIndex: 1),
     ];
@@ -400,8 +400,8 @@ class _MapPage1State extends State<MapPage1> {
       new Polygon(
           polygonId: new PolygonId("113"),
           points: points3,
-          fillColor: const Color(0xFF2494F0),
-          strokeColor: Colors.lightBlueAccent[700],
+          fillColor: const Color(0xFFF6DD82),
+          strokeColor: const Color(0xFFF8D986),
           //width: 10,
           zIndex: 0),
     ];
