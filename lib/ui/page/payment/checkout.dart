@@ -163,9 +163,6 @@ class CheckoutsPageState extends State<CheckoutsPage> {
             child: RaisedButton(
               color: Colors.green,
               onPressed: () {
-                //Navigator.pushNamed(context, "/confirm_order");
-
-                //checkout.id = "382";
                 checkout.address = "Baku Azerbaijan";
                 checkout.delivery_place = "40.4093°,49.8671° ";
                 checkout.delivery_price = "0";
@@ -174,44 +171,6 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                           checkout: checkout,
                         ));
                 Navigator.push(context, route);
-//                Networks.finishBasket(checkout).then((onValue) {
-//                  if (onValue['done'] == "1") {
-//                    if (onValue['redirectUrl'] != null) {
-////                      Route route = MaterialPageRoute(
-////                          builder: (BuildContext context) => WebViewPage(
-////                                url: onValue['redirectUrl'],
-////                              ));
-////                      Navigator.push(context, route);
-//                      flutterWebviewPlugin.onUrlChanged.listen((String url) {
-//                        print("changed");
-//                        print(url);
-//                        print(onValue['redirectUrl']);
-//                        if (url != onValue['redirectUrl']) {
-//                          flutterWebviewPlugin.goBack();
-//                          flutterWebviewPlugin.dispose();
-//                          Navigator.pop(context);
-//                          Navigator.pushNamed(context, "/shopping_cart");
-//                        }
-//
-//                        //  Navigator.pushNamed(context, "/confirm_order");
-//                      });
-//                      print(onValue['redirectUrl']);
-//                      flutterWebviewPlugin.launch(
-//                        onValue['redirectUrl'],
-//                        rect: Rect.fromLTWH(
-//                            0.0,
-//                            0.0,
-//                            MediaQuery.of(context).size.width,
-//                            MediaQuery.of(context).size.height),
-//                        userAgent: kAndroidUserAgent,
-//                        invalidUrlRegex:
-//                            r'^(https).+(twitter)', // prevent redirecting to twitter when user click on its icon in flutter website
-//                      );
-//                    } else {
-//                      Navigator.pushNamed(context, "/shopping_cart");
-//                    }
-//                  }
-//                });
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -230,20 +189,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
   @override
   void dispose() {
     _scrollController.dispose();
-    // flutterWebviewPlugin.close();
     super.dispose();
-  }
-
-  _scrollToTop() {
-    _scrollController.animateTo(_scrollController.position.minScrollExtent,
-        duration: Duration(milliseconds: 1000), curve: Curves.easeIn);
-    setState(() => _isOnTop = true);
-  }
-
-  _scrollToBottom() {
-    _scrollController.animateTo(_scrollController.position.maxScrollExtent,
-        duration: Duration(milliseconds: 1000), curve: Curves.easeOut);
-    setState(() => _isOnTop = false);
   }
 
   @override
@@ -366,7 +312,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Icon(
-                            Icons.account_balance,
+                            Icons.account_balance_wallet,
                             color: selectedIndex == 1
                                 ? Colors.white
                                 : Color(0xFF939192),
