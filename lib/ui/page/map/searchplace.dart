@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,9 @@ Future<Null> displayPrediction(
       await sharedPrefUtil.setString(SharedPrefUtil.address, p.description);
     }
     await sharedPrefUtil.setString(
-        SharedPrefUtil.coordinates, lat.toString() + " " + lng.toString());
+        SharedPrefUtil.lat,lat.toString());
+    await sharedPrefUtil.setString(
+        SharedPrefUtil.lng,lng.toString());
     Navigator.pop(context);
 
 //    Route route = MaterialPageRoute(

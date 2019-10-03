@@ -17,6 +17,9 @@ class SharedPrefUtil {
 
   static String address="Address";
    static String coordinates="Coordinates";
+
+  static String lat="lat";
+   static String lng="lng";
   Future<bool> getBool(String key) async {
     // sleep(const Duration(seconds:5));
     await Future.delayed(Duration(milliseconds: 2000));

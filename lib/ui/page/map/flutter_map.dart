@@ -16,7 +16,6 @@ import 'package:kendden_shehere/util/sharedpref_util.dart';
 const kGoogleApiKey = "AIzaSyC1XWcwMQ-WDLXUWZOTwQW7325Wb-OeysU";
 // "AIzaSyBbSJwbLSidCTD5AAn_QuAwuF5Du5ANAvg";
 
-
 class MapPage1 extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -49,25 +48,36 @@ class _MapPage1State extends State<MapPage1> {
           height: MediaQuery.of(context).size.height * 0.35,
           alignment: AlignmentDirectional.topCenter,
           color: Colors.white,
-          child: GoogleMap(
-            gestureRecognizers: Set()
-              ..add(Factory<PanGestureRecognizer>(() => PanGestureRecognizer()))
-              ..add(Factory<VerticalDragGestureRecognizer>(
-                  () => VerticalDragGestureRecognizer())),
-            onTap: (LatLng location) {
-              MapDemoPage mp = new MapDemoPage();
-              mp.showMap();
-            },
-            polygons: setPolygon(),
-            tiltGesturesEnabled: true,
-            scrollGesturesEnabled: true,
-            zoomGesturesEnabled: true,
-            markers: _markers,
-            onCameraMove: _onCameraMove,
-            onMapCreated: _onMapCreated,
-            initialCameraPosition:
-                CameraPosition(target: _lastMapPositon, zoom: 11.00),
-          ),
+          child: FutureBuilder(
+              future: _getAddress(),
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                if (snapshot.hasData) {
+                  return GoogleMap(
+                    gestureRecognizers: Set()
+                      ..add(Factory<PanGestureRecognizer>(
+                          () => PanGestureRecognizer()))
+                      ..add(Factory<VerticalDragGestureRecognizer>(
+                          () => VerticalDragGestureRecognizer())),
+                    onTap: (LatLng location) {
+                      MapDemoPage mp = new MapDemoPage();
+                      mp.showMap();
+                    },
+                    polygons: setPolygon(),
+                    tiltGesturesEnabled: true,
+                    scrollGesturesEnabled: true,
+                    zoomGesturesEnabled: true,
+                    markers: _markers,
+                    onCameraMove: _onCameraMove,
+                    onMapCreated: _onMapCreated,
+                    initialCameraPosition:
+                        CameraPosition(target: _lastMapPositon, zoom: 11.00),
+                  );
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              }),
           margin: EdgeInsets.only(left: 16, right: 16, bottom: 20, top: 5),
         ),
         onTap: () {
@@ -403,4 +413,24 @@ class _MapPage1State extends State<MapPage1> {
   }
 
   void _onCameraMove(CameraPosition position) {}
+
+  _getAddress() async {
+    SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
+    String address = await sharedPrefUtil.getString(SharedPrefUtil.address);
+    _lastMapPositon = new LatLng(
+        double.parse(await sharedPrefUtil.getString(SharedPrefUtil.lat)),
+        double.parse(await sharedPrefUtil.getString(SharedPrefUtil.lng)));
+      _markers.clear();
+      _markers.add(Marker(
+          draggable: true,
+          markerId: MarkerId(_lastMapPositon.toString()),
+          position: _lastMapPositon,
+          infoWindow: InfoWindow(title: address, snippet: ""),
+          icon: BitmapDescriptor.defaultMarker));
+      if (_mapController != null) {
+        _mapController.animateCamera(CameraUpdate.newCameraPosition(
+            new CameraPosition(target: _lastMapPositon, zoom: 12.00)));
+      }
+    return address;
+  }
 }
