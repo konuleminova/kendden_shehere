@@ -67,6 +67,9 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
     final appBar = AppBar(
       title: AppBarPlacesAutoCompleteTextField(),
       backgroundColor: Colors.lightGreen,
+      leading: IconButton(icon: Icon(Icons.clear),onPressed: (){
+        Navigator.pop(context);
+      },),
 
     );
     final body = PlacesAutocompleteResult(
