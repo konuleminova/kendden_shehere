@@ -56,7 +56,7 @@ class DrawerState extends State<DrawerWidget> {
                     }
                   },
                 ),
-                accountEmail: new Text("300 Bonus"),
+                accountEmail: new Text(""),
                 currentAccountPicture: CircleAvatar(
                     minRadius: 60,
                     backgroundColor: Colors.green.shade300,
