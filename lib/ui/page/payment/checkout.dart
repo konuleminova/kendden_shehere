@@ -6,6 +6,7 @@ import 'package:kendden_shehere/main.dart';
 import 'package:kendden_shehere/redux/checkout/checkout.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/map/flutter_map.dart';
+import 'package:kendden_shehere/ui/page/map/searchplace.dart';
 import 'package:kendden_shehere/ui/page/payment/confirm_order.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 
@@ -65,9 +66,10 @@ class CheckoutsPageState extends State<CheckoutsPage> {
               trailing: IconButton(
                 icon: Icon(Icons.edit),
                 onPressed: () {
-                  Route route = MaterialPageRoute(
-                      builder: (BuildContext context) => MapPage1());
-                  Navigator.push(context, route);
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) =>
+                          Dialog(child: CustomSearchScaffold()));
                 },
               ),
             ),
@@ -79,13 +81,15 @@ class CheckoutsPageState extends State<CheckoutsPage> {
 //            onTap: _isOnTop ? _scrollToBottom : _scrollToTop,
 //          ),
           Container(
-            margin: EdgeInsets.only(left: 16,right: 16,bottom: 16),
+            margin: EdgeInsets.only(left: 16, right: 16, bottom: 16),
             child: Column(
               children: <Widget>[
                 Image.asset(
                   "images/map.png",
                 ),
-                SizedBox(height: 8,),
+                SizedBox(
+                  height: 8,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[

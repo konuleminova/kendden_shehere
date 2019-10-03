@@ -5,6 +5,7 @@ import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/redux/common/model/place_model.dart';
 import 'package:kendden_shehere/ui/page/map/flutter_map.dart';
+import 'package:kendden_shehere/util/sharedpref_util.dart';
 
 const kGoogleApiKey = "AIzaSyC1XWcwMQ-WDLXUWZOTwQW7325Wb-OeysU";
 // "AIzaSyBbSJwbLSidCTD5AAn_QuAwuF5Du5ANAvg";
@@ -25,7 +26,8 @@ class CustomSearchScaffold extends PlacesAutocompleteWidget {
   _CustomSearchScaffoldState createState() => _CustomSearchScaffoldState();
 }
 
-Future<Null> displayPrediction(Prediction p, ScaffoldState scaffold,BuildContext context) async {
+Future<Null> displayPrediction(
+    Prediction p, ScaffoldState scaffold, BuildContext context) async {
   GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
   if (p != null) {
     // get detail (lat/lng)
@@ -42,6 +44,13 @@ Future<Null> displayPrediction(Prediction p, ScaffoldState scaffold,BuildContext
     placeModel.latitude = lat;
     placeModel.countryName = p.description;
     placeModel.addressLine = p.placeId.toLowerCase();
+    SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
+    if (p != null) {
+      await sharedPrefUtil.setString(SharedPrefUtil.address, p.description);
+    }
+    await sharedPrefUtil.setString(
+        SharedPrefUtil.coordinates, lat.toString() + " " + lng.toString());
+    Navigator.pop(context);
 
 //    Route route = MaterialPageRoute(
 //        builder: (context) => MapPage1(placeModel: placeModel));
@@ -58,7 +67,7 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
     );
     final body = PlacesAutocompleteResult(
       onTap: (p) {
-        displayPrediction(p, searchScaffoldKey.currentState,context);
+        displayPrediction(p, searchScaffoldKey.currentState, context);
         //print(p.description);
       },
       /* logo: Row(
