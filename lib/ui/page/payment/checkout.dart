@@ -51,37 +51,39 @@ class CheckoutsPageState extends State<CheckoutsPage> {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(left: 8),
-            child: ListTile(
-              title: FutureBuilder(
-                  future: _getAddress(),
-                  builder: (BuildContext context, AsyncSnapshot snapshot) {
-                    return Text(
-                      snapshot.hasData&&snapshot.data!=""
-                          ? snapshot.data
-                          : "Please add new address",
-                      style: TextStyle(color: Colors.grey),
-                    );
-                  }),
-              trailing: IconButton(
-                icon: Icon(Icons.edit),
-                onPressed: () {
+            child: Card(
+              child: ListTile(
+                title: FutureBuilder(
+                    future: _getAddress(),
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      return Text(
+                        snapshot.hasData && snapshot.data != ""
+                            ? snapshot.data
+                            : "Please add new address",
+                        style: TextStyle(color: Colors.grey),
+                      );
+                    }),
+                trailing: IconButton(
+                  icon: Icon(Icons.edit),
+                  onPressed:null
+                ),
+                onTap: (){
                   showDialog(
                       context: context,
                       builder: (BuildContext context) =>
                           Dialog(child: CustomSearchScaffold()));
                 },
               ),
+              elevation: 2,
             ),
-            margin: EdgeInsets.all(16.0),
-            color: Colors.white,
+            margin: EdgeInsets.only(left: 12,right: 12,bottom: 8)
           ),
 //          GestureDetector(
 //            child: _getGoogleMap(),
 //            onTap: _isOnTop ? _scrollToBottom : _scrollToTop,
 //          ),
           Container(
-            margin: EdgeInsets.only(left: 16, right: 16, bottom: 16),
+            margin: EdgeInsets.only(left: 12, right: 12, bottom: 16),
             child: Column(
               children: <Widget>[
                 _getGoogleMap(),
@@ -116,10 +118,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Container(
-                      width: 20,
-                      height: 20,
-                      color: const Color(0xFFAAD47D)
-                    ),
+                        width: 20, height: 20, color: const Color(0xFFAAD47D)),
                     SizedBox(
                       width: 5.0,
                     ),
