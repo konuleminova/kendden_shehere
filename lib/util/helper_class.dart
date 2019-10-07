@@ -25,3 +25,12 @@ Future<bool> checkInternetConnection() async {
     return false;
   }
 }
+ snackBar(content) =>SnackBar(
+  content: Text(content),
+  action: SnackBarAction(
+    label: 'Try again',
+    onPressed: () {
+      // Some code to undo the change.
+    },
+  ),
+);

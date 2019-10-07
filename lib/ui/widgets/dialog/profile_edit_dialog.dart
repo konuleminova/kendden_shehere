@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/service/networks.dart';
+import 'package:kendden_shehere/util/helper_class.dart';
 
 class ProfileEditDialog extends StatelessWidget {
   String text;
@@ -67,8 +68,13 @@ class ProfileEditDialog extends StatelessWidget {
                             color: Colors.green,
                             colorBrightness: Brightness.dark,
                             onPressed: () {
-                              Networks.updateUser(
-                                  context, text, _textController.text);
+                              if (_textController.text.isNotEmpty) {
+                                Networks.updateUser(
+                                    context, text, _textController.text);
+                              } else {
+                                //Scaffold.of(context).showSnackBar(snackBar("Please fill all fields."));
+
+                              }
                             },
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20.0)),
