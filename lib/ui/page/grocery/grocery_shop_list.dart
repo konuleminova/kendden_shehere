@@ -186,11 +186,12 @@ class GroceryCartState extends State<GroceryShopCartPage> with SingleTickerProvi
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-                blurRadius: 5.0,
+                blurRadius: 25.0,
                 color: Colors.black,
-                spreadRadius: 80.0),
+                spreadRadius: 100.0),
           ],
           color: Colors.white,
+          border: Border.all(color: Colors.grey[100])
         ),
         padding:
         EdgeInsets.only(left: 20.0, right: 20.0, top: 40.0, bottom: 8.0),
