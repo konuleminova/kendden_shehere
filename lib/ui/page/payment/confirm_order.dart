@@ -182,11 +182,27 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
                         RaisedButton(
                           color: Colors.green,
                           onPressed: () {
-                            if (alkaqol == "1") {
-                              _showDialog();
-                            } else {
-                              _finishBAsket();
-                            }
+                           if(checkout.mobile.isEmpty||checkout.address.isEmpty){
+                             final snackBar = SnackBar(
+                               content: Text('Please fill all fields.'),
+                               action: SnackBarAction(
+                                 label: 'Try again',
+                                 onPressed: () {
+                                   // Some code to undo the change.
+                                 },
+                               ),
+                             );
+
+                             // Find the Scaffold in the widget tree and use
+                             // it to show a SnackBar.
+                             Scaffold.of(context).showSnackBar(snackBar);
+                           }else{
+                             if (alkaqol == "1") {
+                               _showDialog();
+                             } else {
+                               _finishBAsket();
+                             }
+                           }
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
