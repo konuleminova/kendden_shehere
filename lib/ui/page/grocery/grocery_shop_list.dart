@@ -34,10 +34,27 @@ class GroceryCartState extends State<GroceryShopCartPage> {
 
   var increment = 1;
   List<NewProduct> products = new List();
+  ScrollController _scrollController;
+
+  bool _end=false;
 
   @override
   void initState() {
     super.initState();
+    _scrollController = new ScrollController();
+
+    _scrollController.addListener(
+            () {
+          double maxScroll = _scrollController.position.maxScrollExtent;
+          double currentScroll = _scrollController.position.pixels;
+          double delta = 200.0; // or something else..
+          if ( maxScroll - currentScroll <= delta) { // whatever you determine here
+            //.. load more
+
+
+          }
+        }
+    );
   }
 
   @override
@@ -87,9 +104,9 @@ class GroceryCartState extends State<GroceryShopCartPage> {
                       return Column(
                         children: <Widget>[
                           Expanded(child: _shopBody()),
-                          SizedBox(
-                            height: 10.0,
-                          ),
+//                          SizedBox(
+//                            height: 10.0,
+//                          ),
                           // _buildTotals();
                           _buildTotals(
                             order.orderList[0].delivery_price,
@@ -121,21 +138,31 @@ class GroceryCartState extends State<GroceryShopCartPage> {
   }
 
   Widget _shopBody() => new Container(
-        margin: EdgeInsets.only(bottom: 16, top: 16, left: 10, right: 12),
-        child: new ListView(
+        margin: EdgeInsets.only(bottom: 0, top: 16, left: 10, right: 12),
+        child:NotificationListener(child:  new ListView(
           shrinkWrap: true,
           physics: ClampingScrollPhysics(),
           children:products
               .map(
                 (NewProduct shopItem) => NewGroceryListItemThree(shopItem,viewModel),
-              )
+          )
               .toList(),
-        ),
+        ),onNotification: (t){
+          if(t is ScrollStartNotification){
+            setState(() {
+              _end=true;
+            });
+          }else if(t is ScrollEndNotification){
+            setState(() {
+              _end=false;
+            });
+          }
+        },)
       );
 
   Widget _buildTotals(String delivery, String subtotal) {
     // double total = double.parse(delivery) + double.parse(subtotal);
-    return ClipOval(
+    return !_end?ClipOval(
       clipper: OvalTopBorderClipper(),
       child: Container(
         height: 180,
@@ -143,13 +170,13 @@ class GroceryCartState extends State<GroceryShopCartPage> {
           boxShadow: [
             BoxShadow(
                 blurRadius: 5.0,
-                color: Colors.grey.shade700,
+                color: Colors.black,
                 spreadRadius: 80.0),
           ],
           color: Colors.white,
         ),
         padding:
-            EdgeInsets.only(left: 20.0, right: 20.0, top: 40.0, bottom: 8.0),
+        EdgeInsets.only(left: 20.0, right: 20.0, top: 40.0, bottom: 8.0),
         child: Column(
           children: <Widget>[
             Row(
@@ -197,43 +224,43 @@ class GroceryCartState extends State<GroceryShopCartPage> {
           ],
         ),
       ),
-    );
+    ):Container();
   }
 
-  Widget _builShopListItem(NewProduct shopItem) => new Stack(
-        children: <Widget>[
-          NewGroceryListItemTwo(shopItem),
-          Positioned(
-            top: 5,
-            right: 0,
-            child: Container(
-              height: 30,
-              width: 30,
-              alignment: Alignment.topRight,
-              child: MaterialButton(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0)),
-                padding: EdgeInsets.all(0.0),
-                color: Colors.pinkAccent,
-                child: Icon(
-                  Icons.clear,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  //return viewModel.removeShopItem(shopItem);
-                  // print(viewModel.shopItems.toString());
-                },
-              ),
-            ),
-          ),
-        ],
-      );
-
-  void _checkAlertDialog() async {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return ProfileEditDialog("mobile");
-        });
-  }
+//  Widget _builShopListItem(NewProduct shopItem) => new Stack(
+//        children: <Widget>[
+//          NewGroceryListItemTwo(shopItem),
+//          Positioned(
+//            top: 5,
+//            right: 0,
+//            child: Container(
+//              height: 30,
+//              width: 30,
+//              alignment: Alignment.topRight,
+//              child: MaterialButton(
+//                shape: RoundedRectangleBorder(
+//                    borderRadius: BorderRadius.circular(5.0)),
+//                padding: EdgeInsets.all(0.0),
+//                color: Colors.pinkAccent,
+//                child: Icon(
+//                  Icons.clear,
+//                  color: Colors.white,
+//                ),
+//                onPressed: () {
+//                  //return viewModel.removeShopItem(shopItem);
+//                  // print(viewModel.shopItems.toString());
+//                },
+//              ),
+//            ),
+//          ),
+//        ],
+//      );
+//
+//  void _checkAlertDialog() async {
+//    showDialog(
+//        context: context,
+//        builder: (BuildContext context) {
+//          return ProfileEditDialog("mobile");
+//        });
+//  }
 }
