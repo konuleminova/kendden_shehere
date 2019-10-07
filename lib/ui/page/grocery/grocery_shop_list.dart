@@ -155,15 +155,18 @@ class GroceryCartState extends State<GroceryShopCartPage> with SingleTickerProvi
               .toList(),
         ),onNotification: (t){
           if(t is ScrollStartNotification){
-              controller.forward();
-            setState(() {
-              _end=true;
-            });
+
+                controller.forward();
+
+//            setState(() {
+//              _end=true;
+//            });
           }else if(t is ScrollEndNotification){
+
               controller.reverse();
-            setState(() {
-              _end=false;
-            });
+//            setState(() {
+//              _end=false;
+//            });
           }
 //          switch (controller.status) {
 //            case AnimationStatus.completed:
@@ -179,7 +182,7 @@ class GroceryCartState extends State<GroceryShopCartPage> with SingleTickerProvi
 
   Widget _buildTotals(String delivery, String subtotal) {
     // double total = double.parse(delivery) + double.parse(subtotal);
-    return !_end?ClipOval(
+    return (controller.status==AnimationStatus.dismissed)?ClipOval(
       clipper: OvalTopBorderClipper(),
       child: Container(
         height: 180,
