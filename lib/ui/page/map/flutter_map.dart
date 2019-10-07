@@ -5,11 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:geocoder/geocoder.dart';
-import 'package:kendden_shehere/redux/common/model/place_model.dart';
-import 'package:kendden_shehere/ui/page/map/map_view.dart';
 import 'dart:math';
-
 import 'package:google_maps_webservice/places.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 
@@ -57,8 +53,8 @@ class _MapPage1State extends State<MapPage1> {
                 ..add(Factory<VerticalDragGestureRecognizer>(
                     () => VerticalDragGestureRecognizer())),
               onTap: (LatLng location) {
-                MapDemoPage mp = new MapDemoPage();
-                mp.showMap();
+                //MapDemoPage mp = new MapDemoPage();
+                //mp.showMap();
               },
               polygons: setPolygon(),
               tiltGesturesEnabled: true,
@@ -375,6 +371,7 @@ class _MapPage1State extends State<MapPage1> {
           strokeColor: const Color(0xFFE2AD98),
           zIndex: 2),
     ];
+
     List<Polygon> _lines2 = <Polygon>[
       new Polygon(
           geodesic: true,

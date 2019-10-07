@@ -38,7 +38,7 @@ dependencies:
   charts_flutter: ^0.5.0
   google_maps_flutter: ^0.5.15
   geocoder: ^0.1.2
-  map_view: ^0.0.14
+  #map_view: ^0.0.14
   share: ^0.6.1+1
   google_maps_webservice: ^0.0.14
   flutter_google_places: ^0.2.2
