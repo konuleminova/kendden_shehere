@@ -11,144 +11,67 @@ import 'package:kendden_shehere/ui/page/map/map_view.dart';
 import 'dart:math';
 
 import 'package:google_maps_webservice/places.dart';
+import 'package:kendden_shehere/util/sharedpref_util.dart';
 
 const kGoogleApiKey = "AIzaSyC1XWcwMQ-WDLXUWZOTwQW7325Wb-OeysU";
 // "AIzaSyBbSJwbLSidCTD5AAn_QuAwuF5Du5ANAvg";
 
-// to get places detail (lat/lng)
-final searchScaffoldKey = GlobalKey<ScaffoldState>();
-
-class MapPage1 extends PlacesAutocompleteWidget {
-  // MapPage1({this.placeModel});
-  MapPage1()
-      : super(
-          apiKey: kGoogleApiKey,
-          sessionToken: Uuid().generateV4(),
-          language: "az",
-          components: [Component(Component.country, "az")],
-        );
-
+class MapPage1 extends StatefulWidget {
   @override
-  _MapPage1State createState() => _MapPage1State();
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _MapPage1State();
+  }
 }
 
-class _MapPage1State extends PlacesAutocompleteState {
+class _MapPage1State extends State<MapPage1> {
   static const LatLng _bakuLatLng = const LatLng(40.3716222, 49.8555191);
   GoogleMapController _mapController;
   final Set<Marker> _markers = {};
-  TextEditingController _textEditingController = new TextEditingController();
   LatLng _lastMapPositon;
+
+  String p;
 
   @override
   void initState() {
     super.initState();
     _lastMapPositon = _bakuLatLng;
-    //  placeModel = widget.placeModel;
-    //print(placeModel.toString());
-  }
-
-  Future<Null> displayPrediction(
-      Prediction p, ScaffoldState scaffold, BuildContext context) async {
-    GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
-    if (p != null) {
-      // get detail (lat/lng)
-      PlacesDetailsResponse detail =
-          await _places.getDetailsByPlaceId(p.placeId);
-      print(detail.status);
-      final lat = detail.result.geometry.location.lat;
-      final lng = detail.result.geometry.location.lng;
-
-//      scaffold.showSnackBar(
-//        SnackBar(content: Text("${p.description} - $lat/$lng")),
-//      );
-
-      setState(() {
-        _lastMapPositon = new LatLng(lat, lng);
-        _markers.clear();
-        _markers.add(Marker(
-            draggable: true,
-            markerId: MarkerId(_lastMapPositon.toString()),
-            position: _lastMapPositon,
-            infoWindow: InfoWindow(
-                title: p.description, snippet: p.placeId.toLowerCase()),
-            icon: BitmapDescriptor.defaultMarker));
-        if (_mapController != null) {
-          _mapController.animateCamera(CameraUpdate.newCameraPosition(
-              new CameraPosition(target: _lastMapPositon, zoom: 12.00)));
-        }
-      });
-
-//    Route route = MaterialPageRoute(
-//        builder: (context) => MapPage1(placeModel: placeModel));
-//    Navigator.pushReplacement(context,route);
-
-    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final body = PlacesAutocompleteResult(
-      onTap: (p) {
-        displayPrediction(p, searchScaffoldKey.currentState, context);
-        print(p.description);
-      },
-      /* logo: Row(
-        children: [FlutterLogo()],
-        mainAxisAlignment: MainAxisAlignment.center,
-      ),
-      */
-    );
-    print(body.toString());
     // TODO: implement build
-    return new ListView(
-      shrinkWrap: true,
-      physics: ClampingScrollPhysics(),
-      children: <Widget>[
-        Container(
-          child: AppBarPlacesAutoCompleteTextField(),
-          margin: EdgeInsets.only(left: 8, right: 8),
-          decoration: BoxDecoration(
-              border: new Border.all(color: Colors.grey[300]),
-              color: Colors.white),
-        ),
-        Container(
-          child: body,
-          width: MediaQuery.of(context).size.width,
-        ),
-        GestureDetector(
-            child: new Container(
-              padding: EdgeInsets.all(1),
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.35,
-              alignment: AlignmentDirectional.topCenter,
-              color: Colors.white,
-              child: GoogleMap(
-                gestureRecognizers: Set()
-                  ..add(Factory<PanGestureRecognizer>(
-                      () => PanGestureRecognizer()))
-                  ..add(Factory<VerticalDragGestureRecognizer>(
-                      () => VerticalDragGestureRecognizer())),
-                onTap: (LatLng location) {
-                  MapDemoPage mp = new MapDemoPage();
-                  mp.showMap();
-                },
-                polygons: setPolygon(),
-                tiltGesturesEnabled: true,
-                scrollGesturesEnabled: true,
-                zoomGesturesEnabled: true,
-                markers: _markers,
-                onCameraMove: _onCameraMove,
-                onMapCreated: _onMapCreated,
-                initialCameraPosition:
-                    CameraPosition(target: _lastMapPositon, zoom: 11.00),
-              ),
-              margin: EdgeInsets.only(left: 16, right: 16, bottom: 20, top: 5),
-            ),
-            onTap: () {
-              MapDemoPage mp = new MapDemoPage();
-              mp.showMap();
-            }),
-      ],
+    return new Container(
+      padding: EdgeInsets.all(1),
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height * 0.35,
+      alignment: AlignmentDirectional.topCenter,
+      color: Colors.white,
+      child: FutureBuilder(
+          future: _getAddress(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            return GoogleMap(
+              gestureRecognizers: Set()
+                ..add(
+                    Factory<PanGestureRecognizer>(() => PanGestureRecognizer()))
+                ..add(Factory<VerticalDragGestureRecognizer>(
+                    () => VerticalDragGestureRecognizer())),
+              onTap: (LatLng location) {
+                MapDemoPage mp = new MapDemoPage();
+                mp.showMap();
+              },
+              polygons: setPolygon(),
+              tiltGesturesEnabled: true,
+              scrollGesturesEnabled: true,
+              zoomGesturesEnabled: true,
+              markers: _markers,
+              onCameraMove: _onCameraMove,
+              onMapCreated: _onMapCreated,
+              initialCameraPosition:
+                  CameraPosition(target: _lastMapPositon, zoom: 11.00),
+            );
+          }),
+      margin: EdgeInsets.only(left: 16, right: 16, bottom: 20, top: 5),
     );
   }
 
@@ -448,8 +371,8 @@ class _MapPage1State extends PlacesAutocompleteState {
       new Polygon(
           polygonId: new PolygonId("111"),
           points: points,
-          fillColor: const Color(0xFFFAAEB0),
-          strokeColor: Colors.red[700],
+          fillColor: const Color(0xFFFCAEAE),
+          strokeColor: const Color(0xFFE2AD98),
           zIndex: 2),
     ];
     List<Polygon> _lines2 = <Polygon>[
@@ -457,8 +380,8 @@ class _MapPage1State extends PlacesAutocompleteState {
           geodesic: true,
           polygonId: new PolygonId("112"),
           points: points2,
-          strokeColor: Colors.lightGreenAccent[700],
-          fillColor: const Color(0xFFB1FF50),
+          strokeColor: const Color(0xFFAAD47D),
+          fillColor: const Color(0xFFA3F0A3),
           //  width: 10,
           zIndex: 1),
     ];
@@ -466,8 +389,8 @@ class _MapPage1State extends PlacesAutocompleteState {
       new Polygon(
           polygonId: new PolygonId("113"),
           points: points3,
-          fillColor: const Color(0xFF2494F0),
-          strokeColor: Colors.lightBlueAccent[700],
+          fillColor: const Color(0xFFF6DD82),
+          strokeColor: const Color(0xFFF8D986),
           //width: 10,
           zIndex: 0),
     ];
@@ -479,27 +402,24 @@ class _MapPage1State extends PlacesAutocompleteState {
   }
 
   void _onCameraMove(CameraPosition position) {}
-}
 
-class Uuid {
-  final Random _random = Random();
-
-  String generateV4() {
-    // Generate xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx / 8-4-4-4-12.
-    final int special = 8 + _random.nextInt(4);
-
-    return '${_bitsDigits(16, 4)}${_bitsDigits(16, 4)}-'
-        '${_bitsDigits(16, 4)}-'
-        '4${_bitsDigits(12, 3)}-'
-        '${_printDigits(special, 1)}${_bitsDigits(12, 3)}-'
-        '${_bitsDigits(16, 4)}${_bitsDigits(16, 4)}${_bitsDigits(16, 4)}';
+  _getAddress() async {
+    SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
+    String address = await sharedPrefUtil.getString(SharedPrefUtil.address);
+    _lastMapPositon = new LatLng(
+        double.parse(await sharedPrefUtil.getString(SharedPrefUtil.lat)),
+        double.parse(await sharedPrefUtil.getString(SharedPrefUtil.lng)));
+    _markers.clear();
+    _markers.add(Marker(
+        draggable: true,
+        markerId: MarkerId(_lastMapPositon.toString()),
+        position: _lastMapPositon,
+        infoWindow: InfoWindow(title: address, snippet: ""),
+        icon: BitmapDescriptor.defaultMarker));
+    if (_mapController != null) {
+      _mapController.animateCamera(CameraUpdate.newCameraPosition(
+          new CameraPosition(target: _lastMapPositon, zoom: 12.00)));
+    }
+    return address;
   }
-
-  String _bitsDigits(int bitCount, int digitCount) =>
-      _printDigits(_generateBits(bitCount), digitCount);
-
-  int _generateBits(int bitCount) => _random.nextInt(1 << bitCount);
-
-  String _printDigits(int value, int count) =>
-      value.toRadixString(16).padLeft(count, '0');
 }

@@ -62,7 +62,7 @@ ThunkAction<AppState> registerThunkFunction(String lang, UserModel userModel) {
           sharedPrefUtil.setString(SharedPrefUtil.username, userModel.username);
           sharedPrefUtil.setString(SharedPrefUtil.mobile, userModel.mobile);
         //  sharedPrefUtil.setString(SharedPrefUtil.id, responseBody.id);
-          store.dispatch(NavigateReplaceAction("/home"));
+          store.dispatch(NavigateReplaceAction("/login"));
           store.state.user_info = userModel;
         }
       }

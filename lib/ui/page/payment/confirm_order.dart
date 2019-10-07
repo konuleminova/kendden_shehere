@@ -1,128 +1,211 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:kendden_shehere/redux/checkout/checkout.dart';
+import 'package:kendden_shehere/service/networks.dart';
+import 'package:kendden_shehere/ui/page/grocery/grocery_shop_list.dart';
+import 'package:kendden_shehere/ui/page/payment/webview.dart';
+import 'package:kendden_shehere/ui/widgets/dialog/profile_edit_dialog.dart';
+import 'package:kendden_shehere/util/sharedpref_util.dart';
 
-class ConfirmOrderPage extends StatelessWidget{
-  final String address = "Hesen bey zerdabi, Baki";
-  final String phone="9818522122";
-  final double total = 50;
-  final double delivery = 10;
+const kAndroidUserAgent =
+    'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Mobile Safari/537.36';
+
+class ConfirmOrderPage extends StatefulWidget {
+  Checkout checkout;
+
+  ConfirmOrderPage({this.checkout});
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return ConfirmPageState();
+  }
+}
+
+class ConfirmPageState extends State<ConfirmOrderPage> {
+  SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
+  final flutterWebviewPlugin = new FlutterWebviewPlugin();
+  Checkout checkout;
+  String alkaqol;
+
+  getSharedPref() async {
+    checkout.mobile = await sharedPrefUtil.getString(SharedPrefUtil.mobile);
+    checkout.username = await sharedPrefUtil.getString(SharedPrefUtil.username);
+    checkout.id = await sharedPrefUtil.getString(SharedPrefUtil.id);
+    alkaqol = await sharedPrefUtil.getString(SharedPrefUtil.alkaqol);
+    checkout.address = await sharedPrefUtil.getString(SharedPrefUtil.address);
+    checkout.delivery_place =
+        await sharedPrefUtil.getString(SharedPrefUtil.coordinates);
+    return checkout;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    flutterWebviewPlugin.close();
+  }
+
+  void _showDialog() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Information"),
+          content: new Text(
+            "Sale of alcoholic beverages by PORTAL to minors (persons below 18 years of age) is prohibited. When a customer orders an order, ALICI's identity will be determined in the appropriate document (ID card). If ALICI is under 18 years of age, the sale of goods to the customer will be stopped.",
+            style: TextStyle(color: Colors.red),
+          ),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            new FlatButton(
+              child: new Text("Accept"),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _finishBAsket();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  _finishBAsket() {
+    if (checkout.dtime_selected_val == "11:30-13:00") {
+      checkout.dtime_selected_val = "11";
+    } else if (checkout.dtime_selected_val == "13:00-19:30") {
+      checkout.dtime_selected_val = "19";
+    } else if (checkout.dtime_selected_val == "Tecili catdirilma") {
+      checkout.dtime_selected_val = "T";
+    } else {
+      checkout.dtime_selected_val = "N";
+    }
+    Networks.finishBasket(checkout).then((onValue) {
+      if (onValue['done'] == "1") {
+        if (onValue['redirectUrl'] != null) {
+          Route route = MaterialPageRoute(
+              builder: (BuildContext context) =>
+                  WebViewPage(url: onValue['redirectUrl']));
+          Navigator.push(context, route);
+        } else {
+          Route route = MaterialPageRoute(
+              builder: (BuildContext context) => GroceryShopCartPage(
+                    fromCheckout: true,
+                  ));
+
+          Navigator.pushReplacement(context, route);
+        }
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    flutterWebviewPlugin.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    checkout = widget.checkout;
+    // TODO: implement build
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.lightGreen,
-        title: Text("Confirm Order"),
-      ),
-      body: _buildBody(context),
-    );
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: Colors.lightGreen,
+          title: Text("Confirm Order"),
+        ),
+        body: Container(
+          child: FutureBuilder(
+              future: getSharedPref(),
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                if (snapshot.hasData) {
+                  return SingleChildScrollView(
+                    child: Column(
+                      children: <Widget>[
+                        ListTile(
+                          title: Text("Delivery Address"),
+                          subtitle: Text(checkout.address),
+                          trailing: IconButton(
+                            icon: Icon(Icons.edit),
+                            onPressed: null,
+                          ),
+                        ),
+                        Divider(),
+                        ListTile(
+                          title: Text("Mobile"),
+                          subtitle: Text(checkout.mobile),
+                          trailing: IconButton(
+                            color: Colors.green,
+                            icon: Icon(Icons.edit),
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (buildContext) {
+                                    return ProfileEditDialog("mobile");
+                                  });
+                            },
+                          ),
+                        ),
+                        Divider(),
+                        ListTile(
+                          title: Text("Price"),
+                          subtitle: Text(checkout.delivery_price),
+                        ),
+                        Divider(),
+                        ListTile(
+                          title: Text("Username"),
+                          subtitle: Text(checkout.username),
+                        ),
+                        Divider(),
+                        ListTile(
+                          title: Text("Time"),
+                          subtitle: Text(checkout.dtime_selected_val),
+                        ),
+                        Divider(),
+                        ListTile(
+                          title: Text("Payment Option"),
+                          subtitle: Text(checkout.dpayment_selected_val),
+                        ),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        RaisedButton(
+                          color: Colors.green,
+                          onPressed: () {
+                            if (alkaqol == "1") {
+                              _showDialog();
+                            } else {
+                              _finishBAsket();
+                            }
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              Text("Confirm Order",
+                                  style: TextStyle(color: Colors.white)),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              }),
+          margin: EdgeInsets.all(16.0),
+        ));
   }
-
-  Widget _buildBody(BuildContext context) {
-    return SingleChildScrollView(
-      padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0, bottom: 10.0),
-      child: Column(
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text("Subtotal"),
-              Text("AZN: $total"),
-            ],
-          ),
-          SizedBox(height: 10.0,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text("Delivery fee"),
-              Text("AZN: $delivery"),
-            ],
-          ),
-          SizedBox(height: 10.0,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text("Total", style: Theme.of(context).textTheme.title,),
-              Text("AZN: ${total+delivery}", style: Theme.of(context).textTheme.title),
-            ],
-          ),
-          SizedBox(height: 20.0,),
-          Container(
-              color: Colors.grey.shade200,
-              padding: EdgeInsets.all(8.0),
-              width: double.infinity,
-              child: Text("Delivery Address".toUpperCase())
-          ),
-          Column(
-            children: <Widget>[
-              RadioListTile(
-                activeColor: Colors.green[700],
-                selected: true,
-                value: address,
-                groupValue: address,
-                title: Text(address),
-                onChanged: (value){},
-              ),
-              RadioListTile(
-                selected: false,
-                value: "New Address",
-                groupValue: address,
-                title: Text("Choose another delivery address"),
-                onChanged: (value){},
-              ),
-              Container(
-                  color: Colors.grey.shade200,
-                  padding: EdgeInsets.all(8.0),
-                  width: double.infinity,
-                  child: Text("Contact".toUpperCase())
-              ),
-              RadioListTile(
-                activeColor: Colors.green[700],
-                selected: true,
-                value: phone,
-                groupValue: phone,
-                title: Text("Konul Eminova"),
-                onChanged: (value){},
-              ),
-              RadioListTile(
-                activeColor: Colors.green[700],
-                selected: true,
-                value: phone,
-                groupValue: phone,
-                title: Text("+"+phone),
-                onChanged: (value){},
-              ),
-            ],
-          ),
-          SizedBox(height: 20.0,),
-          Container(
-              color: Colors.grey.shade200,
-              padding: EdgeInsets.all(8.0),
-              width: double.infinity,
-              child: Text("Payment Option".toUpperCase())
-          ),
-          RadioListTile(
-            activeColor: Colors.green[700],
-            groupValue: true,
-            value: true,
-            title: Text("Cash on Delivery"),
-            onChanged: (value){},
-          ),
-          Container(
-            width: double.infinity,
-            child: RaisedButton(
-              color:  Colors.green,
-              onPressed: ()=> {
-                Navigator.pushNamed(context, "/card_storage")
-              },
-              child: Text("Confirm Order", style: TextStyle(
-                  color: Colors.white
-              ),),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-
 }

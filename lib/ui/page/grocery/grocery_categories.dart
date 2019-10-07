@@ -1,11 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/categories/category_item.dart';
+import 'package:kendden_shehere/redux/categories/category_viewmodel.dart';
 import 'package:kendden_shehere/redux/categories/list_categories.dart';
 import 'package:kendden_shehere/redux/productlist/productlist_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
+import 'package:kendden_shehere/ui/animation/scale.dart';
+import 'package:kendden_shehere/ui/animation/size.dart';
+import 'package:kendden_shehere/ui/animation/slide.dart';
+import 'package:kendden_shehere/ui/animation/slide_left.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_list.dart';
 import 'package:redux/redux.dart';
 
@@ -25,22 +31,18 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
   List<Category> categories = new List();
   List<Category> tempCategories = new List();
   String order = "0";
-  ProductListViewModel viewModel;
+  CategoryViewModel viewModel;
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return StoreConnector(
-        onInitialBuild: (ProductListViewModel viewModel) {
+        onInitialBuild: (CategoryViewModel viewModel) {
           this.viewModel = viewModel;
-          // viewModel.onFetchProductList(widget.id, "10", "0",widget.order);
+          // viewModel.onFetchCategories(widget.id);
         },
-        onWillChange: (ProductListViewModel viewModel) {
-          // productList.addAll(viewModel.productList);
-        },
-        converter: (Store<AppState> store) =>
-            ProductListViewModel.create(store),
-        builder: (BuildContext context, ProductListViewModel) {
+        converter: (Store<AppState> store) => CategoryViewModel.create(store),
+        builder: (BuildContext context, CategoryViewModel viewModel) {
           if (categories.length > 0) {
             return new Scaffold(
                 appBar: new AppBar(
@@ -72,7 +74,7 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
                         ),
                       ),
                       onTap: () {
-                        print(categories[index].id);
+                        // print(categories[index].id);
                         bool isCategory = false;
                         for (int i = 0; i < tempCategories.length; i++) {
                           if (categories[index].id ==
@@ -86,20 +88,17 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
                         if (isCategory) {
                           Navigator.push(
                               context,
-                              new MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      new GroceryCategoriesPage(
-                                          id: categories[index].id,
-                                          title: title)));
+                          SizeRoute(
+                                  page: new GroceryCategoriesPage(
+                                      id: categories[index].id, title: title)));
                         } else {
-                          Route route = MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  GroceryListPage(
-                                    title: title,
-                                    id: categories[index].id,
-                                    order: order,
-                                  ));
-                          Navigator.push(context, route);
+                          Navigator.push(
+                              context,
+                              SlideRightRoute(page:GroceryListPage(
+                              title: title,
+                              id: categories[index].id,
+                              order: order,
+                          )));
                         }
                       },
                     ));
@@ -118,7 +117,6 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
           }
         });
   }
-
 
   @override
   void initState() {

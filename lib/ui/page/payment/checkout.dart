@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as prefix0;
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/main.dart';
+import 'package:kendden_shehere/redux/checkout/checkout.dart';
+import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/map/flutter_map.dart';
-import 'package:kendden_shehere/ui/page/map/map_view.dart';
+import 'package:kendden_shehere/ui/page/map/searchplace.dart';
+import 'package:kendden_shehere/ui/page/payment/confirm_order.dart';
+import 'package:kendden_shehere/util/sharedpref_util.dart';
+
+const kAndroidUserAgent =
+    'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Mobile Safari/537.36';
 
 class CheckoutsPage extends StatefulWidget {
   @override
@@ -17,6 +26,8 @@ class CheckoutsPageState extends State<CheckoutsPage> {
   String choice = "11:30-13:00";
   ScrollController _scrollController;
   bool _isOnTop = true;
+  Checkout checkout = new Checkout();
+  final flutterWebviewPlugin = new FlutterWebviewPlugin();
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +37,6 @@ class CheckoutsPageState extends State<CheckoutsPage> {
         backgroundColor: Colors.lightGreen,
         title: Text("Checkout"),
         centerTitle: true,
-        actions: <Widget>[
-          IconButton(icon: Icon(Icons.more_vert), onPressed: () {})
-        ],
       ),
       body: new ListView(
         controller: _scrollController,
@@ -38,19 +46,131 @@ class CheckoutsPageState extends State<CheckoutsPage> {
           new Container(
             margin: EdgeInsets.only(left: 16, bottom: 8),
             child: Text(
-              'Unvani daxil edin',
+              'Unvan',
               style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
             ),
           ),
-          GestureDetector(
-            child: _getGoogleMap(),
-            onTap: _isOnTop ? _scrollToBottom : _scrollToTop,
+          Container(
+            child: Card(
+              child: ListTile(
+                title: FutureBuilder(
+                    future: _getAddress(),
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      return Text(
+                        snapshot.hasData && snapshot.data != ""
+                            ? snapshot.data
+                            : "Please add new address",
+                        style: TextStyle(color: Colors.grey),
+                      );
+                    }),
+                trailing: IconButton(
+                  icon: Icon(Icons.edit),
+                  onPressed:null
+                ),
+                onTap: (){
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) =>
+                          Dialog(child: CustomSearchScaffold()));
+                },
+              ),
+              elevation: 2,
+            ),
+            margin: EdgeInsets.only(left: 12,right: 12,bottom: 8)
+          ),
+//          GestureDetector(
+//            child: _getGoogleMap(),
+//            onTap: _isOnTop ? _scrollToBottom : _scrollToTop,
+//          ),
+          Container(
+            margin: EdgeInsets.only(left: 12, right: 12, bottom: 16),
+            child: Column(
+              children: <Widget>[
+                _getGoogleMap(),
+                SizedBox(
+                  height: 8,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Container(
+                      width: 20,
+                      height: 20,
+                      color: const Color(0xFFFDB2B4),
+                    ),
+                    SizedBox(
+                      width: 5.0,
+                    ),
+                    Flexible(
+                      child: Container(
+                        child: Text(
+                          "Delivery amount 4 AZN.When ordering from 20 AZN delivery is free. ",
+                        ),
+                        width: 250,
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 3.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Container(
+                        width: 20, height: 20, color: const Color(0xFFAAD47D)),
+                    SizedBox(
+                      width: 5.0,
+                    ),
+                    Flexible(
+                      child: Container(
+                        child: Text(
+                          "Delivery amount 4 AZN.",
+                        ),
+                        width: 250,
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 3.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Container(
+                      width: 20,
+                      height: 20,
+                      color: const Color(0xFFF8D986),
+                    ),
+                    SizedBox(
+                      width: 5.0,
+                    ),
+                    Flexible(
+                      child: Container(
+                        child: Text(
+                          "Delivery amount 7 AZN. ",
+                        ),
+                        width: 250,
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
           new Container(
             child: RaisedButton(
               color: Colors.green,
               onPressed: () {
-                Navigator.pushNamed(context, "/confirm_order");
+                checkout.address = "Baku Azerbaijan";
+                checkout.delivery_place = "40.4093°,49.8671° ";
+                checkout.delivery_price = "0";
+                Route route = MaterialPageRoute(
+                    builder: (BuildContext context) => ConfirmOrderPage(
+                          checkout: checkout,
+                        ));
+                Navigator.push(context, route);
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -72,22 +192,12 @@ class CheckoutsPageState extends State<CheckoutsPage> {
     super.dispose();
   }
 
-  _scrollToTop() {
-    _scrollController.animateTo(_scrollController.position.minScrollExtent,
-        duration: Duration(milliseconds: 1000), curve: Curves.easeIn);
-    setState(() => _isOnTop = true);
-  }
-
-  _scrollToBottom() {
-    _scrollController.animateTo(_scrollController.position.maxScrollExtent,
-        duration: Duration(milliseconds: 1000), curve: Curves.easeOut);
-    setState(() => _isOnTop = false);
-  }
-
   @override
   void initState() {
     super.initState();
     _scrollController = ScrollController();
+    checkout.dpayment_selected_val = "online";
+    checkout.dtime_selected_val = choice;
   }
 
   Widget _getAccountTypeSection() {
@@ -105,7 +215,10 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                 child: GestureDetector(
                   onTapUp: (tapDetail) {
                     selectedIndex = 0;
-                    setState(() {});
+
+                    setState(() {
+                      checkout.dpayment_selected_val = "online";
+                    });
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -165,7 +278,10 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                 child: GestureDetector(
                   onTapUp: (tapDetail) {
                     selectedIndex = 1;
-                    setState(() {});
+
+                    setState(() {
+                      checkout.dpayment_selected_val = "offline";
+                    });
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -196,7 +312,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Icon(
-                            Icons.account_balance,
+                            Icons.account_balance_wallet,
                             color: selectedIndex == 1
                                 ? Colors.white
                                 : Color(0xFF939192),
@@ -302,15 +418,14 @@ class CheckoutsPageState extends State<CheckoutsPage> {
   void choiceAction(String choice) {
     setState(() {
       this.choice = choice;
+      checkout.dtime_selected_val = choice;
     });
-    if (choice == Constants.FirstItem) {
-      print('I First Item');
-    } else if (choice == Constants.SecondItem) {
-      print('I Second Item');
-    } else if (choice == Constants.ThirdItem) {
-      print('I Thired Item');
-    }
   }
 
   _getGoogleMap() => MapPage1();
+
+  _getAddress() async {
+    SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
+    return await sharedPrefUtil.getString(SharedPrefUtil.address);
+  }
 }

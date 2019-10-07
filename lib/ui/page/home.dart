@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:async/async.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -10,15 +11,12 @@ import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/redux/productlist/productlist_viewmodel.dart';
 import 'package:kendden_shehere/redux/productlist/products_in_category_model.dart';
 import 'package:kendden_shehere/service/networks.dart';
+import 'package:kendden_shehere/ui/animation/slide_left.dart';
+import 'package:kendden_shehere/ui/page/grocery/grocery_shop_list.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem1.dart';
-import 'package:redux/redux.dart';
-import 'package:kendden_shehere/redux/app/app_state_model.dart';
+import 'package:kendden_shehere/util/sharedpref_util.dart';
 import 'package:kendden_shehere/ui/widgets/drawer.dart';
-import 'package:kendden_shehere/ui/page/test/old_product_list_item.dart';
-import 'package:kendden_shehere/ui/widgets/rating_star.dart';
 import 'package:kendden_shehere/ui/widgets/search.dart';
-import 'package:kendden_shehere/util/carousel.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -52,12 +50,18 @@ class HomePageState extends State<HomePage> {
   String title;
   final _memoizer = new AsyncMemoizer();
   final _memoizer2 = new AsyncMemoizer();
+  SharedPrefUtil sharedPrefUtil=new SharedPrefUtil();
 
   @override
   void initState() {
     productListOne = new List();
     _scrollController = new ScrollController();
     _scrollController.addListener(_scrollListener);
+    sharedPrefUtil.getString(SharedPrefUtil.count).then((onValue){
+      setState(() {
+        counter=int.parse(onValue);
+      });
+    });
     super.initState();
   }
 
@@ -113,7 +117,12 @@ class HomePageState extends State<HomePage> {
                     onPressed: () {
                       setState(() {
                         counter = 0;
-                        Navigator.pushNamed(context, "/shopping_cart");
+                        Navigator.push(
+                            context,
+                            SlideLeftRoute(
+                                page: GroceryShopCartPage(
+                              fromCheckout: false,
+                            )));
                       });
                     }),
                 counter != 0
@@ -185,90 +194,83 @@ class HomePageState extends State<HomePage> {
             ]),
           ),
           FutureBuilder(
-              future: this._memoizer.runOnce( Networks.getCollections),
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                List<NewProduct> productsInCat = snapshot.data;
-                if (snapshot.hasData) {
-                  return ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      physics: ClampingScrollPhysics(),
-                      itemCount: productsInCat.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return FutureBuilder(
-                            future: this._memoizer2.runOnce(()async {
-                          try {
-                            final response =
-                                await http.get(Networks.BASE_KS_URL + "collection" + "&inf=${productsInCat[index].id}");
-
-                            if (response.statusCode == 200) {
-                              print(productsInCat[index].id+ ".. HOME");
-                              // print(response.body);
-                              return ProductsInCategory.fromJson(json.decode(response.body))
-                                  .productsInCategory;
-                            } else {
-                              return null;
-                            }
-                          } catch (exception) {}
-
-                        }),
-                            builder: (BuildContext context,
-                                AsyncSnapshot snapshot2) {
-                              if (snapshot2.hasData) {
-                                if (langCode == "tr") {
-                                  title = snapshot.data[index].name_az;
-                                } else if (langCode == "en") {
-                                  title = snapshot.data[index].name_en;
-                                } else if (langCode == "ru") {
-                                  title = snapshot.data[index].name_ru;
-                                }
-                                return Container(
+              future: Networks.getCollectionItem("2"),
+              builder: (BuildContext context, AsyncSnapshot snapshot2) {
+                if (snapshot2.hasData) {
+                  return Container(
+                      child: Column(
+                        children: <Widget>[
+                          _titleContainer("Discount Products"),
+                          Container(
+                            child: ListView.builder(
+                                physics: ClampingScrollPhysics(),
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: snapshot2.data.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Container(
+                                    height: height * 0.5,
                                     child: Column(
-                                  children: <Widget>[
-                                    _titleContainer(title),
-                                    Container(
-                                      child: ListView.builder(
-                                          physics: ClampingScrollPhysics(),
-                                          shrinkWrap: true,
-                                          scrollDirection: Axis.horizontal,
-                                          itemCount: snapshot2.data.length,
-                                          itemBuilder: (BuildContext context,
-                                              int index) {
-                                            return Container(
-                                              height: height * 0.5,
-                                              child: Column(
-                                                children: <Widget>[
-                                                  Container(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.5,
-                                                      height: height * 0.5,
-                                                      child: InkWell(
-                                                        child:
-                                                            GroceryListItemOne(
-                                                          product: snapshot2
-                                                              .data[index],
-                                                        ),
-                                                      ))
-                                                ],
-                                              ),
-                                            );
-                                          }),
-                                      height: height * 0.5,
-                                    )
-                                  ],
-                                ));
-                              } else {
-                                return Container();
-                              }
-                            });
-                      });
+                                      children: <Widget>[
+                                        Container(
+                                            width:
+                                            MediaQuery.of(context).size.width *
+                                                0.5,
+                                            height: height * 0.5,
+                                            child: InkWell(
+                                              child: GroceryListItemOne(
+                                                product: snapshot2.data[index],
+                                              ),))
+                                      ],
+                                    ),
+                                  );
+                                }),
+                            height: height * 0.5,
+                          )
+                        ],
+                      ));
                 } else {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
+                  return Container();
+                }
+              }),
+          FutureBuilder(
+              future: Networks.getCollectionItem("4"),
+              builder: (BuildContext context, AsyncSnapshot snapshot2) {
+                if (snapshot2.hasData) {
+                  return Container(
+                      child: Column(
+                        children: <Widget>[
+                          _titleContainer("New Arrivals"),
+                          Container(
+                            child: ListView.builder(
+                                physics: ClampingScrollPhysics(),
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: snapshot2.data.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Container(
+                                    height: height * 0.5,
+                                    child: Column(
+                                      children: <Widget>[
+                                        Container(
+                                            width:
+                                            MediaQuery.of(context).size.width *
+                                                0.5,
+                                            height: height * 0.5,
+                                            child: InkWell(
+                                              child: GroceryListItemOne(
+                                                product: snapshot2.data[index],
+                                              ),))
+                                      ],
+                                    ),
+                                  );
+                                }),
+                            height: height * 0.5,
+                          )
+                        ],
+                      ));
+                } else {
+                  return Container();
                 }
               })
           //  _buildCard()
@@ -347,38 +349,38 @@ class HomePageState extends State<HomePage> {
               ),
               alignment: AlignmentDirectional.centerStart,
             ),
-            new Container(
-              child: new Text(
-                "See All ",
-                textAlign: TextAlign.left,
-                style: new TextStyle(fontSize: 15),
-              ),
-              alignment: AlignmentDirectional.centerEnd,
-            )
+//            new Container(
+//              child: new Text(
+//                "See All ",
+//                textAlign: TextAlign.left,
+//                style: new TextStyle(fontSize: 15),
+//              ),
+//              alignment: AlignmentDirectional.centerEnd,
+//            )
           ],
         ),
       );
 
-  _buildCard() => new Container(
-        padding: EdgeInsets.all(8.0),
-        child: new ListView.builder(
-          scrollDirection: Axis.horizontal,
-          controller: _scrollController,
-          itemBuilder: (BuildContext context, int index) {
-            return Container(
-                width: MediaQuery.of(context).size.width * 0.5,
-                height: 360,
-                child: InkWell(
-                  child: GroceryListItemOne(
-                    product: productListOne[index],
-                  ),
-                ));
-          },
-          itemCount: productListOne.length,
-        ),
-        width: width,
-        height: 360,
-      );
+//  _buildCard() => new Container(
+//        padding: EdgeInsets.all(8.0),
+//        child: new ListView.builder(
+//          scrollDirection: Axis.horizontal,
+//          controller: _scrollController,
+//          itemBuilder: (BuildContext context, int index) {
+//            return Container(
+//                width: MediaQuery.of(context).size.width * 0.5,
+//                height: 360,
+//                child: InkWell(
+//                  child: GroceryListItemOne(
+//                    product: productListOne[index],
+//                  ),
+//                ));
+//          },
+//          itemCount: productListOne.length,
+//        ),
+//        width: width,
+//        height: 360,
+//      );
 
   void loadMore(String id) {
     page = page + 10;

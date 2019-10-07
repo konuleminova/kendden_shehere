@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kendden_shehere/redux/common/model/product_model.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/service/networks.dart';
+import 'package:kendden_shehere/ui/animation/slide_left.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_big_image.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem2.dart';
 import 'package:kendden_shehere/ui/widgets/rating_star.dart';
@@ -11,6 +12,8 @@ import 'package:share/share.dart';
 //import 'package:zoomable_image/zoomable_image.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:http/http.dart' as http;
+
+import 'grocery_shop_list.dart';
 
 class GroceryDetailsPage extends StatefulWidget {
   NewProduct product;
@@ -50,21 +53,26 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
             title: new Text(title),
             backgroundColor: Colors.lightGreen,
             actions: <Widget>[
-              GestureDetector(
-                child: new Container(
-                  child: new Icon(
-                    Icons.share,
-                    color: Colors.white,
-                  ),
-                  margin: EdgeInsets.only(right: 16),
-                ),
-                onTap: () {
-                  final RenderBox box = context.findRenderObject();
-                  Share.share(img,
-                      sharePositionOrigin:
-                          box.localToGlobal(Offset.zero) & box.size);
-                },
-              )
+            InkWell(child:   IconButton(
+              icon: Icon(Icons.share,color: Colors.white,),
+              onPressed: (){
+                final RenderBox box = context.findRenderObject();
+                Share.share(img,
+                    sharePositionOrigin:
+                    box.localToGlobal(Offset.zero) & box.size);
+              },
+            ),),
+             InkWell(child:  IconButton(
+               icon: Icon(Icons.shopping_cart,color: Colors.white,),
+               onPressed: (){
+                 Navigator.push(
+                     context,
+                     SlideLeftRoute(
+                         page: GroceryShopCartPage(
+                           fromCheckout: false,
+                         )));
+               },
+             ),)
             ]),
         body: _buildPageContent(context));
   }
@@ -136,45 +144,40 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
               Container(
                   padding: EdgeInsets.all(20.0),
                   child: GrocerySubtitle(text: description)),
-              new Container(
-                decoration: BoxDecoration(
-                    border: new Border.all(
-                      color: Colors.grey,
-                    ),
-                    borderRadius: BorderRadius.circular(4)),
-                margin: EdgeInsets.only(left: 16, right: 16, bottom: 16),
-                padding: EdgeInsets.all(10),
-                child: new Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    new Container(
-                      margin: EdgeInsets.only(top: 8),
-                      child: new Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          new CircleAvatar(
-                            child: Icon(
-                              Icons.chat,
-                              size: 15,
-                            ),
-                            maxRadius: 16,
-                            backgroundColor: Colors.green,
-                          ),
-                          new Container(
-                            margin: EdgeInsets.only(left: 10),
-                            child: new Text("Read Reviews (1)"),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              Container(
-                  padding: EdgeInsets.only(left: 20.0, bottom: 10.0),
-                  child: GroceryTitle(text: "Related Items")),
-              NewGroceryListItemTwo(product),
-              NewGroceryListItemTwo(product),
+//              new Container(
+//                decoration: BoxDecoration(
+//                    border: new Border.all(
+//                      color: Colors.grey,
+//                    ),
+//                    borderRadius: BorderRadius.circular(4)),
+//                margin: EdgeInsets.only(left: 16, right: 16, bottom: 16),
+//                padding: EdgeInsets.all(10),
+//                child: new Column(
+//                  crossAxisAlignment: CrossAxisAlignment.start,
+//                  children: <Widget>[
+//                    new Container(
+//                      margin: EdgeInsets.only(top: 8),
+//                      child: new Row(
+//                        mainAxisAlignment: MainAxisAlignment.start,
+//                        children: <Widget>[
+//                          new CircleAvatar(
+//                            child: Icon(
+//                              Icons.chat,
+//                              size: 15,
+//                            ),
+//                            maxRadius: 16,
+//                            backgroundColor: Colors.green,
+//                          ),
+//                          new Container(
+//                            margin: EdgeInsets.only(left: 10),
+//                            child: new Text("Read Reviews (1)"),
+//                          )
+//                        ],
+//                      ),
+//                    )
+//                  ],
+//                ),
+//              ),
             ],
           ),
         ),
@@ -215,8 +218,7 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
         onTap: () {
           setState(() {
             isAdded = true;
-            Networks.addToBasket("179", product.id, amount.toString())
-                .then((onvalue) {
+            Networks.addToBasket(product.id, amount.toString()).then((onvalue) {
               print(onvalue);
             });
             // widget.viewModel.onAddedProduct(product);
@@ -244,8 +246,7 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                   if (amount < 1) {
                     isAdded = false;
                     amount = 1;
-                    Networks.removeFromBasket("179", product.id)
-                        .then((onvalue) {
+                    Networks.removeFromBasket(product.id).then((onvalue) {
                       print(onvalue);
                     });
                   }
@@ -262,7 +263,7 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                 setState(() {
                   amount++;
                 });
-                Networks.addToBasket("179", product.id, amount.toString())
+                Networks.addToBasket(product.id, amount.toString())
                     .then((onvalue) {
                   print(onvalue);
                 });
@@ -282,54 +283,45 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
           elevation: 3.0,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-          child: FutureBuilder(
-              future: http.get(img),
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (snapshot.hasData) {
-                  return Stack(
-                    children: <Widget>[
-                      ClipRRect(
-                          borderRadius: BorderRadius.circular(5.0),
-                          child: new Center(
-                            child: img != null
-                                ? Image.network(img)
-                                : Image.asset("images/noimage.png"),
-                          )),
-                      Positioned(
-                          bottom: 8.0,
-                          right: 8.0,
-                          child: Container(
-                            child: IconButton(
-                              icon: Icon(
-                                isLiked
-                                    ? Icons.favorite
-                                    : Icons.favorite_border,
-                                color: Colors.pink[400],
-                                size: 36,
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  isLiked = !isLiked;
-                                });
-                                Networks.add_Remove_WishList("179", product.id)
-                                    .then((onvalue) {
-                                  print(onvalue);
-                                });
-                              },
-                            ),
-                          )),
-                    ],
-                  );
-                } else {
-                  return Container(
-                    child: Center(
-                      child: CircularProgressIndicator(),
+          child: Stack(
+            children: <Widget>[
+              ClipRRect(
+                  borderRadius: BorderRadius.circular(5.0),
+                  child: new Center(
+                      child: Hero(
+                    child: FadeInImage.assetNetwork(
+                      placeholder: "images/noimage.png",
+                      image: img,
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.5,
+                      fadeInCurve: Curves.bounceOut,
+                      fit: BoxFit.cover,
                     ),
-                    width: 180,
-                    height: 180,
-                  );
-                }
-              })),
+                    tag: product.id,
+                  ))),
+              Positioned(
+                  bottom: 8.0,
+                  right: 8.0,
+                  child: Container(
+                    child: IconButton(
+                      icon: Icon(
+                        isLiked ? Icons.favorite : Icons.favorite_border,
+                        color: Colors.pink[400],
+                        size: 36,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          isLiked = !isLiked;
+                        });
+                        Networks.add_Remove_WishList(product.id)
+                            .then((onvalue) {
+                          print(onvalue);
+                        });
+                      },
+                    ),
+                  )),
+            ],
+          )),
     );
   }
 }

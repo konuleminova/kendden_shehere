@@ -6,10 +6,9 @@ import 'package:kendden_shehere/redux/common/model/product_model.dart';
 import 'package:kendden_shehere/redux/wishlist/wishlist_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_details_page.dart';
-import 'package:kendden_shehere/ui/page/test/shop_item_model.dart';
-import 'package:kendden_shehere/redux/home/home_viewmodel.dart';
 import 'package:kendden_shehere/ui/widgets/gtile_title.dart';
 import 'package:kendden_shehere/ui/widgets/rating_star.dart';
+import 'package:kendden_shehere/util/sharedpref_util.dart';
 import 'package:redux/redux.dart';
 
 class GroceryListItemOne extends StatefulWidget {
@@ -31,6 +30,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
   bool isAdded = false, isLiked = false;
   int amount = 1;
   List<NewProduct> wishItems = new List();
+  SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
 
   @override
   void initState() {
@@ -102,13 +102,26 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                     children: <Widget>[
                       GestureDetector(
                         child: Container(
-                            child: img == null
-                                ? Image.asset(
-                                    'images/noimage.png',
-                                    width: 285.0,
-                                    alignment: Alignment.center,
-                                  )
-                                : Image.network(img),
+                            child: Hero(
+                              child: FadeInImage.assetNetwork(
+                                image: img,
+                                placeholder: "images/noimage.png",
+                                fit: BoxFit.cover,
+                                height: 150,
+                              ),
+                              tag: product.id,
+//                              flightShuttleBuilder: (
+//                                BuildContext flightContext,
+//                                Animation<double> animation,
+//                                HeroFlightDirection flightDirection,
+//                                BuildContext fromHeroContext,
+//                                BuildContext toHeroContext,
+//                              ) {
+//                                return SingleChildScrollView(
+//                                  child: fromHeroContext.widget,
+//                                );
+//                              },
+                            ),
                             height: 150,
                             padding: EdgeInsets.only(
                                 left: 10, right: 10, top: 10, bottom: 4)),
@@ -148,8 +161,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                                     setState(() {
                                       isLiked = !isLiked;
                                     });
-                                    Networks.add_Remove_WishList(
-                                            "179", product.id)
+                                    Networks.add_Remove_WishList(product.id)
                                         .then((onvalue) {
                                       print(onvalue);
                                     });
@@ -191,9 +203,15 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
             onPressed: () {
               setState(() {
                 isAdded = true;
-                Networks.addToBasket("179", product.id, amount.toString())
+                Networks.addToBasket(product.id, amount.toString())
                     .then((onvalue) {
                   print(onvalue);
+                  sharedPrefUtil.setString(SharedPrefUtil.count, "0");
+                  sharedPrefUtil.getString(SharedPrefUtil.count).then((onValue){
+                    sharedPrefUtil.setString(
+                        SharedPrefUtil.count,(int.parse(onValue)+1).toString());
+                  });
+
                 });
                 //  widget.viewModel.addShopItem(product);
               });
@@ -220,9 +238,12 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                   if (amount < 1) {
                     isAdded = false;
                     amount = 1;
-                    Networks.removeFromBasket("179", product.id)
-                        .then((onvalue) {
+                    Networks.removeFromBasket(product.id).then((onvalue) {
                       print(onvalue);
+                    });
+                    sharedPrefUtil.getString(SharedPrefUtil.count).then((onValue){
+                      sharedPrefUtil.setString(
+                          SharedPrefUtil.count,(int.parse(onValue)-1).toString());
                     });
                   }
                   // widget.viewModel.removeShopItem(product);
@@ -239,7 +260,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                 setState(() {
                   amount++;
                 });
-                Networks.addToBasket("179", product.id, amount.toString());
+                Networks.addToBasket(product.id, amount.toString());
               },
             ),
           ],

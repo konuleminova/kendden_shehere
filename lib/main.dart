@@ -14,9 +14,6 @@ import 'package:kendden_shehere/ui/page/grocery/grocery_details_page.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_shop_list.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_wish_list.dart';
 import 'package:kendden_shehere/ui/page/map/searchplace.dart';
-import 'package:kendden_shehere/ui/page/payment/new_checkout.dart';
-import 'package:kendden_shehere/ui/page/test/flutter_places_webservice.dart';
-import 'package:kendden_shehere/ui/page/test/login_2.dart';
 import 'package:kendden_shehere/ui/page/grocery/order_history.dart';
 import 'package:kendden_shehere/ui/page/grocery/order_shop_list.dart';
 import 'package:kendden_shehere/ui/page/payment/checkout.dart';
@@ -24,17 +21,14 @@ import 'package:kendden_shehere/ui/page/payment/confirm_order.dart';
 import 'package:kendden_shehere/ui/page/map/flutter_map.dart';
 import 'package:kendden_shehere/ui/page/menu/profile.dart';
 import 'package:kendden_shehere/ui/page/menu/settings.dart';
-import 'package:kendden_shehere/ui/page/test/old_test_cards.dart';
 import 'package:kendden_shehere/ui/page/home.dart';
 import 'package:kendden_shehere/ui/page/index.dart';
 import 'package:kendden_shehere/ui/page/login.dart';
-import 'package:kendden_shehere/ui/page/test/old_product_detail.dart';
 import 'package:kendden_shehere/ui/page/payment/payment_method.dart';
 import 'package:kendden_shehere/ui/page/register.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_reducer.dart';
-import 'package:kendden_shehere/ui/page/test/old_shopping_cart.dart';
 import 'package:kendden_shehere/ui/widgets/dropdown.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 import 'package:redux_thunk/redux_thunk.dart';
@@ -107,7 +101,7 @@ class MyAppState extends State<MyApp> {
           "/login": (BuildContext context) => LoginPage(),
           "/register": (BuildContext context) => RegisterPage(),
           "/home": (BuildContext context) => HomePage(),
-          "/shopping_cart": (BuildContext context) => GroceryShopCartPage(),
+        //  "/shopping_cart": (BuildContext context) => GroceryShopCartPage(),
           "/drop_down": (BuildContext context) => DropdownMenu(),
           "/wish_list": (BuildContext context) => GroceryWishListPage(),
           "/confirm_order": (context) => ConfirmOrderPage(),

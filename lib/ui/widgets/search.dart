@@ -4,14 +4,11 @@ import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/redux/productlist/productlist_viewmodel.dart';
 import 'package:kendden_shehere/redux/productlist/products_in_category_model.dart';
-import 'package:kendden_shehere/redux/qsearch/list_qsearch.dart';
-import 'package:kendden_shehere/redux/qsearch/qsearch_model.dart';
 import 'package:kendden_shehere/redux/search/search_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_categories.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_details_page.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_list.dart';
-import 'package:kendden_shehere/ui/page/test/old_test_cards.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem1.dart';
 import 'package:redux/redux.dart';
 
@@ -76,36 +73,39 @@ class SearchWidget extends SearchDelegate<String> {
       },
       converter: (Store<AppState> store) => SearchListViewModel.create(store),
       builder: (BuildContext context, SearchListViewModel) {
-        return productList != null
-            ? new CustomScrollView(
-                controller: _scrollController,
-                slivers: <Widget>[
-                  SliverPadding(
-                      padding: const EdgeInsets.all(8),
-                      sliver: new SliverGrid(
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisSpacing: 1,
-                                  mainAxisSpacing: 1,
-                                  crossAxisCount: 2,
-                                  childAspectRatio: 0.5),
-                          delegate: new SliverChildBuilderDelegate(
-                              (BuildContext context, int index) {
-                            return Container(
-                                width: MediaQuery.of(context).size.width * 0.6,
-                                height: 370,
-                                child: InkWell(
-                                  child: GroceryListItemOne(
-                                    product: productList[index],
-                                  ),
-                                ));
-                          }, childCount: productList.length)))
-                ],
-                // controller: _scrollController,
-              )
-            : Center(
-                child: CircularProgressIndicator(),
-              );
+        return Scaffold(
+          body: productList != null
+              ? new CustomScrollView(
+                  controller: _scrollController,
+                  slivers: <Widget>[
+                    SliverPadding(
+                        padding: const EdgeInsets.all(8),
+                        sliver: new SliverGrid(
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisSpacing: 1,
+                                    mainAxisSpacing: 1,
+                                    crossAxisCount: 2,
+                                    childAspectRatio: 0.5),
+                            delegate: new SliverChildBuilderDelegate(
+                                (BuildContext context, int index) {
+                              return Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.6,
+                                  height: 370,
+                                  child: InkWell(
+                                    child: GroceryListItemOne(
+                                      product: productList[index],
+                                    ),
+                                  ));
+                            }, childCount: productList.length)))
+                  ],
+                  // controller: _scrollController,
+                )
+              : Center(
+                  child: CircularProgressIndicator(),
+                ),
+        );
       },
     );
   }
@@ -132,18 +132,22 @@ class SearchWidget extends SearchDelegate<String> {
                 //  QSearchModel qSearchModel = qSearch.qsearchList[index];
                 if (snapshot.data.productsInCategory[index].name_en != null) {
                   if (lang == "0") {
-                    title = snapshot.data.productsInCategory[index].name_az.trim();
+                    title =
+                        snapshot.data.productsInCategory[index].name_az.trim();
                   } else if (lang == "1") {
-                    title = snapshot.data.productsInCategory[index].name_ru.trim();
+                    title =
+                        snapshot.data.productsInCategory[index].name_ru.trim();
                   } else if (lang == "2") {
-                    title = snapshot.data.productsInCategory[index].name_en.trim();
+                    title =
+                        snapshot.data.productsInCategory[index].name_en.trim();
                   }
                 }
 
                 return ListTile(
                     onTap: () {
                       // print(qSearch.qsearchList);
-                      if (snapshot.data.productsInCategory[index].catid != null) {
+                      if (snapshot.data.productsInCategory[index].catid !=
+                          null) {
                         Navigator.push(
                             context,
                             new MaterialPageRoute(

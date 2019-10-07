@@ -13,13 +13,17 @@ class OrderHistoryModel {
       {this.id, this.bprice, this.dtsubmit, this.status, this.list,this.delivery_price});
 
   factory OrderHistoryModel.fromJson(Map<String, dynamic> json) {
-    var list = json['list'] as List;
     return new OrderHistoryModel(
-        id: json['id'],
-        bprice: json['bprice'],
-        dtsubmit: json['dtsubmit'],
-        status: json['status'],
-        delivery_price: json['delivery_price'],
+        id: json['id']??"",
+        bprice: json['bprice']??"",
+        dtsubmit: json['dtsubmit']??"",
+        status: json['status']??"",
+        delivery_price: json['delivery_price']??"",
         list: ProductsInCategory.fromJson(json['list']));
+  }
+
+  @override
+  String toString() {
+    return 'OrderHistoryModel{id: $id, bprice: $bprice, dtsubmit: $dtsubmit, status: $status, delivery_price: $delivery_price, list: $list}';
   }
 }

@@ -3,9 +3,11 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/redux/orderhistory/orderhistory_listmodel.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/service/networks.dart';
-import 'package:kendden_shehere/ui/page/test/shop_item_model.dart';
+import 'package:kendden_shehere/ui/widgets/dialog/payment_success_dialog.dart';
+import 'package:kendden_shehere/ui/widgets/dialog/profile_edit_dialog.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem2.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem3.dart';
+import 'package:kendden_shehere/util/sharedpref_util.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/common/model/product_model.dart';
@@ -14,6 +16,10 @@ import 'package:kendden_shehere/redux/shoplist/shop_viewmodel.dart';
 import 'package:kendden_shehere/ui/widgets/oval_tap.dart';
 
 class GroceryShopCartPage extends StatefulWidget {
+  bool fromCheckout = false;
+
+  GroceryShopCartPage({this.fromCheckout});
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -30,40 +36,88 @@ class GroceryCartState extends State<GroceryShopCartPage> {
   List<NewProduct> products = new List();
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    widget.fromCheckout = false;
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     // TODO: implement build
-    return new Scaffold(
-        appBar: new AppBar(
-          backgroundColor: Colors.lightGreen,
-          title: new Text("Shopping List"),
-        ),
-        body: FutureBuilder(
-            future: Networks.basket("179"),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if (snapshot.hasData) {
-                OrderHistoryListModel order = snapshot.data;
+    return new StoreConnector(
+        onInitialBuild: (ShoppingCartViewModel  viewModel) {
+          this.viewModel=viewModel;
+          viewModel.onFetchShopList();
+
+        },
+        onWillChange: (ShoppingCartViewModel  viewModel) {
+          //tempWishItems.addAll(viewModel.wishItems);
+        },
+        converter: (Store<AppState> store) => ShoppingCartViewModel .create(store),
+        builder: (BuildContext context,ShoppingCartViewModel  viewModel) {
+          products=viewModel.shopItems;
+          this.viewModel = viewModel;
+          return  WillPopScope(
+        child: new Scaffold(
+            appBar: new AppBar(
+              backgroundColor: Colors.lightGreen,
+              title: new Text("Shopping List"),
+              leading: IconButton(icon: Icon(Icons.arrow_back),onPressed: (){
+                Navigator.pop(context);
+                Navigator.popUntil(context, ModalRoute.withName(Navigator.defaultRouteName));
+              },),
+            ),
+            body: FutureBuilder(
+                future: Networks.basket(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data != "500") {
+                      OrderHistoryListModel order = snapshot.data;
 //                print("konul!!");
 //                print(order.orderList[0].list);
-                products = order.orderList[0].list.productsInCategory;
-                return Column(
-                  children: <Widget>[
-                    Expanded(child: _shopBody()),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    // _buildTotals();
-                    _buildTotals(
-                      order.orderList[0].delivery_price,
-                      order.orderList[0].bprice,
-                    )
-                  ],
-                );
-              } else
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-            }));
+                     // products = order.orderList[0].list.productsInCategory;
+
+                      //   products[0].id;
+                      return Column(
+                        children: <Widget>[
+                          Expanded(child: _shopBody()),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          // _buildTotals();
+                          _buildTotals(
+                            order.orderList[0].delivery_price,
+                            order.orderList[0].bprice,
+                          )
+                        ],
+                      );
+                    } else {
+                      if (widget.fromCheckout) {
+                        Future.delayed(
+                            Duration.zero,
+                            () => showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return PaymentSuccessDialog(context);
+                                }));
+                      }
+                      return Container();
+                    }
+                  } else
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                })),
+        onWillPop: () {
+         // Navigator.pushReplacementNamed(context, "/home");
+          Navigator.popUntil(context, ModalRoute.withName(Navigator.defaultRouteName));
+        });});
   }
 
   Widget _shopBody() => new Container(
@@ -71,16 +125,16 @@ class GroceryCartState extends State<GroceryShopCartPage> {
         child: new ListView(
           shrinkWrap: true,
           physics: ClampingScrollPhysics(),
-          children: products
+          children:products
               .map(
-                (NewProduct shopItem) => NewGroceryListItemThree(shopItem),
+                (NewProduct shopItem) => NewGroceryListItemThree(shopItem,viewModel),
               )
               .toList(),
         ),
       );
 
   Widget _buildTotals(String delivery, String subtotal) {
-    double total = double.parse(delivery) + double.parse(subtotal);
+    // double total = double.parse(delivery) + double.parse(subtotal);
     return ClipOval(
       clipper: OvalTopBorderClipper(),
       child: Container(
@@ -122,7 +176,7 @@ class GroceryCartState extends State<GroceryShopCartPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text("Total"),
-                Text(total.toString() + " AZN"),
+                Text("" + " AZN"),
               ],
             ),
             SizedBox(
@@ -167,11 +221,19 @@ class GroceryCartState extends State<GroceryShopCartPage> {
                 ),
                 onPressed: () {
                   //return viewModel.removeShopItem(shopItem);
-                 // print(viewModel.shopItems.toString());
+                  // print(viewModel.shopItems.toString());
                 },
               ),
             ),
           ),
         ],
       );
+
+  void _checkAlertDialog() async {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return ProfileEditDialog("mobile");
+        });
+  }
 }

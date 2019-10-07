@@ -1,10 +1,12 @@
 import 'dart:math';
 
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/redux/common/model/place_model.dart';
 import 'package:kendden_shehere/ui/page/map/flutter_map.dart';
+import 'package:kendden_shehere/util/sharedpref_util.dart';
 
 const kGoogleApiKey = "AIzaSyC1XWcwMQ-WDLXUWZOTwQW7325Wb-OeysU";
 // "AIzaSyBbSJwbLSidCTD5AAn_QuAwuF5Du5ANAvg";
@@ -25,7 +27,8 @@ class CustomSearchScaffold extends PlacesAutocompleteWidget {
   _CustomSearchScaffoldState createState() => _CustomSearchScaffoldState();
 }
 
-Future<Null> displayPrediction(Prediction p, ScaffoldState scaffold,BuildContext context) async {
+Future<Null> displayPrediction(
+    Prediction p, ScaffoldState scaffold, BuildContext context) async {
   GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
   if (p != null) {
     // get detail (lat/lng)
@@ -42,6 +45,15 @@ Future<Null> displayPrediction(Prediction p, ScaffoldState scaffold,BuildContext
     placeModel.latitude = lat;
     placeModel.countryName = p.description;
     placeModel.addressLine = p.placeId.toLowerCase();
+    SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
+    if (p != null) {
+      await sharedPrefUtil.setString(SharedPrefUtil.address, p.description);
+    }
+    await sharedPrefUtil.setString(
+        SharedPrefUtil.lat,lat.toString());
+    await sharedPrefUtil.setString(
+        SharedPrefUtil.lng,lng.toString());
+    Navigator.pop(context);
 
 //    Route route = MaterialPageRoute(
 //        builder: (context) => MapPage1(placeModel: placeModel));
@@ -55,17 +67,21 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
     final appBar = AppBar(
       title: AppBarPlacesAutoCompleteTextField(),
       backgroundColor: Colors.lightGreen,
+      leading: IconButton(icon: Icon(Icons.clear),onPressed: (){
+        Navigator.pop(context);
+      },),
+
     );
     final body = PlacesAutocompleteResult(
       onTap: (p) {
-        displayPrediction(p, searchScaffoldKey.currentState,context);
+        displayPrediction(p, searchScaffoldKey.currentState, context);
         //print(p.description);
       },
-      /* logo: Row(
-        children: [FlutterLogo()],
+       logo: Row(
+        children: [Container()],
         mainAxisAlignment: MainAxisAlignment.center,
       ),
-      */
+
     );
     return Scaffold(key: searchScaffoldKey, appBar: appBar, body: body);
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/redux/common/model/product_model.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
+import 'package:kendden_shehere/redux/shoplist/shop_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_details_page.dart';
 import 'package:kendden_shehere/ui/widgets/gtile_title.dart';
@@ -8,8 +9,9 @@ import 'package:kendden_shehere/ui/widgets/rating_star.dart';
 
 class NewGroceryListItemThree extends StatefulWidget {
   NewProduct product;
+  ShoppingCartViewModel viewModel;
 
-  NewGroceryListItemThree(this.product);
+  NewGroceryListItemThree(this.product,this.viewModel);
 
   @override
   State<StatefulWidget> createState() {
@@ -88,6 +90,10 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemThree> {
                               size: 25,
                             ),
                             onPressed: () {
+                              widget.viewModel.removeShopItem(product);
+                              Networks.removeFromBasket(product.id).then((onvalue) {
+                                print(onvalue);
+                              });
                               setState(() {});
                             },
                           ),
@@ -127,7 +133,7 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemThree> {
         onTap: () {
           setState(() {
             isAdded = true;
-            Networks.addToBasket("179", product.id, amount.toString())
+            Networks.addToBasket( product.id, amount.toString())
                 .then((onvalue) {
               print(onvalue);
             });
@@ -157,7 +163,7 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemThree> {
                   if (amount < 1) {
                     isAdded = false;
                     amount = 1;
-                    Networks.removeFromBasket("179", product.id)
+                    Networks.removeFromBasket( product.id)
                         .then((onvalue) {
                       print(onvalue);
                     });
@@ -176,7 +182,7 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemThree> {
                 setState(() {
                   amount++;
                 });
-                Networks.addToBasket("179", product.id, amount.toString());
+                Networks.addToBasket( product.id, amount.toString());
               },
             ),
           ],

@@ -5,7 +5,6 @@ import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/redux/wishlist/list_wish_model.dart';
 import 'package:kendden_shehere/redux/wishlist/wishlist_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
-import 'package:kendden_shehere/ui/page/test/shop_item_model.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem2.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 import 'package:redux/redux.dart';
@@ -56,7 +55,7 @@ class GroceryWishListPageState extends State<GroceryWishListPage> {
                 title: Text(AppTranslations.of(context).text("wish_list")),
               ),
               body: FutureBuilder(
-                  future: getWishList("179"),
+                  future: getWishList(),
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
                     if (snapshot.hasData) {
                       return Column(
@@ -103,8 +102,8 @@ class GroceryWishListPageState extends State<GroceryWishListPage> {
     );
   }
 
-  Future<List_Wish_Model> getWishList(id) async {
-    List_Wish_Model wishList = await Networks.wishList(id);
+  Future<List_Wish_Model> getWishList() async {
+    List_Wish_Model wishList = await Networks.wishList();
     return wishList;
   }
 }
