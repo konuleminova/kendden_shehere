@@ -27,7 +27,7 @@ class GroceryShopCartPage extends StatefulWidget {
   }
 }
 
-class GroceryCartState extends State<GroceryShopCartPage> {
+class GroceryCartState extends State<GroceryShopCartPage> with SingleTickerProviderStateMixin {
   List<Product> shopItems;
   double width;
   ShoppingCartViewModel viewModel;
@@ -37,24 +37,30 @@ class GroceryCartState extends State<GroceryShopCartPage> {
   ScrollController _scrollController;
 
   bool _end=false;
-
+  AnimationController controller;
+  Animation<Offset> offset;
   @override
   void initState() {
     super.initState();
-    _scrollController = new ScrollController();
+//    _scrollController = new ScrollController();
+//
+//    _scrollController.addListener(
+//            () {
+//          double maxScroll = _scrollController.position.maxScrollExtent;
+//          double currentScroll = _scrollController.position.pixels;
+//          double delta = 200.0; // or something else..
+//          if ( maxScroll - currentScroll <= delta) { // whatever you determine here
+//            //.. load more
+//
+//
+//          }
+//        }
+//    );
+    controller =
+        AnimationController(vsync: this, duration: Duration(seconds: 1));
 
-    _scrollController.addListener(
-            () {
-          double maxScroll = _scrollController.position.maxScrollExtent;
-          double currentScroll = _scrollController.position.pixels;
-          double delta = 200.0; // or something else..
-          if ( maxScroll - currentScroll <= delta) { // whatever you determine here
-            //.. load more
-
-
-          }
-        }
-    );
+    offset = Tween<Offset>(begin: Offset.zero, end: Offset(0.0, 1.0))
+        .animate(controller);
   }
 
   @override
@@ -101,17 +107,17 @@ class GroceryCartState extends State<GroceryShopCartPage> {
                      // products = order.orderList[0].list.productsInCategory;
 
                       //   products[0].id;
-                      return Column(
+                      return Stack(
                         children: <Widget>[
-                          Expanded(child: _shopBody()),
+                         Align(child: _shopBody(),alignment: Alignment.topCenter,),
 //                          SizedBox(
 //                            height: 10.0,
 //                          ),
                           // _buildTotals();
-                          _buildTotals(
-                            order.orderList[0].delivery_price,
-                            order.orderList[0].bprice,
-                          )
+                       Align(child:   SlideTransition(child:  _buildTotals(
+                         order.orderList[0].delivery_price,
+                         order.orderList[0].bprice,
+                       ),position: offset,),alignment: Alignment.bottomCenter,)
                         ],
                       );
                     } else {
@@ -138,7 +144,7 @@ class GroceryCartState extends State<GroceryShopCartPage> {
   }
 
   Widget _shopBody() => new Container(
-        margin: EdgeInsets.only(bottom: 0, top: 16, left: 10, right: 12),
+        margin: EdgeInsets.only(bottom: 10, top: 16, left: 10, right: 12),
         child:NotificationListener(child:  new ListView(
           shrinkWrap: true,
           physics: ClampingScrollPhysics(),
@@ -149,14 +155,25 @@ class GroceryCartState extends State<GroceryShopCartPage> {
               .toList(),
         ),onNotification: (t){
           if(t is ScrollStartNotification){
+              controller.forward();
             setState(() {
               _end=true;
             });
           }else if(t is ScrollEndNotification){
+              controller.reverse();
             setState(() {
               _end=false;
             });
           }
+//          switch (controller.status) {
+//            case AnimationStatus.completed:
+//              controller.reverse();
+//              break;
+//            case AnimationStatus.dismissed:
+//              controller.forward();
+//              break;
+//            default:
+//          }
         },)
       );
 
