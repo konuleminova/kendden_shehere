@@ -19,6 +19,7 @@ import 'package:kendden_shehere/ui/widgets/oval_tap.dart';
 
 class GroceryShopCartPage extends StatefulWidget {
   bool fromCheckout = false;
+
   GroceryShopCartPage({this.fromCheckout});
 
   @override
@@ -40,7 +41,6 @@ class GroceryCartState extends State<GroceryShopCartPage>
     super.initState();
     controller =
         AnimationController(vsync: this, duration: Duration(seconds: 1));
-
     offset = Tween<Offset>(begin: Offset.zero, end: Offset(0.0, 1.0))
         .animate(controller);
   }
@@ -77,31 +77,36 @@ class GroceryCartState extends State<GroceryShopCartPage>
                       },
                     ),
                   ),
-                  body: widget.fromCheckout&&viewModel.shopItems.length<0
-                      ? Container(child: FutureBuilder(future:Future.delayed(
-                      Duration.zero,
-                          () => showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return PaymentSuccessDialog(context);
-                          })),builder: (BuildContext context,AsyncSnapshot snapshot){
-                        return Container();
-
-                  }),)
+                  body: widget.fromCheckout && viewModel.shopItems.length < 0
+                      ? Container(
+                          child: FutureBuilder(
+                              future: Future.delayed(
+                                  Duration.zero,
+                                  () => showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return PaymentSuccessDialog(context);
+                                      })),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot snapshot) {
+                                return Container();
+                              }),
+                        )
                       : Stack(
                           children: <Widget>[
                             Align(
                               child: _shopBody(),
                               alignment: Alignment.topCenter,
                             ),
-                          viewModel.shopItems.length>0?  Align(
-                            child: SlideTransition(
-                              child: _buildTotals(
-                              ),
-                              position: offset,
-                            ),
-                            alignment: Alignment.bottomCenter,
-                          ):Container()
+                            viewModel.shopItems.length > 0
+                                ? Align(
+                                    child: SlideTransition(
+                                      child: _buildTotals(),
+                                      position: offset,
+                                    ),
+                                    alignment: Alignment.bottomCenter,
+                                  )
+                                : Container()
                           ],
                         )),
               onWillPop: () {
@@ -134,10 +139,9 @@ class GroceryCartState extends State<GroceryShopCartPage>
       ));
 
   Widget _buildTotals() {
-    double subtotal=0;
-    // double total = double.parse(delivery) + double.parse(subtotal);
-    for(int i=0;i<viewModel.shopItems.length;i++){
-      subtotal=subtotal+double.parse(viewModel.shopItems[i].price);
+    double subtotal = 0;
+    for (int i = 0; i < viewModel.shopItems.length; i++) {
+      subtotal = subtotal + double.parse(viewModel.shopItems[i].price);
     }
     return (controller.status == AnimationStatus.dismissed)
         ? ClipOval(
@@ -161,7 +165,6 @@ class GroceryCartState extends State<GroceryShopCartPage>
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text("Subtotal"),
-
                       Text(subtotal.toStringAsFixed(2) + " AZN"),
                     ],
                   ),
@@ -199,5 +202,4 @@ class GroceryCartState extends State<GroceryShopCartPage>
           )
         : Container();
   }
-
 }
