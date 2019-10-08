@@ -17,7 +17,6 @@ import 'package:kendden_shehere/ui/widgets/oval_tap.dart';
 
 class GroceryShopCartPage extends StatefulWidget {
   bool fromCheckout = false;
-
   GroceryShopCartPage({this.fromCheckout});
 
   @override
@@ -29,15 +28,8 @@ class GroceryShopCartPage extends StatefulWidget {
 
 class GroceryCartState extends State<GroceryShopCartPage>
     with SingleTickerProviderStateMixin {
-  List<Product> shopItems;
-  double width;
   ShoppingCartViewModel viewModel;
-
   var increment = 1;
-  List<NewProduct> products = new List();
-  ScrollController _scrollController;
-
-  bool _end = false;
   AnimationController controller;
   Animation<Offset> offset;
 
@@ -59,7 +51,6 @@ class GroceryCartState extends State<GroceryShopCartPage>
 
   @override
   Widget build(BuildContext context) {
-    width = MediaQuery.of(context).size.width;
     // TODO: implement build
     return new StoreConnector(
         onInitialBuild: (ShoppingCartViewModel viewModel) {
@@ -69,7 +60,6 @@ class GroceryCartState extends State<GroceryShopCartPage>
         converter: (Store<AppState> store) =>
             ShoppingCartViewModel.create(store),
         builder: (BuildContext context, ShoppingCartViewModel viewModel) {
-          products = viewModel.shopItems;
           this.viewModel = viewModel;
           return WillPopScope(
               child: new Scaffold(
@@ -112,7 +102,6 @@ class GroceryCartState extends State<GroceryShopCartPage>
                           ],
                         )),
               onWillPop: () {
-                // Navigator.pushReplacementNamed(context, "/home");
                 Navigator.popUntil(
                     context, ModalRoute.withName(Navigator.defaultRouteName));
               });
@@ -125,7 +114,7 @@ class GroceryCartState extends State<GroceryShopCartPage>
         child: new ListView(
           shrinkWrap: true,
           physics: ClampingScrollPhysics(),
-          children: products
+          children: viewModel.shopItems
               .map(
                 (NewProduct shopItem) =>
                     NewGroceryListItemThree(shopItem, viewModel),
@@ -171,13 +160,6 @@ class GroceryCartState extends State<GroceryShopCartPage>
                   SizedBox(
                     height: 10.0,
                   ),
-//                  Row(
-//                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                    children: <Widget>[
-//                      Text("Delivery fee"),
-//                      Text(delivery + " AZN"),
-//                    ],
-//                  ),
                   SizedBox(
                     height: 10.0,
                   ),
@@ -210,40 +192,4 @@ class GroceryCartState extends State<GroceryShopCartPage>
         : Container();
   }
 
-//  Widget _builShopListItem(NewProduct shopItem) => new Stack(
-//        children: <Widget>[
-//          NewGroceryListItemTwo(shopItem),
-//          Positioned(
-//            top: 5,
-//            right: 0,
-//            child: Container(
-//              height: 30,
-//              width: 30,
-//              alignment: Alignment.topRight,
-//              child: MaterialButton(
-//                shape: RoundedRectangleBorder(
-//                    borderRadius: BorderRadius.circular(5.0)),
-//                padding: EdgeInsets.all(0.0),
-//                color: Colors.pinkAccent,
-//                child: Icon(
-//                  Icons.clear,
-//                  color: Colors.white,
-//                ),
-//                onPressed: () {
-//                  //return viewModel.removeShopItem(shopItem);
-//                  // print(viewModel.shopItems.toString());
-//                },
-//              ),
-//            ),
-//          ),
-//        ],
-//      );
-//
-//  void _checkAlertDialog() async {
-//    showDialog(
-//        context: context,
-//        builder: (BuildContext context) {
-//          return ProfileEditDialog("mobile");
-//        });
-//  }
 }
