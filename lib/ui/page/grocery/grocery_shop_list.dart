@@ -76,13 +76,16 @@ class GroceryCartState extends State<GroceryShopCartPage>
                     ),
                   ),
                   body: widget.fromCheckout
-                      ? Future.delayed(
-                          Duration.zero,
+                      ? Container(child: FutureBuilder(future:Future.delayed(
+                      Duration.zero,
                           () => showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return PaymentSuccessDialog(context);
-                              }))
+                          context: context,
+                          builder: (BuildContext context) {
+                            return PaymentSuccessDialog(context);
+                          })),builder: (BuildContext context,AsyncSnapshot snapshot){
+                        return Container();
+
+                  }),)
                       : Stack(
                           children: <Widget>[
                             Align(
