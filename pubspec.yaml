@@ -53,6 +53,7 @@ dependencies:
   async: ^2.3.0
 # webview_flutter: ^0.3.14+1
   flutter_webview_plugin: ^0.3.8
+  dio: ^3.0.3
   intro_views_flutter:
 
 

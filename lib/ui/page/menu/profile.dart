@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -386,6 +387,11 @@ class ProfileState extends State<ProfilePage> {
         //maxHeight: 50.0,
         //maxWidth: 50.0,
         );
+    List<int> imageBytes = imageFile.readAsBytesSync();
+    String base64Image = base64Encode(imageBytes);
+    print("base 64");
+    print(base64Image);
+    Networks.upload(base64Image);
     Navigator.pop(context);
     setState(() {});
     print("You selected camera image : " + imageFile.path);

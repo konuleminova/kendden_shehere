@@ -17,6 +17,8 @@ import 'package:kendden_shehere/redux/register/register_model.dart';
 import 'package:kendden_shehere/redux/wishlist/list_wish_model.dart';
 import 'package:kendden_shehere/redux/wishlist/wishlist_model.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
+import 'package:dio/dio.dart';
+
 
 class Networks {
   static final String BASE_URL = "http://35.240.80.11/app/";
@@ -256,12 +258,12 @@ class Networks {
         print(order);
         var a = json.decode(response.body) as List;
         print("BASKET");
-       if(a.length>0){
-         if (a[0]['hasAlchocol'][0] != null) {
-           await sharedPrefUtil.setString(
-               SharedPrefUtil.alkaqol, a[0]['hasAlchocol'][0]);
-         }
-       }
+        if (a.length > 0) {
+          if (a[0]['hasAlchocol'][0] != null) {
+            await sharedPrefUtil.setString(
+                SharedPrefUtil.alkaqol, a[0]['hasAlchocol'][0]);
+          }
+        }
         await sharedPrefUtil.setString(
             SharedPrefUtil.id, order.orderList[0].id);
         return OrderHistoryListModel.fromJson(json.decode(response.body));
@@ -418,6 +420,25 @@ class Networks {
       if (response.statusCode == 200) {
         var a = json.decode(response.body);
         print(a);
+        return a;
+      } else {
+        return null;
+      }
+    } catch (exception) {}
+  }
+
+  static dynamic upload(String photo) async {
+    try {
+      var uid = await sharedPrefUtil.getString(SharedPrefUtil.uid);
+      String url = 'http://kenddenshehere.az/api/upload.php';
+      Map<String, String> headers = {"Content-type": "application/json"};
+      String jsonn = '{"uid": "$uid", "photo": "$photo"}';
+     final response = await  http.post(url,headers: headers,body: jsonn);
+      print(response.statusCode);
+      print(response.body);
+      print('Responsee');
+      if (response.statusCode == 200) {
+        var a = json.decode(response.body);
         return a;
       } else {
         return null;
