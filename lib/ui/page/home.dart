@@ -7,9 +7,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/localization/application.dart';
+import 'package:kendden_shehere/redux/app/app_state_model.dart';
+import 'package:kendden_shehere/redux/home/home_viewmodel.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/redux/productlist/productlist_viewmodel.dart';
 import 'package:kendden_shehere/redux/productlist/products_in_category_model.dart';
+import 'package:kendden_shehere/redux/shoplist/shop_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/animation/slide_left.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_shop_list.dart';
@@ -20,6 +23,7 @@ import 'package:kendden_shehere/ui/widgets/search.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:redux/redux.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -34,7 +38,7 @@ class HomePageState extends State<HomePage> {
   ScrollController _scrollController;
   String message;
   final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
-  ProductListViewModel viewModel;
+  HomeViewModel viewModel;
   int page = 0;
   double height = 0;
   double width = 0;
@@ -55,19 +59,19 @@ class HomePageState extends State<HomePage> {
   @override
   void initState() {
     productListOne = new List();
-    _scrollController = new ScrollController();
-    _scrollController.addListener(_scrollListener);
-    sharedPrefUtil.getString(SharedPrefUtil.count).then((onValue){
-      setState(() {
-        counter=int.parse(onValue);
-      });
-    });
+//    _scrollController = new ScrollController();
+//    _scrollController.addListener(_scrollListener);
+//    sharedPrefUtil.getString(SharedPrefUtil.count).then((onValue){
+//      setState(() {
+//        counter=int.parse(onValue);
+//      });
+//    });
     super.initState();
   }
 
   @override
   void dispose() {
-    _scrollController.dispose();
+    //_scrollController.dispose();
     super.dispose();
   }
 
@@ -77,56 +81,67 @@ class HomePageState extends State<HomePage> {
     height = MediaQuery.of(context).size.height;
     langCode = Localizations.localeOf(context).languageCode;
     // TODO: implement build
-    return new Scaffold(
-        key: scaffoldKey,
-        appBar: new AppBar(
-          backgroundColor: Colors.lightGreen,
-          leading: IconButton(
-            icon: new Icon(
-              Icons.menu,
-              color: Colors.white,
-            ),
-            onPressed: () => scaffoldKey.currentState.openDrawer(),
-          ),
-          title: GestureDetector(
-            child: new Text(
-                AppTranslations.of(context).text("title_select_language")),
-            onTap: () {
-              print("click");
-              application.onLocaleChanged(Locale("ru"));
-              //viewModel.changeLang("en");
-            },
-          ),
-          actions: <Widget>[
-            new IconButton(
-              icon: Icon(
-                Icons.search,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                showSearch(context: context, delegate: SearchWidget());
-              },
-            ),
-            new Stack(
-              children: <Widget>[
-                new IconButton(
+    return new StoreConnector(
+        onInitialBuild: (HomeViewModel viewModel) {
+          this.viewModel=viewModel;
+          viewModel.onFetchProductList("1");
+
+        },
+        onWillChange: (HomeViewModel viewModel) {
+          //tempWishItems.addAll(viewModel.wishItems);
+        },
+        converter: (Store<AppState> store) => HomeViewModel .create(store),
+        builder: (BuildContext context,HomeViewModel viewModel) {
+          return new Scaffold(
+              key: scaffoldKey,
+              appBar: new AppBar(
+                backgroundColor: Colors.lightGreen,
+                leading: IconButton(
+                  icon: new Icon(
+                    Icons.menu,
+                    color: Colors.white,
+                  ),
+                  onPressed: () => scaffoldKey.currentState.openDrawer(),
+                ),
+                title: GestureDetector(
+                  child: new Text(
+                      AppTranslations.of(context).text("title_select_language")),
+                  onTap: () {
+                    print("click");
+                    application.onLocaleChanged(Locale("ru"));
+                    //viewModel.changeLang("en");
+                  },
+                ),
+                actions: <Widget>[
+                  new IconButton(
                     icon: Icon(
-                      Icons.shopping_cart,
+                      Icons.search,
                       color: Colors.white,
                     ),
                     onPressed: () {
-                      setState(() {
-                        counter = 0;
-                        Navigator.push(
-                            context,
-                            SlideLeftRoute(
-                                page: GroceryShopCartPage(
-                              fromCheckout: false,
-                            )));
-                      });
-                    }),
-                counter != 0
-                    ? new Positioned(
+                      showSearch(context: context, delegate: SearchWidget());
+                    },
+                  ),
+                  new Stack(
+                    children: <Widget>[
+                      new IconButton(
+                          icon: Icon(
+                            Icons.shopping_cart,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              counter = 0;
+                              Navigator.push(
+                                  context,
+                                  SlideLeftRoute(
+                                      page: GroceryShopCartPage(
+                                        fromCheckout: false,
+                                      )));
+                            });
+                          }),
+                      counter != 0
+                          ? new Positioned(
                         right: 11,
                         top: 11,
                         child: new Container(
@@ -149,132 +164,87 @@ class HomePageState extends State<HomePage> {
                           ),
                         ),
                       )
-                    : new Container()
-              ],
-            ),
-          ],
-        ),
-        floatingActionButton: new FloatingActionButton(
-          backgroundColor: Colors.lightGreen,
-          onPressed: () {
-            _getNewActivity();
-            // Navigator.pushNamed(context, "/online_chat");
-          },
-          child: new Icon(Icons.chat),
-        ),
-        drawer: DrawerWidget(),
-        body: new ListView(shrinkWrap: true, children: <Widget>[
-          // _buildCarousel(),
-          new SizedBox(
-            width: width,
-            height: 200,
-            child: new PageView(children: <Widget>[
-              new FutureBuilder(
-                  future: Networks.bannerImages(),
-                  builder: (BuildContext context, AsyncSnapshot snapshot) {
-                    if (snapshot.hasData) {
-                      photos = snapshot.data;
-                      List<Widget> images = new List();
-                      for (int i = 0; i < photos.length; i++) {
-                        images.add(new Container(
-                          width: width,
-                          child: new Image(
-                            image: NetworkImage(photos[i]),
-                            fit: BoxFit.cover,
-                          ),
-                        ));
-                      }
-                      return _buildCarousel(images);
-                    } else {
-                      return Center(
-                        child: new CircularProgressIndicator(),
-                      );
-                    }
-                  })
-            ]),
-          ),
-          FutureBuilder(
-              future: Networks.getCollectionItem("2"),
-              builder: (BuildContext context, AsyncSnapshot snapshot2) {
-                if (snapshot2.hasData) {
-                  return Container(
-                      child: Column(
-                        children: <Widget>[
-                          _titleContainer("Discount Products"),
-                          Container(
-                            child: ListView.builder(
-                                physics: ClampingScrollPhysics(),
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                itemCount: snapshot2.data.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return Container(
-                                    height: height * 0.5,
-                                    child: Column(
-                                      children: <Widget>[
-                                        Container(
-                                            width:
-                                            MediaQuery.of(context).size.width *
-                                                0.5,
-                                            height: height * 0.5,
-                                            child: InkWell(
-                                              child: GroceryListItemOne(
-                                                product: snapshot2.data[index],
-                                              ),))
-                                      ],
-                                    ),
-                                  );
-                                }),
-                            height: height * 0.5,
-                          )
-                        ],
-                      ));
-                } else {
-                  return Container();
-                }
-              }),
-          FutureBuilder(
-              future: Networks.getCollectionItem("4"),
-              builder: (BuildContext context, AsyncSnapshot snapshot2) {
-                if (snapshot2.hasData) {
-                  return Container(
-                      child: Column(
-                        children: <Widget>[
-                          _titleContainer("New Arrivals"),
-                          Container(
-                            child: ListView.builder(
-                                physics: ClampingScrollPhysics(),
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                itemCount: snapshot2.data.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return Container(
-                                    height: height * 0.5,
-                                    child: Column(
-                                      children: <Widget>[
-                                        Container(
-                                            width:
-                                            MediaQuery.of(context).size.width *
-                                                0.5,
-                                            height: height * 0.5,
-                                            child: InkWell(
-                                              child: GroceryListItemOne(
-                                                product: snapshot2.data[index],
-                                              ),))
-                                      ],
-                                    ),
-                                  );
-                                }),
-                            height: height * 0.5,
-                          )
-                        ],
-                      ));
-                } else {
-                  return Container();
-                }
-              })
-          //  _buildCard()
-        ]));
+                          : new Container()
+                    ],
+                  ),
+                ],
+              ),
+              floatingActionButton: new FloatingActionButton(
+                backgroundColor: Colors.lightGreen,
+                onPressed: () {
+                  _getNewActivity();
+                  // Navigator.pushNamed(context, "/online_chat");
+                },
+                child: new Icon(Icons.chat),
+              ),
+              drawer: DrawerWidget(),
+              body: new ListView(shrinkWrap: true, children: <Widget>[
+                // _buildCarousel(),
+                new SizedBox(
+                  width: width,
+                  height: 200,
+                  child: new PageView(children: <Widget>[
+                    new FutureBuilder(
+                        future: Networks.bannerImages(),
+                        builder: (BuildContext context, AsyncSnapshot snapshot) {
+                          if (snapshot.hasData) {
+                            photos = snapshot.data;
+                            List<Widget> images = new List();
+                            for (int i = 0; i < photos.length; i++) {
+                              images.add(new Container(
+                                width: width,
+                                child: new Image(
+                                  image: NetworkImage(photos[i]),
+                                  fit: BoxFit.cover,
+                                ),
+                              ));
+                            }
+                            return _buildCarousel(images);
+                          } else {
+                            return Center(
+                              child: new CircularProgressIndicator(),
+                            );
+                          }
+                        })
+                  ]),
+                ),
+              Container(
+                  child: Column(
+                    children: <Widget>[
+                      _titleContainer("Discount Products"),
+                      Container(
+                        child: ListView.builder(
+                            physics: ClampingScrollPhysics(),
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: viewModel.productList.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Container(
+                                height: height * 0.5,
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
+                                        width:
+                                        MediaQuery.of(context).size.width *
+                                            0.5,
+                                        height: height * 0.5,
+                                        child: InkWell(
+                                          child: GroceryListItemOne(
+                                            product: viewModel.productList[index],
+                                          ),))
+                                  ],
+                                ),
+                              );
+                            }),
+                        height: height * 0.5,
+                      )
+                    ],
+                  ))
+                //  _buildCard()
+              ]));
+
+
+        });
   }
 
   static const platform = const MethodChannel("kendden_shehere/chat_activity");
@@ -382,30 +352,30 @@ class HomePageState extends State<HomePage> {
 //        height: 360,
 //      );
 
-  void loadMore(String id) {
-    page = page + 10;
-    print(productListOne.toString() + "initial");
-    viewModel.onFetchProductList(id, "0", "66", page.toString(), "0");
-  }
-
-  _scrollListener() {
-    if (_scrollController.offset >=
-            _scrollController.position.maxScrollExtent &&
-        !_scrollController.position.outOfRange) {
-      setState(() {
-        message = "reach the bottom";
-        print(message);
-        loadMore("66");
-      });
-    }
-    if (_scrollController.offset <=
-            _scrollController.position.minScrollExtent &&
-        !_scrollController.position.outOfRange) {
-      setState(() {
-        message = "reach the top";
-        print(message);
-      });
-    }
-  }
+//  void loadMore(String id) {
+//    page = page + 10;
+//    print(productListOne.toString() + "initial");
+//    viewModel.onFetchProductList(id, "0", "66", page.toString(), "0");
+//  }
+//
+//  _scrollListener() {
+//    if (_scrollController.offset >=
+//            _scrollController.position.maxScrollExtent &&
+//        !_scrollController.position.outOfRange) {
+//      setState(() {
+//        message = "reach the bottom";
+//        print(message);
+//        loadMore("66");
+//      });
+//    }
+//    if (_scrollController.offset <=
+//            _scrollController.position.minScrollExtent &&
+//        !_scrollController.position.outOfRange) {
+//      setState(() {
+//        message = "reach the top";
+//        print(message);
+//      });
+//    }
+//  }
 }
 //Search Widget

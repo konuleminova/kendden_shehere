@@ -42,20 +42,6 @@ class GroceryCartState extends State<GroceryShopCartPage> with SingleTickerProvi
   @override
   void initState() {
     super.initState();
-//    _scrollController = new ScrollController();
-//
-//    _scrollController.addListener(
-//            () {
-//          double maxScroll = _scrollController.position.maxScrollExtent;
-//          double currentScroll = _scrollController.position.pixels;
-//          double delta = 200.0; // or something else..
-//          if ( maxScroll - currentScroll <= delta) { // whatever you determine here
-//            //.. load more
-//
-//
-//          }
-//        }
-//    );
     controller =
         AnimationController(vsync: this, duration: Duration(seconds: 1));
 
@@ -155,28 +141,11 @@ class GroceryCartState extends State<GroceryShopCartPage> with SingleTickerProvi
               .toList(),
         ),onNotification: (t){
           if(t is ScrollStartNotification){
-
                 controller.forward();
-
-//            setState(() {
-//              _end=true;
-//            });
           }else if(t is ScrollEndNotification){
 
               controller.reverse();
-//            setState(() {
-//              _end=false;
-//            });
           }
-//          switch (controller.status) {
-//            case AnimationStatus.completed:
-//              controller.reverse();
-//              break;
-//            case AnimationStatus.dismissed:
-//              controller.forward();
-//              break;
-//            default:
-//          }
         },)
       );
 

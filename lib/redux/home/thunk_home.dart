@@ -5,13 +5,12 @@ import 'package:kendden_shehere/service/networks.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 import 'package:redux/redux.dart';
 
-ThunkAction<AppState> getProductListThunkAction(int limit, int page) {
+ThunkAction<AppState> getProductListThunkAction(String id) {
   return (Store<AppState> store) async {
-    Home response = await Networks.fetchProducts(limit, page);
+    var response = await Networks.getCollectionItem(id);
     if (response != null) {
-      store.state.home = response;
       store.dispatch(
-          FetchProductsAction(result: response.result, data: response.data));
+          FetchProductsAction(data: response));
     }
   };
 }

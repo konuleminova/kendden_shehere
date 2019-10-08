@@ -7,6 +7,7 @@ import 'package:kendden_shehere/redux/login/user_model.dart';
 class AppState {
   UserModel user_info;
   Home home;
+  List<NewProduct> homeProducts;
   int code;
   List<NewProduct> shopItems;
   List<NewProduct> wishItems;
@@ -21,6 +22,7 @@ class AppState {
         shopItems = new List<NewProduct>(),
         wishItems = new List<NewProduct>(),
         newProducts = new List<NewProduct>(),
+        homeProducts = new List<NewProduct>(),
         lang = "tr",filterOrder="0",categories=new List<Category>();
 
   AppState(
@@ -30,7 +32,7 @@ class AppState {
       this.shopItems,
       this.wishItems,
       this.lang,
-      this.newProducts,this.filterOrder,this.categories});
+      this.newProducts,this.filterOrder,this.categories,this.homeProducts});
 
   @override
   String toString() {

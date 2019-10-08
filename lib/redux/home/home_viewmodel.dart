@@ -10,12 +10,12 @@ import 'package:kendden_shehere/redux/home/home_action.dart';
 import 'package:kendden_shehere/redux/home/thunk_home.dart';
 
 class HomeViewModel {
-  Function(int limit, int page) onFetchProductList;
+  Function(String id) onFetchProductList;
+  List<NewProduct>productList;
   Function(NewProduct product) addShopItem;
   Function(NewProduct shopItem) removeShopItem;
   Function(Product shopItem) removeWishItem;
   Function(Product product) addWishItem;
-  List<Product> wishItems;
   Function(String lang) changeLang;
 
   HomeViewModel(
@@ -24,11 +24,11 @@ class HomeViewModel {
       this.removeShopItem,
       this.addWishItem,
       this.removeWishItem,
-      this.changeLang});
+      this.changeLang,this.productList});
 
   factory HomeViewModel.create(Store<AppState> store) {
-    _onFetchProductList(int limit, int page) {
-      store.dispatch(getProductListThunkAction(limit, page));
+    _onFetchProductList(id) {
+      store.dispatch(getProductListThunkAction(id));
     }
 
     _addShopItem(NewProduct product) {
@@ -57,6 +57,7 @@ class HomeViewModel {
         removeShopItem: _removeShopItem,
         addWishItem: _addWishItem,
         removeWishItem: _removeWishItem,
-        changeLang: _changeLang);
+        changeLang: _changeLang,
+    productList: store.state.homeProducts);
   }
 }

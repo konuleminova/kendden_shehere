@@ -1,17 +1,14 @@
+import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/home/home_model.dart';
-import 'package:kendden_shehere/redux/common/model/product_model.dart';
 import 'package:kendden_shehere/redux/home/home_action.dart';
 
-Reducer<List<Product>> homeReducer = combineReducers<List<Product>>(
+Reducer<List<NewProduct>> homeReducer = combineReducers<List<NewProduct>>(
     [
-      TypedReducer<List<Product>, FetchProductsAction>(fetchProductsReducer),
+      TypedReducer<List<NewProduct>, FetchProductsAction>(fetchNewProductsReducer),
 
     ]);
-
-
-
-List<Product> fetchProductsReducer(List<Product> state,
+List<NewProduct> fetchNewProductsReducer(List<NewProduct> state,
     FetchProductsAction action) {
   return []..addAll(action.data);
 }
