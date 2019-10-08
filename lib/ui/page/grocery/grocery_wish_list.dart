@@ -70,7 +70,7 @@ class GroceryWishListPageState extends State<GroceryWishListPage> {
     }
     return new Stack(
       children: <Widget>[
-        NewGroceryListItemTwo(wishItem),
+        NewGroceryListItemTwo(product: wishItem,viewModel: viewModel,),
       ],
     );
   }

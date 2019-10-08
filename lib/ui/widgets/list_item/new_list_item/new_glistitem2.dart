@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/redux/common/model/product_model.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
+import 'package:kendden_shehere/redux/wishlist/wishlist_model.dart';
+import 'package:kendden_shehere/redux/wishlist/wishlist_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_details_page.dart';
 import 'package:kendden_shehere/ui/widgets/gtile_title.dart';
@@ -8,8 +10,9 @@ import 'package:kendden_shehere/ui/widgets/rating_star.dart';
 
 class NewGroceryListItemTwo extends StatefulWidget {
   NewProduct product;
+  WishListViewModel viewModel;
 
-  NewGroceryListItemTwo(this.product);
+  NewGroceryListItemTwo({this.product, this.viewModel});
 
   @override
   State<StatefulWidget> createState() {
@@ -21,7 +24,7 @@ class NewGroceryListItemTwo extends StatefulWidget {
 class NewGroceryListItemTwoState extends State<NewGroceryListItemTwo> {
   NewProduct product;
   String image, title;
-  bool isAdded = false, isLiked = true;
+  bool isAdded = false;
   int amount = 1;
 
   @override
@@ -42,67 +45,66 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemTwo> {
       child: Card(
         margin: EdgeInsets.all(12),
         child: Material(
-           // borderRadius: BorderRadius.circular(20.0),
+            // borderRadius: BorderRadius.circular(20.0),
             elevation: 4.0,
             child: new Container(
-              height: 120,
-              color: Colors.white,
-              //  decoration: BoxDecoration( borderRadius: BorderRadius.circular(20.0),),
+                height: 120,
+                color: Colors.white,
+                //  decoration: BoxDecoration( borderRadius: BorderRadius.circular(20.0),),
                 child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: ListTile(
-                    leading: Container(
-                        child: Image.network(
-                          image,
-                          width: MediaQuery.of(context).size.width*0.2,
-                          //height: 80.0,
-                        ),),
-                    title: Container(
-                      height: 110.0,
+                  children: <Widget>[
+                    Expanded(
+                      child: ListTile(
+                        leading: Container(
+                          child: Image.network(
+                            image,
+                            width: MediaQuery.of(context).size.width * 0.2,
+                            //height: 80.0,
+                          ),
+                        ),
+                        title: Container(
+                          height: 110.0,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              new GroceryTitle(text: title),
+                              new GrocerySubtitle(text: product.price + " AZN"),
+                              new GrocerySubtitle(text: product.counttype),
+                            ],
+                          ),
+                        ),
+                      ),
+                      flex: 3,
+                    ),
+                    Expanded(
+                        child: Container(
+                      margin: EdgeInsets.only(right: 16),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: <Widget>[
-                          new GroceryTitle(text: title),
-                          new GrocerySubtitle(text: product.price + " AZN"),
-                          new GrocerySubtitle(text: product.counttype),
+                          IconButton(
+                            icon: Icon(
+                              Icons.clear,
+                              color: Colors.grey,
+                              size: 25,
+                            ),
+                            onPressed: () {
+                              Networks.add_Remove_WishList(product.id)
+                                  .then((onvalue) {
+                                print(onvalue);
+                                widget.viewModel.removeWishItem(product);
+                              });
+                            },
+                          ),
+                          _updateContainer()
                         ],
                       ),
-                    ),
-                  ),
-                  flex: 3,
-                ),
-                Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(right: 16),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      IconButton(
-                        icon: Icon(
-                          isLiked ? Icons.favorite : Icons.favorite_border,
-                          color: Colors.pink[400],
-                          size: 25,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            isLiked = !isLiked;
-                          });
-                          Networks.add_Remove_WishList(product.id)
-                              .then((onvalue) {
-                            print(onvalue);
-                          });
-                        },
-                      ),
-                        _updateContainer()
-                    ],
-                  ),
-                  height: MediaQuery.of(context).size.height,
-                ))
-              ],
-            ))),
+                      height: MediaQuery.of(context).size.height,
+                    ))
+                  ],
+                ))),
       ),
       onTap: () {
         Route route = MaterialPageRoute(
@@ -132,8 +134,7 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemTwo> {
         onTap: () {
           setState(() {
             isAdded = true;
-            Networks.addToBasket(product.id, amount.toString())
-                .then((onvalue) {
+            Networks.addToBasket(product.id, amount.toString()).then((onvalue) {
               print(onvalue);
             });
             //  widget.viewModel.addShopItem(product);
@@ -162,8 +163,7 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemTwo> {
                   if (amount < 1) {
                     isAdded = false;
                     amount = 1;
-                    Networks.removeFromBasket( product.id)
-                        .then((onvalue) {
+                    Networks.removeFromBasket(product.id).then((onvalue) {
                       print(onvalue);
                     });
                   }
