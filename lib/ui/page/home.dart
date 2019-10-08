@@ -267,8 +267,8 @@ class HomePageState extends State<HomePage> {
                           ],
                         ));
                       })
-                  : Container(
-                      child: Text("No data"),
+                  : Center(
+                      child: CircularProgressIndicator()
                     ))
 
           //  _buildCard()
