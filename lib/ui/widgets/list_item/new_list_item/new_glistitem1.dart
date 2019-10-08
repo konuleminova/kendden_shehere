@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/redux/common/model/product_model.dart';
+import 'package:kendden_shehere/redux/shoplist/shop_viewmodel.dart';
 import 'package:kendden_shehere/redux/wishlist/wishlist_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_details_page.dart';
@@ -13,8 +14,9 @@ import 'package:redux/redux.dart';
 
 class GroceryListItemOne extends StatefulWidget {
   NewProduct product;
+  ShoppingCartViewModel viewModel;
 
-  GroceryListItemOne({this.product});
+  GroceryListItemOne({this.product,this.viewModel});
 
   @override
   State<StatefulWidget> createState() {
@@ -191,6 +193,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                 isAdded = true;
                 Networks.addToBasket(product.id, amount.toString())
                     .then((onvalue) {
+                      widget.viewModel.shopItems.add(product);
                   print(onvalue);
                   sharedPrefUtil.setString(SharedPrefUtil.count, "0");
                   sharedPrefUtil.getString(SharedPrefUtil.count).then((onValue){
@@ -226,6 +229,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                     amount = 1;
                     Networks.removeFromBasket(product.id).then((onvalue) {
                       print(onvalue);
+                      widget.viewModel.removeShopItem(product);
                     });
                     sharedPrefUtil.getString(SharedPrefUtil.count).then((onValue){
                       sharedPrefUtil.setString(
