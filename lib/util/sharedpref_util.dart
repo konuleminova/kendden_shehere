@@ -20,6 +20,8 @@ class SharedPrefUtil {
 
   static String lat="lat";
    static String lng="lng";
+
+  static String price="price";
   Future<bool> getBool(String key) async {
     // sleep(const Duration(seconds:5));
     await Future.delayed(Duration(milliseconds: 2000));

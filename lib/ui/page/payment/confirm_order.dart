@@ -37,6 +37,7 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
     checkout.address = await sharedPrefUtil.getString(SharedPrefUtil.address);
     checkout.delivery_place =
         await sharedPrefUtil.getString(SharedPrefUtil.coordinates);
+    checkout.delivery_price=await sharedPrefUtil.getString(SharedPrefUtil.price);
     return checkout;
   }
 
@@ -160,7 +161,7 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
                         Divider(),
                         ListTile(
                           title: Text("Price"),
-                          subtitle: Text(checkout.delivery_price),
+                          subtitle: Text(checkout.delivery_price+" AZN",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
                         ),
                         Divider(),
                         ListTile(

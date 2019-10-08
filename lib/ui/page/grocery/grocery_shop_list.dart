@@ -143,6 +143,8 @@ class GroceryCartState extends State<GroceryShopCartPage>
     for (int i = 0; i < viewModel.shopItems.length; i++) {
       subtotal = subtotal + double.parse(viewModel.shopItems[i].price);
     }
+    SharedPrefUtil sharedPrefUtil =new SharedPrefUtil();
+     sharedPrefUtil.setString( SharedPrefUtil.price,subtotal.toStringAsFixed(2));
     return (controller.status == AnimationStatus.dismissed)
         ? ClipOval(
             clipper: OvalTopBorderClipper(),
