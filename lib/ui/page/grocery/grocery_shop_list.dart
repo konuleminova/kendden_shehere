@@ -75,7 +75,7 @@ class GroceryCartState extends State<GroceryShopCartPage>
                       },
                     ),
                   ),
-                  body: widget.fromCheckout
+                  body: widget.fromCheckout&&viewModel.shopItems.length<0
                       ? Container(child: FutureBuilder(future:Future.delayed(
                       Duration.zero,
                           () => showDialog(
