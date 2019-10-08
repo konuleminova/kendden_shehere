@@ -65,6 +65,11 @@ class ProfileState extends State<ProfilePage> {
         selectedMonthsDays = Utils.daysInMonth(selected);
         displayMonth = Utils.formatMonth(selected);
       });
+      Networks.updateUser(context, 'dob',_selectedDate.year.toString() +
+          " /" +
+          _selectedDate.month.toString() +
+          " /" +
+          _selectedDate.day.toString(), );
       // updating selected date range based on selected week
 //      updateSelectedRange(firstDayOfCurrentWeek, lastDayOfCurrentWeek);
 //      _launchDateSelectionCallback(selected);

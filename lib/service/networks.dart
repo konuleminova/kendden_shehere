@@ -335,6 +335,8 @@ class Networks {
           "updateuser&uid=${uid}" +
           "&inf=${inf}" +
           "&data=${data}");
+      print(response.statusCode);
+      print(response.body);
       if (response.statusCode == 200) {
         var a = json.decode(response.body);
         Navigator.pop(context);
