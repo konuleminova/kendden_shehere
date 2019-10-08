@@ -263,13 +263,15 @@ class HomePageState extends State<HomePage> {
                                       child: CircularProgressIndicator(),
                                     );
                                   }
-                                })
+                                }),
                           ],
                         ));
                       })
                   : Center(
                       child: CircularProgressIndicator()
-                    ))
+                    )),
+         // Container(child: Text("© 2019 Agro Trade",style: TextStyle(color: Colors.green),textAlign: TextAlign.end,),padding: EdgeInsets.all(8.0))
+
 
           //  _buildCard()
         ]));
