@@ -20,31 +20,14 @@ class GroceryWishListPage extends StatefulWidget {
 }
 
 class GroceryWishListPageState extends State<GroceryWishListPage> {
-  List<Product> wishItems;
-  List<NewProduct> tempWishItems;
-  double width;
   WishListViewModel viewModel;
-  String title, description;
-
-  var increment = 1;
-
-  @override
-  void initState() {
-    super.initState();
-    wishItems = new List<Product>();
-    tempWishItems = new List<NewProduct>();
-  }
-
+  String title;
   @override
   Widget build(BuildContext context) {
-    width = MediaQuery.of(context).size.width;
     // TODO: implement build
     return new StoreConnector(
         onInitialBuild: (WishListViewModel viewModel) {
           viewModel.onFetchWishList();
-        },
-        onWillChange: (WishListViewModel viewModel) {
-          tempWishItems.addAll(viewModel.wishItems);
         },
         converter: (Store<AppState> store) => WishListViewModel.create(store),
         builder: (BuildContext context, WishListViewModel viewModel) {
@@ -54,24 +37,14 @@ class GroceryWishListPageState extends State<GroceryWishListPage> {
                 backgroundColor: Colors.lightGreen,
                 title: Text(AppTranslations.of(context).text("wish_list")),
               ),
-              body: FutureBuilder(
-                  future: getWishList(),
-                  builder: (BuildContext context, AsyncSnapshot snapshot) {
-                    if (snapshot.hasData) {
-                      return Column(
-                        children: <Widget>[
-                          Expanded(child: _shopBody()),
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                        ],
-                      );
-                    } else {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                  }));
+              body: Column(
+                children: <Widget>[
+                  Expanded(child: _shopBody()),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                ],
+              ));
         });
   }
 
@@ -80,7 +53,7 @@ class GroceryWishListPageState extends State<GroceryWishListPage> {
         child: new ListView(
           //shrinkWrap: true,
           // physics: ClampingScrollPhysics(),
-          children: tempWishItems
+          children: viewModel.wishItems
               .map((NewProduct wishItem) => _buildWishListItem(wishItem))
               .toList(),
         ),
@@ -100,10 +73,5 @@ class GroceryWishListPageState extends State<GroceryWishListPage> {
         NewGroceryListItemTwo(wishItem),
       ],
     );
-  }
-
-  Future<List_Wish_Model> getWishList() async {
-    List_Wish_Model wishList = await Networks.wishList();
-    return wishList;
   }
 }

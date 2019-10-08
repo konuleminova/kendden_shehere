@@ -66,9 +66,6 @@ class GroceryCartState extends State<GroceryShopCartPage>
           this.viewModel = viewModel;
           viewModel.onFetchShopList();
         },
-        onWillChange: (ShoppingCartViewModel viewModel) {
-          //tempWishItems.addAll(viewModel.wishItems);
-        },
         converter: (Store<AppState> store) =>
             ShoppingCartViewModel.create(store),
         builder: (BuildContext context, ShoppingCartViewModel viewModel) {

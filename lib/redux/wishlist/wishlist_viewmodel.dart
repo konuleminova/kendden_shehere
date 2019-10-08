@@ -9,14 +9,12 @@ import 'package:kendden_shehere/redux/shoplist/shop_action.dart';
 
 class WishListViewModel {
   Function(NewProduct shopItem) removeWishItem;
-  Function(NewProduct product) addWishItem;
   List<NewProduct> wishItems;
   Function() onFetchWishList;
 
   WishListViewModel(
       {this.removeWishItem,
       this.wishItems,
-      this.addWishItem,
       this.onFetchWishList});
 
   factory WishListViewModel.create(Store<AppState> store) {
@@ -28,14 +26,9 @@ class WishListViewModel {
       store.dispatch(RemoveWishItemAction(removeWishItem: product));
     }
 
-    _addWishItem(NewProduct product) {
-      store.dispatch(AddWishItemAction(product: product));
-    }
-
     return WishListViewModel(
         removeWishItem: _removeShopItem,
         wishItems: store.state.wishItems,
-        addWishItem: _addWishItem,
         onFetchWishList: _onFetchWishList);
   }
 }
