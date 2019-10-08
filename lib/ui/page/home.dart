@@ -35,39 +35,18 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-  List<NewProduct> productListOne;
-  ScrollController _scrollController;
-  String message;
   final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
-  HomeViewModel viewModel = new HomeViewModel();
-  int page = 0;
   double height = 0;
   double width = 0;
-  final dataKey = new GlobalKey();
-  int index = 4;
   var increment = 1;
   int counter = 0;
   List<String> photos = new List();
-  String langCode;
   var _current = 0;
-
-// final AsyncMemoizer _memoizer = AsyncMemoizer();
   String title;
-  final _memoizer = new AsyncMemoizer();
-  final _memoizer2 = new AsyncMemoizer();
-  SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
   ProductsInCategory productsInCategory = new ProductsInCategory();
 
   @override
   void initState() {
-    productListOne = new List();
-//    _scrollController = new ScrollController();
-//    _scrollController.addListener(_scrollListener);
-//    sharedPrefUtil.getString(SharedPrefUtil.count).then((onValue){
-//      setState(() {
-//        counter=int.parse(onValue);
-//      });
-//    });
     Networks.getCollections().then((onValue) {
       setState(() {
         productsInCategory = onValue;
@@ -86,7 +65,6 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
-    langCode = Localizations.localeOf(context).languageCode;
     // TODO: implement build
     return new Scaffold(
         key: scaffoldKey,
