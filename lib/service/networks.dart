@@ -204,8 +204,7 @@ class Networks {
       final response = await http.get(BASE_KS_URL + "collection" + "&inf");
       if (response.statusCode == 200) {
         print(".. HOME collection");
-        return ProductsInCategory.fromJson(json.decode(response.body))
-            .productsInCategory;
+        return ProductsInCategory.fromJson(json.decode(response.body));
       } else {
         return null;
       }

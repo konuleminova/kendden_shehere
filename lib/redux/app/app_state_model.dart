@@ -3,11 +3,13 @@ import 'package:kendden_shehere/redux/categories/category_item.dart';
 import 'package:kendden_shehere/redux/home/home_model.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/redux/login/user_model.dart';
+import 'package:kendden_shehere/redux/productlist/products_in_category_model.dart';
 
 class AppState {
   UserModel user_info;
   Home home;
   List<NewProduct> homeProducts;
+  ProductsInCategory homeCollection;
   int code;
   List<NewProduct> shopItems;
   List<NewProduct> wishItems;
@@ -23,7 +25,10 @@ class AppState {
         wishItems = new List<NewProduct>(),
         newProducts = new List<NewProduct>(),
         homeProducts = new List<NewProduct>(),
-        lang = "tr",filterOrder="0",categories=new List<Category>();
+        homeCollection = ProductsInCategory(),
+        lang = "tr",
+        filterOrder = "0",
+        categories = new List<Category>();
 
   AppState(
       {this.user_info,
@@ -32,7 +37,10 @@ class AppState {
       this.shopItems,
       this.wishItems,
       this.lang,
-      this.newProducts,this.filterOrder,this.categories,this.homeProducts});
+      this.newProducts,
+      this.filterOrder,
+      this.categories,
+      this.homeProducts,this.homeCollection});
 
   @override
   String toString() {

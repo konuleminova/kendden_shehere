@@ -102,25 +102,11 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                     children: <Widget>[
                       GestureDetector(
                         child: Container(
-                            child: Hero(
-                              child: FadeInImage.assetNetwork(
-                                image: img,
-                                placeholder: "images/noimage.png",
-                                fit: BoxFit.cover,
-                                height: 150,
-                              ),
-                              tag: product.id,
-//                              flightShuttleBuilder: (
-//                                BuildContext flightContext,
-//                                Animation<double> animation,
-//                                HeroFlightDirection flightDirection,
-//                                BuildContext fromHeroContext,
-//                                BuildContext toHeroContext,
-//                              ) {
-//                                return SingleChildScrollView(
-//                                  child: fromHeroContext.widget,
-//                                );
-//                              },
+                            child: FadeInImage.assetNetwork(
+                              image: img,
+                              placeholder: "images/noimage.png",
+                              fit: BoxFit.cover,
+                              height: 150,
                             ),
                             height: 150,
                             padding: EdgeInsets.only(

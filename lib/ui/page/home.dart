@@ -9,6 +9,7 @@ import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/localization/application.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/home/home_viewmodel.dart';
+import 'package:kendden_shehere/redux/home/thunk_home.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/redux/productlist/productlist_viewmodel.dart';
 import 'package:kendden_shehere/redux/productlist/products_in_category_model.dart';
@@ -38,7 +39,7 @@ class HomePageState extends State<HomePage> {
   ScrollController _scrollController;
   String message;
   final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
-  HomeViewModel viewModel;
+  HomeViewModel viewModel = new HomeViewModel();
   int page = 0;
   double height = 0;
   double width = 0;
@@ -54,7 +55,8 @@ class HomePageState extends State<HomePage> {
   String title;
   final _memoizer = new AsyncMemoizer();
   final _memoizer2 = new AsyncMemoizer();
-  SharedPrefUtil sharedPrefUtil=new SharedPrefUtil();
+  SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
+  ProductsInCategory productsInCategory = new ProductsInCategory();
 
   @override
   void initState() {
@@ -66,6 +68,11 @@ class HomePageState extends State<HomePage> {
 //        counter=int.parse(onValue);
 //      });
 //    });
+    Networks.getCollections().then((onValue) {
+      setState(() {
+        productsInCategory = onValue;
+      });
+    });
     super.initState();
   }
 
@@ -81,67 +88,56 @@ class HomePageState extends State<HomePage> {
     height = MediaQuery.of(context).size.height;
     langCode = Localizations.localeOf(context).languageCode;
     // TODO: implement build
-    return new StoreConnector(
-        onInitialBuild: (HomeViewModel viewModel) {
-          this.viewModel=viewModel;
-          viewModel.onFetchProductList("1");
-
-        },
-        onWillChange: (HomeViewModel viewModel) {
-          //tempWishItems.addAll(viewModel.wishItems);
-        },
-        converter: (Store<AppState> store) => HomeViewModel .create(store),
-        builder: (BuildContext context,HomeViewModel viewModel) {
-          return new Scaffold(
-              key: scaffoldKey,
-              appBar: new AppBar(
-                backgroundColor: Colors.lightGreen,
-                leading: IconButton(
-                  icon: new Icon(
-                    Icons.menu,
-                    color: Colors.white,
-                  ),
-                  onPressed: () => scaffoldKey.currentState.openDrawer(),
-                ),
-                title: GestureDetector(
-                  child: new Text(
-                      AppTranslations.of(context).text("title_select_language")),
-                  onTap: () {
-                    print("click");
-                    application.onLocaleChanged(Locale("ru"));
-                    //viewModel.changeLang("en");
-                  },
-                ),
-                actions: <Widget>[
-                  new IconButton(
+    return new Scaffold(
+        key: scaffoldKey,
+        appBar: new AppBar(
+          backgroundColor: Colors.lightGreen,
+          leading: IconButton(
+            icon: new Icon(
+              Icons.menu,
+              color: Colors.white,
+            ),
+            onPressed: () => scaffoldKey.currentState.openDrawer(),
+          ),
+          title: GestureDetector(
+            child: new Text(
+                AppTranslations.of(context).text("title_select_language")),
+            onTap: () {
+              print("click");
+              application.onLocaleChanged(Locale("ru"));
+              //viewModel.changeLang("en");
+            },
+          ),
+          actions: <Widget>[
+            new IconButton(
+              icon: Icon(
+                Icons.search,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                showSearch(context: context, delegate: SearchWidget());
+              },
+            ),
+            new Stack(
+              children: <Widget>[
+                new IconButton(
                     icon: Icon(
-                      Icons.search,
+                      Icons.shopping_cart,
                       color: Colors.white,
                     ),
                     onPressed: () {
-                      showSearch(context: context, delegate: SearchWidget());
-                    },
-                  ),
-                  new Stack(
-                    children: <Widget>[
-                      new IconButton(
-                          icon: Icon(
-                            Icons.shopping_cart,
-                            color: Colors.white,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              counter = 0;
-                              Navigator.push(
-                                  context,
-                                  SlideLeftRoute(
-                                      page: GroceryShopCartPage(
-                                        fromCheckout: false,
-                                      )));
-                            });
-                          }),
-                      counter != 0
-                          ? new Positioned(
+                      setState(() {
+                        counter = 0;
+                        Navigator.push(
+                            context,
+                            SlideLeftRoute(
+                                page: GroceryShopCartPage(
+                              fromCheckout: false,
+                            )));
+                      });
+                    }),
+                counter != 0
+                    ? new Positioned(
                         right: 11,
                         top: 11,
                         child: new Container(
@@ -164,87 +160,119 @@ class HomePageState extends State<HomePage> {
                           ),
                         ),
                       )
-                          : new Container()
-                    ],
-                  ),
-                ],
-              ),
-              floatingActionButton: new FloatingActionButton(
-                backgroundColor: Colors.lightGreen,
-                onPressed: () {
-                  _getNewActivity();
-                  // Navigator.pushNamed(context, "/online_chat");
-                },
-                child: new Icon(Icons.chat),
-              ),
-              drawer: DrawerWidget(),
-              body: new ListView(shrinkWrap: true, children: <Widget>[
-                // _buildCarousel(),
-                new SizedBox(
-                  width: width,
-                  height: 200,
-                  child: new PageView(children: <Widget>[
-                    new FutureBuilder(
-                        future: Networks.bannerImages(),
-                        builder: (BuildContext context, AsyncSnapshot snapshot) {
-                          if (snapshot.hasData) {
-                            photos = snapshot.data;
-                            List<Widget> images = new List();
-                            for (int i = 0; i < photos.length; i++) {
-                              images.add(new Container(
-                                width: width,
-                                child: new Image(
-                                  image: NetworkImage(photos[i]),
-                                  fit: BoxFit.cover,
-                                ),
-                              ));
-                            }
-                            return _buildCarousel(images);
-                          } else {
-                            return Center(
-                              child: new CircularProgressIndicator(),
-                            );
-                          }
-                        })
-                  ]),
-                ),
-              Container(
-                  child: Column(
-                    children: <Widget>[
-                      _titleContainer("Discount Products"),
-                      Container(
-                        child: ListView.builder(
-                            physics: ClampingScrollPhysics(),
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: viewModel.productList.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return Container(
-                                height: height * 0.5,
-                                child: Column(
-                                  children: <Widget>[
-                                    Container(
-                                        width:
-                                        MediaQuery.of(context).size.width *
-                                            0.5,
-                                        height: height * 0.5,
-                                        child: InkWell(
-                                          child: GroceryListItemOne(
-                                            product: viewModel.productList[index],
-                                          ),))
-                                  ],
-                                ),
-                              );
-                            }),
-                        height: height * 0.5,
-                      )
-                    ],
-                  ))
-                //  _buildCard()
-              ]));
+                    : new Container()
+              ],
+            ),
+          ],
+        ),
+        floatingActionButton: new FloatingActionButton(
+          backgroundColor: Colors.lightGreen,
+          onPressed: () {
+            _getNewActivity();
+            // Navigator.pushNamed(context, "/online_chat");
+          },
+          child: new Icon(Icons.chat),
+        ),
+        drawer: DrawerWidget(),
+        body: new Column(children: <Widget>[
+          // _buildCarousel(),
+          new SizedBox(
+            width: width,
+            height: 200,
+            child: new PageView(children: <Widget>[
+              new FutureBuilder(
+                  future: Networks.bannerImages(),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if (snapshot.hasData) {
+                      photos = snapshot.data;
+                      List<Widget> images = new List();
+                      for (int i = 0; i < photos.length; i++) {
+                        images.add(new Container(
+                          width: width,
+                          child: new Image(
+                            image: NetworkImage(photos[i]),
+                            fit: BoxFit.cover,
+                          ),
+                        ));
+                      }
+                      return _buildCarousel(images);
+                    } else {
+                      return Center(
+                        child: new CircularProgressIndicator(),
+                      );
+                    }
+                  })
+            ]),
+          ),
+          Expanded(
+              //height: height * 0.5,
+              child: productsInCategory.productsInCategory != null
+                  ? ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: productsInCategory.productsInCategory.length,
+                      itemBuilder: (
+                        BuildContext context,
+                        int index,
+                      ) {
+                        return Container(
+                            child: Column(
+                          children: <Widget>[
+                            _titleContainer(productsInCategory
+                                .productsInCategory[index].name_az),
+                            FutureBuilder(
+                                future: Networks.getCollectionItem(
+                                    productsInCategory
+                                        .productsInCategory[index].id),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot snapshot) {
+                                  if (snapshot.hasData) {
+                                    return Container(
+                                      child: ListView.builder(
+                                          physics: ClampingScrollPhysics(),
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: snapshot.data.length,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return Container(
+                                              height: height * 0.5,
+                                              child: Column(
+                                                children: <Widget>[
+                                                  Container(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.5,
+                                                      height: height * 0.5,
+                                                      child: InkWell(
+                                                        child:
+                                                            GroceryListItemOne(
+                                                                product: snapshot
+                                                                        .data[
+                                                                    index]),
+                                                      ))
+                                                ],
+                                              ),
+                                            );
+                                          }),
+                                      height: height * 0.5,
+                                    );
+                                  } else {
+                                    return Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  }
+                                })
+                          ],
+                        ));
+                      })
+                  : Container(
+                      child: Text("No data"),
+                    ))
 
-
-        });
+          //  _buildCard()
+        ]));
   }
 
   static const platform = const MethodChannel("kendden_shehere/chat_activity");

@@ -18,5 +18,7 @@ AppState appStateReducer(AppState state, dynamic action) {
       user_info: loginReducer(state.user_info, action),
       lang: langReducer(state.lang, action),
       newProducts: productListReducer(state.newProducts, action),
-      categories: categoriesReducer(state.categories, action),homeProducts: homeReducer(state.homeProducts,action));
+      categories: categoriesReducer(state.categories, action),
+      homeProducts: homeReducer(state.homeProducts, action),
+      homeCollection: collectionReducer(state.homeCollection, action));
 }

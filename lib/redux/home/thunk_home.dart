@@ -14,3 +14,13 @@ ThunkAction<AppState> getProductListThunkAction(String id) {
     }
   };
 }
+ThunkAction<AppState> getCollectionCountThunk() {
+  return (Store<AppState> store) async {
+    var response = await Networks.getCollections();
+    print("Collection");
+    if (response != null) {
+      store.dispatch(
+          CollectionAction(collection: response));
+    }
+  };
+}
