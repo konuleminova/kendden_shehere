@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar/flutter_calendar.dart';
+import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/redux/login/user_model.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/image_picker_dialog.dart';
@@ -37,6 +38,8 @@ class ProfileState extends State<ProfilePage> {
   bool isExpanded = false;
   String displayMonth;
 
+  String gender='Female';
+
   DateTime get selectedDate => _selectedDate;
 
   @override
@@ -65,11 +68,15 @@ class ProfileState extends State<ProfilePage> {
         selectedMonthsDays = Utils.daysInMonth(selected);
         displayMonth = Utils.formatMonth(selected);
       });
-      Networks.updateUser(context, 'dob',_selectedDate.year.toString() +
-          " /" +
-          _selectedDate.month.toString() +
-          " /" +
-          _selectedDate.day.toString(), );
+//      Networks.updateUser(
+//        context,
+//        'dob',
+//        _selectedDate.year.toString() +
+//            " /" +
+//            _selectedDate.month.toString() +
+//            " /" +
+//            _selectedDate.day.toString(),
+//      );
       // updating selected date range based on selected week
 //      updateSelectedRange(firstDayOfCurrentWeek, lastDayOfCurrentWeek);
 //      _launchDateSelectionCallback(selected);
@@ -293,64 +300,115 @@ class ProfileState extends State<ProfilePage> {
                                     });
                               },
                             ),
+                            SizedBox(height: 2.0,),
                             Row(
                               children: <Widget>[
                                 Expanded(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <LabeledRadio>[
-                                      LabeledRadio(
-                                        label: 'Female',
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 5.0),
-                                        value: true,
-                                        groupValue: _isRadioSelected,
-                                        onChanged: (bool newValue) {
-                                          setState(() {
-                                            _isRadioSelected = newValue;
-                                          });
-                                        },
-                                      ),
-                                      LabeledRadio(
-                                        label: 'Male',
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 5.0),
-                                        value: false,
-                                        groupValue: _isRadioSelected,
-                                        onChanged: (bool newValue) {
-                                          setState(() {
-                                            _isRadioSelected = newValue;
-                                          });
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Expanded(
-                                    child: Align(
-                                        alignment: Alignment.centerRight,
-                                        child: GestureDetector(child: Container(
-
+                                    flex: 2,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Container(
+                                          child: Text("Date of birth",style: TextStyle(color: Colors.grey)),
+                                          margin: EdgeInsets.only(
+                                              left: 20, bottom: 8.0),
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.only(left: 20),
                                           height: 40,
-                                          margin: EdgeInsets.only(right: 16),
-                                          alignment: Alignment.center,
-                                          child: Text(_selectedDate.year.toString() +
-                                                " /" +
-                                                _selectedDate.month.toString() +
-                                                " /" +
-                                                _selectedDate.day.toString(),
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 16),
+                                          child: Row(
+                                            children: <Widget>[
+                                              Text(gender),
+                                              PopupMenuButton<String>(
+                                                onSelected: choiceAction,
+                                                icon:
+                                                    Icon(Icons.arrow_drop_down),
+                                                itemBuilder:
+                                                    (BuildContext context) {
+                                                  return Constants.gender
+                                                      .map((String choice) {
+                                                    return PopupMenuItem<
+                                                        String>(
+                                                      value: choice,
+                                                      child: Text(choice),
+                                                    );
+                                                  }).toList();
+                                                },
+                                              )
+                                            ],
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
                                           ),
                                           decoration: BoxDecoration(
-                                              color: Colors.blue,
                                               border: Border.all(
-                                                  color: Colors.white)),
-                                        ),onTap: (){
-                                          selectDateFromPicker();
-                                        },)))
+                                                  color: Colors.grey[400])),
+                                        )
+                                      ],
+                                    )),
+                                SizedBox(
+                                  width: 16.0,
+                                ),
+                                Expanded(
+                                    flex: 3,
+                                    child: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: GestureDetector(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              Container(
+                                                child: Text("Gender",style: TextStyle(color: Colors.grey),),
+                                                margin: EdgeInsets.only(
+                                                    left: 16, bottom: 8.0),
+                                              ),
+                                              Container(
+                                                height: 40,
+                                                margin:
+                                                    EdgeInsets.only(right: 16),
+                                                alignment: Alignment.center,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceAround,
+                                                  children: <Widget>[
+                                                    SizedBox(
+                                                      width: 8.0,
+                                                    ),
+                                                    Text(
+                                                      _selectedDate.year
+                                                              .toString() +
+                                                          " /" +
+                                                          _selectedDate.month
+                                                              .toString() +
+                                                          " /" +
+                                                          _selectedDate.day
+                                                              .toString(),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 16),
+                                                    ),
+                                                    Icon(Icons.arrow_drop_down)
+                                                  ],
+                                                ),
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color:
+                                                            Colors.grey[400])),
+                                              ),
+                                            ],
+                                          ),
+                                          onTap: () {
+                                            selectDateFromPicker();
+                                          },
+                                        )))
                               ],
                             ),
                           ],
@@ -411,4 +469,10 @@ class ProfileState extends State<ProfilePage> {
 //    userModel.mobile = await SharedPrefUtil().getString(SharedPrefUtil.mobile);
 //    return userModel;
 //  }
+
+  void choiceAction(String choice) {
+  setState(() {
+    gender=choice;
+  });
+    }
 }
