@@ -459,7 +459,6 @@ class ProfileState extends State<ProfilePage> {
    }
     Navigator.pop(context);
     setState(() {});
-    print("You selected camera image : " + imageFile.path);
   }
 
 //  _getUserInfo() async {
