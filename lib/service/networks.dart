@@ -249,23 +249,24 @@ class Networks {
     try {
       var id = await sharedPrefUtil.getString(SharedPrefUtil.uid);
       final response = await http.get(BASE_KS_URL + "basket" + "&uid=${id}");
-      print(response.body.toString());
+      print(response.statusCode);
       if (response.statusCode == 200) {
         OrderHistoryListModel order =
             OrderHistoryListModel.fromJson(json.decode(response.body));
         print(order);
         var a = json.decode(response.body) as List;
         print("BASKET");
-        if (a[0]['hasAlchocol'][0] != null) {
-          await sharedPrefUtil.setString(
-              SharedPrefUtil.alkaqol, a[0]['hasAlchocol'][0]);
-        }
-        print(a[0]['hasAlchocol'][0]);
+       if(a.length>0){
+         if (a[0]['hasAlchocol'][0] != null) {
+           await sharedPrefUtil.setString(
+               SharedPrefUtil.alkaqol, a[0]['hasAlchocol'][0]);
+         }
+       }
         await sharedPrefUtil.setString(
             SharedPrefUtil.id, order.orderList[0].id);
         return OrderHistoryListModel.fromJson(json.decode(response.body));
       } else {
-        return "500";
+        return null;
       }
     } catch (exception) {}
   }

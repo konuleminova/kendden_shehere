@@ -27,7 +27,8 @@ class GroceryShopCartPage extends StatefulWidget {
   }
 }
 
-class GroceryCartState extends State<GroceryShopCartPage> with SingleTickerProviderStateMixin {
+class GroceryCartState extends State<GroceryShopCartPage>
+    with SingleTickerProviderStateMixin {
   List<Product> shopItems;
   double width;
   ShoppingCartViewModel viewModel;
@@ -36,9 +37,10 @@ class GroceryCartState extends State<GroceryShopCartPage> with SingleTickerProvi
   List<NewProduct> products = new List();
   ScrollController _scrollController;
 
-  bool _end=false;
+  bool _end = false;
   AnimationController controller;
   Animation<Offset> offset;
+
   @override
   void initState() {
     super.initState();
@@ -60,161 +62,155 @@ class GroceryCartState extends State<GroceryShopCartPage> with SingleTickerProvi
     width = MediaQuery.of(context).size.width;
     // TODO: implement build
     return new StoreConnector(
-        onInitialBuild: (ShoppingCartViewModel  viewModel) {
-          this.viewModel=viewModel;
+        onInitialBuild: (ShoppingCartViewModel viewModel) {
+          this.viewModel = viewModel;
           viewModel.onFetchShopList();
-
         },
-        onWillChange: (ShoppingCartViewModel  viewModel) {
+        onWillChange: (ShoppingCartViewModel viewModel) {
           //tempWishItems.addAll(viewModel.wishItems);
         },
-        converter: (Store<AppState> store) => ShoppingCartViewModel .create(store),
-        builder: (BuildContext context,ShoppingCartViewModel  viewModel) {
-          products=viewModel.shopItems;
+        converter: (Store<AppState> store) =>
+            ShoppingCartViewModel.create(store),
+        builder: (BuildContext context, ShoppingCartViewModel viewModel) {
+          products = viewModel.shopItems;
           this.viewModel = viewModel;
-          return  WillPopScope(
-        child: new Scaffold(
-            appBar: new AppBar(
-              backgroundColor: Colors.lightGreen,
-              title: new Text("Shopping List"),
-              leading: IconButton(icon: Icon(Icons.arrow_back),onPressed: (){
-                Navigator.pop(context);
-                Navigator.popUntil(context, ModalRoute.withName(Navigator.defaultRouteName));
-              },),
-            ),
-            body: FutureBuilder(
-                future: Networks.basket(),
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    if (snapshot.data != "500") {
-                      OrderHistoryListModel order = snapshot.data;
-//                print("konul!!");
-//                print(order.orderList[0].list);
-                     // products = order.orderList[0].list.productsInCategory;
-
-                      //   products[0].id;
-                      return Stack(
-                        children: <Widget>[
-                         Align(child: _shopBody(),alignment: Alignment.topCenter,),
-//                          SizedBox(
-//                            height: 10.0,
-//                          ),
-                          // _buildTotals();
-                       Align(child:   SlideTransition(child:  _buildTotals(
-                         order.orderList[0].delivery_price,
-                         order.orderList[0].bprice,
-                       ),position: offset,),alignment: Alignment.bottomCenter,)
-                        ],
-                      );
-                    } else {
-                      if (widget.fromCheckout) {
-                        Future.delayed(
-                            Duration.zero,
-                            () => showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return PaymentSuccessDialog(context);
-                                }));
-                      }
-                      return Container();
-                    }
-                  } else
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                })),
-        onWillPop: () {
-         // Navigator.pushReplacementNamed(context, "/home");
-          Navigator.popUntil(context, ModalRoute.withName(Navigator.defaultRouteName));
-        });});
+          return WillPopScope(
+              child: new Scaffold(
+                  appBar: new AppBar(
+                    backgroundColor: Colors.lightGreen,
+                    title: new Text("Shopping List"),
+                    leading: IconButton(
+                      icon: Icon(Icons.arrow_back),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        Navigator.popUntil(context,
+                            ModalRoute.withName(Navigator.defaultRouteName));
+                      },
+                    ),
+                  ),
+                  body: widget.fromCheckout
+                      ? Future.delayed(
+                          Duration.zero,
+                          () => showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return PaymentSuccessDialog(context);
+                              }))
+                      : Stack(
+                          children: <Widget>[
+                            Align(
+                              child: _shopBody(),
+                              alignment: Alignment.topCenter,
+                            ),
+                          viewModel.shopItems.length>0?  Align(
+                            child: SlideTransition(
+                              child: _buildTotals(
+                                  "12",
+                                  "12"
+                              ),
+                              position: offset,
+                            ),
+                            alignment: Alignment.bottomCenter,
+                          ):Container()
+                          ],
+                        )),
+              onWillPop: () {
+                // Navigator.pushReplacementNamed(context, "/home");
+                Navigator.popUntil(
+                    context, ModalRoute.withName(Navigator.defaultRouteName));
+              });
+        });
   }
 
   Widget _shopBody() => new Container(
-        margin: EdgeInsets.only(bottom: 10, top: 16, left: 10, right: 12),
-        child:NotificationListener(child:  new ListView(
+      margin: EdgeInsets.only(bottom: 10, top: 16, left: 10, right: 12),
+      child: NotificationListener(
+        child: new ListView(
           shrinkWrap: true,
           physics: ClampingScrollPhysics(),
-          children:products
+          children: products
               .map(
-                (NewProduct shopItem) => NewGroceryListItemThree(shopItem,viewModel),
-          )
+                (NewProduct shopItem) =>
+                    NewGroceryListItemThree(shopItem, viewModel),
+              )
               .toList(),
-        ),onNotification: (t){
-          if(t is ScrollStartNotification){
-                controller.forward();
-          }else if(t is ScrollEndNotification){
-
-              controller.reverse();
+        ),
+        onNotification: (t) {
+          if (t is ScrollStartNotification) {
+            controller.forward();
+          } else if (t is ScrollEndNotification) {
+            controller.reverse();
           }
-        },)
-      );
+        },
+      ));
 
   Widget _buildTotals(String delivery, String subtotal) {
     // double total = double.parse(delivery) + double.parse(subtotal);
-    return (controller.status==AnimationStatus.dismissed)?ClipOval(
-      clipper: OvalTopBorderClipper(),
-      child: Container(
-        height: 180,
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-                blurRadius: 25.0,
-                color: Colors.black,
-                spreadRadius: 100.0),
-          ],
-          color: Colors.white,
-          border: Border.all(color: Colors.grey[100])
-        ),
-        padding:
-        EdgeInsets.only(left: 20.0, right: 20.0, top: 40.0, bottom: 8.0),
-        child: Column(
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text("Subtotal"),
-                Text(subtotal + " AZN"),
-              ],
-            ),
-            SizedBox(
-              height: 10.0,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text("Delivery fee"),
-                Text(delivery + " AZN"),
-              ],
-            ),
-            SizedBox(
-              height: 10.0,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text("Total"),
-                Text("" + " AZN"),
-              ],
-            ),
-            SizedBox(
-              height: 10.0,
-            ),
-            RaisedButton(
-              color: Colors.green,
-              onPressed: () {
-                Navigator.pushNamed(context, "/checkout");
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return (controller.status == AnimationStatus.dismissed)
+        ? ClipOval(
+            clipper: OvalTopBorderClipper(),
+            child: Container(
+              height: 180,
+              decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                        blurRadius: 25.0,
+                        color: Colors.black,
+                        spreadRadius: 100.0),
+                  ],
+                  color: Colors.white,
+                  border: Border.all(color: Colors.grey[100])),
+              padding: EdgeInsets.only(
+                  left: 20.0, right: 20.0, top: 40.0, bottom: 8.0),
+              child: Column(
                 children: <Widget>[
-                  Text("Checkout", style: TextStyle(color: Colors.white)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text("Subtotal"),
+                      Text(subtotal + " AZN"),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+//                  Row(
+//                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                    children: <Widget>[
+//                      Text("Delivery fee"),
+//                      Text(delivery + " AZN"),
+//                    ],
+//                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text("Total"),
+                      Text("" + " AZN"),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  RaisedButton(
+                    color: Colors.green,
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/checkout");
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        Text("Checkout", style: TextStyle(color: Colors.white)),
+                      ],
+                    ),
+                  )
                 ],
               ),
-            )
-          ],
-        ),
-      ),
-    ):Container();
+            ),
+          )
+        : Container();
   }
 
 //  Widget _builShopListItem(NewProduct shopItem) => new Stack(
