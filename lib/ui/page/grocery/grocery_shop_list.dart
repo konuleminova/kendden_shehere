@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/redux/orderhistory/orderhistory_listmodel.dart';
@@ -95,8 +97,6 @@ class GroceryCartState extends State<GroceryShopCartPage>
                           viewModel.shopItems.length>0?  Align(
                             child: SlideTransition(
                               child: _buildTotals(
-                                  "12",
-                                  "12"
                               ),
                               position: offset,
                             ),
@@ -133,8 +133,12 @@ class GroceryCartState extends State<GroceryShopCartPage>
         },
       ));
 
-  Widget _buildTotals(String delivery, String subtotal) {
+  Widget _buildTotals() {
+    double subtotal=0;
     // double total = double.parse(delivery) + double.parse(subtotal);
+    for(int i=0;i<viewModel.shopItems.length;i++){
+      subtotal=subtotal+double.parse(viewModel.shopItems[i].price);
+    }
     return (controller.status == AnimationStatus.dismissed)
         ? ClipOval(
             clipper: OvalTopBorderClipper(),
@@ -157,7 +161,8 @@ class GroceryCartState extends State<GroceryShopCartPage>
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text("Subtotal"),
-                      Text(subtotal + " AZN"),
+
+                      Text(subtotal.toStringAsFixed(2) + " AZN"),
                     ],
                   ),
                   SizedBox(
@@ -170,7 +175,7 @@ class GroceryCartState extends State<GroceryShopCartPage>
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text("Total"),
-                      Text("" + " AZN"),
+                      Text(subtotal.toStringAsFixed(2) + " AZN"),
                     ],
                   ),
                   SizedBox(
