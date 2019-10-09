@@ -92,16 +92,33 @@ class OrderHistoryState extends State<OrderHistoryPage> {
               if (snapshot.hasData) {
                 order = snapshot.data;
                 List<OrderHistoryModel> orderList = new List();
-
-                for (int i = 0; i < order.orderList.length; i++) {
-                  DateTime dateTime =
-                      DateTime.parse(order.orderList[i].dtsubmit);
-                  if (_selectedDate.isBefore(dateTime)) {
-                    orderList.add(order.orderList[i]);
-                  } else {
-                    orderList.clear();
+                if (to != "To") {
+                  for (int i = 0; i < order.orderList.length; i++) {
+                    DateTime dateTime =
+                        DateTime.parse(order.orderList[i].dtsubmit);
+                    if (_selectedDate.isAfter(dateTime)) {
+                      orderList.add(order.orderList[i]);
+                    } else {
+                      orderList.clear();
+                    }
                   }
                 }
+                if (from != "From") {
+                  for (int i = 0; i < order.orderList.length; i++) {
+                    DateTime dateTime =
+                    DateTime.parse(order.orderList[i].dtsubmit);
+                    if (_selectedDate.isBefore(dateTime)) {
+                      orderList.add(order.orderList[i]);
+                    } else {
+                      orderList.clear();
+                    }
+                  }
+                  if(to=="To"&&from=="From"){
+                    orderList.addAll(snapshot.data.orderList);
+                  }
+                }
+
+
                 return new Container(
                     margin: EdgeInsets.only(
                         bottom: 16, top: 16, left: 10, right: 12),
