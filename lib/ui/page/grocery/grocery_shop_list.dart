@@ -50,6 +50,7 @@ class GroceryCartState extends State<GroceryShopCartPage>
   void dispose() {
     widget.fromCheckout = false;
     super.dispose();
+    viewModel.shopItems.clear();
   }
 
   @override

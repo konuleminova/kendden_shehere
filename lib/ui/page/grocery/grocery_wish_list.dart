@@ -48,6 +48,13 @@ class GroceryWishListPageState extends State<GroceryWishListPage> {
         });
   }
 
+
+  @override
+  void dispose() {
+    super.dispose();
+    viewModel.wishItems.clear();
+  }
+
   Widget _shopBody() => new Container(
         margin: EdgeInsets.only(bottom: 16, top: 16, left: 10, right: 12),
         child: new ListView(
