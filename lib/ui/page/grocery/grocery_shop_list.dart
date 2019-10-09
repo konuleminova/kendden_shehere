@@ -5,6 +5,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/redux/orderhistory/orderhistory_listmodel.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/service/networks.dart';
+import 'package:kendden_shehere/ui/page/home.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/payment_success_dialog.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/profile_edit_dialog.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem2.dart';
@@ -71,9 +72,10 @@ class GroceryCartState extends State<GroceryShopCartPage>
                     leading: IconButton(
                       icon: Icon(Icons.arrow_back),
                       onPressed: () {
-                        Navigator.pop(context);
-                        Navigator.popUntil(context,
-                            ModalRoute.withName(Navigator.defaultRouteName));
+//                        Navigator.pop(context);
+//                        Navigator.popUntil(context,
+//                            ModalRoute.withName(Navigator.defaultRouteName));
+                        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>HomePage()));
                       },
                     ),
                   ),
@@ -110,8 +112,9 @@ class GroceryCartState extends State<GroceryShopCartPage>
                           ],
                         )),
               onWillPop: () {
-                Navigator.popUntil(
-                    context, ModalRoute.withName(Navigator.defaultRouteName));
+//                Navigator.popUntil(
+//                    context, ModalRoute.withName(Navigator.defaultRouteName));
+              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>HomePage()));
               });
         });
   }

@@ -12,6 +12,7 @@ import 'package:kendden_shehere/ui/widgets/gender.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kendden_shehere/util/util.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
   final image = 'assets/img/2.jpg';
@@ -38,7 +39,7 @@ class ProfileState extends State<ProfilePage> {
   bool isExpanded = false;
   String displayMonth;
 
-  String gender='Female';
+  String gender = 'Female';
 
   DateTime get selectedDate => _selectedDate;
 
@@ -300,7 +301,9 @@ class ProfileState extends State<ProfilePage> {
                                     });
                               },
                             ),
-                            SizedBox(height: 2.0,),
+                            SizedBox(
+                              height: 2.0,
+                            ),
                             Row(
                               children: <Widget>[
                                 Expanded(
@@ -312,7 +315,9 @@ class ProfileState extends State<ProfilePage> {
                                           CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Container(
-                                          child: Text("Date of birth",style: TextStyle(color: Colors.grey)),
+                                          child: Text("Date of birth",
+                                              style: TextStyle(
+                                                  color: Colors.grey)),
                                           margin: EdgeInsets.only(
                                               left: 20, bottom: 8.0),
                                         ),
@@ -358,12 +363,16 @@ class ProfileState extends State<ProfilePage> {
                                         child: GestureDetector(
                                           child: Column(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.start,
+                                                MainAxisAlignment.start,
                                             crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                                CrossAxisAlignment.start,
                                             children: <Widget>[
                                               Container(
-                                                child: Text("Gender",style: TextStyle(color: Colors.grey),),
+                                                child: Text(
+                                                  "Gender",
+                                                  style: TextStyle(
+                                                      color: Colors.grey),
+                                                ),
                                                 margin: EdgeInsets.only(
                                                     left: 16, bottom: 8.0),
                                               ),
@@ -424,6 +433,9 @@ class ProfileState extends State<ProfilePage> {
                           //  '/login', (Route<dynamic> route) => false);
                           SharedPrefUtil()
                               .setBool(SharedPrefUtil.isLoginKey, false);
+                          SharedPreferences.getInstance().then((onvalue) {
+                            onvalue.clear();
+                          });
                           // Navigator.pushNamed(context, "/login");
                           //  Navigator.of(context).popUntil(ModalRoute.withName('/login'));
                           // Navigator.pushNamed(context, "/");
@@ -450,13 +462,13 @@ class ProfileState extends State<ProfilePage> {
         //maxHeight: 50.0,
         //maxWidth: 50.0,
         );
-   if(imageFile!=null){
-     List<int> imageBytes = imageFile.readAsBytesSync();
-     String base64Image = base64Encode(imageBytes);
-     print("base 64");
-     print(base64Image);
-     Networks.upload(base64Image);
-   }
+    if (imageFile != null) {
+      List<int> imageBytes = imageFile.readAsBytesSync();
+      String base64Image = base64Encode(imageBytes);
+      print("base 64");
+      print(base64Image);
+      Networks.upload(base64Image);
+    }
     Navigator.pop(context);
     setState(() {});
   }
@@ -472,8 +484,8 @@ class ProfileState extends State<ProfilePage> {
 //  }
 
   void choiceAction(String choice) {
-  setState(() {
-    gender=choice;
-  });
-    }
+    setState(() {
+      gender = choice;
+    });
+  }
 }

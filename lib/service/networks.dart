@@ -138,6 +138,8 @@ class Networks {
     try {
       var id = await sharedPrefUtil.getString(SharedPrefUtil.uid);
       final response = await http.get(BASE_KS_URL + "wishlist" + "&id=${id}");
+      print(id);
+      print(response.statusCode);
       if (response.statusCode == 200) {
         print("code");
         return List_Wish_Model.fromJson(json.decode(response.body));

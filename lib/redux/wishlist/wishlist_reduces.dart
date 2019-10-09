@@ -22,5 +22,5 @@ List<NewProduct> addWishItemReducer(
 
 List<NewProduct> fetchWishListAction(
     List<NewProduct> state, FetchWishListAction action) {
-  return []..addAll(action.data);
+  return action.data;
 }

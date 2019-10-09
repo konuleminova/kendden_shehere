@@ -13,7 +13,9 @@ ThunkAction<AppState> wishListThunkAction() {
   return (Store<AppState> store) async {
     List_Wish_Model response = await Networks.wishList();
     if (response != null) {
-      store.state.wishItems = response.productsInCategory[0].list;
+      print("WISH");
+      print(response);
+      //store.state.wishItems = response.productsInCategory[0].list;
       store.dispatch(
           FetchWishListAction(data: response.productsInCategory[0].list));
     }
