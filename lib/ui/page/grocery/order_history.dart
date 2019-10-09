@@ -5,6 +5,7 @@ import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/common/model/order_history_model.dart';
 import 'package:kendden_shehere/redux/common/model/product_model.dart';
 import 'package:kendden_shehere/redux/orderhistory/orderhistory_listmodel.dart';
+import 'package:kendden_shehere/redux/orderhistory/orderhistrory_model.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem4.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem1.dart';
@@ -19,11 +20,11 @@ class OrderHistoryPage extends StatefulWidget {
 }
 
 class OrderHistoryState extends State<OrderHistoryPage> {
-  List<OrderItem> orderItems = new List();
   AsyncMemoizer memoizer = new AsyncMemoizer();
   DateTime _selectedDate = new DateTime.now();
   String from = "From";
   String to = "To";
+  OrderHistoryListModel order;
 
   @override
   Widget build(BuildContext context) {
@@ -89,14 +90,25 @@ class OrderHistoryState extends State<OrderHistoryPage> {
             future: memoizer.runOnce(Networks.orderHistory),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
-                // OrderHistoryListModel order = snapshot.data;
+                order = snapshot.data;
+                List<OrderHistoryModel> orderList = new List();
+
+                for (int i = 0; i < order.orderList.length; i++) {
+                  DateTime dateTime =
+                      DateTime.parse(order.orderList[i].dtsubmit);
+                  if (_selectedDate.isBefore(dateTime)) {
+                    orderList.add(order.orderList[i]);
+                  } else {
+                    orderList.clear();
+                  }
+                }
                 return new Container(
                     margin: EdgeInsets.only(
                         bottom: 16, top: 16, left: 10, right: 12),
                     child: ListView.builder(
-                        itemCount: snapshot.data.length,
+                        itemCount: orderList.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return NewGroceryListItemFour(snapshot.data[index]);
+                          return NewGroceryListItemFour(orderList[index]);
                         }));
               } else
                 return Center(
@@ -123,6 +135,7 @@ class OrderHistoryState extends State<OrderHistoryPage> {
       });
     }
   }
+
   Future<Null> selectDateFromPickerTo(BuildContext context) async {
     DateTime selected = await showDatePicker(
       context: context,

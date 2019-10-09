@@ -239,8 +239,7 @@ class Networks {
       print("Order history");
       // print(id + ".. product id ");
       if (response.statusCode == 200) {
-        return OrderHistoryListModel.fromJson(json.decode(response.body))
-            .orderList;
+        return OrderHistoryListModel.fromJson(json.decode(response.body));
       } else {
         return null;
       }
