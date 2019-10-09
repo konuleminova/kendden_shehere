@@ -21,7 +21,8 @@ class OrderHistoryPage extends StatefulWidget {
 
 class OrderHistoryState extends State<OrderHistoryPage> {
   AsyncMemoizer memoizer = new AsyncMemoizer();
-  DateTime _selectedDate = new DateTime.now();
+  DateTime _selectedDateFrom = new DateTime.now();
+  DateTime _selectedDateTo = new DateTime.now();
   String from = "From";
   String to = "To";
   OrderHistoryListModel order;
@@ -92,35 +93,43 @@ class OrderHistoryState extends State<OrderHistoryPage> {
               if (snapshot.hasData) {
                 order = snapshot.data;
                 List<OrderHistoryModel> orderList = new List();
-                if (to != "To"&&from=="From") {
+                if (to == "To" && from == "From") {
+                  orderList.addAll(snapshot.data.orderList);
+                } else if (to != "To" && from == "From") {
                   orderList.clear();
                   for (int i = 0; i < order.orderList.length; i++) {
                     DateTime dateTime =
                         DateTime.parse(order.orderList[i].dtsubmit);
-                    if (_selectedDate.isAfter(dateTime)) {
+                    if (_selectedDateTo.isAfter(dateTime)) {
                       orderList.add(order.orderList[i]);
                     } else {
                       //orderList.clear();
                     }
                   }
-                }
-                if (from != "From"&&to=="To") {
+                } else if (from != "From" && to == "To") {
                   orderList.clear();
                   for (int i = 0; i < order.orderList.length; i++) {
                     DateTime dateTime =
-                    DateTime.parse(order.orderList[i].dtsubmit);
-                    if (_selectedDate.isBefore(dateTime)) {
+                        DateTime.parse(order.orderList[i].dtsubmit);
+                    if (_selectedDateFrom.isBefore(dateTime)) {
                       orderList.add(order.orderList[i]);
                     } else {
                       //orderList.clear();
                     }
                   }
-
+                } else {
+                  orderList.clear();
+                  for (int i = 0; i < order.orderList.length; i++) {
+                    DateTime dateTime =
+                        DateTime.parse(order.orderList[i].dtsubmit);
+                    if (_selectedDateFrom.isBefore(dateTime) &&
+                        _selectedDateTo.isAfter(dateTime)) {
+                      orderList.add(order.orderList[i]);
+                    } else {
+                      //orderList.clear();
+                    }
+                  }
                 }
-                if(to=="To"&&from=="From"){
-                  orderList.addAll(snapshot.data.orderList);
-                }
-
 
                 return new Container(
                     margin: EdgeInsets.only(
@@ -140,18 +149,18 @@ class OrderHistoryState extends State<OrderHistoryPage> {
   Future<Null> selectDateFromPickerFrom(BuildContext context) async {
     DateTime selected = await showDatePicker(
       context: context,
-      initialDate: _selectedDate ?? new DateTime.now(),
+      initialDate: _selectedDateFrom ?? new DateTime.now(),
       firstDate: new DateTime(1920),
       lastDate: new DateTime(2040),
     );
     if (selected != null) {
       setState(() {
-        _selectedDate = selected;
-        from = _selectedDate.day.toString() +
+        _selectedDateFrom = selected;
+        from = _selectedDateFrom.day.toString() +
             "/" +
-            _selectedDate.month.toString() +
+            _selectedDateFrom.month.toString() +
             "/" +
-            _selectedDate.year.toString();
+            _selectedDateFrom.year.toString();
       });
     }
   }
@@ -159,18 +168,18 @@ class OrderHistoryState extends State<OrderHistoryPage> {
   Future<Null> selectDateFromPickerTo(BuildContext context) async {
     DateTime selected = await showDatePicker(
       context: context,
-      initialDate: _selectedDate ?? new DateTime.now(),
+      initialDate: _selectedDateTo ?? new DateTime.now(),
       firstDate: new DateTime(1920),
       lastDate: new DateTime(2040),
     );
     if (selected != null) {
       setState(() {
-        _selectedDate = selected;
-        to = _selectedDate.day.toString() +
+        _selectedDateTo = selected;
+        to = _selectedDateTo.day.toString() +
             "/" +
-            _selectedDate.month.toString() +
+            _selectedDateTo.month.toString() +
             "/" +
-            _selectedDate.year.toString();
+            _selectedDateTo.year.toString();
       });
     }
   }
