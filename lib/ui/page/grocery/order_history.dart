@@ -10,18 +10,23 @@ import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem1.dart';
 import 'package:kendden_shehere/util/util.dart';
 
-class OrderHistoryPage extends StatelessWidget {
+class OrderHistoryPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return OrderHistoryState();
+  }
+}
+
+class OrderHistoryState extends State<OrderHistoryPage> {
   List<OrderItem> orderItems = new List();
   AsyncMemoizer memoizer = new AsyncMemoizer();
   DateTime _selectedDate = new DateTime.now();
-  var height;
-
-  //BuildContext context;
+  String from = "From";
+  String to = "To";
 
   @override
   Widget build(BuildContext context) {
-    height = MediaQuery.of(context).size.height;
-
     // TODO: implement build
     return new Scaffold(
         appBar: new AppBar(
@@ -36,7 +41,7 @@ class OrderHistoryPage extends StatelessWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Text("From"),
+                    Text(from),
                     IconButton(
                       icon: Icon(Icons.arrow_drop_down),
                       onPressed: null,
@@ -50,7 +55,7 @@ class OrderHistoryPage extends StatelessWidget {
                     BoxDecoration(border: Border.all(color: Colors.grey[300])),
               ),
               onTap: () {
-                selectDateFromPicker(context);
+                selectDateFromPickerFrom(context);
               },
             ),
             GestureDetector(
@@ -61,7 +66,7 @@ class OrderHistoryPage extends StatelessWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Text("To"),
+                    Text(to),
                     IconButton(
                       icon: Icon(Icons.arrow_drop_down),
                       onPressed: null,
@@ -72,10 +77,10 @@ class OrderHistoryPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                 ),
                 decoration:
-                BoxDecoration(border: Border.all(color: Colors.grey[300])),
+                    BoxDecoration(border: Border.all(color: Colors.grey[300])),
               ),
               onTap: () {
-                selectDateFromPicker(context);
+                selectDateFromPickerTo(context);
               },
             )
           ],
@@ -100,38 +105,40 @@ class OrderHistoryPage extends StatelessWidget {
             }));
   }
 
-  Future<Null> selectDateFromPicker(BuildContext context) async {
+  Future<Null> selectDateFromPickerFrom(BuildContext context) async {
     DateTime selected = await showDatePicker(
       context: context,
       initialDate: _selectedDate ?? new DateTime.now(),
       firstDate: new DateTime(1920),
       lastDate: new DateTime(2040),
     );
-
     if (selected != null) {
-      var firstDayOfCurrentWeek = Utils.firstDayOfWeek(selected);
-      var lastDayOfCurrentWeek = Utils.lastDayOfWeek(selected);
-
-//      setState(() {
-//        _selectedDate = selected;
-//        selectedWeeksDays =
-//            Utils.daysInRange(firstDayOfCurrentWeek, lastDayOfCurrentWeek)
-//                .toList();
-//        selectedMonthsDays = Utils.daysInMonth(selected);
-//        displayMonth = Utils.formatMonth(selected);
-//      });
-//      Networks.updateUser(
-//        context,
-//        'dob',
-//        _selectedDate.year.toString() +
-//            " /" +
-//            _selectedDate.month.toString() +
-//            " /" +
-//            _selectedDate.day.toString(),
-//      );
-      // updating selected date range based on selected week
-//      updateSelectedRange(firstDayOfCurrentWeek, lastDayOfCurrentWeek);
-//      _launchDateSelectionCallback(selected);
+      setState(() {
+        _selectedDate = selected;
+        from = _selectedDate.day.toString() +
+            "/" +
+            _selectedDate.month.toString() +
+            "/" +
+            _selectedDate.year.toString();
+      });
+    }
+  }
+  Future<Null> selectDateFromPickerTo(BuildContext context) async {
+    DateTime selected = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate ?? new DateTime.now(),
+      firstDate: new DateTime(1920),
+      lastDate: new DateTime(2040),
+    );
+    if (selected != null) {
+      setState(() {
+        _selectedDate = selected;
+        to = _selectedDate.day.toString() +
+            "/" +
+            _selectedDate.month.toString() +
+            "/" +
+            _selectedDate.year.toString();
+      });
     }
   }
 }

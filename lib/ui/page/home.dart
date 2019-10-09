@@ -187,72 +187,72 @@ class HomePageState extends State<HomePage> {
                         })
                   ]),
                 ),
-                Expanded(
-                  //height: height * 0.5,
-                    child: productsInCategory.productsInCategory != null
-                        ? ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: productsInCategory.productsInCategory.length,
-                        itemBuilder: (
-                            BuildContext context,
-                            int index,
-                            ) {
-                          return Container(
-                              child: Column(
-                                children: <Widget>[
-                                  _titleContainer(productsInCategory
-                                      .productsInCategory[index].name_az),
-                                  FutureBuilder(
-                                      future: Networks.getCollectionItem(
-                                          productsInCategory
-                                              .productsInCategory[index].id),
-                                      builder: (BuildContext context,
-                                          AsyncSnapshot snapshot) {
-                                        if (snapshot.hasData) {
-                                          return Container(
-                                            child: ListView.builder(
-                                                physics: ClampingScrollPhysics(),
-                                                shrinkWrap: true,
-                                                scrollDirection: Axis.horizontal,
-                                                itemCount: snapshot.data.length,
-                                                itemBuilder: (BuildContext context,
-                                                    int index) {
-                                                  return Container(
-                                                    height: height * 0.5,
-                                                    child: Column(
-                                                      children: <Widget>[
-                                                        Container(
-                                                            width:
-                                                            MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                                0.5,
-                                                            height: height * 0.5,
-                                                            child: InkWell(
-                                                              child:
-                                                              GroceryListItemOne(
-                                                                  product: snapshot
-                                                                      .data[
-                                                                  index],viewModel: viewModel,),
-                                                            ))
-                                                      ],
-                                                    ),
-                                                  );
-                                                }),
-                                            height: height * 0.5,
-                                          );
-                                        } else {
-                                          return Center(
-                                            child: CircularProgressIndicator(),
-                                          );
-                                        }
-                                      }),
-                                ],
-                              ));
-                        })
-                        : Center(
-                        child: CircularProgressIndicator()
-                    )),
+//                Expanded(
+//                  //height: height * 0.5,
+//                    child: productsInCategory.productsInCategory != null
+//                        ? ListView.builder(
+//                        shrinkWrap: true,
+//                        itemCount: productsInCategory.productsInCategory.length,
+//                        itemBuilder: (
+//                            BuildContext context,
+//                            int index,
+//                            ) {
+//                          return Container(
+//                              child: Column(
+//                                children: <Widget>[
+//                                  _titleContainer(productsInCategory
+//                                      .productsInCategory[index].name_az),
+//                                  FutureBuilder(
+//                                      future: Networks.getCollectionItem(
+//                                          productsInCategory
+//                                              .productsInCategory[index].id),
+//                                      builder: (BuildContext context,
+//                                          AsyncSnapshot snapshot) {
+//                                        if (snapshot.hasData) {
+//                                          return Container(
+//                                            child: ListView.builder(
+//                                                physics: ClampingScrollPhysics(),
+//                                                shrinkWrap: true,
+//                                                scrollDirection: Axis.horizontal,
+//                                                itemCount: snapshot.data.length,
+//                                                itemBuilder: (BuildContext context,
+//                                                    int index) {
+//                                                  return Container(
+//                                                    height: height * 0.5,
+//                                                    child: Column(
+//                                                      children: <Widget>[
+//                                                        Container(
+//                                                            width:
+//                                                            MediaQuery.of(context)
+//                                                                .size
+//                                                                .width *
+//                                                                0.5,
+//                                                            height: height * 0.5,
+//                                                            child: InkWell(
+//                                                              child:
+//                                                              GroceryListItemOne(
+//                                                                  product: snapshot
+//                                                                      .data[
+//                                                                  index],viewModel: viewModel,),
+//                                                            ))
+//                                                      ],
+//                                                    ),
+//                                                  );
+//                                                }),
+//                                            height: height * 0.5,
+//                                          );
+//                                        } else {
+//                                          return Center(
+//                                            child: CircularProgressIndicator(),
+//                                          );
+//                                        }
+//                                      }),
+//                                ],
+//                              ));
+//                        })
+//                        : Center(
+//                        child: CircularProgressIndicator()
+//                    )),
                 // Container(child: Text("© 2019 Agro Trade",style: TextStyle(color: Colors.green),textAlign: TextAlign.end,),padding: EdgeInsets.all(8.0))
 
 

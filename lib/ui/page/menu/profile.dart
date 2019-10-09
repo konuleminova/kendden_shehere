@@ -62,11 +62,11 @@ class ProfileState extends State<ProfilePage> {
 
       setState(() {
         _selectedDate = selected;
-        selectedWeeksDays =
-            Utils.daysInRange(firstDayOfCurrentWeek, lastDayOfCurrentWeek)
-                .toList();
-        selectedMonthsDays = Utils.daysInMonth(selected);
-        displayMonth = Utils.formatMonth(selected);
+//        selectedWeeksDays =
+//            Utils.daysInRange(firstDayOfCurrentWeek, lastDayOfCurrentWeek)
+//                .toList();
+//        selectedMonthsDays = Utils.daysInMonth(selected);
+//        displayMonth = Utils.formatMonth(selected);
       });
 //      Networks.updateUser(
 //        context,
