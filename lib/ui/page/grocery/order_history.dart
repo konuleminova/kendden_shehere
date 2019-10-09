@@ -87,35 +87,38 @@ class OrderHistoryState extends State<OrderHistoryPage> {
           ],
         ),
         body: FutureBuilder(
-            future: memoizer.runOnce(Networks.orderHistory),
+            future: Networks.orderHistory(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
                 order = snapshot.data;
                 List<OrderHistoryModel> orderList = new List();
-                if (to != "To") {
+                if (to != "To"&&from=="From") {
+                  orderList.clear();
                   for (int i = 0; i < order.orderList.length; i++) {
                     DateTime dateTime =
                         DateTime.parse(order.orderList[i].dtsubmit);
                     if (_selectedDate.isAfter(dateTime)) {
                       orderList.add(order.orderList[i]);
                     } else {
-                      orderList.clear();
+                      //orderList.clear();
                     }
                   }
                 }
-                if (from != "From") {
+                if (from != "From"&&to=="To") {
+                  orderList.clear();
                   for (int i = 0; i < order.orderList.length; i++) {
                     DateTime dateTime =
                     DateTime.parse(order.orderList[i].dtsubmit);
                     if (_selectedDate.isBefore(dateTime)) {
                       orderList.add(order.orderList[i]);
                     } else {
-                      orderList.clear();
+                      //orderList.clear();
                     }
                   }
-                  if(to=="To"&&from=="From"){
-                    orderList.addAll(snapshot.data.orderList);
-                  }
+
+                }
+                if(to=="To"&&from=="From"){
+                  orderList.addAll(snapshot.data.orderList);
                 }
 
 
