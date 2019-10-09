@@ -78,55 +78,6 @@ class OrderHistoryPage extends StatelessWidget {
                 selectDateFromPicker(context);
               },
             )
-//            PopupMenuButton<String>(
-//              icon: new Icon(Icons.date_range),
-//              onSelected: choiceAction,
-//              itemBuilder: (BuildContext context) {
-//                return Constants.autodates.map((String choice) {
-//                  return PopupMenuItem<String>(
-//                      value: choice,
-//                      child: new Container(
-//                        child: new Row(
-//                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                          children: <Widget>[
-//                            Text(choice),
-//                            new Icon(
-//                              Icons.access_time,
-//                              color: Colors.orange[700],
-//                            )
-//                          ],
-//                        ),
-//                      ));
-//                }).toList();
-//              },
-//            ),
-            ,
-//            PopupMenuButton<String>(
-//              icon: new Icon(Icons.filter_list),
-//              onSelected: choiceAction,
-//              itemBuilder: (BuildContext context) {
-//                return Constants.orders.map((String choice) {
-//                  return PopupMenuItem<String>(
-//                    value: choice,
-//                    child: new Row(
-//                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                      children: <Widget>[
-//                        Text(choice),
-//                        choice == "OrderProcessing"
-//                            ? new Icon(
-//                                Icons.sync_problem,
-//                                color: Colors.red,
-//                              )
-//                            : new Icon(
-//                                Icons.done,
-//                                color: Colors.green,
-//                              )
-//                      ],
-//                    ),
-//                  );
-//                }).toList();
-//              },
-//            ),
           ],
         ),
         body: FutureBuilder(
@@ -147,16 +98,6 @@ class OrderHistoryPage extends StatelessWidget {
                   child: CircularProgressIndicator(),
                 );
             }));
-  }
-
-  static void choiceAction(String choice) {
-    if (choice == Constants.FirstItem) {
-      print('I First Item');
-    } else if (choice == Constants.SecondItem) {
-      print('I Second Item');
-    } else if (choice == Constants.ThirdItem) {
-      print('I Thired Item');
-    }
   }
 
   Future<Null> selectDateFromPicker(BuildContext context) async {
