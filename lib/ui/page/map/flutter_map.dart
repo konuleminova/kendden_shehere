@@ -7,6 +7,7 @@ import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:math';
 import 'package:google_maps_webservice/places.dart';
+import 'package:kendden_shehere/ui/page/map/map_big.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 
 const kGoogleApiKey = "AIzaSyC1XWcwMQ-WDLXUWZOTwQW7325Wb-OeysU";
@@ -53,6 +54,8 @@ class _MapPage1State extends State<MapPage1> {
                 ..add(Factory<VerticalDragGestureRecognizer>(
                     () => VerticalDragGestureRecognizer())),
               onTap: (LatLng location) {
+                Route route=MaterialPageRoute(builder: (BuildContext context)=>MapPageBig());
+                Navigator.push(context, route);
                 //MapDemoPage mp = new MapDemoPage();
                 //mp.showMap();
               },
