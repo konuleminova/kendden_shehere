@@ -7,19 +7,21 @@ import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 
-class GroceryWishListPage extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return new GroceryWishListPageState();
-  }
-}
+//class GroceryWishListPage extends StatefulWidget {
+//  @override
+//  State<StatefulWidget> createState() {
+//    // TODO: implement createState
+//    return new GroceryWishListPageState();
+//  }
+//}
 
-class GroceryWishListPageState extends State<GroceryWishListPage> {
+class GroceryWishListPage extends StatelessWidget {
   WishListViewModel viewModel;
   String title;
+  BuildContext context;
   @override
   Widget build(BuildContext context) {
+    this.context=context;
     // TODO: implement build
     return new StoreConnector(
         onInitialBuild: (WishListViewModel viewModel) {
@@ -43,25 +45,6 @@ class GroceryWishListPageState extends State<GroceryWishListPage> {
               ));
         });
   }
-
-
-  @override
-  void dispose() {
-    super.dispose();
-    viewModel.wishItems.clear();
-  }
-
-  Widget _shopBody() => new Container(
-        margin: EdgeInsets.only(bottom: 16, top: 16, left: 10, right: 12),
-        child: new ListView(
-          //shrinkWrap: true,
-          // physics: ClampingScrollPhysics(),
-          children: viewModel.wishItems
-              .map((NewProduct wishItem) => _buildWishListItem(wishItem))
-              .toList(),
-        ),
-      );
-
   Widget _buildWishListItem(NewProduct wishItem) {
     String langCode = Localizations.localeOf(context).languageCode;
     if (langCode == "tr") {
@@ -77,4 +60,22 @@ class GroceryWishListPageState extends State<GroceryWishListPage> {
       ],
     );
   }
+  Widget _shopBody() => new Container(
+    margin: EdgeInsets.only(bottom: 16, top: 16, left: 10, right: 12),
+    child: new ListView(
+      children: viewModel.wishItems
+          .map((NewProduct wishItem) => _buildWishListItem(wishItem))
+          .toList(),
+    ),
+  );
+
+
+
+
+//  @override
+//  void dispose() {
+//    super.dispose();
+//    viewModel.wishItems.clear();
+//  }
+
 }
