@@ -7,41 +7,46 @@ import 'package:kendden_shehere/redux/productlist/productlist_viewmodel.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem1.dart';
 import 'package:redux/redux.dart';
 
-class GroceryListPage extends StatefulWidget {
+//class GroceryListPage extends StatefulWidget {
+//  String title;
+//  String id;
+//  String order;
+//
+//  GroceryListPage({this.title, this.id, this.order});
+//
+//  @override
+//  State<StatefulWidget> createState() {
+//    // TODO: implement createState
+//    return new GroceryListPageState();
+//  }
+//}
+
+class GroceryListPage extends StatelessWidget {
+  ScrollController _scrollController = new ScrollController();
+  int page = 0;
+
+  //List<NewProduct> productList;
+  //List<NewProduct> productListTemp;
+  ProductListViewModel viewModel;
+ // bool isLoading = false;
+  bool isScrolling = false;
   String title;
   String id;
   String order;
 
   GroceryListPage({this.title, this.id, this.order});
 
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return new GroceryListPageState();
-  }
-}
-
-class GroceryListPageState extends State<GroceryListPage> {
-  ScrollController _scrollController;
-  int page = 0;
-  List<NewProduct> productList;
-  List<NewProduct> productListTemp;
-  ProductListViewModel viewModel;
-  String order;
-  bool isLoading = false;
-  bool isScrolling = false;
-
   String lang;
 
-  @override
-  void initState() {
-    super.initState();
-    _scrollController = new ScrollController();
-    _scrollController.addListener(_scrollListener);
-    productList = new List();
-    productListTemp = new List();
-    order = widget.order;
-  }
+//  @override
+//  void initState() {
+//    super.initState();
+//    _scrollController = new ScrollController();
+//    _scrollController.addListener(_scrollListener);
+//   // productList = new List();
+//   // productListTemp = new List();
+//    order = widget.order;
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,30 +59,28 @@ class GroceryListPageState extends State<GroceryListPage> {
       lang = "1";
     }
     return StoreConnector(
+        onInit: (store) {
+          _scrollController = new ScrollController();
+          _scrollController.addListener(_scrollListener);
+        },
         onInitialBuild: (ProductListViewModel viewModel) {
           this.viewModel = viewModel;
           fetchProductList();
         },
-        onWillChange: (ProductListViewModel viewModel) {
-          //  viewModel.productList.clear();
-          if (page == 0) {
-            productList.clear();
-          }
-          productList.addAll(viewModel.productList);
-          print(viewModel.productList);
-          isLoading = false;
-          isScrolling = false;
+        onDispose: (store) {
+          store.state.newProducts.clear();
         },
+        rebuildOnChange: true,
         converter: (Store<AppState> store) =>
             ProductListViewModel.create(store),
         builder: (BuildContext context, ProductListViewModel viewModel) {
           return new Scaffold(
               appBar: new AppBar(
-                title: new Text(widget.title),
+                title: new Text(title),
                 backgroundColor: Colors.lightGreen,
                 actions: <Widget>[
                   PopupMenuButton<String>(
-                    onSelected: choiceAction,
+                      onSelected: choiceAction,
                     itemBuilder: (BuildContext context) {
                       return Constants.choices.map((String choice) {
                         return PopupMenuItem<String>(
@@ -89,7 +92,7 @@ class GroceryListPageState extends State<GroceryListPage> {
                   )
                 ],
               ),
-              body: productList.length > 0 && !isLoading
+              body: viewModel.productList.length > 0
                   ? new Stack(
                       children: <Widget>[
                         new CustomScrollView(
@@ -113,11 +116,12 @@ class GroceryListPageState extends State<GroceryListPage> {
                                               0.6,
                                           height: 370,
                                           child: InkWell(
-                                            child: GroceryListItemOne(
-                                              product: productList[index],
+                                            child: GroceryListItemOne(viewModel:this.viewModel,index: index,
                                             ),
                                           ));
-                                    }, childCount: productList.length)))
+                                    },
+                                        childCount:
+                                            viewModel.productList.length)))
                           ],
                           // controller: _scrollController,
                         ),
@@ -143,64 +147,64 @@ class GroceryListPageState extends State<GroceryListPage> {
   void choiceAction(String choice) {
     if (choice == Constants.FirstItem) {
       print("choice ACTION 1>>");
-      setState(() {
-        isLoading = true;
-        order = "1";
-        page = 0;
-        fetchProductList();
-      });
+      //isLoading = true;
+      order = "1";
+      page = 0;
+      //changes();
+       fetchProductList();
     } else if (choice == Constants.SecondItem) {
       print("choice ACTION 2>>");
-      setState(() {
-        isLoading = true;
-        order = "2";
-        page = 0;
-        fetchProductList();
-      });
+      //isLoading = true;
+      order = "2";
+      page = 0;
+      //changes();
+      fetchProductList();
     } else if (choice == Constants.ThirdItem) {
-      setState(() {
-        isLoading = true;
-        order = "3";
-        page = 0;
-        fetchProductList();
-      });
+     // isLoading = true;
+      order = "3";
+      page = 0;
+      fetchProductList();
       // viewModel.changeOrder("3");
     } else {
-      setState(() {
-        isLoading = true;
-        order = "4";
-        page = 0;
-        fetchProductList();
-      });
-      // viewModel.changeOrder("4");
+     // isLoading = true;
+      order = "4";
+      page = 0;
+     // viewModel.changeOrder("4");
+      fetchProductList();
     }
   }
 
   void loadMore() async {
     isScrolling = true;
     page = page + 10;
-    fetchProductList();
+    loadm();
   }
 
   _scrollListener() {
     if (_scrollController.offset >=
             _scrollController.position.maxScrollExtent &&
         !_scrollController.position.outOfRange) {
-      setState(() {
-        loadMore();
-        print("reach the bottom");
-      });
+      loadMore();
+//      setState(() {
+//
+//        print("reach the bottom");
+//      });
     }
     if (_scrollController.offset <=
             _scrollController.position.minScrollExtent &&
         !_scrollController.position.outOfRange) {
-      setState(() {
-        print("reach the top");
-      });
+//      setState(() {
+//        print("reach the top");
+//      });
     }
   }
 
   void fetchProductList() {
-    viewModel.onFetchProductList(widget.id, lang, "12", page.toString(), order);
+    viewModel.onFetchProductList(id, lang, "10", page.toString(), order);
   }
+
+  void loadm() {
+    viewModel.onLoadMoreProductList(id, lang, "10", page.toString(), order);
+  }
+
 }

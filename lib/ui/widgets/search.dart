@@ -94,9 +94,9 @@ class SearchWidget extends SearchDelegate<String> {
                                       MediaQuery.of(context).size.width * 0.6,
                                   height: 370,
                                   child: InkWell(
-                                    child: GroceryListItemOne(
-                                      product: productList[index],
-                                    ),
+//                                    child: GroceryListItemOne(
+//                                      product: productList[index],
+//                                    ),
                                   ));
                             }, childCount: productList.length)))
                   ],

@@ -64,7 +64,7 @@ class GroceryShopCartPage extends StatelessWidget {
                           return Container();
                         }),
                   )
-                      : ShopCartWidgetAnimation(viewModel)),
+                      : ListTimeWidgetAnimation(viewModel)),
               onWillPop: () {
 //                Navigator.popUntil(
 //                    context, ModalRoute.withName(Navigator.defaultRouteName));

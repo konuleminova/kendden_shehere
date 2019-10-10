@@ -5,19 +5,19 @@ import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem
 import 'package:kendden_shehere/ui/widgets/oval_tap.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 
-class ShopCartWidgetAnimation extends StatefulWidget {
+class ListTimeWidgetAnimation extends StatefulWidget {
   ShoppingCartViewModel viewModel;
 
-  ShopCartWidgetAnimation(this.viewModel);
+  ListTimeWidgetAnimation(this.viewModel);
 
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _ShopCartWidgetAnimationState();
+    return _ListTimeWidgetAnimationState();
   }
 }
 
-class _ShopCartWidgetAnimationState extends State<ShopCartWidgetAnimation>
+class _ListTimeWidgetAnimationState extends State<ListTimeWidgetAnimation>
     with SingleTickerProviderStateMixin {
   /// Attributes
   AnimationController controller;

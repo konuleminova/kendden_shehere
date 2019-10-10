@@ -16,6 +16,9 @@ class NewProduct {
   String code;
   String catid;
   String catIdParent;
+  bool isLiked;
+  bool isAdded;
+  int weight;
 
   NewProduct(
       {this.id,
@@ -34,7 +37,7 @@ class NewProduct {
       this.type,
       this.name,
       this.catid,
-      this.catIdParent});
+      this.catIdParent,this.isLiked,this.isAdded,this.weight});
 
   factory NewProduct.fromJson(Map<String, dynamic> json) {
     return NewProduct(
@@ -56,6 +59,9 @@ class NewProduct {
       code: json["code"] ?? "",
       catid: json['cat_id'] ?? null,
       catIdParent: json['cat-id'] ?? null,
+      isLiked: false,
+      isAdded: false,
+      weight: 1
     );
   }
 
