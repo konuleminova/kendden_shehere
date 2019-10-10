@@ -19,13 +19,17 @@ class GroceryWishListPage extends StatelessWidget {
   WishListViewModel viewModel;
   String title;
   BuildContext context;
+
   @override
   Widget build(BuildContext context) {
-    this.context=context;
+    this.context = context;
     // TODO: implement build
     return new StoreConnector(
         onInitialBuild: (WishListViewModel viewModel) {
           viewModel.onFetchWishList();
+        },
+        onDispose: (store) {
+          store.state.wishItems.clear();
         },
         converter: (Store<AppState> store) => WishListViewModel.create(store),
         builder: (BuildContext context, WishListViewModel viewModel) {
@@ -45,6 +49,7 @@ class GroceryWishListPage extends StatelessWidget {
               ));
         });
   }
+
   Widget _buildWishListItem(NewProduct wishItem) {
     String langCode = Localizations.localeOf(context).languageCode;
     if (langCode == "tr") {
@@ -56,21 +61,22 @@ class GroceryWishListPage extends StatelessWidget {
     }
     return new Stack(
       children: <Widget>[
-        NewGroceryListItemTwo(product: wishItem,viewModel: viewModel,),
+        NewGroceryListItemTwo(
+          product: wishItem,
+          viewModel: viewModel,
+        ),
       ],
     );
   }
+
   Widget _shopBody() => new Container(
-    margin: EdgeInsets.only(bottom: 16, top: 16, left: 10, right: 12),
-    child: new ListView(
-      children: viewModel.wishItems
-          .map((NewProduct wishItem) => _buildWishListItem(wishItem))
-          .toList(),
-    ),
-  );
-
-
-
+        margin: EdgeInsets.only(bottom: 16, top: 16, left: 10, right: 12),
+        child: new ListView(
+          children: viewModel.wishItems
+              .map((NewProduct wishItem) => _buildWishListItem(wishItem))
+              .toList(),
+        ),
+      );
 
 //  @override
 //  void dispose() {
