@@ -83,7 +83,9 @@ class OrderHistoryState extends State<OrderHistoryPage> {
           ],
         ),
         body: FutureBuilder(
-            future: Networks().orderHistory(),
+            future: memoizer.runOnce((){
+             return Networks().orderHistory();
+            }),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
                 order = snapshot.data;

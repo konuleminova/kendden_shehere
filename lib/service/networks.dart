@@ -186,9 +186,6 @@ class Networks {
       final response =
           await http.get(BASE_KS_URL + "orderhistory" + "&id=${id}");
       print("Order history");
-      print(response.statusCode);
-      print(response.body);
-      // print(id + ".. product id ");
       if (response.statusCode == 200) {
         return OrderHistoryListModel.fromJson(json.decode(response.body));
       } else {
