@@ -2,7 +2,6 @@ import 'dart:math';
 import 'package:google_maps_webservice/places.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:flutter/material.dart';
-import 'package:kendden_shehere/redux/common/model/place_model.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 
 const kGoogleApiKey = "AIzaSyC1XWcwMQ-WDLXUWZOTwQW7325Wb-OeysU";
@@ -37,11 +36,6 @@ Future<Null> displayPrediction(
     scaffold.showSnackBar(
       SnackBar(content: Text("${p.description} - $lat/$lng")),
     );
-    PlaceModel placeModel = new PlaceModel();
-    placeModel.longitude = lng;
-    placeModel.latitude = lat;
-    placeModel.countryName = p.description;
-    placeModel.addressLine = p.placeId.toLowerCase();
     if (p != null) {
       await SharedPrefUtil().setString(SharedPrefUtil().address, p.description);
     }
