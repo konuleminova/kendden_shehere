@@ -85,10 +85,7 @@ class Networks {
     try {
       var id = await SharedPrefUtil().getString(SharedPrefUtil().uid);
       final response = await http.get(BASE_KS_URL + "wishlist" + "&id=${id}");
-      print(id);
-      print(response.statusCode);
       if (response.statusCode == 200) {
-        print("code");
         return List_Wish_Model.fromJson(json.decode(response.body));
       } else {
         return null;
@@ -185,7 +182,6 @@ class Networks {
       var id = await SharedPrefUtil().getString(SharedPrefUtil().uid);
       final response =
           await http.get(BASE_KS_URL + "orderhistory" + "&id=${id}");
-      print("Order history");
       if (response.statusCode == 200) {
         return OrderHistoryListModel.fromJson(json.decode(response.body));
       } else {
@@ -198,13 +194,10 @@ class Networks {
     try {
       var id = await SharedPrefUtil().getString(SharedPrefUtil().uid);
       final response = await http.get(BASE_KS_URL + "basket" + "&uid=${id}");
-      print(response.statusCode);
       if (response.statusCode == 200) {
         OrderHistoryListModel order =
             OrderHistoryListModel.fromJson(json.decode(response.body));
-        print(order);
         var a = json.decode(response.body) as List;
-        print("BASKET");
         if (a.length > 0) {
           if (a[0]['hasAlchocol'][0] != null) {
             await SharedPrefUtil().setString(
