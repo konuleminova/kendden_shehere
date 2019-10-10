@@ -61,9 +61,14 @@ class GroceryListItemOne extends StatelessWidget {
     } else if (langCode == "ru") {
       title = product.name_ru.trim();
     }
-
-    print(product.code);
     img = "https://kenddenshehere.az/images/pr/th/" + product.code + ".jpg";
+    viewModel.shopList.forEach((p) {
+      if (p.id == product.id) {
+        viewModel.changeAddStatus(index, true, product.weight);
+      } else {
+       // viewModel.changeAddStatus(index, false, product.weight);
+      }
+    });
     // TODO: implement build
     return Container(
       decoration: BoxDecoration(
@@ -200,14 +205,18 @@ class GroceryListItemOne extends StatelessWidget {
                 Networks()
                     .addToBasket(product.id, product.weight.toString())
                     .then((onvalue) {
-                  if (onvalue['action'] == "done") {
-                    viewModel.changeAddStatus(index, true, product.weight);
+                  print(onvalue);
+                  if (onvalue != null) {
+                    if (onvalue['action'] == "done") {
+                      viewModel.onFetchShopList();
+                      viewModel.changeAddStatus(index, true, product.weight);
+                    }
                   }
                 });
               }));
     } else {
       return new Container(
-        height:35,
+        height: 35,
 //        padding: EdgeInsets.all(0),
 //        margin: EdgeInsets.only(top: 4, bottom: 4),
         decoration: new BoxDecoration(
@@ -241,22 +250,26 @@ class GroceryListItemOne extends StatelessWidget {
 //                });
                 weight--;
                 if (weight < 1) {
-                  weight=1;
-                  Networks()
-                      .removeFromBasket(product.id)
-                      .then((onvalue) {
+                  weight = 1;
+                  Networks().removeFromBasket(product.id).then((onvalue) {
                     print(onvalue);
-                    if (onvalue['action'] == "done") {
-                      viewModel.changeAddStatus(index, false, weight);
-                    }
+                   if(onvalue!=null){
+                     if (onvalue['action'] == "done") {
+                       viewModel.changeAddStatus(index, false, weight);
+                       viewModel.onFetchShopList;
+                     }
+                   }
                   });
                 } else {
                   Networks()
                       .addToBasket(product.id, weight.toString())
                       .then((onvalue) {
-                    if (onvalue['action'] == "done") {
-                      viewModel.changeAddStatus(index, true, weight);
-                    }
+                   if(onvalue!=null){
+                     if (onvalue['action'] == "done") {
+                       viewModel.changeAddStatus(index, true, weight);
+                       viewModel.onFetchShopList();
+                     }
+                   }
                   });
                 }
               },
@@ -277,8 +290,11 @@ class GroceryListItemOne extends StatelessWidget {
                 Networks()
                     .addToBasket(product.id, weight.toString())
                     .then((onvalue) {
-                  if (onvalue['action'] == "done") {
-                    viewModel.changeAddStatus(index, true, weight);
+                  if(onvalue!=null){
+                    if (onvalue['action'] == "done") {
+                      viewModel.changeAddStatus(index, true, weight);
+                      viewModel.onFetchShopList();
+                    }
                   }
                 });
                 //Networks().addToBasket(product.id, amount.toString());
