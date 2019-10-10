@@ -63,11 +63,15 @@ class HomePageState extends State<HomePage> {
           viewModel.onFetchShopList();
           counter=viewModel.shopItems.length;
         },
+
         onDidChange: (ShoppingCartViewModel viewModel){
           counter=viewModel.shopItems.length;
           setState(() {
             counter;
           });
+        },
+        onDispose: (store){
+          store.state.shopItems.clear();
         },
         converter: (Store<AppState> store) => ShoppingCartViewModel.create(store),
         builder: (BuildContext context,ShoppingCartViewModel viewModel) {
@@ -103,22 +107,23 @@ class HomePageState extends State<HomePage> {
                   ),
                   new Stack(
                     children: <Widget>[
-                      new IconButton(
+                      InkWell(child: new IconButton(
                           icon: Icon(
                             Icons.shopping_cart,
                             color: Colors.white,
                           ),
-                          onPressed: () {
-                            setState(() {
-                              counter = 0;
-                              Navigator.push(
-                                  context,
-                                  SlideLeftRoute(
-                                      page: GroceryShopCartPage(
-                                        fromCheckout: false,
-                                      )));
-                            });
-                          }),
+                          onPressed: null),onTap: (){
+                        setState(() {
+                          counter = 0;
+                          Navigator.push(
+                              context,
+                              SlideLeftRoute(
+                                  page: GroceryShopCartPage(
+                                    fromCheckout: false,
+                                  )));
+                        });
+
+                      },),
                       counter!=0
                           ? new Positioned(
                         right: 11,
