@@ -19,7 +19,7 @@ class DeliveryPage extends StatelessWidget {
 
     // TODO: implement build
     return new FutureBuilder(
-        future: Networks.delivery(lang),
+        future: Networks().delivery(lang),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
            // ListInfo information = snapshot.data;

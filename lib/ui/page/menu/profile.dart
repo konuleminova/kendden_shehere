@@ -11,7 +11,6 @@ import 'package:kendden_shehere/ui/widgets/dialog/profile_edit_dialog.dart';
 import 'package:kendden_shehere/ui/widgets/gender.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:kendden_shehere/util/util.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -58,9 +57,6 @@ class ProfileState extends State<ProfilePage> {
     );
 
     if (selected != null) {
-      var firstDayOfCurrentWeek = Utils.firstDayOfWeek(selected);
-      var lastDayOfCurrentWeek = Utils.lastDayOfWeek(selected);
-
       setState(() {
         _selectedDate = selected;
 //        selectedWeeksDays =
@@ -69,7 +65,7 @@ class ProfileState extends State<ProfilePage> {
 //        selectedMonthsDays = Utils.daysInMonth(selected);
 //        displayMonth = Utils.formatMonth(selected);
       });
-//      Networks.updateUser(
+//      Networks().updateUser(
 //        context,
 //        'dob',
 //        _selectedDate.year.toString() +
@@ -95,7 +91,7 @@ class ProfileState extends State<ProfilePage> {
           elevation: 0,
         ),
         body: FutureBuilder(
-            future: Networks.userinfo(),
+            future: Networks().userinfo(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
                 return ListView(
@@ -432,7 +428,7 @@ class ProfileState extends State<ProfilePage> {
                           // Navigator.of(context).pushNamedAndRemoveUntil(
                           //  '/login', (Route<dynamic> route) => false);
                           SharedPrefUtil()
-                              .setBool(SharedPrefUtil.isLoginKey, false);
+                              .setBool(SharedPrefUtil().isLoginKey, false);
                           SharedPreferences.getInstance().then((onvalue) {
                             onvalue.clear();
                           });
@@ -467,19 +463,19 @@ class ProfileState extends State<ProfilePage> {
       String base64Image = base64Encode(imageBytes);
       print("base 64");
       print(base64Image);
-      Networks.upload(base64Image);
+      Networks().upload(base64Image);
     }
     Navigator.pop(context);
     setState(() {});
   }
 
 //  _getUserInfo() async {
-//    userModel.name = await SharedPrefUtil().getString(SharedPrefUtil.name);
+//    userModel.name = await SharedPrefUtil().getString(SharedPrefUtil().name);
 //    userModel.surname =
-//        await SharedPrefUtil().getString(SharedPrefUtil.surname);
+//        await SharedPrefUtil().getString(SharedPrefUtil().surname);
 //    userModel.username =
-//        await SharedPrefUtil().getString(SharedPrefUtil.username);
-//    userModel.mobile = await SharedPrefUtil().getString(SharedPrefUtil.mobile);
+//        await SharedPrefUtil().getString(SharedPrefUtil().username);
+//    userModel.mobile = await SharedPrefUtil().getString(SharedPrefUtil().mobile);
 //    return userModel;
 //  }
 

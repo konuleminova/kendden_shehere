@@ -1,11 +1,8 @@
 import 'dart:math';
-
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/redux/common/model/place_model.dart';
-import 'package:kendden_shehere/ui/page/map/flutter_map.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 
 const kGoogleApiKey = "AIzaSyC1XWcwMQ-WDLXUWZOTwQW7325Wb-OeysU";
@@ -45,14 +42,13 @@ Future<Null> displayPrediction(
     placeModel.latitude = lat;
     placeModel.countryName = p.description;
     placeModel.addressLine = p.placeId.toLowerCase();
-    SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
     if (p != null) {
-      await sharedPrefUtil.setString(SharedPrefUtil.address, p.description);
+      await SharedPrefUtil().setString(SharedPrefUtil().address, p.description);
     }
-    await sharedPrefUtil.setString(
-        SharedPrefUtil.lat,lat.toString());
-    await sharedPrefUtil.setString(
-        SharedPrefUtil.lng,lng.toString());
+    await SharedPrefUtil().setString(
+        SharedPrefUtil().lat,lat.toString());
+    await SharedPrefUtil().setString(
+        SharedPrefUtil().lng,lng.toString());
     Navigator.pop(context);
 
 //    Route route = MaterialPageRoute(

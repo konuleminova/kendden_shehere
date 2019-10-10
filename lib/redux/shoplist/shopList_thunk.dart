@@ -13,7 +13,7 @@ import 'package:redux_thunk/redux_thunk.dart';
 
 ThunkAction<AppState> shopListThunkAction() {
   return (Store<AppState> store) async {
-    OrderHistoryListModel response = await Networks.basket();
+    OrderHistoryListModel response = await Networks().basket();
     if (response != null) {
       print(response.toString());
       print("SHOPP");

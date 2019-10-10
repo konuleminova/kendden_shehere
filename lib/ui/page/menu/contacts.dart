@@ -22,7 +22,7 @@ class ContactsPage extends StatelessWidget {
 
     // TODO: implement build
     return new FutureBuilder(
-        future: Networks.contacts(lang),
+        future: Networks().contacts(lang),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             // ListInfo information = snapshot.data;

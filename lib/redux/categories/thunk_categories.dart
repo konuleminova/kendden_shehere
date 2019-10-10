@@ -12,7 +12,7 @@ import 'package:redux_thunk/redux_thunk.dart';
 ThunkAction<AppState> categoriesThunkAction(String id) {
   return (Store<AppState> store) async {
     List<Category> list=new List();
-    ListCategories response = await Networks.listCategories();
+    ListCategories response = await Networks().listCategories();
     if (response != null) {
       for (int i = 0; i < response.categories.length; i++) {
         if (response.categories[i].parent == id) {

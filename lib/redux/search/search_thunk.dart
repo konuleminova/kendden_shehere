@@ -8,7 +8,7 @@ import 'package:redux_thunk/redux_thunk.dart';
 
 ThunkAction<AppState> searchListThunkAction(String lang, String query) {
   return (Store<AppState> store) async {
-    ProductsInCategory response = await Networks.search(lang, query);
+    ProductsInCategory response = await Networks().search(lang, query);
     if (response != null) {
       store.state.newProducts = response.productsInCategory;
       print(response.productsInCategory);

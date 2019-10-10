@@ -47,7 +47,7 @@ class FAGState extends State<FagPage> {
       body: new Container(
         margin: EdgeInsets.all(16),
         child: new FutureBuilder(
-            future: Networks.fag(lang),
+            future: Networks().fag(lang),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
                 ListInfo information = snapshot.data;

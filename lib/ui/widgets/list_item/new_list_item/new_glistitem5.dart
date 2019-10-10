@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kendden_shehere/redux/common/model/order_history_model.dart';
-import 'package:kendden_shehere/redux/common/model/product_model.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_details_page.dart';
 import 'package:kendden_shehere/ui/widgets/gtile_title.dart';
-import 'package:kendden_shehere/ui/widgets/rating_star.dart';
 
 class NewGroceryListItemFive extends StatefulWidget {
   NewProduct orderProduct;

@@ -47,7 +47,7 @@ class HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    Networks.getCollections().then((onValue) {
+    Networks().getCollections().then((onValue) {
       setState(() {
         productsInCategory = onValue;
       });
@@ -164,7 +164,7 @@ class HomePageState extends State<HomePage> {
                   height: 200,
                   child: new PageView(children: <Widget>[
                     new FutureBuilder(
-                        future: Networks.bannerImages(),
+                        future: Networks().bannerImages(),
                         builder: (BuildContext context, AsyncSnapshot snapshot) {
                           if (snapshot.hasData) {
                             photos = snapshot.data;
@@ -203,7 +203,7 @@ class HomePageState extends State<HomePage> {
 //                                  _titleContainer(productsInCategory
 //                                      .productsInCategory[index].name_az),
 //                                  FutureBuilder(
-//                                      future: Networks.getCollectionItem(
+//                                      future: Networks().getCollectionItem(
 //                                          productsInCategory
 //                                              .productsInCategory[index].id),
 //                                      builder: (BuildContext context,

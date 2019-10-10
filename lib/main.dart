@@ -10,26 +10,21 @@ import 'package:kendden_shehere/ui/page/menu/about_us.dart';
 import 'package:kendden_shehere/ui/page/menu/contacts.dart';
 import 'package:kendden_shehere/ui/page/menu/delivery.dart';
 import 'package:kendden_shehere/ui/page/menu/fag.dart';
-import 'package:kendden_shehere/ui/page/grocery/grocery_details_page.dart';
-import 'package:kendden_shehere/ui/page/grocery/grocery_shop_list.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_wish_list.dart';
 import 'package:kendden_shehere/ui/page/map/searchplace.dart';
 import 'package:kendden_shehere/ui/page/grocery/order_history.dart';
 import 'package:kendden_shehere/ui/page/grocery/order_shop_list.dart';
 import 'package:kendden_shehere/ui/page/payment/checkout.dart';
 import 'package:kendden_shehere/ui/page/payment/confirm_order.dart';
-import 'package:kendden_shehere/ui/page/map/flutter_map.dart';
 import 'package:kendden_shehere/ui/page/menu/profile.dart';
 import 'package:kendden_shehere/ui/page/menu/settings.dart';
 import 'package:kendden_shehere/ui/page/home.dart';
 import 'package:kendden_shehere/ui/page/index.dart';
 import 'package:kendden_shehere/ui/page/login.dart';
-import 'package:kendden_shehere/ui/page/payment/payment_method.dart';
 import 'package:kendden_shehere/ui/page/register.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_reducer.dart';
-import 'package:kendden_shehere/ui/widgets/dropdown.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -63,8 +58,7 @@ class MyAppState extends State<MyApp> {
     _newLocaleDelegate = AppTranslationsDelegate(newLocale: new Locale("en"));
     application.onLocaleChanged = onLocaleChange;
     _locale = new Locale("en", "");
-    SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
-    sharedPrefUtil.getString(SharedPrefUtil.lang).then((onvalue) {
+    SharedPrefUtil().getString(SharedPrefUtil().lang).then((onvalue) {
       if (onvalue != "") {
         application.onLocaleChanged(Locale(onvalue, ""));
       }
@@ -102,10 +96,8 @@ class MyAppState extends State<MyApp> {
           "/register": (BuildContext context) => RegisterPage(),
           "/home": (BuildContext context) => HomePage(),
         //  "/shopping_cart": (BuildContext context) => GroceryShopCartPage(),
-          "/drop_down": (BuildContext context) => DropdownMenu(),
           "/wish_list": (BuildContext context) => GroceryWishListPage(),
           "/confirm_order": (context) => ConfirmOrderPage(),
-          "/card_storage": (context) => PaymentMethodPage(),
           "/checkout": (BuildContext context) => CheckoutsPage(),
           "/order_history": (BuildContext context) => OrderHistoryPage(),
           "/order_shop_list": (BuildContext context) => OrderShopListPage(),

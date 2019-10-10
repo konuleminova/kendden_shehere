@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
-import 'package:kendden_shehere/redux/common/model/product_model.dart';
 import 'package:kendden_shehere/redux/shoplist/shop_viewmodel.dart';
 import 'package:kendden_shehere/redux/wishlist/wishlist_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
@@ -32,7 +31,6 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
   bool isAdded = false, isLiked = false;
   int amount = 1;
   List<NewProduct> wishItems = new List();
-  SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
 
   @override
   void initState() {
@@ -149,7 +147,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                                     setState(() {
                                       isLiked = !isLiked;
                                     });
-                                    Networks.add_Remove_WishList(product.id)
+                                    Networks().add_Remove_WishList(product.id)
                                         .then((onvalue) {
                                       print(onvalue);
                                     });
@@ -191,14 +189,14 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
             onPressed: () {
               setState(() {
                 isAdded = true;
-                Networks.addToBasket(product.id, amount.toString())
+                Networks().addToBasket(product.id, amount.toString())
                     .then((onvalue) {
                       widget.viewModel.shopItems.add(product);
                   print(onvalue);
-                  sharedPrefUtil.setString(SharedPrefUtil.count, "0");
-                  sharedPrefUtil.getString(SharedPrefUtil.count).then((onValue){
-                    sharedPrefUtil.setString(
-                        SharedPrefUtil.count,(int.parse(onValue)+1).toString());
+                  SharedPrefUtil().setString(SharedPrefUtil().count, "0");
+                  SharedPrefUtil().getString(SharedPrefUtil().count).then((onValue){
+                    SharedPrefUtil().setString(
+                        SharedPrefUtil().count,(int.parse(onValue)+1).toString());
                   });
 
                 });
@@ -227,13 +225,13 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                   if (amount < 1) {
                     isAdded = false;
                     amount = 1;
-                    Networks.removeFromBasket(product.id).then((onvalue) {
+                    Networks().removeFromBasket(product.id).then((onvalue) {
                       print(onvalue);
                       widget.viewModel.removeShopItem(product);
                     });
-                    sharedPrefUtil.getString(SharedPrefUtil.count).then((onValue){
-                      sharedPrefUtil.setString(
-                          SharedPrefUtil.count,(int.parse(onValue)-1).toString());
+                    SharedPrefUtil().getString(SharedPrefUtil().count).then((onValue){
+                      SharedPrefUtil().setString(
+                          SharedPrefUtil().count,(int.parse(onValue)-1).toString());
                     });
                   }
                   // widget.viewModel.removeShopItem(product);
@@ -250,7 +248,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                 setState(() {
                   amount++;
                 });
-                Networks.addToBasket(product.id, amount.toString());
+                Networks().addToBasket(product.id, amount.toString());
               },
             ),
           ],

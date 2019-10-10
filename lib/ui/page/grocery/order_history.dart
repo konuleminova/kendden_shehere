@@ -1,15 +1,10 @@
 import 'package:async/async.dart';
 import 'package:flutter/material.dart';
-import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
-import 'package:kendden_shehere/redux/common/model/order_history_model.dart';
-import 'package:kendden_shehere/redux/common/model/product_model.dart';
 import 'package:kendden_shehere/redux/orderhistory/orderhistory_listmodel.dart';
 import 'package:kendden_shehere/redux/orderhistory/orderhistrory_model.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem4.dart';
-import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem1.dart';
-import 'package:kendden_shehere/util/util.dart';
 
 class OrderHistoryPage extends StatefulWidget {
   @override
@@ -88,7 +83,7 @@ class OrderHistoryState extends State<OrderHistoryPage> {
           ],
         ),
         body: FutureBuilder(
-            future: Networks.orderHistory(),
+            future: Networks().orderHistory(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
                 order = snapshot.data;

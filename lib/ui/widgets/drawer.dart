@@ -38,7 +38,7 @@ class DrawerState extends State<DrawerWidget> {
               UserAccountsDrawerHeader(
                 accountName: new FutureBuilder(
                   future: memoizer.runOnce(() {
-                    return Networks.userinfo();
+                    return Networks().userinfo();
                   }),
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
                     if (snapshot.hasData) {
@@ -179,8 +179,8 @@ class DrawerState extends State<DrawerWidget> {
   }
 //
 //  _getUserInfo() async {
-//    name = await SharedPrefUtil().getString(SharedPrefUtil.name);
-//    surname = await SharedPrefUtil().getString(SharedPrefUtil.surname);
+//    name = await SharedPrefUtil().getString(SharedPrefUtil().name);
+//    surname = await SharedPrefUtil().getString(SharedPrefUtil().surname);
 //    return name + " " + surname;
 //  }
 }

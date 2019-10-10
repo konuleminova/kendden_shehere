@@ -1,20 +1,12 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:kendden_shehere/redux/orderhistory/orderhistory_listmodel.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
-import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/home.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/payment_success_dialog.dart';
-import 'package:kendden_shehere/ui/widgets/dialog/profile_edit_dialog.dart';
-import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem2.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem3.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
-import 'package:kendden_shehere/redux/common/model/product_model.dart';
-import 'package:kendden_shehere/redux/shoplist/shop_model.dart';
 import 'package:kendden_shehere/redux/shoplist/shop_viewmodel.dart';
 import 'package:kendden_shehere/ui/widgets/oval_tap.dart';
 
@@ -147,8 +139,7 @@ class GroceryCartState extends State<GroceryShopCartPage>
     for (int i = 0; i < viewModel.shopItems.length; i++) {
       subtotal = subtotal + double.parse(viewModel.shopItems[i].price);
     }
-    SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
-    sharedPrefUtil.setString(SharedPrefUtil.price, subtotal.toStringAsFixed(2));
+    SharedPrefUtil().setString(SharedPrefUtil().price, subtotal.toStringAsFixed(2));
     return (controller.status == AnimationStatus.dismissed)
         ? ClipOval(
             clipper: OvalTopBorderClipper(),

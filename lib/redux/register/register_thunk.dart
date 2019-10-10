@@ -1,7 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
-
-import 'package:flutter/material.dart';
 import 'package:kendden_shehere/redux/login/user_model.dart';
 import 'package:kendden_shehere/main.dart';
 import 'package:kendden_shehere/redux/navigation/navigator_action.dart';
@@ -19,7 +15,7 @@ ThunkAction<AppState> registerThunkFunction(String lang, UserModel userModel) {
     UserModel userLogin = new UserModel();
     userLogin.status = STATUS.LOADING;
     store.dispatch(LoginAction(status: STATUS.LOADING));
-    RegisterModel responseBody = await Networks.register(lang, userModel);
+    RegisterModel responseBody = await Networks().register(lang, userModel);
     print('RESPONSE IS NOT NULL: ${responseBody != null}');
     print('MSUCCESS: ${responseBody.msuccess}');
     try {
@@ -55,13 +51,12 @@ ThunkAction<AppState> registerThunkFunction(String lang, UserModel userModel) {
           userLogin.status = STATUS.SUCCESS;
           store.dispatch(LoginAction(status: STATUS.SUCCESS));
           userLogin.isLogin = true;
-          SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
-          sharedPrefUtil.setBool(SharedPrefUtil.isLoginKey, userLogin.isLogin);
-          sharedPrefUtil.setString(SharedPrefUtil.name, userModel.name);
-          sharedPrefUtil.setString(SharedPrefUtil.surname, userModel.surname);
-          sharedPrefUtil.setString(SharedPrefUtil.username, userModel.username);
-          sharedPrefUtil.setString(SharedPrefUtil.mobile, userModel.mobile);
-        //  sharedPrefUtil.setString(SharedPrefUtil.id, responseBody.id);
+          SharedPrefUtil().setBool(SharedPrefUtil().isLoginKey, userLogin.isLogin);
+          SharedPrefUtil().setString(SharedPrefUtil().name, userModel.name);
+          SharedPrefUtil().setString(SharedPrefUtil().surname, userModel.surname);
+          SharedPrefUtil().setString(SharedPrefUtil().username, userModel.username);
+          SharedPrefUtil().setString(SharedPrefUtil().mobile, userModel.mobile);
+        //  SharedPrefUtil().setString(SharedPrefUtil().id, responseBody.id);
           store.dispatch(NavigateReplaceAction("/login"));
           store.state.user_info = userModel;
         }

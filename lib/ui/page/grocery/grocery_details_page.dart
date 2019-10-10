@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:kendden_shehere/redux/common/model/product_model.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/animation/slide_left.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_big_image.dart';
-import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem2.dart';
 import 'package:kendden_shehere/ui/widgets/rating_star.dart';
 import 'package:kendden_shehere/ui/widgets/gtile_title.dart';
 import 'package:share/share.dart';
-
-//import 'package:zoomable_image/zoomable_image.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:http/http.dart' as http;
 
 import 'grocery_shop_list.dart';
 
@@ -218,7 +212,7 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
         onTap: () {
           setState(() {
             isAdded = true;
-            Networks.addToBasket(product.id, amount.toString()).then((onvalue) {
+            Networks().addToBasket(product.id, amount.toString()).then((onvalue) {
               print(onvalue);
             });
             // widget.viewModel.onAddedProduct(product);
@@ -246,7 +240,7 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                   if (amount < 1) {
                     isAdded = false;
                     amount = 1;
-                    Networks.removeFromBasket(product.id).then((onvalue) {
+                    Networks().removeFromBasket(product.id).then((onvalue) {
                       print(onvalue);
                     });
                   }
@@ -263,7 +257,7 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                 setState(() {
                   amount++;
                 });
-                Networks.addToBasket(product.id, amount.toString())
+                Networks().addToBasket(product.id, amount.toString())
                     .then((onvalue) {
                   print(onvalue);
                 });
@@ -313,7 +307,7 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                         setState(() {
                           isLiked = !isLiked;
                         });
-                        Networks.add_Remove_WishList(product.id)
+                        Networks().add_Remove_WishList(product.id)
                             .then((onvalue) {
                           print(onvalue);
                         });

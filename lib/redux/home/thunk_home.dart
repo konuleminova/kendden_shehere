@@ -7,7 +7,7 @@ import 'package:redux/redux.dart';
 
 ThunkAction<AppState> getProductListThunkAction(String id) {
   return (Store<AppState> store) async {
-    var response = await Networks.getCollectionItem(id);
+    var response = await Networks().getCollectionItem(id);
     if (response != null) {
       store.dispatch(
           FetchProductsAction(data: response));
@@ -16,7 +16,7 @@ ThunkAction<AppState> getProductListThunkAction(String id) {
 }
 ThunkAction<AppState> getCollectionCountThunk() {
   return (Store<AppState> store) async {
-    var response = await Networks.getCollections();
+    var response = await Networks().getCollections();
     print("Collection");
     if (response != null) {
       store.dispatch(

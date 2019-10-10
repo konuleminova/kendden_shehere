@@ -24,20 +24,19 @@ class ConfirmOrderPage extends StatefulWidget {
 }
 
 class ConfirmPageState extends State<ConfirmOrderPage> {
-  SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
   final flutterWebviewPlugin = new FlutterWebviewPlugin();
   Checkout checkout;
   String alkaqol;
 
   getSharedPref() async {
-    checkout.mobile = await sharedPrefUtil.getString(SharedPrefUtil.mobile);
-    checkout.username = await sharedPrefUtil.getString(SharedPrefUtil.username);
-    checkout.id = await sharedPrefUtil.getString(SharedPrefUtil.id);
-    alkaqol = await sharedPrefUtil.getString(SharedPrefUtil.alkaqol);
-    checkout.address = await sharedPrefUtil.getString(SharedPrefUtil.address);
+    checkout.mobile = await SharedPrefUtil().getString(SharedPrefUtil().mobile);
+    checkout.username = await SharedPrefUtil().getString(SharedPrefUtil().username);
+    checkout.id = await SharedPrefUtil().getString(SharedPrefUtil().id);
+    alkaqol = await SharedPrefUtil().getString(SharedPrefUtil().alkaqol);
+    checkout.address = await SharedPrefUtil().getString(SharedPrefUtil().address);
     checkout.delivery_place =
-        await sharedPrefUtil.getString(SharedPrefUtil.coordinates);
-    checkout.delivery_price=await sharedPrefUtil.getString(SharedPrefUtil.price);
+        await SharedPrefUtil().getString(SharedPrefUtil().coordinates);
+    checkout.delivery_price=await SharedPrefUtil().getString(SharedPrefUtil().price);
     return checkout;
   }
 
@@ -91,7 +90,7 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
     } else {
       checkout.dtime_selected_val = "N";
     }
-    Networks.finishBasket(checkout).then((onValue) {
+    Networks().finishBasket(checkout).then((onValue) {
       if (onValue['done'] == "1") {
         if (onValue['redirectUrl'] != null) {
           Route route = MaterialPageRoute(

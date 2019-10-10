@@ -2,14 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
-import 'package:kendden_shehere/redux/wishlist/list_wish_model.dart';
 import 'package:kendden_shehere/redux/wishlist/wishlist_viewmodel.dart';
-import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem2.dart';
-import 'package:kendden_shehere/util/sharedpref_util.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
-import 'package:kendden_shehere/redux/common/model/product_model.dart';
 
 class GroceryWishListPage extends StatefulWidget {
   @override

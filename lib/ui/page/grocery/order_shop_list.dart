@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kendden_shehere/redux/common/model/order_history_model.dart';
-import 'package:kendden_shehere/redux/common/model/product_model.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
-import 'package:kendden_shehere/ui/widgets/dialog/profile_edit_dialog.dart';
-import 'package:kendden_shehere/ui/widgets/dialog/payment_success_dialog.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/rating_star_dialog.dart';
-import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem4.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem5.dart';
 import 'package:kendden_shehere/ui/widgets/rating_star.dart';
 

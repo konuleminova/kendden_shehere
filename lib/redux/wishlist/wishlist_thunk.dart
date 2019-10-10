@@ -11,7 +11,7 @@ import 'package:redux_thunk/redux_thunk.dart';
 
 ThunkAction<AppState> wishListThunkAction() {
   return (Store<AppState> store) async {
-    List_Wish_Model response = await Networks.wishList();
+    List_Wish_Model response = await Networks().wishList();
     if (response != null) {
       print("WISH");
       print(response);

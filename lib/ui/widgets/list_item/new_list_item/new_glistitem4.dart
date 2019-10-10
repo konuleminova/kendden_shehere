@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kendden_shehere/redux/common/model/order_history_model.dart';
 import 'package:kendden_shehere/redux/orderhistory/orderhistrory_model.dart';
 import 'package:kendden_shehere/ui/page/grocery/order_shop_list.dart';
 import 'package:kendden_shehere/ui/widgets/gtile_title.dart';
-import 'package:kendden_shehere/ui/widgets/rating_star.dart';
 
 class NewGroceryListItemFour extends StatefulWidget {
   OrderHistoryModel orderItem;

@@ -3,10 +3,7 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'dart:math';
-import 'package:google_maps_webservice/places.dart';
 import 'package:kendden_shehere/ui/page/map/map_big.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 
@@ -404,11 +401,10 @@ class _MapPage1State extends State<MapPage1> {
   void _onCameraMove(CameraPosition position) {}
 
   _getAddress() async {
-    SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
-    String address = await sharedPrefUtil.getString(SharedPrefUtil.address);
+    String address = await SharedPrefUtil().getString(SharedPrefUtil().address);
     _lastMapPositon = new LatLng(
-        double.parse(await sharedPrefUtil.getString(SharedPrefUtil.lat)),
-        double.parse(await sharedPrefUtil.getString(SharedPrefUtil.lng)));
+        double.parse(await SharedPrefUtil().getString(SharedPrefUtil().lat)),
+        double.parse(await SharedPrefUtil().getString(SharedPrefUtil().lng)));
     _markers.clear();
     _markers.add(Marker(
         draggable: true,

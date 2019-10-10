@@ -69,7 +69,7 @@ class ProfileEditDialog extends StatelessWidget {
                             colorBrightness: Brightness.dark,
                             onPressed: () {
                               if (_textController.text.isNotEmpty) {
-                                Networks.updateUser(
+                                Networks().updateUser(
                                     context, text, _textController.text);
                               } else {
                                 //Scaffold.of(context).showSnackBar(snackBar("Please fill all fields."));

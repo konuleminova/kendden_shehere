@@ -18,18 +18,17 @@ ThunkAction<AppState> loginThunkFunction(String username, String password) {
     UserModel userLogin = new UserModel();
     userLogin.status = STATUS.LOADING;
     store.dispatch(LoginAction(status: STATUS.LOADING));
-    UserModel responseBody = await Networks.login(username, password);
+    UserModel responseBody = await Networks().login(username, password);
     if (responseBody != null) {
       userLogin.status = STATUS.SUCCESS;
       userLogin.isLogin=true;
       store.dispatch(LoginAction(status: STATUS.SUCCESS));
-      SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
-      sharedPrefUtil.setBool(SharedPrefUtil.isLoginKey, userLogin.isLogin);
-      sharedPrefUtil.setString(SharedPrefUtil.name, responseBody.name);
-      sharedPrefUtil.setString(SharedPrefUtil.surname, responseBody.surname);
-      sharedPrefUtil.setString(SharedPrefUtil.username, username);
-      sharedPrefUtil.setString(SharedPrefUtil.mobile, responseBody.mobile);
-      sharedPrefUtil.setString(SharedPrefUtil.uid, responseBody.id);
+      SharedPrefUtil().setBool(SharedPrefUtil().isLoginKey, userLogin.isLogin);
+      SharedPrefUtil().setString(SharedPrefUtil().name, responseBody.name);
+      SharedPrefUtil().setString(SharedPrefUtil().surname, responseBody.surname);
+      SharedPrefUtil().setString(SharedPrefUtil().username, username);
+      SharedPrefUtil().setString(SharedPrefUtil().mobile, responseBody.mobile);
+      SharedPrefUtil().setString(SharedPrefUtil().uid, responseBody.id);
       store.dispatch(NavigateReplaceAction("/home"));
     } else {
       checkInternetConnection().then((onValue) {

@@ -11,7 +11,6 @@ class SettingsPage extends StatefulWidget {
 }
 
 class SettingsState extends State<SettingsPage> {
-  SharedPrefUtil sharedPref = new SharedPrefUtil();
   String _value = "en";
 
   @override
@@ -55,7 +54,7 @@ class SettingsState extends State<SettingsPage> {
                     child: RaisedButton(
                       color: Colors.green,
                       onPressed: () {
-                        sharedPref.setString(SharedPrefUtil.lang, _value);
+                        SharedPrefUtil().setString(SharedPrefUtil().lang, _value);
                         application.onLocaleChanged(Locale(_value, ""));
                         Navigator.pop(context);
                       },
@@ -118,7 +117,7 @@ class SettingsState extends State<SettingsPage> {
   @override
   void initState() {
     super.initState();
-    sharedPref.getString(SharedPrefUtil.lang).then((onvalue) {
+   SharedPrefUtil().getString(SharedPrefUtil().lang).then((onvalue) {
       setState(() {
         if (onvalue == "") {
           _value = "en";

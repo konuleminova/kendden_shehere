@@ -425,7 +425,6 @@ class CheckoutsPageState extends State<CheckoutsPage> {
   _getGoogleMap() => MapPage1();
 
   _getAddress() async {
-    SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
-    return await sharedPrefUtil.getString(SharedPrefUtil.address);
+    return await SharedPrefUtil().getString(SharedPrefUtil().address);
   }
 }

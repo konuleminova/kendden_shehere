@@ -122,7 +122,7 @@ class SearchWidget extends SearchDelegate<String> {
     }
     // TODO: implement buildSuggestions
     return FutureBuilder(
-        future: Networks.qsearch(lang, query),
+        future: Networks().qsearch(lang, query),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             String title;

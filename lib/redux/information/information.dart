@@ -1,5 +1,4 @@
-import 'package:kendden_shehere/redux/categories/category_item.dart';
-import 'package:kendden_shehere/redux/common/model/product_model.dart';
+
 import 'package:kendden_shehere/redux/information/info.dart';
 
 class ListInfo {

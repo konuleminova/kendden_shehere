@@ -3,25 +3,29 @@ import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefUtil {
-  static String isLoginKey = "User has login";
-  static String name = "name";
-  static String surname = "surname";
-  static String username = "username";
-  static String mobile = "mobile";
-  static String uid = "User id";
-  static String id = "Product id";
-  static String lang = "lang";
-  static String count = "count";
+  SharedPrefUtil._privateConstructor();
 
-  static String alkaqol = "alkaqol";
+  static final SharedPrefUtil _instance = SharedPrefUtil._privateConstructor();
 
-  static String address = "Address";
-  static String coordinates = "Coordinates";
+  factory SharedPrefUtil() {
+    return _instance;
+  }
 
-  static String lat = "lat";
-  static String lng = "lng";
-
-  static String price = "price";
+  String isLoginKey = "User has login";
+  String name = "name";
+  String surname = "surname";
+  String username = "username";
+  String mobile = "mobile";
+  String uid = "User id";
+  String id = "Product id";
+  String lang = "lang";
+  String count = "count";
+  String alkaqol = "alkaqol";
+  String address = "Address";
+  String coordinates = "Coordinates";
+  String lat = "lat";
+  String lng = "lng";
+  String price = "price";
 
   Future<bool> getBool(String key) async {
     // sleep(const Duration(seconds:5));

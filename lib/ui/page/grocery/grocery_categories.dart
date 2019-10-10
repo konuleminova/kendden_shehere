@@ -154,7 +154,7 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
   }
 
   Future<List<Category>> getCategories() async {
-    ListCategories categories = await Networks.listCategories();
+    ListCategories categories = await Networks().listCategories();
     if (categories != null) {
       return categories.categories;
     } else {

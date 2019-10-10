@@ -485,7 +485,7 @@ class RegisterPageState extends State<RegisterPage> {
                     });
                   }
 
-                  // Networks.register("0", userModel);
+                  // Networks().register("0", userModel);
                 },
                 elevation: 11,
                 shape: RoundedRectangleBorder(
