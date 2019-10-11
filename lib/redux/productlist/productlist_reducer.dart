@@ -19,15 +19,14 @@ Reducer<List<NewProduct>> productListReducer =
 List<NewProduct> fetchProductListReducer(
     List<NewProduct> state, FetchProductListAction action) {
   state.clear();
-//  List<NewProduct> tempList = new List();
-//  //tempList.addAll(action.data);
-//  print(action.data.toString() + "actionn data");
-//  for (int i = 0; i < action.data.length; i++) {
-//    if (action.data[i].hasphoto == "1") {
-//      tempList.add(action.data[i]);
-//    }
-//  }
-  state.addAll(action.data);
+  //tempList.addAll(action.data);
+  List<NewProduct> tempList = new List();
+  print(action.data.toString() + "actionn data");
+  for (int i = 0; i < action.data.length; i++) {
+   tempList.add(action.data[i]);
+  }
+  state.addAll(tempList);
+
   return state;
 }
 

@@ -11,7 +11,7 @@ Reducer<List<NewProduct>> shopReducer = combineReducers<List<NewProduct>>([
 
 List<NewProduct> removeShopItemReducer(
     List<NewProduct> shopItems, RemoveShopItemAction action) {
-  return List.from(shopItems)..remove(action.shopItems);
+  return shopItems..remove(action.removeShopItem);
 }
 
 List<NewProduct> addCardReducer(List<NewProduct> state, AddProductAction action) {

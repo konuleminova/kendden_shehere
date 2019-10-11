@@ -17,7 +17,7 @@ class SearchWidget extends SearchDelegate<String> {
   int page = 0;
   List<NewProduct> productList = new List();
   List<NewProduct> suggesstionList = new List();
-  SearchListViewModel viewModel;
+  ProductListViewModel viewModel;
   String lang;
 
   @override
@@ -47,67 +47,71 @@ class SearchWidget extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-//    String langCode = Localizations.localeOf(context).languageCode;
-//    if (langCode == "tr") {
-//      lang = "0";
-//    } else if (langCode == "en") {
-//      lang = "2";
-//    } else if (langCode == "ru") {
-//      lang = "1";
-//    }
+    String langCode = Localizations.localeOf(context).languageCode;
+    if (langCode == "tr") {
+      lang = "0";
+    } else if (langCode == "en") {
+      lang = "2";
+    } else if (langCode == "ru") {
+      lang = "1";
+    }
     // print(products.productsInCategory);
     // TODO: implement buildResults
     // TODO: implement build
     return StoreConnector(
-      onInitialBuild: (SearchListViewModel viewModel) {
-        this.viewModel = viewModel;
-        viewModel.onFetchProductList(lang, query);
-        productList.clear();
-      },
-      onWillChange: (SearchListViewModel viewModel) {
-        productList.addAll(viewModel.productList);
-      },
-      onDidChange: (SearchListViewModel viewModel) {
-        //viewModel.onFetchProductList(widget.id, "10", "0", viewModel.order);
-        // productList.addAll(viewModel.productList);
-      },
-      converter: (Store<AppState> store) => SearchListViewModel.create(store),
-      builder: (BuildContext context, SearchListViewModel) {
-        return Scaffold(
-          body: productList != null
-              ? new CustomScrollView(
-                  controller: _scrollController,
-                  slivers: <Widget>[
-                    SliverPadding(
-                        padding: const EdgeInsets.all(8),
-                        sliver: new SliverGrid(
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisSpacing: 1,
-                                    mainAxisSpacing: 1,
-                                    crossAxisCount: 2,
-                                    childAspectRatio: 0.5),
-                            delegate: new SliverChildBuilderDelegate(
-                                (BuildContext context, int index) {
-                              return Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.6,
-                                  height: 370,
-                                  child: InkWell(
-//                                    child: GroceryListItemOne(
-//                                      product: productList[index],
-//                                    ),
-                                  ));
-                            }, childCount: productList.length)))
+        onInit: (store) {
+          _scrollController = new ScrollController();
+          _scrollController.addListener(_scrollListener);
+        },
+        onInitialBuild: (ProductListViewModel viewModel) {
+          this.viewModel = viewModel;
+          viewModel.onSearchProductList(lang, query);
+        },
+        onDispose: (store) {
+          store.state.newProducts.clear();
+        },
+        converter: (Store<AppState> store) =>
+            ProductListViewModel.create(store),
+        builder: (BuildContext context, ProductListViewModel viewModel) {
+          return viewModel.productList.length > 0
+              ? new Stack(
+                  children: <Widget>[
+                    new CustomScrollView(
+                      controller: _scrollController,
+                      slivers: <Widget>[
+                        SliverPadding(
+                            padding: const EdgeInsets.all(8),
+                            sliver: new SliverGrid(
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisSpacing: 1,
+                                        mainAxisSpacing: 1,
+                                        crossAxisCount: 2,
+                                        childAspectRatio: 0.5),
+                                delegate: new SliverChildBuilderDelegate(
+                                    (BuildContext context, int index) {
+                                  return Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.6,
+                                      height: 370,
+                                      child: InkWell(
+                                        child: GroceryListItemOne(
+                                          viewModel: this.viewModel,
+                                          index: index,
+                                        ),
+                                      ));
+                                }, childCount: viewModel.productList.length)))
+                      ],
+                      // controller: _scrollController,
+                    ),
                   ],
-                  // controller: _scrollController,
                 )
               : Center(
-                  child: CircularProgressIndicator(),
-                ),
-        );
-      },
-    );
+                  child: viewModel.productList.length > 0
+                      ? CircularProgressIndicator()
+                      : Text("Product is not found."),
+                );
+        });
   }
 
   @override
@@ -204,5 +208,24 @@ class SearchWidget extends SearchDelegate<String> {
     return theme.copyWith(
         primaryColor: Colors.lightGreen,
         primaryIconTheme: theme.primaryIconTheme);
+  }
+
+  _scrollListener() {
+    if (_scrollController.offset >=
+        _scrollController.position.maxScrollExtent &&
+        !_scrollController.position.outOfRange) {
+     // loadMore();
+//      setState(() {
+//
+//        print("reach the bottom");
+//      });
+    }
+    if (_scrollController.offset <=
+        _scrollController.position.minScrollExtent &&
+        !_scrollController.position.outOfRange) {
+//      setState(() {
+//        print("reach the top");
+//      });
+    }
   }
 }

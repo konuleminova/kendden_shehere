@@ -2,6 +2,7 @@ import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/redux/productlist/productlist_action.dart';
 import 'package:kendden_shehere/redux/productlist/thunk_productlist.dart';
+import 'package:kendden_shehere/redux/search/search_thunk.dart';
 import 'package:kendden_shehere/redux/shoplist/shopList_thunk.dart';
 import 'package:kendden_shehere/redux/shoplist/shop_action.dart';
 import 'package:kendden_shehere/redux/wishlist/wishlist_action.dart';
@@ -28,6 +29,7 @@ class ProductListViewModel {
   Function(NewProduct shopItem) removeShopItem;
   Function(NewProduct shopItem) addWishItem;
   Function(NewProduct shopItem) removeWishItem;
+  Function(String lang, String query) onSearchProductList;
 
   ProductListViewModel(
       {this.onFetchProductList,
@@ -44,8 +46,9 @@ class ProductListViewModel {
       this.onFetchWishList,
       this.addShopItem,
       this.removeShopItem,
-        this.addWishItem,
-      this.removeWishItem});
+      this.addWishItem,
+      this.removeWishItem,
+      this.onSearchProductList});
 
   factory ProductListViewModel.create(Store<AppState> store) {
     _onFetchProductList(
@@ -89,11 +92,17 @@ class ProductListViewModel {
     _removeShopItem(NewProduct product) {
       store.dispatch(RemoveShopItemAction(removeShopItem: product));
     }
+
     _addWishItem(NewProduct product) {
       store.dispatch(AddWishItemAction(product: product));
     }
+
     _removeWishItem(NewProduct product) {
       store.dispatch(RemoveWishItemAction(removeWishItem: product));
+    }
+
+    _onSearchProductList(String lang, String query) {
+      store.dispatch(searchListThunkAction(lang, query));
     }
 
     return ProductListViewModel(
@@ -111,6 +120,7 @@ class ProductListViewModel {
         addShopItem: _addShopItem,
         removeShopItem: _removeShopItem,
         addWishItem: _addWishItem,
-        removeWishItem: _removeWishItem);
+        removeWishItem: _removeWishItem,
+        onSearchProductList: _onSearchProductList);
   }
 }
