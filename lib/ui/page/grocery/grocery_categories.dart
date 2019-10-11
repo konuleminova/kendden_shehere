@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/redux/categories/category_item.dart';
-import 'package:kendden_shehere/redux/categories/category_viewmodel.dart';
 import 'package:kendden_shehere/redux/categories/list_categories.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/animation/size.dart';
