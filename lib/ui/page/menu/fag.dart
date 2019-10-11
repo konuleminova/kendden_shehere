@@ -4,6 +4,7 @@ import 'package:kendden_shehere/redux/information/information.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:html2md/html2md.dart' as html2md;
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:kendden_shehere/util/helper_class.dart';
 
 class FagPage extends StatefulWidget {
   @override
@@ -21,9 +22,6 @@ class FAGState extends State<FagPage> {
   @override
   void initState() {
     super.initState();
-    for (int i = 0; i < 12; i++) {
-      expanded.add(false);
-    }
   }
 
   @override
@@ -54,7 +52,9 @@ class FAGState extends State<FagPage> {
                 if (snapshot.data != null) {
                   //  String text = snapshot.data;
                   // List<String>  splits =text.split("\n");
-
+                  for (int i = 0; i < information.info.length; i++) {
+                    expanded.add(false);
+                  }
                   return ListView.builder(
                       itemCount: information.info.length,
                       itemBuilder: (BuildContext context, int index) {
@@ -65,10 +65,10 @@ class FAGState extends State<FagPage> {
                             index);
                       });
                 }
+              }else if (snapshot.connectionState == ConnectionState.waiting) {
+                return loading();
               } else {
-                return Center(
-                  child: new CircularProgressIndicator(),
-                );
+                return Container();
               }
             }),
       ),

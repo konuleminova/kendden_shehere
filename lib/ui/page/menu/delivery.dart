@@ -23,30 +23,38 @@ class DeliveryPage extends StatelessWidget {
         future: Networks().delivery(lang),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
-           // ListInfo information = snapshot.data;
+            // ListInfo information = snapshot.data;
             if (snapshot.data != null) {
-              String header  = snapshot.data[0]['header']??"";
+              String header = snapshot.data[0]['header'] ?? "";
               String body = snapshot.data[1]['body'] ?? "";
               String markdown = html2md.convert(body);
               return new Scaffold(
                   appBar: new AppBar(
-                    title: Text(
-                     header),
+                    title: Text(header),
                     backgroundColor: Colors.lightGreen,
                   ),
                   body: SingleChildScrollView(
                     child: new Container(
-                      margin: EdgeInsets.all(16),
-                      child:new MarkdownBody(
-                        data: markdown,
-                      )
-                    ),
+                        margin: EdgeInsets.all(16),
+                        child: new MarkdownBody(
+                          data: markdown,
+                        )),
                   ));
             }
-          }  else if(snapshot.connectionState==ConnectionState.waiting){
-            return Scaffold(body: loading(),);
-          }else{
-            return Scaffold(appBar:AppBar(title: Text("Delivery",),backgroundColor: Colors.lightGreen,),body: Container(),);
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
+            return Scaffold(
+              body: loading(),
+            );
+          } else {
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(
+                  "Delivery",
+                ),
+                backgroundColor: Colors.lightGreen,
+              ),
+              body: Container(),
+            );
           }
         });
   }
