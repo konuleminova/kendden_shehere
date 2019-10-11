@@ -6,15 +6,6 @@ import 'package:kendden_shehere/redux/wishlist/wishlist_viewmodel.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem2.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
-
-//class GroceryWishListPage extends StatefulWidget {
-//  @override
-//  State<StatefulWidget> createState() {
-//    // TODO: implement createState
-//    return new GroceryWishListPageState();
-//  }
-//}
-
 class GroceryWishListPage extends StatelessWidget {
   WishListViewModel viewModel;
   String title;
@@ -77,11 +68,4 @@ class GroceryWishListPage extends StatelessWidget {
               .toList(),
         ),
       );
-
-//  @override
-//  void dispose() {
-//    super.dispose();
-//    viewModel.wishItems.clear();
-//  }
-
 }
