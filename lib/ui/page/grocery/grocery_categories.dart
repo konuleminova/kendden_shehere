@@ -6,7 +6,7 @@ import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/animation/size.dart';
 import 'package:kendden_shehere/ui/animation/slide.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_list.dart';
-
+import 'package:kendden_shehere/util/helper_class.dart';
 
 class GroceryCategoriesPage extends StatefulWidget {
   String id, title;
@@ -24,17 +24,18 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
   List<Category> categories = new List();
   List<Category> tempCategories = new List();
   String order = "0";
+  bool hasInternet=false;
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return categories.length > 0
-        ? new Scaffold(
+    return new Scaffold(
             appBar: new AppBar(
               title: new Text(widget.title.trim()),
               backgroundColor: Colors.lightGreen,
             ),
-            body: new ListView.builder(
+            body:hasInternet?categories.length > 0
+                ?  new ListView.builder(
               itemBuilder: (BuildContext context, int index) {
                 String title;
                 String langCode = Localizations.localeOf(context).languageCode;
@@ -87,7 +88,7 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
                 ));
               },
               itemCount: categories.length,
-            ))
+            )
         : Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
@@ -95,26 +96,32 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
             child: Center(
               child: CircularProgressIndicator(),
             ),
-          );
+          ):noInternetConnection());
   }
 
   @override
   void initState() {
     super.initState();
     categories.clear();
-      getCategories().then((onValue) {
-        if (onValue != null) {
-          for (int i = 0; i < onValue.length; i++) {
-            if (onValue[i].parent == widget.id) {
-              setState(() {
-                categories.add(onValue[i]);
-              });
+    checkInternetConnection().then((onValue) {
+      if (onValue) {
+        hasInternet=onValue;
+        getCategories().then((onValue) {
+          if (onValue != null) {
+            for (int i = 0; i < onValue.length; i++) {
+              if (onValue[i].parent == widget.id) {
+                setState(() {
+                  categories.add(onValue[i]);
+                });
+              }
             }
+            tempCategories.addAll(onValue);
           }
-          tempCategories.addAll(onValue);
-        }
-      });
+        });
+      }
+    });
   }
+
   Future<List<Category>> getCategories() async {
     ListCategories categories = await Networks().listCategories();
     if (categories != null) {
@@ -130,5 +137,4 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
     categories.clear();
     tempCategories.clear();
   }
-
 }

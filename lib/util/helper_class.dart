@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/main.dart';
 
-void showSnackBar(String content,GlobalKey<ScaffoldState> scaffoldKey)  {
+void showSnackBar(String content, GlobalKey<ScaffoldState> scaffoldKey) {
   scaffoldKey.currentState.showSnackBar(
     SnackBar(
       content: Text(content),
@@ -25,12 +25,20 @@ Future<bool> checkInternetConnection() async {
     return false;
   }
 }
- snackBar(content) =>SnackBar(
-  content: Text(content),
-  action: SnackBarAction(
-    label: 'Try again',
-    onPressed: () {
-      // Some code to undo the change.
-    },
-  ),
-);
+
+snackBar(content) => SnackBar(
+      content: Text(content),
+      action: SnackBarAction(
+        label: 'Try again',
+        onPressed: () {
+          // Some code to undo the change.
+        },
+      ),
+    );
+
+Widget noInternetConnection() => Center(
+        child: Container(
+      child: Text("No internet Connection",style: TextStyle(color: Colors.white,fontSize: 20),),
+      padding: EdgeInsets.all(8.0),
+      decoration: BoxDecoration(color: Colors.green),
+    ));
