@@ -29,7 +29,7 @@ class GroceryWishListPage extends StatelessWidget {
           viewModel.onFetchWishList();
         },
         onDispose: (store) {
-          store.state.wishItems.clear();
+          //store.state.wishItems.clear();
         },
         converter: (Store<AppState> store) => WishListViewModel.create(store),
         builder: (BuildContext context, WishListViewModel viewModel) {

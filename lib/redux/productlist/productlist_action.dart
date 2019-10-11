@@ -34,3 +34,9 @@ class ShowBasketAction{
   ShowBasketAction(this.store);
 
 }
+class ShowWishAction{
+  Store<AppState> store;
+
+  ShowWishAction(this.store);
+
+}

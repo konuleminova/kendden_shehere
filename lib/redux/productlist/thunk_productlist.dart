@@ -16,10 +16,12 @@ ThunkAction<AppState> productListThunkAction(String id, String lang,
         store.dispatch(
             FetchProductListAction(data: response.productsInCategory));
         store.dispatch(ShowBasketAction(store));
+        store.dispatch(ShowWishAction(store));
       }  else {
         store.dispatch(
             LoadMoreProductListAction(data: response.productsInCategory));
         store.dispatch(ShowBasketAction(store));
+        store.dispatch(ShowWishAction(store));
       }
     } else {
       //  store.dispatch(FetchProductListAction(data: []));

@@ -12,6 +12,8 @@ Reducer<List<NewProduct>> productListReducer =
   TypedReducer<List<NewProduct>, AddStatusAction>(addStatusReducer),
   TypedReducer<List<NewProduct>, ShowBasketAction>(
       showBasketProductListReducer),
+      TypedReducer<List<NewProduct>, ShowWishAction>(
+         showwishProductListReducer),
 ]);
 
 List<NewProduct> fetchProductListReducer(
@@ -71,6 +73,17 @@ List<NewProduct> showBasketProductListReducer(
     action.store.state.shopItems.forEach((f) {
       if (item.id == f.id) {
         item.isAdded = true;
+      }
+    });
+  });
+  return state;
+}
+List<NewProduct> showwishProductListReducer(
+    List<NewProduct> state, ShowWishAction action) {
+  action.store.state.newProducts.forEach((item) {
+    action.store.state.wishItems.forEach((f) {
+      if (item.id == f.id) {
+        item.isLiked = true;
       }
     });
   });
