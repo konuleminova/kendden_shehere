@@ -124,4 +124,12 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
       return null;
     }
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    categories.clear();
+    tempCategories.clear();
+  }
+
 }
