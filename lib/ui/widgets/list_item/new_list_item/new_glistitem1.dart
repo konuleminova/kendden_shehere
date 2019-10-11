@@ -158,8 +158,10 @@ class GroceryListItemOne extends StatelessWidget {
                                       .then((onvalue) {
                                     if (onvalue['action'] == "added") {
                                       this.viewModel.changeStatus(index, true);
+                                      viewModel.addWishItem(product);
                                     } else if (onvalue['action'] == "removed") {
                                       this.viewModel.changeStatus(index, false);
+                                      viewModel.removeWishItem(product);
                                     }
                                     print(onvalue);
                                   });
