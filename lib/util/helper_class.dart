@@ -38,7 +38,14 @@ snackBar(content) => SnackBar(
 
 Widget noInternetConnection() => Center(
         child: Container(
-      child: Text("No internet Connection",style: TextStyle(color: Colors.white,fontSize: 20),),
+      child: Text(
+        "No internet Connection",
+        style: TextStyle(color: Colors.white, fontSize: 20),
+      ),
       padding: EdgeInsets.all(8.0),
       decoration: BoxDecoration(color: Colors.green),
     ));
+
+Widget loading() => Center(
+      child: new CircularProgressIndicator(),
+    );

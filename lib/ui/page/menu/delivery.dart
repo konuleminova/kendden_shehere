@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:html2md/html2md.dart' as html2md;
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:kendden_shehere/util/helper_class.dart';
 
 class DeliveryPage extends StatelessWidget {
   String lang;
@@ -42,12 +43,10 @@ class DeliveryPage extends StatelessWidget {
                     ),
                   ));
             }
-          } else {
-            return Scaffold(
-              body: Center(
-                child: new CircularProgressIndicator(),
-              ),
-            );
+          }  else if(snapshot.connectionState==ConnectionState.waiting){
+            return Scaffold(body: loading(),);
+          }else{
+            return Scaffold(appBar:AppBar(title: Text("Delivery",),backgroundColor: Colors.lightGreen,),body: Container(),);
           }
         });
   }

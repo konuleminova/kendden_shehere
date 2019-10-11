@@ -5,6 +5,7 @@ import 'package:kendden_shehere/redux/orderhistory/orderhistory_listmodel.dart';
 import 'package:kendden_shehere/redux/orderhistory/orderhistrory_model.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem4.dart';
+import 'package:kendden_shehere/util/helper_class.dart';
 
 class OrderHistoryPage extends StatefulWidget {
   @override
@@ -137,9 +138,7 @@ class OrderHistoryState extends State<OrderHistoryPage> {
                           return NewGroceryListItemFour(orderList[index]);
                         }));
               } else if(snapshot.connectionState==ConnectionState.waiting){
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
+                return loading();
               }else{
                 return Container();
               }
