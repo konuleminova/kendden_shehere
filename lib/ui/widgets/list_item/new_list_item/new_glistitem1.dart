@@ -218,7 +218,8 @@ class GroceryListItemOne extends StatelessWidget {
                   print(onvalue);
                   if (onvalue != null) {
                     if (onvalue['action'] == "done") {
-                      viewModel.onFetchShopList();
+                      viewModel.addShopItem(product);
+                      // viewModel.onFetchShopList();
                       viewModel.changeAddStatus(index, true, product.weight);
                     }
                   }
@@ -262,24 +263,23 @@ class GroceryListItemOne extends StatelessWidget {
                 if (weight < 1) {
                   weight = 1;
                   Networks().removeFromBasket(product.id).then((onvalue) {
-                    print(onvalue);
-                   if(onvalue!=null){
-                     if (onvalue['action'] == "done") {
-                       viewModel.changeAddStatus(index, false, weight);
-                       viewModel.onFetchShopList;
-                     }
-                   }
+                    print("REMOVE");
+                    if (onvalue != null) {
+                      if (onvalue['action'] == "done") {
+                        viewModel.removeShopItem(product);
+                        viewModel.changeAddStatus(index, false, weight);
+                      }
+                    }
                   });
                 } else {
                   Networks()
                       .addToBasket(product.id, weight.toString())
                       .then((onvalue) {
-                   if(onvalue!=null){
-                     if (onvalue['action'] == "done") {
-                       viewModel.changeAddStatus(index, true, weight);
-                       viewModel.onFetchShopList();
-                     }
-                   }
+                    if (onvalue != null) {
+                      if (onvalue['action'] == "done") {
+                        viewModel.changeAddStatus(index, true, weight);
+                      }
+                    }
                   });
                 }
               },
@@ -300,10 +300,10 @@ class GroceryListItemOne extends StatelessWidget {
                 Networks()
                     .addToBasket(product.id, weight.toString())
                     .then((onvalue) {
-                  if(onvalue!=null){
+                  if (onvalue != null) {
                     if (onvalue['action'] == "done") {
                       viewModel.changeAddStatus(index, true, weight);
-                      viewModel.onFetchShopList();
+                      //viewModel.onFetchShopList();
                     }
                   }
                 });

@@ -3,14 +3,15 @@ import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/shoplist/shop_action.dart';
 
 Reducer<List<NewProduct>> shopReducer = combineReducers<List<NewProduct>>([
-  new TypedReducer<List<NewProduct>, RemoveShopItemAction>(removeShopItemReducer),
   new TypedReducer<List<NewProduct>, AddProductAction>(addCardReducer),
-  new TypedReducer<List<NewProduct>,FetchShopListAction>(fetchProductListAction)
+  new TypedReducer<List<NewProduct>,FetchShopListAction>(fetchProductListAction),
+  new TypedReducer<List<NewProduct>, RemoveShopItemAction>(removeShopItemReducer),
+
 ]);
 
 List<NewProduct> removeShopItemReducer(
     List<NewProduct> shopItems, RemoveShopItemAction action) {
-  return List.from(shopItems)..remove(action.removeShopItem);
+  return List.from(shopItems)..remove(action.shopItems);
 }
 
 List<NewProduct> addCardReducer(List<NewProduct> state, AddProductAction action) {
