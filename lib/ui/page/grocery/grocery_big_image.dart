@@ -4,7 +4,6 @@ import 'package:photo_view/photo_view.dart';
 
 class GroceryBigImage extends StatelessWidget {
   String code;
-
   GroceryBigImage({this.code});
 
   @override
@@ -18,8 +17,3 @@ class GroceryBigImage extends StatelessWidget {
                 child: PhotoView(imageProvider: NetworkImage(img)))));
   }
 }
-//ZoomableImage(
-//          NetworkImage(img),
-//          placeholder: const Center(child: const CircularProgressIndicator()),
-//                  minScale: 0.5,
-//        )
