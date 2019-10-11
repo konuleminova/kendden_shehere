@@ -2,51 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
-import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/redux/productlist/productlist_viewmodel.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem1.dart';
 import 'package:redux/redux.dart';
 
-//class GroceryListPage extends StatefulWidget {
-//  String title;
-//  String id;
-//  String order;
-//
-//  GroceryListPage({this.title, this.id, this.order});
-//
-//  @override
-//  State<StatefulWidget> createState() {
-//    // TODO: implement createState
-//    return new GroceryListPageState();
-//  }
-//}
-
 class GroceryListPage extends StatelessWidget {
   ScrollController _scrollController = new ScrollController();
   int page = 0;
-
-  //List<NewProduct> productList;
-  //List<NewProduct> productListTemp;
   ProductListViewModel viewModel;
- // bool isLoading = false;
   bool isScrolling = false;
   String title;
   String id;
   String order;
-
   GroceryListPage({this.title, this.id, this.order});
-
   String lang;
-
-//  @override
-//  void initState() {
-//    super.initState();
-//    _scrollController = new ScrollController();
-//    _scrollController.addListener(_scrollListener);
-//   // productList = new List();
-//   // productListTemp = new List();
-//    order = widget.order;
-//  }
 
   @override
   Widget build(BuildContext context) {
@@ -146,30 +115,20 @@ class GroceryListPage extends StatelessWidget {
 
   void choiceAction(String choice) {
     if (choice == Constants.FirstItem) {
-      print("choice ACTION 1>>");
-      //isLoading = true;
       order = "1";
       page = 0;
-      //changes();
        fetchProductList();
     } else if (choice == Constants.SecondItem) {
-      print("choice ACTION 2>>");
-      //isLoading = true;
       order = "2";
       page = 0;
-      //changes();
       fetchProductList();
     } else if (choice == Constants.ThirdItem) {
-     // isLoading = true;
       order = "3";
       page = 0;
       fetchProductList();
-      // viewModel.changeOrder("3");
     } else {
-     // isLoading = true;
       order = "4";
       page = 0;
-     // viewModel.changeOrder("4");
       fetchProductList();
     }
   }
@@ -185,17 +144,10 @@ class GroceryListPage extends StatelessWidget {
             _scrollController.position.maxScrollExtent &&
         !_scrollController.position.outOfRange) {
       loadMore();
-//      setState(() {
-//
-//        print("reach the bottom");
-//      });
     }
     if (_scrollController.offset <=
             _scrollController.position.minScrollExtent &&
         !_scrollController.position.outOfRange) {
-//      setState(() {
-//        print("reach the top");
-//      });
     }
   }
 
