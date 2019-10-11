@@ -1,55 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/redux/productlist/productlist_viewmodel.dart';
-import 'package:kendden_shehere/redux/shoplist/shop_viewmodel.dart';
-import 'package:kendden_shehere/redux/wishlist/wishlist_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_details_page.dart';
 import 'package:kendden_shehere/ui/widgets/gtile_title.dart';
 import 'package:kendden_shehere/ui/widgets/rating_star.dart';
-import 'package:kendden_shehere/util/sharedpref_util.dart';
-import 'package:redux/redux.dart';
-
-//class GroceryListItemOne extends StatefulWidget {
-//  NewProduct product;
-//  ShoppingCartViewModel viewModel;
-//
-//  GroceryListItemOne({this.product,this.viewModel});
-//
-//  @override
-//  State<StatefulWidget> createState() {
-//    // TODO: implement createState
-//    return new GroceryListItemOneState();
-//  }
-//}
-
 class GroceryListItemOne extends StatelessWidget {
-  // NewProduct product;
+
   String title;
-  String img;
   bool isAdded = false;
-  List<NewProduct> wishItems = new List();
   NewProduct product = new NewProduct();
   ProductListViewModel viewModel;
   int index;
-
   GroceryListItemOne({this.viewModel, this.index});
-
-//  @override
-//  void initState() {
-//    super.initState();
-//    product = widget.product;
-//    img = product.hasphoto;
-//    if (img == "1") {
-//      print(product.code);
-//      img = "https://kenddenshehere.az/images/pr/th/" + product.code + ".jpg";
-//    } else {
-//      img = null;
-//    }
-//  }
-
   @override
   Widget build(BuildContext context) {
     String langCode = Localizations.localeOf(context).languageCode;
@@ -61,24 +24,6 @@ class GroceryListItemOne extends StatelessWidget {
     } else if (langCode == "ru") {
       title = product.name_ru.trim();
     }
-    img = "https://kenddenshehere.az/images/pr/th/" + product.code + ".jpg";
-    print("SHOP");
-//    viewModel.shopList.forEach((p) {
-//      if (p.id == product.id) {
-//        viewModel.changeAddStatus(index, true, product.weight);
-//      } else {
-//       // viewModel.changeAddStatus(index, false, product.weight);
-//      }
-//    });
-//    print("WISH");
-//    print(viewModel.wishList);
-//    viewModel.wishList.forEach((p) {
-//      if (p.id == product.id) {
-//        this.viewModel.changeStatus(index, true);
-//      } else {
-//        // viewModel.changeAddStatus(index, false, product.weight);
-//      }
-//    });
     // TODO: implement build
     return Container(
       decoration: BoxDecoration(
@@ -105,7 +50,7 @@ class GroceryListItemOne extends StatelessWidget {
                   GestureDetector(
                     child: Container(
                         child: FadeInImage.assetNetwork(
-                          image: img,
+                          image: "https://kenddenshehere.az/images/pr/th/" + product.code + ".jpg",
                           placeholder: "images/noimage.png",
                           fit: BoxFit.cover,
                           height: 150,
@@ -149,10 +94,6 @@ class GroceryListItemOne extends StatelessWidget {
                                   size: 30,
                                 ),
                                 onPressed: () {
-                                  // this.viewModel.productList[index].isAdded = true;
-//                                    setState(() {
-//                                      isLiked = !isLiked;
-//                                    });
                                   Networks()
                                       .add_Remove_WishList(product.id)
                                       .then((onvalue) {
@@ -199,21 +140,6 @@ class GroceryListItemOne extends StatelessWidget {
                 size: 30,
               ),
               onPressed: () {
-//              setState(() {
-//                isAdded = true;
-//                Networks().addToBasket(product.id, amount.toString())
-//                    .then((onvalue) {
-//                      widget.viewModel.shopItems.add(product);
-//                  print(onvalue);
-//                  SharedPrefUtil().setString(SharedPrefUtil().count, "0");
-//                  SharedPrefUtil().getString(SharedPrefUtil().count).then((onValue){
-//                    SharedPrefUtil().setString(
-//                        SharedPrefUtil().count,(int.parse(onValue)+1).toString());
-//                  });
-//
-//                });
-//                //  widget.viewModel.addShopItem(product);
-//              });
                 Networks()
                     .addToBasket(product.id, product.weight.toString())
                     .then((onvalue) {
@@ -245,22 +171,6 @@ class GroceryListItemOne extends StatelessWidget {
               icon: new Icon(Icons.remove),
               iconSize: 20,
               onPressed: () {
-//                setState(() {
-//                  amount--;
-//                  if (amount < 1) {
-//                    isAdded = false;
-//                    amount = 1;
-//                    Networks().removeFromBasket(product.id).then((onvalue) {
-//                      print(onvalue);
-//                      widget.viewModel.removeShopItem(product);
-//                    });
-//                    SharedPrefUtil().getString(SharedPrefUtil().count).then((onValue){
-//                      SharedPrefUtil().setString(
-//                          SharedPrefUtil().count,(int.parse(onValue)-1).toString());
-//                    });
-//                  }
-//                  // widget.viewModel.removeShopItem(product);
-//                });
                 weight--;
                 if (weight < 1) {
                   weight = 1;
@@ -295,9 +205,6 @@ class GroceryListItemOne extends StatelessWidget {
               padding: EdgeInsets.all(4),
               icon: new Icon(Icons.add),
               onPressed: () {
-//                setState(() {
-//                  amount++;
-//                });
                 weight++;
                 Networks()
                     .addToBasket(product.id, weight.toString())
@@ -318,3 +225,18 @@ class GroceryListItemOne extends StatelessWidget {
     }
   }
 }
+//              setState(() {
+//                isAdded = true;
+//                Networks().addToBasket(product.id, amount.toString())
+//                    .then((onvalue) {
+//                      widget.viewModel.shopItems.add(product);
+//                  print(onvalue);
+//                  SharedPrefUtil().setString(SharedPrefUtil().count, "0");
+//                  SharedPrefUtil().getString(SharedPrefUtil().count).then((onValue){
+//                    SharedPrefUtil().setString(
+//                        SharedPrefUtil().count,(int.parse(onValue)+1).toString());
+//                  });
+//
+//                });
+//                //  widget.viewModel.addShopItem(product);
+//              });
