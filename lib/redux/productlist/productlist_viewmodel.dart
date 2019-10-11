@@ -18,37 +18,29 @@ class ProductListViewModel {
   Function(String id, String lang, String limit, String page, String order)
       onLoadMoreProductList;
   Function(String id, String lang, String limit, String page, String order)
-      onChangeProductList;
-  Function(int index, bool isLiked) changeStatus;
+      onChangeOrderProductList;
+  Function(int index, bool isLiked) changeLikeStatus;
   Function(int index, bool isAdded, int weight) changeAddStatus;
-  List<NewProduct> shopList;
-  Function() onFetchShopList;
-  List<NewProduct> wishList;
-  Function() onFetchWishList;
   Function(NewProduct shopItem) addShopItem;
   Function(NewProduct shopItem) removeShopItem;
   Function(NewProduct shopItem) addWishItem;
   Function(NewProduct shopItem) removeWishItem;
   Function(String lang, String query) onSearchProductList;
-
   ProductListViewModel(
       {this.onFetchProductList,
       this.productList,
       this.changeOrder,
       this.order,
       this.onLoadMoreProductList,
-      this.onChangeProductList,
-      this.changeStatus,
+      this.onChangeOrderProductList,
+      this.changeLikeStatus,
       this.changeAddStatus,
-      this.shopList,
-      this.onFetchShopList,
-      this.wishList,
-      this.onFetchWishList,
       this.addShopItem,
       this.removeShopItem,
       this.addWishItem,
       this.removeWishItem,
-      this.onSearchProductList});
+      this.onSearchProductList
+      });
 
   factory ProductListViewModel.create(Store<AppState> store) {
     _onFetchProductList(
@@ -97,32 +89,19 @@ class ProductListViewModel {
       store.dispatch(searchListThunkAction(lang, query));
     }
 
-    //
-//    _onFetchShopList() {
-//      store.dispatch(shopListThunkAction());
-//    }
-//
-//    _onFetchWishList() {
-//      store.dispatch(wishListThunkAction());
-//    }
-
     return ProductListViewModel(
         productList: store.state.newProducts,
         onFetchProductList: _onFetchProductList,
         onLoadMoreProductList: _onLoadMoreProductList,
         order: store.state.filterOrder,
-        onChangeProductList: _onChangeOrderProductList,
-        changeStatus: _onChangeStatusProductList,
+        onChangeOrderProductList: _onChangeOrderProductList,
+        changeLikeStatus: _onChangeStatusProductList,
         changeAddStatus: _onChangeAddStatusProductList,
-        shopList: store.state.shopItems,
-        wishList: store.state.wishItems,
         addShopItem: _addShopItem,
         removeShopItem: _removeShopItem,
         addWishItem: _addWishItem,
         removeWishItem: _removeWishItem,
         onSearchProductList: _onSearchProductList
-        // onFetchShopList: _onFetchShopList,
-        // onFetchWishList: _onFetchWishList,
         );
   }
 }
