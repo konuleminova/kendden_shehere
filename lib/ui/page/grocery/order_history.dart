@@ -136,10 +136,14 @@ class OrderHistoryState extends State<OrderHistoryPage> {
                         itemBuilder: (BuildContext context, int index) {
                           return NewGroceryListItemFour(orderList[index]);
                         }));
-              } else
+              } else if(snapshot.connectionState==ConnectionState.waiting){
                 return Center(
                   child: CircularProgressIndicator(),
                 );
+              }else{
+                return Container();
+              }
+
             }));
   }
 
