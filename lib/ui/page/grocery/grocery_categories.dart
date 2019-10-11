@@ -34,7 +34,7 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
               title: new Text(widget.title.trim()),
               backgroundColor: Colors.lightGreen,
             ),
-            body:categories.length > 0
+            body:hasInternet?categories.length > 0
                 ?  new ListView.builder(
               itemBuilder: (BuildContext context, int index) {
                 String title;
@@ -89,7 +89,7 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
               },
               itemCount: categories.length,
             )
-        :loading());
+        :loading():Container());
   }
 
   @override
