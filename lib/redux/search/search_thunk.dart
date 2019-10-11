@@ -10,8 +10,10 @@ ThunkAction<AppState> searchListThunkAction(String lang, String query) {
   return (Store<AppState> store) async {
     ProductsInCategory response = await Networks().search(lang, query);
     if (response != null) {
-   print("SEARCH::"+response.toString());
+      print("SEARCH::" + response.toString());
       store.dispatch(FetchProductListAction(data: response.productsInCategory));
+      store.dispatch(ShowBasketAction(store));
+      store.dispatch(ShowWishAction(store));
     }
   };
 }
