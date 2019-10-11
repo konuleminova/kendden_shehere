@@ -62,13 +62,23 @@ class GroceryListItemOne extends StatelessWidget {
       title = product.name_ru.trim();
     }
     img = "https://kenddenshehere.az/images/pr/th/" + product.code + ".jpg";
-    viewModel.shopList.forEach((p) {
-      if (p.id == product.id) {
-        viewModel.changeAddStatus(index, true, product.weight);
-      } else {
-       // viewModel.changeAddStatus(index, false, product.weight);
-      }
-    });
+    print("SHOP");
+//    viewModel.shopList.forEach((p) {
+//      if (p.id == product.id) {
+//        viewModel.changeAddStatus(index, true, product.weight);
+//      } else {
+//       // viewModel.changeAddStatus(index, false, product.weight);
+//      }
+//    });
+//    print("WISH");
+//    print(viewModel.wishList);
+//    viewModel.wishList.forEach((p) {
+//      if (p.id == product.id) {
+//        this.viewModel.changeStatus(index, true);
+//      } else {
+//        // viewModel.changeAddStatus(index, false, product.weight);
+//      }
+//    });
     // TODO: implement build
     return Container(
       decoration: BoxDecoration(

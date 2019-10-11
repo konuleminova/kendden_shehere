@@ -10,6 +10,8 @@ Reducer<List<NewProduct>> productListReducer =
       loadMoreProductListReducer),
   TypedReducer<List<NewProduct>, StatusAction>(likeStatusReducer),
   TypedReducer<List<NewProduct>, AddStatusAction>(addStatusReducer),
+  TypedReducer<List<NewProduct>, ShowBasketAction>(
+      showBasketProductListReducer),
 ]);
 
 List<NewProduct> fetchProductListReducer(
@@ -41,9 +43,6 @@ List<NewProduct> loadMoreProductListReducer(
   print("LOADDD ACTION");
   print(action.data);
   if (action.data.length > 0) {
-    print("Load not");
-    print(action.data);
-    print(state);
     state.addAll(action.data);
     return state;
   }
@@ -51,7 +50,8 @@ List<NewProduct> loadMoreProductListReducer(
   return state;
 }
 
-List<NewProduct> likeStatusReducer(List<NewProduct> state, StatusAction action) {
+List<NewProduct> likeStatusReducer(
+    List<NewProduct> state, StatusAction action) {
   List<NewProduct> states = state;
   states[action.index].isLiked = action.isLiked;
   return states;
@@ -63,4 +63,16 @@ List<NewProduct> addStatusReducer(
   states[action.index].isAdded = action.isAdded;
   states[action.index].weight = action.weight;
   return states;
+}
+
+List<NewProduct> showBasketProductListReducer(
+    List<NewProduct> state, ShowBasketAction action) {
+  action.store.state.newProducts.forEach((item) {
+    action.store.state.shopItems.forEach((f) {
+      if (item.id == f.id) {
+        item.isAdded = true;
+      }
+    });
+  });
+  return state;
 }

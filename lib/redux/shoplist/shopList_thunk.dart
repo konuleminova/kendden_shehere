@@ -15,9 +15,6 @@ ThunkAction<AppState> shopListThunkAction() {
   return (Store<AppState> store) async {
     OrderHistoryListModel response = await Networks().basket();
     if (response != null) {
-      print(response.toString());
-      print("SHOPP");
-      print(response.orderList[0].list.productsInCategory);
       store.state.shopItems = response.orderList[0].list.productsInCategory;
       store.dispatch(FetchShopListAction(
           data: response.orderList[0].list.productsInCategory));

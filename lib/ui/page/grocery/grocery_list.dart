@@ -65,8 +65,10 @@ class GroceryListPage extends StatelessWidget {
         },
         onInitialBuild: (ProductListViewModel viewModel) {
           this.viewModel = viewModel;
-          viewModel.onFetchShopList;
           fetchProductList();
+          print("LISTST SHOP");
+          print(viewModel.shopList);
+
         },
         onDispose: (store) {
           store.state.newProducts.clear();

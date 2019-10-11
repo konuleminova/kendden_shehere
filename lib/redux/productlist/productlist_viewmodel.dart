@@ -3,6 +3,7 @@ import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/redux/productlist/productlist_action.dart';
 import 'package:kendden_shehere/redux/productlist/thunk_productlist.dart';
 import 'package:kendden_shehere/redux/shoplist/shopList_thunk.dart';
+import 'package:kendden_shehere/redux/wishlist/wishlist_thunk.dart';
 import 'package:redux/redux.dart';
 
 class ProductListViewModel {
@@ -19,6 +20,8 @@ class ProductListViewModel {
   Function(int index, bool isAdded, int weight) changeAddStatus;
   List<NewProduct> shopList;
   Function() onFetchShopList;
+  List<NewProduct> wishList;
+  Function() onFetchWishList;
 
   ProductListViewModel(
       {this.onFetchProductList,
@@ -29,7 +32,10 @@ class ProductListViewModel {
       this.onChangeProductList,
       this.changeStatus,
       this.changeAddStatus,
-      this.shopList,this.onFetchShopList});
+      this.shopList,
+      this.onFetchShopList,
+      this.wishList,
+      this.onFetchWishList,});
 
   factory ProductListViewModel.create(Store<AppState> store) {
     _onFetchProductList(
@@ -57,8 +63,13 @@ class ProductListViewModel {
     _onChangeAddStatusProductList(int index, bool isAdded, int weight) {
       store.dispatch(AddStatusAction(index, isAdded, weight));
     }
+
     _onFetchShopList() {
       store.dispatch(shopListThunkAction());
+    }
+
+    _onFetchWishList() {
+      store.dispatch(wishListThunkAction());
     }
 
     return ProductListViewModel(
@@ -69,6 +80,10 @@ class ProductListViewModel {
         onChangeProductList: _onChangeOrderProductList,
         changeStatus: _onChangeStatusProductList,
         changeAddStatus: _onChangeAddStatusProductList,
-        shopList: store.state.shopItems,onFetchShopList: _onFetchShopList);
+        shopList: store.state.shopItems,
+        onFetchShopList: _onFetchShopList,
+        wishList: store.state.wishItems,
+        onFetchWishList: _onFetchWishList,
+    );
   }
 }
