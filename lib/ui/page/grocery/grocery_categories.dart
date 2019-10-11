@@ -34,7 +34,7 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
               title: new Text(widget.title.trim()),
               backgroundColor: Colors.lightGreen,
             ),
-            body:hasInternet?categories.length > 0
+            body:categories.length > 0
                 ?  new ListView.builder(
               itemBuilder: (BuildContext context, int index) {
                 String title;
@@ -89,14 +89,7 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
               },
               itemCount: categories.length,
             )
-        : Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            decoration: new BoxDecoration(color: Colors.grey[100]),
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          ):noInternetConnection());
+        :loading());
   }
 
   @override

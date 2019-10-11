@@ -5,6 +5,7 @@ import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:html2md/html2md.dart' as html2md;
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:kendden_shehere/util/helper_class.dart';
 
 class AboutUsPage extends StatelessWidget {
   String lang;
@@ -43,11 +44,19 @@ class AboutUsPage extends StatelessWidget {
                         )),
                   ));
             }
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
+            return Scaffold(
+              body: loading(),
+            );
           } else {
             return Scaffold(
-              body: Center(
-                child: new CircularProgressIndicator(),
+              appBar: AppBar(
+                title: Text(
+                  "About us",
+                ),
+                backgroundColor: Colors.lightGreen,
               ),
+              body: Container(),
             );
           }
         });
