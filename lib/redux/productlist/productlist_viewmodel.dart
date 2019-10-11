@@ -70,19 +70,11 @@ class ProductListViewModel {
     }
 
     _onChangeStatusProductList(int index, bool isLiked) {
-      store.dispatch(StatusAction(index, isLiked));
+      store.dispatch(LikeStatusAction(index, isLiked));
     }
 
     _onChangeAddStatusProductList(int index, bool isAdded, int weight) {
       store.dispatch(AddStatusAction(index, isAdded, weight));
-    }
-
-    _onFetchShopList() {
-      store.dispatch(shopListThunkAction());
-    }
-
-    _onFetchWishList() {
-      store.dispatch(wishListThunkAction());
     }
 
     _addShopItem(NewProduct product) {
@@ -105,6 +97,15 @@ class ProductListViewModel {
       store.dispatch(searchListThunkAction(lang, query));
     }
 
+    //
+//    _onFetchShopList() {
+//      store.dispatch(shopListThunkAction());
+//    }
+//
+//    _onFetchWishList() {
+//      store.dispatch(wishListThunkAction());
+//    }
+
     return ProductListViewModel(
         productList: store.state.newProducts,
         onFetchProductList: _onFetchProductList,
@@ -114,13 +115,14 @@ class ProductListViewModel {
         changeStatus: _onChangeStatusProductList,
         changeAddStatus: _onChangeAddStatusProductList,
         shopList: store.state.shopItems,
-        // onFetchShopList: _onFetchShopList,
         wishList: store.state.wishItems,
-        onFetchWishList: _onFetchWishList,
         addShopItem: _addShopItem,
         removeShopItem: _removeShopItem,
         addWishItem: _addWishItem,
         removeWishItem: _removeWishItem,
-        onSearchProductList: _onSearchProductList);
+        onSearchProductList: _onSearchProductList
+        // onFetchShopList: _onFetchShopList,
+        // onFetchWishList: _onFetchWishList,
+        );
   }
 }

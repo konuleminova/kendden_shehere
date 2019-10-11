@@ -8,22 +8,20 @@ Reducer<List<NewProduct>> productListReducer =
       fetchProductListReducer),
   TypedReducer<List<NewProduct>, LoadMoreProductListAction>(
       loadMoreProductListReducer),
-  TypedReducer<List<NewProduct>, StatusAction>(likeStatusReducer),
+  TypedReducer<List<NewProduct>, LikeStatusAction>(likeStatusReducer),
   TypedReducer<List<NewProduct>, AddStatusAction>(addStatusReducer),
   TypedReducer<List<NewProduct>, ShowBasketAction>(
       showBasketProductListReducer),
-      TypedReducer<List<NewProduct>, ShowWishAction>(
-         showwishProductListReducer),
+  TypedReducer<List<NewProduct>, ShowWishAction>(showwishProductListReducer),
 ]);
 
 List<NewProduct> fetchProductListReducer(
     List<NewProduct> state, FetchProductListAction action) {
   state.clear();
-  //tempList.addAll(action.data);
   List<NewProduct> tempList = new List();
   print(action.data.toString() + "actionn data");
   for (int i = 0; i < action.data.length; i++) {
-   tempList.add(action.data[i]);
+    tempList.add(action.data[i]);
   }
   state.addAll(tempList);
 
@@ -32,27 +30,15 @@ List<NewProduct> fetchProductListReducer(
 
 List<NewProduct> loadMoreProductListReducer(
     List<NewProduct> state, LoadMoreProductListAction action) {
-  //state.clear();
-//  List<NewProduct> tempList = new List();
-//  //tempList.addAll(action.data);
-//  print(action.data.toString() + "actionn data");
-//  for (int i = 0; i < action.data.length; i++) {
-//    if (action.data[i].hasphoto == "1") {
-//      tempList.add(action.data[i]);
-//    }
-//  }
-  print("LOADDD ACTION");
-  print(action.data);
   if (action.data.length > 0) {
     state.addAll(action.data);
     return state;
   }
-////  state.addAll(tempList);
   return state;
 }
 
 List<NewProduct> likeStatusReducer(
-    List<NewProduct> state, StatusAction action) {
+    List<NewProduct> state, LikeStatusAction action) {
   List<NewProduct> states = state;
   states[action.index].isLiked = action.isLiked;
   return states;
@@ -77,6 +63,7 @@ List<NewProduct> showBasketProductListReducer(
   });
   return state;
 }
+
 List<NewProduct> showwishProductListReducer(
     List<NewProduct> state, ShowWishAction action) {
   action.store.state.newProducts.forEach((item) {

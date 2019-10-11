@@ -14,11 +14,11 @@ class LoadMoreProductListAction {
   LoadMoreProductListAction({this.data});
 }
 
-class StatusAction {
+class LikeStatusAction {
   int index;
   bool isLiked;
 
-  StatusAction(this.index, this.isLiked);
+  LikeStatusAction(this.index, this.isLiked);
 }
 
 class AddStatusAction {
@@ -28,15 +28,15 @@ class AddStatusAction {
 
   AddStatusAction(this.index, this.isAdded, this.weight);
 }
-class ShowBasketAction{
+
+class ShowBasketAction {
   Store<AppState> store;
 
   ShowBasketAction(this.store);
-
 }
-class ShowWishAction{
+
+class ShowWishAction {
   Store<AppState> store;
 
   ShowWishAction(this.store);
-
 }
