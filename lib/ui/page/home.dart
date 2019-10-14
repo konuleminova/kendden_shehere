@@ -26,59 +26,27 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:redux/redux.dart';
 
-class HomePage extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return new HomePageState();
-  }
-}
-
-class HomePageState extends State<HomePage> {
+class HomePage extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
   double height = 0;
   double width = 0;
-  var increment = 1;
-  int counter = 0;
   List<String> photos = new List();
   var _current = 0;
   String title;
   ProductsInCategory productsInCategory = new ProductsInCategory();
 
   @override
-  void initState() {
-    Networks().getCollections().then((onValue) {
-      setState(() {
-        productsInCategory = onValue;
-      });
-    });
-    Networks().showAllCollection().then((onValue){
-      print("home");
-      print(onValue);
-    });
-    super.initState();
-  }
-  @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     return new StoreConnector(
-        onInitialBuild: (ShoppingCartViewModel viewModel) {
+        onInitialBuild: (HomeViewModel viewModel) {
           viewModel.onFetchShopList();
-          counter=viewModel.shopItems.length;
+          viewModel.onFetchAllCollection();
+          // counter=viewModel.shopItems.length;
         },
-
-        onDidChange: (ShoppingCartViewModel viewModel){
-          counter=viewModel.shopItems.length;
-          setState(() {
-            counter;
-          });
-        },
-        onDispose: (store){
-          store.state.shopItems.clear();
-        },
-        converter: (Store<AppState> store) => ShoppingCartViewModel.create(store),
-        builder: (BuildContext context,ShoppingCartViewModel viewModel) {
+        converter: (Store<AppState> store) => HomeViewModel.create(store),
+        builder: (BuildContext context, HomeViewModel viewModel) {
           return new Scaffold(
               key: scaffoldKey,
               appBar: new AppBar(
@@ -91,8 +59,8 @@ class HomePageState extends State<HomePage> {
                   onPressed: () => scaffoldKey.currentState.openDrawer(),
                 ),
                 title: GestureDetector(
-                  child: new Text(
-                      AppTranslations.of(context).text("title_select_language")),
+                  child: new Text(AppTranslations.of(context)
+                      .text("title_select_language")),
                   onTap: () {
                     print("click");
                     application.onLocaleChanged(Locale("ru"));
@@ -111,47 +79,46 @@ class HomePageState extends State<HomePage> {
                   ),
                   new Stack(
                     children: <Widget>[
-                      InkWell(child: new IconButton(
-                          icon: Icon(
-                            Icons.shopping_cart,
-                            color: Colors.white,
-                          ),
-                          onPressed: null),onTap: (){
-                        setState(() {
-                          counter = 0;
+                      InkWell(
+                        child: new IconButton(
+                            icon: Icon(
+                              Icons.shopping_cart,
+                              color: Colors.white,
+                            ),
+                            onPressed: null),
+                        onTap: () {
                           Navigator.push(
                               context,
                               SlideLeftRoute(
                                   page: GroceryShopCartPage(
-                                    fromCheckout: false,
-                                  )));
-                        });
-
-                      },),
-                      counter!=0
+                                fromCheckout: false,
+                              )));
+                        },
+                      ),
+                      viewModel.shopItems.length != 0
                           ? new Positioned(
-                        right: 11,
-                        top: 11,
-                        child: new Container(
-                          padding: EdgeInsets.all(2),
-                          decoration: new BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          constraints: BoxConstraints(
-                            minWidth: 14,
-                            minHeight: 14,
-                          ),
-                          child: Text(
-                            counter.toString(),
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 8,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      )
+                              right: 11,
+                              top: 11,
+                              child: new Container(
+                                padding: EdgeInsets.all(2),
+                                decoration: new BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                constraints: BoxConstraints(
+                                  minWidth: 14,
+                                  minHeight: 14,
+                                ),
+                                child: Text(
+                                  viewModel.shopItems.length.toString(),
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 8,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            )
                           : new Container()
                     ],
                   ),
@@ -168,102 +135,88 @@ class HomePageState extends State<HomePage> {
               drawer: DrawerWidget(),
               body: new Column(children: <Widget>[
                 // _buildCarousel(),
-                new SizedBox(
-                  width: width,
-                  height: 200,
-                  child: new PageView(children: <Widget>[
-                    new FutureBuilder(
-                        future: Networks().bannerImages(),
-                        builder: (BuildContext context, AsyncSnapshot snapshot) {
-                          if (snapshot.hasData) {
-                            photos = snapshot.data;
-                            List<Widget> images = new List();
-                            for (int i = 0; i < photos.length; i++) {
-                              images.add(new Container(
-                                width: width,
-                                child: new Image(
-                                  image: NetworkImage(photos[i]),
-                                  fit: BoxFit.cover,
-                                ),
-                              ));
-                            }
-                            return _buildCarousel(images);
-                          } else {
-                            return Center(
-                              child: new CircularProgressIndicator(),
-                            );
-                          }
-                        })
-                  ]),
-                ),
-//                Expanded(
-//                  //height: height * 0.5,
-//                    child: productsInCategory.productsInCategory != null
-//                        ? ListView.builder(
-//                        shrinkWrap: true,
-//                        itemCount: productsInCategory.productsInCategory.length,
-//                        itemBuilder: (
-//                            BuildContext context,
-//                            int index,
-//                            ) {
-//                          return Container(
-//                              child: Column(
-//                                children: <Widget>[
-//                                  _titleContainer(productsInCategory
-//                                      .productsInCategory[index].name_az),
-//                                  FutureBuilder(
-//                                      future: Networks().getCollectionItem(
-//                                          productsInCategory
-//                                              .productsInCategory[index].id),
-//                                      builder: (BuildContext context,
-//                                          AsyncSnapshot snapshot) {
-//                                        if (snapshot.hasData) {
-//                                          return Container(
-//                                            child: ListView.builder(
-//                                                physics: ClampingScrollPhysics(),
-//                                                shrinkWrap: true,
-//                                                scrollDirection: Axis.horizontal,
-//                                                itemCount: snapshot.data.length,
-//                                                itemBuilder: (BuildContext context,
-//                                                    int index) {
-//                                                  return Container(
-//                                                    height: height * 0.5,
-//                                                    child: Column(
-//                                                      children: <Widget>[
-//                                                        Container(
-//                                                            width:
-//                                                            MediaQuery.of(context)
-//                                                                .size
-//                                                                .width *
-//                                                                0.5,
-//                                                            height: height * 0.5,
-//                                                            child: InkWell(
-//                                                              child:
-//                                                              GroceryListItemOne(
-//                                                                  product: snapshot
-//                                                                      .data[
-//                                                                  index],viewModel: viewModel,),
-//                                                            ))
-//                                                      ],
-//                                                    ),
-//                                                  );
-//                                                }),
-//                                            height: height * 0.5,
-//                                          );
-//                                        } else {
-//                                          return Center(
-//                                            child: CircularProgressIndicator(),
-//                                          );
-//                                        }
-//                                      }),
-//                                ],
+//                new SizedBox(
+//                  width: width,
+//                  height: 200,
+//                  child: new PageView(children: <Widget>[
+//                    new FutureBuilder(
+//                        future: Networks().bannerImages(),
+//                        builder:
+//                            (BuildContext context, AsyncSnapshot snapshot) {
+//                          if (snapshot.hasData) {
+//                            photos = snapshot.data;
+//                            List<Widget> images = new List();
+//                            for (int i = 0; i < photos.length; i++) {
+//                              images.add(new Container(
+//                                width: width,
+//                                child: new Image(
+//                                  image: NetworkImage(photos[i]),
+//                                  fit: BoxFit.cover,
+//                                ),
 //                              ));
+//                            }
+//                            return _buildCarousel(images);
+//                          } else {
+//                            return Center(
+//                              child: new CircularProgressIndicator(),
+//                            );
+//                          }
 //                        })
-//                        : Center(
-//                        child: CircularProgressIndicator()
-//                    )),
+//                  ]),
+//                ),
+                Expanded(
+                    //height: height * 0.5,
+                    child: viewModel.homeList.homelist != null
+                        ? ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: viewModel.homeList.homelist.length,
+                            itemBuilder: (
+                              BuildContext context,
+                              int index,
+                            ) {
+                              return Container(
+                                  child: Column(
+                                children: <Widget>[
+                                  _titleContainer(viewModel
+                                      .homeList.homelist[index].name_az),
+                                  Container(
+                                    child: ListView.builder(
+                                        physics: ClampingScrollPhysics(),
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: viewModel.homeList.homelist[index].list.length,
+                                        itemBuilder:
+                                            (BuildContext context, int index2) {
+                                          return Container(
+                                            height: height * 0.5,
+                                            child: Column(
+                                              children: <Widget>[
+                                                Container(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.5,
+                                                    height: height * 0.5,
+                                                    child: InkWell(
+                                                        child: Container(
+                                                      child: Text(viewModel
+                                                          .homeList
+                                                          .homelist[index]
+                                                          .list[index2]
+                                                          .name_en),
+                                                    )))
+                                              ],
+                                            ),
+                                          );
+                                        }),
+                                    height: height * 0.5,
+                                  )
+                                ],
+                              ));
+                            })
+                        : Center(child: CircularProgressIndicator())),
                 // Container(child: Text("© 2019 Agro Trade",style: TextStyle(color: Colors.green),textAlign: TextAlign.end,),padding: EdgeInsets.all(8.0))
-
 
                 //  _buildCard()
               ]));
@@ -291,9 +244,9 @@ class HomePageState extends State<HomePage> {
             height: 200,
             aspectRatio: 2.0,
             onPageChanged: (index) {
-              setState(() {
-                _current = index;
-              });
+//              setState(() {
+//                _current = index;
+//              });
             },
           ),
           Positioned(
