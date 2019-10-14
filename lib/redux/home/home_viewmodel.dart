@@ -26,8 +26,7 @@ class HomeViewModel {
 
     return HomeViewModel(
         onFetchProductList: _onFetchProductList,
-        productList: store.state.homeProducts,
         onGetCollections: _onCollection(),
-        collections: store.state.homeCollection.productsInCategory);
+    );
   }
 }

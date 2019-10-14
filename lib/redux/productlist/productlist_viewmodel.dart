@@ -93,7 +93,6 @@ class ProductListViewModel {
         productList: store.state.newProducts,
         onFetchProductList: _onFetchProductList,
         onLoadMoreProductList: _onLoadMoreProductList,
-        order: store.state.filterOrder,
         onChangeOrderProductList: _onChangeOrderProductList,
         changeLikeStatus: _onChangeStatusProductList,
         changeAddStatus: _onChangeAddStatusProductList,

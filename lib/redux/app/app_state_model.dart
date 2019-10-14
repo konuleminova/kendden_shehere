@@ -7,40 +7,23 @@ import 'package:kendden_shehere/redux/productlist/products_in_category_model.dar
 
 class AppState {
   UserModel user_info;
-  Home home;
-  List<NewProduct> homeProducts;
-  ProductsInCategory homeCollection;
   int code;
   List<NewProduct> shopItems;
   List<NewProduct> wishItems;
-  String lang;
   List<NewProduct> newProducts;
-  String filterOrder;
-  List<Category> categories;
 
   AppState.initialState()
       : user_info = UserModel(),
-        home = Home(),
         shopItems = new List<NewProduct>(),
         wishItems = new List<NewProduct>(),
-        newProducts = new List<NewProduct>(),
-        homeProducts = new List<NewProduct>(),
-        homeCollection = ProductsInCategory(),
-        lang = "tr",
-        filterOrder = "0",
-        categories = new List<Category>();
+        newProducts = new List<NewProduct>();
 
   AppState(
       {this.user_info,
       this.code,
-      this.home,
       this.shopItems,
       this.wishItems,
-      this.lang,
-      this.newProducts,
-      this.filterOrder,
-      this.categories,
-      this.homeProducts,this.homeCollection});
+      this.newProducts});
 
   @override
   String toString() {
