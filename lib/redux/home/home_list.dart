@@ -12,10 +12,6 @@ class HomeList {
     return HomeList(homelist: listCategories);
   }
 
-  HomeList copyWith({List<Category> listCategories}) {
-    return HomeList(homelist: listCategories ?? this.homelist);
-  }
-
   @override
   String toString() {
     return 'HomeList{categories: $homelist}';
