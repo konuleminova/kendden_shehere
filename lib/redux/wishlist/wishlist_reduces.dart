@@ -11,7 +11,7 @@ Reducer<List<NewProduct>> wishListReducer = combineReducers<List<NewProduct>>([
 
 List<NewProduct> removeWishItemReducer(
     List<NewProduct> state, RemoveWishItemAction action) {
-  return List.from(state)..add(action.removeWishItem);
+  return List.from(state)..remove(action.removeWishItem);
 }
 
 List<NewProduct> addWishItemReducer(
