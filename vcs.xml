@@ -6,7 +6,12 @@
           <option name="url" value="http://gitlab.com" />
           <option name="userName" value="konul.eminova39@gmail.com" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="git@gitlab.com:eminova/kendden_shehere.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
       </list>
     </option>
+    <option name="cloneParentDir" value="$USER_HOME$/Desktop/flutter/packages/flutter_tools" />
   </component>
 </application>
