@@ -52,6 +52,10 @@ class HomePageState extends State<HomePage> {
         productsInCategory = onValue;
       });
     });
+    Networks().showAllCollection().then((onValue){
+      print("home");
+      print(onValue);
+    });
     super.initState();
   }
   @override
