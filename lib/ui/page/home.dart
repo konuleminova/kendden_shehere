@@ -140,96 +140,96 @@ class HomePage extends StatelessWidget {
                 child: new Icon(Icons.chat),
               ),
               drawer: DrawerWidget(),
-              body: new Column(children: <Widget>[
-                // _buildCarousel(),
-                new SizedBox(
-                  width: width,
-                  height: 200,
-                  child: new PageView(children: <Widget>[
-                    new FutureBuilder(
-                        future: Networks().bannerImages(),
-                        builder:
-                            (BuildContext context, AsyncSnapshot snapshot) {
-                          if (snapshot.hasData) {
-                            photos = snapshot.data;
-                            List<Widget> images = new List();
-                            for (int i = 0; i < photos.length; i++) {
-                              images.add(new Container(
-                                width: width,
-                                child: new Image(
-                                  image: NetworkImage(photos[i]),
-                                  fit: BoxFit.cover,
-                                ),
-                              ));
+              body: SingleChildScrollView(
+                child: new Wrap(children: <Widget>[
+                  // _buildCarousel(),
+                  new SizedBox(
+                    width: width,
+                    height: 200,
+                    child: new PageView(children: <Widget>[
+                      new FutureBuilder(
+                          future: Networks().bannerImages(),
+                          builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
+                            if (snapshot.hasData) {
+                              photos = snapshot.data;
+                              List<Widget> images = new List();
+                              for (int i = 0; i < photos.length; i++) {
+                                images.add(new Container(
+                                  width: width,
+                                  child: new Image(
+                                    image: NetworkImage(photos[i]),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ));
+                              }
+                              return _buildCarousel(images);
+                            } else {
+                              return Center(
+                                child: new CircularProgressIndicator(),
+                              );
                             }
-                            return _buildCarousel(images);
-                          } else {
-                            return Center(
-                              child: new CircularProgressIndicator(),
-                            );
-                          }
-                        })
-                  ]),
-                ),
-                Expanded(
-                    //height: height * 0.5,
-                    child: viewModel.homeList.homelist != null
-                        ? ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: viewModel.homeList.homelist.length,
-                            itemBuilder: (
-                              BuildContext context,
-                              int index,
-                            ) {
-                              return Container(
-                                  child: Column(
-                                children: <Widget>[
-                                  _titleContainer(viewModel
-                                      .homeList.homelist[index].name_az),
-                                  Container(
-                                    child: ListView.builder(
-                                        physics: ClampingScrollPhysics(),
-                                        shrinkWrap: true,
-                                        scrollDirection: Axis.horizontal,
-                                        itemCount: viewModel.homeList
-                                            .homelist[index].list.length,
-                                        itemBuilder:
-                                            (BuildContext context, int index2) {
-                                          return Container(
-                                            height: height * 0.5,
-                                            child: Column(
-                                              children: <Widget>[
-                                                Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.5,
-                                                    height: height * 0.5,
-                                                    child: InkWell(
-                                                        child: Container(
-                                                            child: InkWell(
-                                                      child: GroceryListItemOne(
-                                                        product: viewModel
-                                                            .homeList
-                                                            .homelist[index]
-                                                            .list[index2],
-                                                      ),
-                                                    ))))
-                                              ],
-                                            ),
-                                          );
-                                        }),
-                                    height: height * 0.5,
-                                  )
-                                ],
-                              ));
-                            })
-                        : Center(child: CircularProgressIndicator())),
-                // Container(child: Text("© 2019 Agro Trade",style: TextStyle(color: Colors.green),textAlign: TextAlign.end,),padding: EdgeInsets.all(8.0))
+                          })
+                    ]),
+                  ),
+                  viewModel.homeList.homelist != null
+                      ? ListView.builder(
+                          shrinkWrap: true,
+                          physics: ClampingScrollPhysics(),
+                          itemCount: viewModel.homeList.homelist.length,
+                          itemBuilder: (
+                            BuildContext context,
+                            int index,
+                          ) {
+                            return Container(
+                                child: Column(
+                              children: <Widget>[
+                                _titleContainer(
+                                    viewModel.homeList.homelist[index].name_az),
+                                Container(
+                                  child: ListView.builder(
+                                      physics: ClampingScrollPhysics(),
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: viewModel
+                                          .homeList.homelist[index].list.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index2) {
+                                        return Container(
+                                          height: height * 0.5,
+                                          child: Column(
+                                            children: <Widget>[
+                                              Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.5,
+                                                  height: height * 0.5,
+                                                  child: InkWell(
+                                                      child: Container(
+                                                          child: InkWell(
+                                                    child: GroceryListItemOne(
+                                                      product: viewModel
+                                                          .homeList
+                                                          .homelist[index]
+                                                          .list[index2],
+                                                    ),
+                                                  ))))
+                                            ],
+                                          ),
+                                        );
+                                      }),
+                                  height: height * 0.5,
+                                )
+                              ],
+                            ));
+                          })
+                      : Center(child: CircularProgressIndicator()),
+                  // Container(child: Text("© 2019 Agro Trade",style: TextStyle(color: Colors.green),textAlign: TextAlign.end,),padding: EdgeInsets.all(8.0))
 
-                //  _buildCard()
-              ]));
+                  //  _buildCard()
+                ]),
+              ));
         });
     // TODO: implement build
   }
