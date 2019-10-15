@@ -171,10 +171,4 @@ class DrawerWidget extends StatelessWidget {
       ),
     );
   }
-//
-//  _getUserInfo() async {
-//    name = await SharedPrefUtil().getString(SharedPrefUtil().name);
-//    surname = await SharedPrefUtil().getString(SharedPrefUtil().surname);
-//    return name + " " + surname;
-//  }
 }
