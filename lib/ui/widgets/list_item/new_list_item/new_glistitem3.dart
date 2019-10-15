@@ -68,13 +68,17 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemThree> {
                                 Expanded(
                                   child: ListTile(
                                     leading: Container(
-                                      child: Image.network(
-                                        image,
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.2,
-                                        //height: 80.0,
-                                      ),
+                                      child: Hero(
+                                        child: FadeInImage.assetNetwork(
+                                          image: image,
+                                          placeholder: "images/noimage.png",
+                                          fit: BoxFit.cover,
+                                          width:
+                                          MediaQuery.of(context).size.width *
+                                              0.2,
+                                        ),
+                                        tag: product.id,
+                                      )
                                     ),
                                     title: Container(
                                       height: 110.0,

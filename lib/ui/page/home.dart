@@ -96,10 +96,11 @@ class HomePage extends StatelessWidget {
                         onTap: () {
                           Navigator.push(
                               context,
-                              SlideLeftRoute(
-                                  page: GroceryShopCartPage(
-                                fromCheckout: false,
-                              )));
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      GroceryShopCartPage(
+                                        fromCheckout: false,
+                                      )));
                         },
                       ),
                       viewModel.shopItems.length != 0
