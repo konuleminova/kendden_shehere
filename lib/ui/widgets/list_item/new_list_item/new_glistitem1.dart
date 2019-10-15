@@ -137,18 +137,20 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                                                     // this.viewModel.changeLikeStatus(index, true);
                                                     viewModel
                                                         .addWishItem(product);
+                                                    setState(() {
+                                                      product.isLiked =true;
+                                                    });
                                                   } else if (onvalue[
                                                           'action'] ==
                                                       "removed") {
                                                     // this.viewModel.changeLikeStatus(index, false);
                                                     viewModel.removeWishItem(
                                                         product);
+                                                    setState(() {
+                                                      product.isLiked =false;
+                                                    });
                                                   }
                                                   print(onvalue);
-                                                  setState(() {
-                                                    product.isLiked =
-                                                        !product.isLiked;
-                                                  });
                                                 }
                                               });
                                             },
@@ -233,7 +235,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                         viewModel.removeShopItem(product);
                         setState(() {
                           product.isAdded = !product.isAdded;
-                          product.weight=weight;
+                          product.weight = weight;
                         });
                         //viewModel.changeAddStatus(index, false, weight);
                       }
@@ -246,7 +248,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                     if (onvalue != null) {
                       if (onvalue['action'] == "done") {
                         setState(() {
-                         // product.isAdded = !product.isAdded;
+                          // product.isAdded = !product.isAdded;
                           product.weight--;
                         });
                         //viewModel.changeAddStatus(index, true, weight);
@@ -273,10 +275,9 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                     if (onvalue['action'] == "done") {
                       //  viewModel.changeAddStatus(index, true, weight);
                       //viewModel.onFetchShopList();
-                     setState(() {
-                      product.weight++;
-                     });
-
+                      setState(() {
+                        product.weight++;
+                      });
                     }
                   }
                 });
