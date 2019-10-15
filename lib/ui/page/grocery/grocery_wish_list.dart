@@ -4,8 +4,10 @@ import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/redux/wishlist/wishlist_viewmodel.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem2.dart';
+import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem3.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
+
 class GroceryWishListPage extends StatelessWidget {
   WishListViewModel viewModel;
   String title;
@@ -52,10 +54,7 @@ class GroceryWishListPage extends StatelessWidget {
     }
     return new Stack(
       children: <Widget>[
-        NewGroceryListItemTwo(
-          product: wishItem,
-          viewModel: viewModel,
-        ),
+        NewGroceryListItemTwo(wishItem),
       ],
     );
   }
