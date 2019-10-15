@@ -22,10 +22,26 @@ class GroceryListItemOne extends StatefulWidget {
   }
 }
 
-class GroceryListItemOneState extends State<GroceryListItemOne> {
+class GroceryListItemOneState extends State<GroceryListItemOne>
+    with SingleTickerProviderStateMixin {
   String title;
   NewProduct product;
   ProductViewModel viewModel;
+  AnimationController animationController;
+  Animation animation;
+  int currentState = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    animationController =
+        AnimationController(duration: Duration(milliseconds: 100), vsync: this);
+    animation = Tween(begin: 28, end: 32.0).animate(animationController)
+      ..addListener(() {
+        setState(() {});
+      });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,11 +93,11 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                             children: <Widget>[
                               GestureDetector(
                                 child: Container(
-                                    child:FadeInImage.assetNetwork(
+                                    child: FadeInImage.assetNetwork(
                                       image:
-                                      "https://kenddenshehere.az/images/pr/th/" +
-                                          product.code +
-                                          ".jpg",
+                                          "https://kenddenshehere.az/images/pr/th/" +
+                                              product.code +
+                                              ".jpg",
                                       placeholder: "images/noimage.png",
                                       fit: BoxFit.cover,
                                       height: 150,
@@ -127,9 +143,16 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                                                   ? Icons.favorite
                                                   : Icons.favorite_border,
                                               color: Colors.pink[400],
-                                              size: 30,
+                                              size: double.parse(animation.value.toString()),
                                             ),
                                             onPressed: () {
+//                                              if(currentState == 0){
+//                                                animationController.forward();
+//                                                currentState = 1;
+//                                              } else{
+//                                                animationController.reverse();
+//                                                currentState = 0;
+//                                              }
                                               Networks()
                                                   .add_Remove_WishList(
                                                       product.id)
@@ -142,6 +165,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                                                         .addWishItem(product);
                                                     setState(() {
                                                       product.isLiked = true;
+                                                      animationController.forward();
                                                     });
                                                   } else if (onvalue[
                                                           'action'] ==
@@ -151,6 +175,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                                                         product);
                                                     setState(() {
                                                       product.isLiked = false;
+                                                      animationController.reverse();
                                                     });
                                                   }
                                                   print(onvalue);

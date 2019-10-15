@@ -144,35 +144,35 @@ class HomePage extends StatelessWidget {
               body: SingleChildScrollView(
                 child: new Wrap(children: <Widget>[
                   // _buildCarousel(),
-                  new SizedBox(
-                    width: width,
-                    height: 200,
-                    child: new PageView(children: <Widget>[
-                      new FutureBuilder(
-                          future: Networks().bannerImages(),
-                          builder:
-                              (BuildContext context, AsyncSnapshot snapshot) {
-                            if (snapshot.hasData) {
-                              photos = snapshot.data;
-                              List<Widget> images = new List();
-                              for (int i = 0; i < photos.length; i++) {
-                                images.add(new Container(
-                                  width: width,
-                                  child: new Image(
-                                    image: NetworkImage(photos[i]),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ));
-                              }
-                              return _buildCarousel(images);
-                            } else {
-                              return Center(
-                                child: new CircularProgressIndicator(),
-                              );
-                            }
-                          })
-                    ]),
-                  ),
+//                  new SizedBox(
+//                    width: width,
+//                    height: 200,
+//                    child: new PageView(children: <Widget>[
+//                      new FutureBuilder(
+//                          future: Networks().bannerImages(),
+//                          builder:
+//                              (BuildContext context, AsyncSnapshot snapshot) {
+//                            if (snapshot.hasData) {
+//                              photos = snapshot.data;
+//                              List<Widget> images = new List();
+//                              for (int i = 0; i < photos.length; i++) {
+//                                images.add(new Container(
+//                                  width: width,
+//                                  child: new Image(
+//                                    image: NetworkImage(photos[i]),
+//                                    fit: BoxFit.cover,
+//                                  ),
+//                                ));
+//                              }
+//                              return _buildCarousel(images);
+//                            } else {
+//                              return Center(
+//                                child: new CircularProgressIndicator(),
+//                              );
+//                            }
+//                          })
+//                    ]),
+//                  ),
                   viewModel.homeList.homelist != null
                       ? ListView.builder(
                           shrinkWrap: true,
