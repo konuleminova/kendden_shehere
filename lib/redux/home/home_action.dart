@@ -14,3 +14,8 @@ class ShowHomeBasketAction {
 
   ShowHomeBasketAction(this.store);
 }
+class ShowHomeWishAction{
+  Store<AppState> store;
+
+  ShowHomeWishAction(this.store);
+}

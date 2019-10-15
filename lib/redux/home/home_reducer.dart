@@ -4,7 +4,9 @@ import 'package:kendden_shehere/redux/home/home_action.dart';
 
 Reducer<HomeList> homeReducer = combineReducers<HomeList>([
   TypedReducer<HomeList, ShowAllCollectionAction>(showAllCollectionReducer),
-  TypedReducer<HomeList, ShowHomeBasketAction>(showBasketHomeProductListReducer),
+  TypedReducer<HomeList, ShowHomeBasketAction>(
+      showBasketHomeProductListReducer),
+  TypedReducer<HomeList, ShowHomeWishAction>(showWishHomeProductListReducer),
 ]);
 
 HomeList showAllCollectionReducer(
@@ -19,6 +21,20 @@ HomeList showBasketHomeProductListReducer(
       action.store.state.shopItems.forEach((f) {
         if (l.id == f.id) {
           l.isAdded = true;
+        }
+      });
+    });
+  });
+  return state;
+}
+
+HomeList showWishHomeProductListReducer(
+    HomeList state, ShowHomeWishAction action) {
+  action.store.state.homeList.homelist.forEach((item) {
+    item.list.forEach((l) {
+      action.store.state.shopItems.forEach((f) {
+        if (l.id == f.id) {
+          l.isLiked = true;
         }
       });
     });
