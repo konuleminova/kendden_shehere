@@ -64,25 +64,17 @@ class HomePage extends StatelessWidget {
         converter: (Store<AppState> store) => HomeViewModel.create(store),
         builder: (BuildContext context, HomeViewModel viewModel) {
           return new Scaffold(
-              key: scaffoldKey,
+              //key: scaffoldKey,
               appBar: new AppBar(
                 backgroundColor: Colors.lightGreen,
-                leading: IconButton(
-                  icon: new Icon(
-                    Icons.menu,
-                    color: Colors.white,
+                leading: Builder(
+                  builder: (context) => IconButton(
+                    icon: new Icon(Icons.menu),
+                    onPressed: () => Scaffold.of(context).openDrawer(),
                   ),
-                  onPressed: () => scaffoldKey.currentState.openDrawer(),
                 ),
-                title: GestureDetector(
-                  child: new Text(AppTranslations.of(context)
-                      .text("title_select_language")),
-                  onTap: () {
-                    print("click");
-                    application.onLocaleChanged(Locale("ru"));
-                    //viewModel.changeLang("en");
-                  },
-                ),
+                title: new Text(
+                    AppTranslations.of(context).text("title_select_language")),
                 actions: <Widget>[
                   new IconButton(
                     icon: Icon(

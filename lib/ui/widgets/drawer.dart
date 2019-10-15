@@ -14,21 +14,20 @@ import 'package:kendden_shehere/ui/page/menu/delivery.dart';
 import 'package:kendden_shehere/ui/page/menu/fag.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 
-class DrawerWidget extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return DrawerState();
-  }
-}
+//class DrawerWidget extends StatefulWidget {
+//  @override
+//  State<StatefulWidget> createState() {
+//    // TODO: implement createState
+//    return DrawerState();
+//  }
+//}
 
-class DrawerState extends State<DrawerWidget> {
-  String name;
-  String surname;
-  AsyncMemoizer memoizer = new AsyncMemoizer();
+class DrawerWidget extends StatelessWidget {
+
 
   @override
   Widget build(BuildContext context) {
+    AsyncMemoizer memoizer = new AsyncMemoizer();
     // TODO: implement build
     return new Drawer(
       child: ListView(
@@ -171,11 +170,6 @@ class DrawerState extends State<DrawerWidget> {
         ],
       ),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 //
 //  _getUserInfo() async {
