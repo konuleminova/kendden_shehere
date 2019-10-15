@@ -233,6 +233,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                         viewModel.removeShopItem(product);
                         setState(() {
                           product.isAdded = !product.isAdded;
+                          product.weight=weight;
                         });
                         //viewModel.changeAddStatus(index, false, weight);
                       }
@@ -245,7 +246,8 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                     if (onvalue != null) {
                       if (onvalue['action'] == "done") {
                         setState(() {
-                          product.isAdded = !product.isAdded;
+                         // product.isAdded = !product.isAdded;
+                          product.weight--;
                         });
                         //viewModel.changeAddStatus(index, true, weight);
                       }
@@ -271,6 +273,9 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                     if (onvalue['action'] == "done") {
                       //  viewModel.changeAddStatus(index, true, weight);
                       //viewModel.onFetchShopList();
+                     setState(() {
+                      product.weight++;
+                     });
 
                     }
                   }
