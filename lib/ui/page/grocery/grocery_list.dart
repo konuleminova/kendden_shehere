@@ -85,7 +85,7 @@ class GroceryListPage extends StatelessWidget {
                                               0.6,
                                           height: 370,
                                           child: InkWell(
-                                            child: GroceryListItemOne(viewModel:this.viewModel,index: index,
+                                            child: GroceryListItemOne(product: viewModel.productList[index],
                                             ),
                                           ));
                                     },

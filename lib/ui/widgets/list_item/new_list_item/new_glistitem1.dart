@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
+import 'package:kendden_shehere/redux/productlist/product_viewmodel.dart';
 import 'package:kendden_shehere/redux/productlist/productlist_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_details_page.dart';
 import 'package:kendden_shehere/ui/widgets/gtile_title.dart';
 import 'package:kendden_shehere/ui/widgets/rating_star.dart';
+import 'package:redux/redux.dart';
+
 class GroceryListItemOne extends StatefulWidget {
   ProductListViewModel viewModel;
   int index;
-  GroceryListItemOne({this.viewModel, this.index});
-
-
+  NewProduct product;
+  GroceryListItemOne({this.viewModel, this.index,this.product});
 
   @override
   State<StatefulWidget> createState() {
@@ -23,14 +27,16 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
   String title;
   bool isAdded = false;
   NewProduct product = new NewProduct();
-  ProductListViewModel viewModel;
+  ProductListViewModel viewModels;
+  ProductViewModel viewModel;
   int index;
+
   @override
   Widget build(BuildContext context) {
-    index=widget.index;
-    viewModel=widget.viewModel;
+   // index = widget.index;
+   // viewModels = widget.viewModel;
     String langCode = Localizations.localeOf(context).languageCode;
-    product = this.viewModel.productList[index];
+    product = widget.product;
     if (langCode == "tr") {
       title = product.name_az.trim();
     } else if (langCode == "en") {
@@ -39,111 +45,128 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
       title = product.name_ru.trim();
     }
     // TODO: implement build
-    return Container(
-      decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(color: Colors.grey[300]),
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(5.0), topRight: Radius.circular(5.0)),
-          boxShadow: [
-            BoxShadow(
-                blurRadius: 10.0,
-                color: Colors.grey.shade200,
-                spreadRadius: 2.0)
-          ]),
-      margin: EdgeInsets.all(4.0),
-      child: Column(
-        children: <Widget>[
-          Expanded(
-            child: Container(
-              padding: EdgeInsets.all(10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  GestureDetector(
-                    child: Container(
-                        child: FadeInImage.assetNetwork(
-                          image: "https://kenddenshehere.az/images/pr/th/" + product.code + ".jpg",
-                          placeholder: "images/noimage.png",
-                          fit: BoxFit.cover,
-                          height: 150,
-                        ),
-                        height: 150,
-                        padding: EdgeInsets.only(
-                            left: 10, right: 10, top: 10, bottom: 4)),
-                    onTap: () {
-                      //   Navigator.pushNamed(context, "/product_detail");
-                      Route route = MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              GroceryDetailsPage(product));
-                      Navigator.push(context, route);
-                    },
-                  ),
-                  new GroceryTitle(text: title),
-                  new Container(
-                      height: 20,
-                      child: new Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          new Row(
-                            children: <Widget>[
-                              new RatingStarWidget(1, 1, 16),
-                              new Container(
-                                child: Text("4.2"),
+    return StoreConnector(
+        onInitialBuild: (ProductViewModel viewModel) {
+          this.viewModel = viewModel;
+        },
+        onDispose: (store) {
+         // store.state.newProducts.clear();
+        },
+        converter: (Store<AppState> store) =>
+            ProductViewModel.create(store),
+        builder: (BuildContext context, ProductViewModel viewModel) {
+          return Container(
+            decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(color: Colors.grey[300]),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(5.0),
+                    topRight: Radius.circular(5.0)),
+                boxShadow: [
+                  BoxShadow(
+                      blurRadius: 10.0,
+                      color: Colors.grey.shade200,
+                      spreadRadius: 2.0)
+                ]),
+            margin: EdgeInsets.all(4.0),
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        GestureDetector(
+                          child: Container(
+                              child: FadeInImage.assetNetwork(
+                                image:
+                                    "https://kenddenshehere.az/images/pr/th/" +
+                                        product.code +
+                                        ".jpg",
+                                placeholder: "images/noimage.png",
+                                fit: BoxFit.cover,
+                                height: 150,
                               ),
-                            ],
-                          ),
-                          new InkWell(
-                              focusColor: Colors.green,
-                              highlightColor: Colors.green,
-                              hoverColor: Colors.green,
-                              child: IconButton(
-                                icon: Icon(
-                                  product.isLiked
-                                      ? Icons.favorite
-                                      : Icons.favorite_border,
-                                  color: Colors.pink[400],
-                                  size: 30,
+                              height: 150,
+                              padding: EdgeInsets.only(
+                                  left: 10, right: 10, top: 10, bottom: 4)),
+                          onTap: () {
+                            //   Navigator.pushNamed(context, "/product_detail");
+                            Route route = MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    GroceryDetailsPage(product));
+                            Navigator.push(context, route);
+                          },
+                        ),
+                        new GroceryTitle(text: title),
+                        new Container(
+                            height: 20,
+                            child: new Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                new Row(
+                                  children: <Widget>[
+                                    new RatingStarWidget(1, 1, 16),
+                                    new Container(
+                                      child: Text("4.2"),
+                                    ),
+                                  ],
                                 ),
-                                onPressed: () {
-                                 setState(() {
-                                   product.isLiked=!product.isLiked;
-                                 });
-                                  Networks()
-                                      .add_Remove_WishList(product.id)
-                                      .then((onvalue) {
-                                    if (onvalue['action'] == "added") {
-                                      // this.viewModel.changeLikeStatus(index, true);
-                                      viewModel.addWishItem(product);
-                                    } else if (onvalue['action'] == "removed") {
-                                      // this.viewModel.changeLikeStatus(index, false);
-                                      viewModel.removeWishItem(product);
-                                    }
-                                    print(onvalue);
-                                  });
-                                },
-                              )),
-                        ],
-                      )),
-                  new Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      new GrocerySubtitle(text: product.counttype),
-                      new GrocerySubtitle(text: product.price + " AZN"),
-                    ],
+                                new InkWell(
+                                    focusColor: Colors.green,
+                                    highlightColor: Colors.green,
+                                    hoverColor: Colors.green,
+                                    child: IconButton(
+                                      icon: Icon(
+                                        product.isLiked
+                                            ? Icons.favorite
+                                            : Icons.favorite_border,
+                                        color: Colors.pink[400],
+                                        size: 30,
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          product.isLiked = !product.isLiked;
+                                        });
+                                        Networks()
+                                            .add_Remove_WishList(product.id)
+                                            .then((onvalue) {
+                                          if (onvalue['action'] == "added") {
+                                            // this.viewModel.changeLikeStatus(index, true);
+                                            viewModel.addWishItem(product);
+                                          } else if (onvalue['action'] ==
+                                              "removed") {
+                                            // this.viewModel.changeLikeStatus(index, false);
+                                            viewModel.removeWishItem(product);
+                                          }
+                                          print(onvalue);
+                                        });
+                                      },
+                                    )),
+                              ],
+                            )),
+                        new Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            new GrocerySubtitle(text: product.counttype),
+                            new GrocerySubtitle(text: product.price + " AZN"),
+                          ],
+                        ),
+                        addedWidget(),
+                      ],
+                    ),
                   ),
-                  addedWidget(),
-                ],
-              ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
-    );
+          );
+        });
   }
+
   addedWidget() {
     int weight = product.weight;
     if (!product.isAdded) {
@@ -165,7 +188,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                       viewModel.addShopItem(product);
                       // viewModel.onFetchShopList();
                       setState(() {
-                        product.isAdded=!product.isAdded;
+                        product.isAdded = !product.isAdded;
                       });
                       //viewModel.changeAddStatus(index, true, product.weight);
                     }
@@ -199,7 +222,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                       if (onvalue['action'] == "done") {
                         viewModel.removeShopItem(product);
                         setState(() {
-                          product.isAdded=!product.isAdded;
+                          product.isAdded = !product.isAdded;
                         });
                         //viewModel.changeAddStatus(index, false, weight);
                       }
@@ -212,7 +235,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                     if (onvalue != null) {
                       if (onvalue['action'] == "done") {
                         setState(() {
-                          product.isAdded=!product.isAdded;
+                          product.isAdded = !product.isAdded;
                         });
                         //viewModel.changeAddStatus(index, true, weight);
                       }
@@ -236,7 +259,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                     .then((onvalue) {
                   if (onvalue != null) {
                     if (onvalue['action'] == "done") {
-                    //  viewModel.changeAddStatus(index, true, weight);
+                      //  viewModel.changeAddStatus(index, true, weight);
                       //viewModel.onFetchShopList();
 
                     }
@@ -250,7 +273,6 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
       );
     }
   }
-
 }
 //              setState(() {
 //                isAdded = true;

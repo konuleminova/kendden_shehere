@@ -184,7 +184,8 @@ class HomePage extends StatelessWidget {
                                         physics: ClampingScrollPhysics(),
                                         shrinkWrap: true,
                                         scrollDirection: Axis.horizontal,
-                                        itemCount: viewModel.homeList.homelist[index].list.length,
+                                        itemCount: viewModel.homeList
+                                            .homelist[index].list.length,
                                         itemBuilder:
                                             (BuildContext context, int index2) {
                                           return Container(
@@ -200,12 +201,14 @@ class HomePage extends StatelessWidget {
                                                     height: height * 0.5,
                                                     child: InkWell(
                                                         child: Container(
-                                                      child: Text(viewModel
-                                                          .homeList
-                                                          .homelist[index]
-                                                          .list[index2]
-                                                          .name_en),
-                                                    )))
+                                                            child: InkWell(
+                                                      child: GroceryListItemOne(
+                                                        product: viewModel
+                                                            .homeList
+                                                            .homelist[index]
+                                                            .list[index2],
+                                                      ),
+                                                    ))))
                                               ],
                                             ),
                                           );
