@@ -52,7 +52,7 @@ class HomePage extends StatelessWidget {
         },
         onDispose: (store) {
           print("Dispose");
-          store.state.homeList.clear();
+          store.state.homeList.homelist.clear();
           store.state.wishItems.clear();
           store.state.shopItems.clear();
         },
