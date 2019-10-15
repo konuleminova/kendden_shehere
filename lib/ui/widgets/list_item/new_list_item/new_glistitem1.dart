@@ -52,7 +52,10 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
               ? Container(
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      border: Border.all(color: Colors.grey[300]),
+                      border: Border.all(
+                          color: !product.isAdded
+                              ? Colors.grey[300]
+                              : Colors.green[300]),
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(5.0),
                           topRight: Radius.circular(5.0)),
@@ -138,7 +141,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                                                     viewModel
                                                         .addWishItem(product);
                                                     setState(() {
-                                                      product.isLiked =true;
+                                                      product.isLiked = true;
                                                     });
                                                   } else if (onvalue[
                                                           'action'] ==
@@ -147,7 +150,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                                                     viewModel.removeWishItem(
                                                         product);
                                                     setState(() {
-                                                      product.isLiked =false;
+                                                      product.isLiked = false;
                                                     });
                                                   }
                                                   print(onvalue);
@@ -290,18 +293,3 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
     }
   }
 }
-//              setState(() {
-//                isAdded = true;
-//                Networks().addToBasket(product.id, amount.toString())
-//                    .then((onvalue) {
-//                      widget.viewModel.shopItems.add(product);
-//                  print(onvalue);
-//                  SharedPrefUtil().setString(SharedPrefUtil().count, "0");
-//                  SharedPrefUtil().getString(SharedPrefUtil().count).then((onValue){
-//                    SharedPrefUtil().setString(
-//                        SharedPrefUtil().count,(int.parse(onValue)+1).toString());
-//                  });
-//
-//                });
-//                //  widget.viewModel.addShopItem(product);
-//              });
