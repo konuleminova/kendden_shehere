@@ -15,7 +15,6 @@ class GroceryListPage extends StatelessWidget {
   String id;
   String order;
   GroceryListPage({this.title, this.id, this.order});
-
   String lang;
 
   @override
