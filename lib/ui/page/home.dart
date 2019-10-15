@@ -27,7 +27,6 @@ import 'dart:convert';
 import 'package:redux/redux.dart';
 
 class HomePage extends StatelessWidget {
-  final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
   double height = 0;
   double width = 0;
   List<String> photos = new List();

@@ -95,8 +95,7 @@ class SearchWidget extends SearchDelegate<String> {
                                       height: 370,
                                       child: InkWell(
                                         child: GroceryListItemOne(
-                                          viewModel: this.viewModel,
-                                          index: index,
+                                          product: viewModel.productList[index],
                                         ),
                                       ));
                                 }, childCount: viewModel.productList.length)))
