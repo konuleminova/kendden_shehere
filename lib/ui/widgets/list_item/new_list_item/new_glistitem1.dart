@@ -77,11 +77,11 @@ class GroceryListItemOneState extends State<GroceryListItemOne> {
                             children: <Widget>[
                               GestureDetector(
                                 child: Container(
-                                    child: FadeInImage.assetNetwork(
+                                    child:FadeInImage.assetNetwork(
                                       image:
-                                          "https://kenddenshehere.az/images/pr/th/" +
-                                              product.code +
-                                              ".jpg",
+                                      "https://kenddenshehere.az/images/pr/th/" +
+                                          product.code +
+                                          ".jpg",
                                       placeholder: "images/noimage.png",
                                       fit: BoxFit.cover,
                                       height: 150,
