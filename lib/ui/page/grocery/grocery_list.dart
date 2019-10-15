@@ -15,27 +15,27 @@ class GroceryListPage extends StatelessWidget {
   String id;
   String order;
   GroceryListPage({this.title, this.id, this.order});
+
   String lang;
 
   @override
   Widget build(BuildContext context) {
-    String langCode = Localizations.localeOf(context).languageCode;
-    if (langCode == "tr") {
-      lang = "0";
-    } else if (langCode == "en") {
-      lang = "2";
-    } else if (langCode == "ru") {
-      lang = "1";
-    }
     return StoreConnector(
         onInit: (store) {
           _scrollController = new ScrollController();
           _scrollController.addListener(_scrollListener);
+          String langCode = Localizations.localeOf(context).languageCode;
+          if (langCode == "tr") {
+            lang = "0";
+          } else if (langCode == "en") {
+            lang = "2";
+          } else if (langCode == "ru") {
+            lang = "1";
+          }
         },
         onInitialBuild: (ProductListViewModel viewModel) {
           this.viewModel = viewModel;
           fetchProductList();
-
         },
         onDispose: (store) {
           store.state.newProducts.clear();
@@ -49,7 +49,7 @@ class GroceryListPage extends StatelessWidget {
                 backgroundColor: Colors.lightGreen,
                 actions: <Widget>[
                   PopupMenuButton<String>(
-                      onSelected: choiceAction,
+                    onSelected: choiceAction,
                     itemBuilder: (BuildContext context) {
                       return Constants.choices.map((String choice) {
                         return PopupMenuItem<String>(
@@ -85,7 +85,9 @@ class GroceryListPage extends StatelessWidget {
                                               0.6,
                                           height: 370,
                                           child: InkWell(
-                                            child: GroceryListItemOne(product: viewModel.productList[index],
+                                            child: GroceryListItemOne(
+                                              product:
+                                                  viewModel.productList[index],
                                             ),
                                           ));
                                     },
@@ -117,7 +119,7 @@ class GroceryListPage extends StatelessWidget {
     if (choice == Constants.FirstItem) {
       order = "1";
       page = 0;
-       fetchProductList();
+      fetchProductList();
     } else if (choice == Constants.SecondItem) {
       order = "2";
       page = 0;
@@ -147,8 +149,7 @@ class GroceryListPage extends StatelessWidget {
     }
     if (_scrollController.offset <=
             _scrollController.position.minScrollExtent &&
-        !_scrollController.position.outOfRange) {
-    }
+        !_scrollController.position.outOfRange) {}
   }
 
   void fetchProductList() {
@@ -158,5 +159,4 @@ class GroceryListPage extends StatelessWidget {
   void loadm() {
     viewModel.onLoadMoreProductList(id, lang, "10", page.toString(), order);
   }
-
 }
