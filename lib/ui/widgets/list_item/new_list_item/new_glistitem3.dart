@@ -155,17 +155,23 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemThree> {
             ),
           ),
         ),
-        onTap: () {
-          setState(() {
-            isAdded = true;
-            Networks()
-                .addToBasket(product.id, weight.toString())
-                .then((onvalue) {
-              print(onvalue);
-            });
-            //  widget.viewModel.addShopItem(product);
+        onTap: ()  {
+          Networks()
+              .addToBasket(product.id, product.weight.toString())
+              .then((onvalue) {
+            print(onvalue);
+            if (onvalue != null) {
+              if (onvalue['action'] == "done") {
+                viewModel.addShopItem(product);
+                // viewModel.onFetchShopList();
+                setState(() {
+                  product.isAdded = !product.isAdded;
+                });
+                //viewModel.changeAddStatus(index, true, product.weight);
+              }
+            }
           });
-        },
+        }
       );
     } else {
       return new Container(

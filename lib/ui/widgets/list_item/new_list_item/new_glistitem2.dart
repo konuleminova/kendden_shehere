@@ -24,7 +24,6 @@ class NewGroceryListItemTwo extends StatefulWidget {
 class NewGroceryListItemTwoState extends State<NewGroceryListItemTwo> {
   NewProduct product;
   String image, title;
-  bool isAdded = false, isLiked = true;
   int weight = 1;
   ProductViewModel viewModel;
 
@@ -147,32 +146,37 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemTwo> {
   _updateContainer() {
     if (!product.isAdded) {
       return new GestureDetector(
-        child: new Container(
           child: new Container(
-            padding: EdgeInsets.all(8),
-            color: Colors.lightGreen,
-            child: new SizedBox(
-              child: new Icon(
-                Icons.shopping_cart,
-                color: Colors.white,
+            child: new Container(
+              padding: EdgeInsets.all(8),
+              color: Colors.lightGreen,
+              child: new SizedBox(
+                child: new Icon(
+                  Icons.shopping_cart,
+                  color: Colors.white,
+                ),
+                height: 20,
+                width: 20,
               ),
-              height: 20,
-              width: 20,
             ),
           ),
-        ),
-        onTap: () {
-          setState(() {
-            isAdded = true;
+          onTap: () {
             Networks()
-                .addToBasket(product.id, weight.toString())
+                .addToBasket(product.id, product.weight.toString())
                 .then((onvalue) {
               print(onvalue);
+              if (onvalue != null) {
+                if (onvalue['action'] == "done") {
+                  viewModel.addShopItem(product);
+                  // viewModel.onFetchShopList();
+                  setState(() {
+                    product.isAdded = !product.isAdded;
+                  });
+                  //viewModel.changeAddStatus(index, true, product.weight);
+                }
+              }
             });
-            //  widget.viewModel.addShopItem(product);
           });
-        },
-      );
     } else {
       return new Container(
         width: 80,
