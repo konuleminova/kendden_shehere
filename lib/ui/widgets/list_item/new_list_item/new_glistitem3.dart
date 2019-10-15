@@ -110,13 +110,17 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemThree> {
                                           size: 25,
                                         ),
                                         onPressed: () {
-                                          viewModel.removeShopItem(product);
                                           Networks()
                                               .removeFromBasket(product.id)
                                               .then((onvalue) {
-                                            print(onvalue);
+                                           if(onvalue!=null){
+                                             if (onvalue['action'] ==
+                                                 "done") {
+                                               viewModel.removeShopItem(product);
+                                             }
+                                           }
                                           });
-                                          setState(() {});
+
                                         },
                                       ),
                                       _updateContainer()
