@@ -5,16 +5,30 @@ import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_details_page.dart';
 import 'package:kendden_shehere/ui/widgets/gtile_title.dart';
 import 'package:kendden_shehere/ui/widgets/rating_star.dart';
-class GroceryListItemOne extends StatelessWidget {
+class GroceryListItemOne extends StatefulWidget {
+  ProductListViewModel viewModel;
+  int index;
+  GroceryListItemOne({this.viewModel, this.index});
 
+
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return GroceryListItemOneState();
+  }
+}
+
+class GroceryListItemOneState extends State<GroceryListItemOne> {
   String title;
   bool isAdded = false;
   NewProduct product = new NewProduct();
   ProductListViewModel viewModel;
   int index;
-  GroceryListItemOne({this.viewModel, this.index});
   @override
   Widget build(BuildContext context) {
+    index=widget.index;
+    viewModel=widget.viewModel;
     String langCode = Localizations.localeOf(context).languageCode;
     product = this.viewModel.productList[index];
     if (langCode == "tr") {
@@ -87,21 +101,24 @@ class GroceryListItemOne extends StatelessWidget {
                               hoverColor: Colors.green,
                               child: IconButton(
                                 icon: Icon(
-                                  this.viewModel.productList[index].isLiked
+                                  product.isLiked
                                       ? Icons.favorite
                                       : Icons.favorite_border,
                                   color: Colors.pink[400],
                                   size: 30,
                                 ),
                                 onPressed: () {
+                                 setState(() {
+                                   product.isLiked=!product.isLiked;
+                                 });
                                   Networks()
                                       .add_Remove_WishList(product.id)
                                       .then((onvalue) {
                                     if (onvalue['action'] == "added") {
-                                      this.viewModel.changeLikeStatus(index, true);
+                                      // this.viewModel.changeLikeStatus(index, true);
                                       viewModel.addWishItem(product);
                                     } else if (onvalue['action'] == "removed") {
-                                      this.viewModel.changeLikeStatus(index, false);
+                                      // this.viewModel.changeLikeStatus(index, false);
                                       viewModel.removeWishItem(product);
                                     }
                                     print(onvalue);
@@ -127,7 +144,6 @@ class GroceryListItemOne extends StatelessWidget {
       ),
     );
   }
-
   addedWidget() {
     int weight = product.weight;
     if (!product.isAdded) {
@@ -148,7 +164,10 @@ class GroceryListItemOne extends StatelessWidget {
                     if (onvalue['action'] == "done") {
                       viewModel.addShopItem(product);
                       // viewModel.onFetchShopList();
-                      viewModel.changeAddStatus(index, true, product.weight);
+                      setState(() {
+                        product.isAdded=!product.isAdded;
+                      });
+                      //viewModel.changeAddStatus(index, true, product.weight);
                     }
                   }
                 });
@@ -179,7 +198,10 @@ class GroceryListItemOne extends StatelessWidget {
                     if (onvalue != null) {
                       if (onvalue['action'] == "done") {
                         viewModel.removeShopItem(product);
-                        viewModel.changeAddStatus(index, false, weight);
+                        setState(() {
+                          product.isAdded=!product.isAdded;
+                        });
+                        //viewModel.changeAddStatus(index, false, weight);
                       }
                     }
                   });
@@ -189,7 +211,10 @@ class GroceryListItemOne extends StatelessWidget {
                       .then((onvalue) {
                     if (onvalue != null) {
                       if (onvalue['action'] == "done") {
-                        viewModel.changeAddStatus(index, true, weight);
+                        setState(() {
+                          product.isAdded=!product.isAdded;
+                        });
+                        //viewModel.changeAddStatus(index, true, weight);
                       }
                     }
                   });
@@ -211,8 +236,9 @@ class GroceryListItemOne extends StatelessWidget {
                     .then((onvalue) {
                   if (onvalue != null) {
                     if (onvalue['action'] == "done") {
-                      viewModel.changeAddStatus(index, true, weight);
+                    //  viewModel.changeAddStatus(index, true, weight);
                       //viewModel.onFetchShopList();
+
                     }
                   }
                 });
@@ -224,6 +250,7 @@ class GroceryListItemOne extends StatelessWidget {
       );
     }
   }
+
 }
 //              setState(() {
 //                isAdded = true;
