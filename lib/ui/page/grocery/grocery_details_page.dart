@@ -31,6 +31,7 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
   NewProduct product;
   String img;
   ProductViewModel viewModel;
+  int lenght;
 
   @override
   void initState() {
@@ -60,9 +61,9 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
     }
     // TODO: implement build
     return StoreConnector(
-      onInit: (store){
-
-      },
+        onInit: (store) {
+          lenght = store.state.shopItems.length;
+        },
         onInitialBuild: (ProductViewModel viewModel) {
           this.viewModel = viewModel;
         },
@@ -92,22 +93,51 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                             },
                           ),
                         ),
-                        InkWell(
-                          child: IconButton(
-                            icon: Icon(
-                              Icons.shopping_cart,
-                              color: Colors.white,
+                        new Stack(
+                          children: <Widget>[
+                            InkWell(
+                              child: new IconButton(
+                                  icon: Icon(
+                                    Icons.shopping_cart,
+                                    color: Colors.white,
+                                  ),
+                                  onPressed: null),
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    SlideLeftRoute(
+                                        page: GroceryShopCartPage(
+                                      fromCheckout: false,
+                                    )));
+                              },
                             ),
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  SlideLeftRoute(
-                                      page: GroceryShopCartPage(
-                                    fromCheckout: false,
-                                  )));
-                            },
-                          ),
-                        )
+                            lenght != 0
+                                ? new Positioned(
+                                    right: 11,
+                                    top: 11,
+                                    child: new Container(
+                                      padding: EdgeInsets.all(2),
+                                      decoration: new BoxDecoration(
+                                        color: Colors.red,
+                                        borderRadius: BorderRadius.circular(6),
+                                      ),
+                                      constraints: BoxConstraints(
+                                        minWidth: 14,
+                                        minHeight: 14,
+                                      ),
+                                      child: Text(
+                                        lenght.toString(),
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 8,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  )
+                                : new Container()
+                          ],
+                        ),
                       ]),
                   body: _buildPageContent(context))
               : SizedBox();
@@ -182,7 +212,7 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
         child: new Container(
           width: MediaQuery.of(context).size.width * 0.45,
           child: new Container(
-           // padding: EdgeInsets.all(8),
+            // padding: EdgeInsets.all(8),
             color: Colors.lightGreen,
             child: new Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -204,6 +234,7 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                             // viewModel.onFetchShopList();
                             setState(() {
                               product.isAdded = !product.isAdded;
+                              lenght++;
                             });
                             //viewModel.changeAddStatus(index, true, product.weight);
                           }
@@ -214,7 +245,10 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                   padding: EdgeInsets.only(right: 8.0),
                   child: new Text(
                     "Add to Cart",
-                    style: TextStyle(color: Colors.white, fontSize: 16,fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
                   ),
                 )
               ],
@@ -230,6 +264,7 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                 // viewModel.onFetchShopList();
                 setState(() {
                   product.isAdded = !product.isAdded;
+                  lenght++;
                 });
                 //viewModel.changeAddStatus(index, true, product.weight);
               }
@@ -264,7 +299,8 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                         viewModel.removeShopItem(product);
                         setState(() {
                           product.isAdded = !product.isAdded;
-                          product.weight=weight;
+                          product.weight = weight;
+                          lenght--;
                         });
                         //viewModel.changeAddStatus(index, false, weight);
                       }
@@ -307,7 +343,6 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                       setState(() {
                         product.weight++;
                       });
-
                     }
                   }
                 });
