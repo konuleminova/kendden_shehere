@@ -9,9 +9,8 @@ ThunkAction<AppState> shoAllCollectionThunkAction() {
     var response = await Networks().showAllCollection();
     print(response);
     if (response != null) {
-
-      store.dispatch(
-          ShowAllCollectionAction(homeList: response));
+      store.dispatch(ShowAllCollectionAction(homeList: response));
+      store.dispatch(ShowHomeBasketAction(store));
     }
   };
 }
