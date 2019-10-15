@@ -47,6 +47,7 @@ class HomePage extends StatelessWidget {
           // counter=viewModel.shopItems.length;
         },
         onDispose: (store){
+          store.state.homeList.clear();
 
         },
         converter: (Store<AppState> store) => HomeViewModel.create(store),
