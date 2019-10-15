@@ -202,6 +202,10 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemTwo> {
                     if (onvalue != null) {
                       if (onvalue['action'] == "done") {
                         viewModel.removeShopItem(product);
+                        setState(() {
+                          product.isAdded = !product.isAdded;
+                          product.weight=weight;
+                        });
                       }
                     }
                   });
