@@ -134,7 +134,7 @@ class _ListTimeWidgetAnimationState extends State<ListTimeWidgetAnimation>
           children: viewModel.shopItems
               .map(
                 (NewProduct shopItem) =>
-                NewGroceryListItemThree(shopItem, viewModel),
+                NewGroceryListItemThree(shopItem),
           )
               .toList(),
         ),
