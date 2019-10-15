@@ -40,16 +40,25 @@ class HomePage extends StatelessWidget {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     return new StoreConnector(
+        onInit: (store) {
+          print("Initt");
+        },
         onInitialBuild: (HomeViewModel viewModel) {
           viewModel.onFetchShopList();
-          viewModel.onFetchAllCollection();
           viewModel.onFetchWishList();
+          viewModel.onFetchAllCollection();
+
+          print("Init Build");
           // counter=viewModel.shopItems.length;
         },
-        onDispose: (store){
+        onDispose: (store) {
+          print("Dispose");
           store.state.homeList.clear();
-
         },
+        onDidChange: (HomeViewModel viewModel) {
+          print("On did chnage");
+        },
+        // rebuildOnChange: true,
         converter: (Store<AppState> store) => HomeViewModel.create(store),
         builder: (BuildContext context, HomeViewModel viewModel) {
           return new Scaffold(
