@@ -11,6 +11,7 @@ ThunkAction<AppState> shoAllCollectionThunkAction() {
     if (response != null) {
       store.dispatch(ShowAllCollectionAction(homeList: response));
       store.dispatch(ShowHomeBasketAction(store));
+      store.dispatch(ShowHomeWishAction(store));
     }
   };
 }

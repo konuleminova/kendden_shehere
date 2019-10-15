@@ -32,7 +32,7 @@ HomeList showWishHomeProductListReducer(
     HomeList state, ShowHomeWishAction action) {
   action.store.state.homeList.homelist.forEach((item) {
     item.list.forEach((l) {
-      action.store.state.shopItems.forEach((f) {
+      action.store.state.wishItems.forEach((f) {
         if (l.id == f.id) {
           l.isLiked = true;
         }
