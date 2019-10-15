@@ -3,6 +3,7 @@ import 'package:kendden_shehere/redux/home/home_list.dart';
 import 'package:kendden_shehere/redux/home/thunk_home.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/redux/shoplist/shopList_thunk.dart';
+import 'package:kendden_shehere/redux/wishlist/wishlist_thunk.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 
@@ -11,12 +12,16 @@ class HomeViewModel {
   HomeList homeList;
   List<NewProduct> shopItems;
   Function() onFetchShopList;
+  List<NewProduct> wishItems;
+  Function() onFetchWishList;
 
   HomeViewModel(
       {this.onFetchAllCollection,
       this.shopItems,
       this.onFetchShopList,
-      this.homeList});
+      this.homeList,
+      this.wishItems,
+      this.onFetchWishList});
 
   factory HomeViewModel.create(Store<AppState> store) {
     _onFetchAllCollection() {
@@ -27,10 +32,16 @@ class HomeViewModel {
       store.dispatch(shopListThunkAction());
     }
 
+    _onFetchWishList() {
+      store.dispatch(wishListThunkAction());
+    }
+
     return HomeViewModel(
         onFetchAllCollection: _onFetchAllCollection,
         homeList: store.state.homeList,
         shopItems: store.state.shopItems,
-        onFetchShopList: _onFetchShopList);
+        onFetchShopList: _onFetchShopList,
+        wishItems: store.state.wishItems,
+        onFetchWishList: _onFetchWishList);
   }
 }

@@ -43,7 +43,11 @@ class HomePage extends StatelessWidget {
         onInitialBuild: (HomeViewModel viewModel) {
           viewModel.onFetchShopList();
           viewModel.onFetchAllCollection();
+          viewModel.onFetchWishList();
           // counter=viewModel.shopItems.length;
+        },
+        onDispose: (store){
+
         },
         converter: (Store<AppState> store) => HomeViewModel.create(store),
         builder: (BuildContext context, HomeViewModel viewModel) {
