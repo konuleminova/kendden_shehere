@@ -8,15 +8,18 @@ class AppState {
   List<NewProduct> wishItems;
   List<NewProduct> newProducts;
   HomeList homeList;
+  List<String> photos;
 
   AppState.initialState()
       : user_info = UserModel(),
         shopItems = new List<NewProduct>(),
         wishItems = new List<NewProduct>(),
         homeList = new HomeList(),
-        newProducts = new List<NewProduct>();
+        newProducts = new List<NewProduct>(),
+        photos=new List<String>();
 
-  AppState({this.user_info, this.shopItems, this.wishItems, this.newProducts,this.homeList});
+  AppState(
+      {this.user_info, this.shopItems, this.wishItems, this.newProducts, this.homeList, this.photos});
 
   @override
   String toString() {

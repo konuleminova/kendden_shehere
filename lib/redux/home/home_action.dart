@@ -19,3 +19,9 @@ class ShowHomeWishAction{
 
   ShowHomeWishAction(this.store);
 }
+class BannerImagesAction{
+  List<String> photos;
+
+  BannerImagesAction({this.photos});
+
+}

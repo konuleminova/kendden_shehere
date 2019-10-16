@@ -15,3 +15,12 @@ ThunkAction<AppState> shoAllCollectionThunkAction() {
     }
   };
 }
+ThunkAction<AppState> bannerImagesThunkAction(){
+  return (Store<AppState> store) async {
+    var response = await Networks().bannerImages();
+    print(response);
+    if (response != null) {
+      store.dispatch(BannerImagesAction(photos:response));
+    }
+  };
+}

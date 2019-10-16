@@ -14,5 +14,6 @@ AppState appStateReducer(AppState state, dynamic action) {
       wishItems: wishListReducer(state.wishItems, action),
       user_info: loginReducer(state.user_info, action),
       newProducts: productListReducer(state.newProducts, action),
-      homeList: homeReducer(state.homeList, action));
+      homeList: homeReducer(state.homeList, action),
+      photos: photoReducer(state.photos, action));
 }
