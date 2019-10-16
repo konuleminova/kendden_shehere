@@ -25,7 +25,6 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemThree> {
   NewProduct product;
   String image, title;
   bool isAdded = false, isLiked = true;
-  int weight = 1;
   ProductViewModel viewModel;
 
   @override
@@ -144,6 +143,7 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemThree> {
   }
 
   _updateContainer() {
+    int weight=product.weight;
     if (!product.isAdded) {
       return new GestureDetector(
         child: new Container(

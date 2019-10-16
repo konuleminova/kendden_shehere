@@ -61,7 +61,7 @@ class NewProduct {
       catIdParent: json['cat-id'] ?? null,
       isLiked: false,
       isAdded: false,
-      weight: 1
+      weight:json['weight']!=null? int.parse(json['weight']):1
     );
   }
 
