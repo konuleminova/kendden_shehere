@@ -26,14 +26,8 @@ class _MapPage1State extends State<MapPage1 >{
   List<LatLng> points3 = new List<LatLng>();
   String p;
   String _deliveryPrice;
-  var x1;
-  var y1;
-
-  @override
-  void didUpdateWidget(Widget oldWidget) {
-    print("update");
-  }
-
+  var lat;
+  var lng;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -436,11 +430,11 @@ class _MapPage1State extends State<MapPage1 >{
 
   _getAddress() async {
     String address = await SharedPrefUtil().getString(SharedPrefUtil().address);
-    x1 = double.parse(await SharedPrefUtil().getString(SharedPrefUtil().lat));
-    y1 = double.parse(await SharedPrefUtil().getString(SharedPrefUtil().lng));
+    lat = double.parse(await SharedPrefUtil().getString(SharedPrefUtil().lat));
+    lng = double.parse(await SharedPrefUtil().getString(SharedPrefUtil().lng));
     _lastMapPositon = new LatLng(
-       x1,
-        y1);
+       lat,
+        lng);
     _markers.clear();
     _markers.add(Marker(
         draggable: true,
@@ -452,11 +446,11 @@ class _MapPage1State extends State<MapPage1 >{
       _mapController.animateCamera(CameraUpdate.newCameraPosition(
           new CameraPosition(target: _lastMapPositon, zoom: 12.00)));
     }
-    if (pointInPolygon(points, x1, y1)) {
+    if (pointInPolygon(points, lat, lng)) {
       _deliveryPrice = "Your delivery amount  4 AZN";
-    } else if (pointInPolygon(points2, x1, y1)) {
+    } else if (pointInPolygon(points2, lat, lng)) {
       _deliveryPrice = "Your delivery amount 4 AZN";
-    } else if (pointInPolygon(points3, x1, y1)) {
+    } else if (pointInPolygon(points3, lat, lng)) {
       _deliveryPrice = "Your delivery amount 7 AZN";
     } else {
       _deliveryPrice="Hemin eraziye catdirilma movcud deyil";
