@@ -22,7 +22,6 @@ class _BuildTotalWidgetAnimationState extends State<BuildTotalWidgetAnimation>
   /// Attributes
   AnimationController controller;
   Animation<Offset> offset;
-  double _height = 10;
   ShoppingCartViewModel viewModel;
 
   /// Widgets
