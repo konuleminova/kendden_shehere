@@ -21,6 +21,7 @@ HomeList showBasketHomeProductListReducer(
       action.store.state.shopItems.forEach((f) {
         if (l.id == f.id) {
           l.isAdded = true;
+          l.weight=f.weight;
         }
       });
     });
