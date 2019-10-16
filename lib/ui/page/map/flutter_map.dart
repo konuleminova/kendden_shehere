@@ -27,7 +27,7 @@ class MapPage1 extends StatelessWidget {
   List<LatLng> points2 = new List<LatLng>();
   List<LatLng> points3 = new List<LatLng>();
   String p;
-  String _deliveryPrice = '';
+  String _deliveryPrice;
   var x1;
   var y1;
 
@@ -445,7 +445,7 @@ class MapPage1 extends StatelessWidget {
 
   void _onCameraMove(CameraPosition position) {}
 
-  Future<String> _getAddress() async {
+  _getAddress() async {
     String address = await SharedPrefUtil().getString(SharedPrefUtil().address);
     x1 = double.parse(await SharedPrefUtil().getString(SharedPrefUtil().lat));
     y1 = double.parse(await SharedPrefUtil().getString(SharedPrefUtil().lng));
@@ -465,24 +465,21 @@ class MapPage1 extends StatelessWidget {
     }
     if (x1 != null && y1 != null) {
       if (pointInPolygon(points, x1, y1)) {
-        _deliveryPrice = "Qirmizi 4 AZN";
+        _deliveryPrice = "Your delivery amount  4 AZN";
         print("Point in Polygon11 ::::" +
             pointInPolygon(points, x1, y1).toString());
       } else if (pointInPolygon(points2, x1, y1)) {
-        _deliveryPrice = "Yasil 4 AZN";
+        _deliveryPrice = "Your delivery amount 4 AZN";
         print("Point in Polygon22 ::::" +
             pointInPolygon(points2, x1, y1).toString());
       } else if (pointInPolygon(points3, x1, y1)) {
-        _deliveryPrice = "Sarii 7 AZN";
+        _deliveryPrice = "Your delivery amount 7 AZN";
         print("Point in Polygon33 ::::" +
             pointInPolygon(points3, x1, y1).toString());
       } else {
-        // _deliveryPrice="null";
-        print("Point in PolygonNONNN ::::" +
-            pointInPolygon(points3, x1, y1).toString());
+         _deliveryPrice="Hemin eraziye catdirilma movcud deyil";
       }
     }
-
     return _deliveryPrice;
   }
 }
