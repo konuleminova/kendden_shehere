@@ -16,6 +16,7 @@ class ProductViewModel {
   Function(NewProduct shopItem) removeShopItem;
   Function(NewProduct shopItem) addWishItem;
   Function(NewProduct shopItem) removeWishItem;
+  List<NewProduct>shopItems;
   ProductViewModel(
       {
         this.changeLikeStatus,
@@ -24,6 +25,7 @@ class ProductViewModel {
         this.removeShopItem,
         this.addWishItem,
         this.removeWishItem,
+        this.shopItems
       });
 
   factory ProductViewModel.create(Store<AppState> store) {
@@ -58,6 +60,7 @@ class ProductViewModel {
         removeShopItem: _removeShopItem,
         addWishItem: _addWishItem,
         removeWishItem: _removeWishItem,
+      shopItems: store.state.shopItems
     );
   }
 }

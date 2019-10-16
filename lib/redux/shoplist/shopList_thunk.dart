@@ -1,4 +1,5 @@
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
+import 'package:kendden_shehere/redux/home/home_action.dart';
 import 'package:kendden_shehere/redux/orderhistory/orderhistory_listmodel.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/redux/productlist/products_in_category_model.dart';
@@ -18,6 +19,7 @@ ThunkAction<AppState> shopListThunkAction() {
       store.state.shopItems = response.orderList[0].list.productsInCategory;
       store.dispatch(FetchShopListAction(
           data: response.orderList[0].list.productsInCategory));
+      store.dispatch(ShowBasketAction(store));
     }
   };
 }

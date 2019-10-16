@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/redux/productlist/product_viewmodel.dart';
+import 'package:kendden_shehere/redux/productlist/productlist_action.dart';
 import 'package:kendden_shehere/redux/shoplist/shop_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_details_page.dart';
@@ -26,7 +27,7 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemThree> {
   String image, title;
   bool isAdded = false, isLiked = true;
   ProductViewModel viewModel;
-
+Store<AppState>store;
   @override
   Widget build(BuildContext context) {
     product = widget.product;
@@ -43,6 +44,10 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemThree> {
 
     // TODO: implement build
     return StoreConnector(
+      onInit: (store){
+        this.store=store;
+
+      },
         onInitialBuild: (ProductViewModel viewModel) {
           this.viewModel = viewModel;
         },
@@ -212,6 +217,7 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemThree> {
                       .then((onvalue) {
                     if (onvalue != null) {
                       if (onvalue['action'] == "done") {
+                        store.dispatch(ShowBasketAction(store));
                         setState(() {
                           // product.isAdded = !product.isAdded;
                           product.weight--;
@@ -238,6 +244,7 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemThree> {
                     if (onvalue['action'] == "done") {
                       //  viewModel.changeAddStatus(index, true, weight);
                       //viewModel.onFetchShopList();
+                      store.dispatch(ShowBasketAction(store));
                       setState(() {
                         product.weight++;
                       });
