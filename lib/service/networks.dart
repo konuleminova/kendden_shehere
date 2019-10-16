@@ -391,11 +391,8 @@ class Networks {
 
   dynamic showAllCollection() async {
     try {
-      var uid = await SharedPrefUtil().getString(SharedPrefUtil().uid);
       final response = await http.get(BASE_KS_URL + "collection&showall=1");
       if (response.statusCode == 200) {
-        var a = json.decode(response.body);
-        print(a);
         return HomeList.fromJson(json.decode(response.body));
       } else {
         return null;

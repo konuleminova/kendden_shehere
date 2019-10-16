@@ -7,7 +7,7 @@ import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/shoplist/shop_viewmodel.dart';
 class GroceryShopCartPage extends StatelessWidget {
-  bool fromCheckout = false;
+  bool fromCheckout;
   ShoppingCartViewModel viewModel;
   BuildContext context;
   GroceryShopCartPage({this.fromCheckout}); //  @override
@@ -18,6 +18,7 @@ class GroceryShopCartPage extends StatelessWidget {
     return new StoreConnector(
         onInitialBuild: (ShoppingCartViewModel viewModel) {
           this.viewModel = viewModel;
+          print("INIT BUILD");
           viewModel.onFetchShopList();
         },
         onDispose: (store){
@@ -27,48 +28,27 @@ class GroceryShopCartPage extends StatelessWidget {
             ShoppingCartViewModel.create(store),
         builder: (BuildContext context, ShoppingCartViewModel viewModel) {
           this.viewModel = viewModel;
-          return WillPopScope(
-              child: new Scaffold(
-                  appBar: new AppBar(
-                    backgroundColor: Colors.lightGreen,
-                    title: new Text("Shopping List"),
-                    leading: IconButton(
-                      icon: Icon(Icons.arrow_back),
-                      onPressed: () {
-//                        Navigator.pop(context);
-//                        Navigator.popUntil(context,
-//                            ModalRoute.withName(Navigator.defaultRouteName));
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (BuildContext context) => HomePage()));
-                      },
-                    ),
-                  ),
-                  body: fromCheckout && viewModel.shopItems.length < 0
-                      ? Container(
-                    child: FutureBuilder(
-                        future: Future.delayed(
-                            Duration.zero,
-                                () => showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return PaymentSuccessDialog(context);
-                                })),
-                        builder: (BuildContext context,
-                            AsyncSnapshot snapshot) {
-                          return Container();
-                        }),
-                  )
-                      : BuildTotalWidgetAnimation()),
-              onWillPop: () {
-//                Navigator.popUntil(
-//                    context, ModalRoute.withName(Navigator.defaultRouteName));
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => HomePage()));
-              });
+          return new Scaffold(
+              appBar: new AppBar(
+                backgroundColor: Colors.lightGreen,
+                title: new Text("Shopping List"),
+              ),
+              body: fromCheckout
+                  ? Container(
+                child: FutureBuilder(
+                    future: Future.delayed(
+                        Duration.zero,
+                            () => showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return PaymentSuccessDialog(context);
+                            })),
+                    builder: (BuildContext context,
+                        AsyncSnapshot snapshot) {
+                      return Container();
+                    }),
+              )
+                  : BuildTotalWidgetAnimation());
         });
   }
 }

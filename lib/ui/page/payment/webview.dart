@@ -37,7 +37,7 @@ class WebViewState extends State<WebViewPage> {
         flutterWebviewPlugin.dispose();
         Route route = MaterialPageRoute(
             builder: (BuildContext context) => GroceryShopCartPage(
-                  fromCheckout: true,
+                  fromCheckout: false,
                 ));
 
         Navigator.pushReplacement(context, route);
