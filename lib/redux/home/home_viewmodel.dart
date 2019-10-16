@@ -16,6 +16,7 @@ class HomeViewModel {
   Function() onFetchWishList;
   Function() fetchBannerImages;
   List<String> photos;
+  Function() onRefresh;
 
   HomeViewModel(
       {this.onFetchAllCollection,
@@ -25,7 +26,8 @@ class HomeViewModel {
       this.wishItems,
       this.onFetchWishList,
       this.fetchBannerImages,
-      this.photos});
+      this.photos,
+      this.onRefresh});
 
   factory HomeViewModel.create(Store<AppState> store) {
     _onFetchAllCollection() {
@@ -44,6 +46,11 @@ class HomeViewModel {
       store.dispatch(bannerImagesThunkAction());
     }
 
+    _onRefresh() {
+      store.dispatch(ShowHomeBasketAction(store));
+      store.dispatch(ShowHomeWishAction(store));
+    }
+
     return HomeViewModel(
         onFetchAllCollection: _onFetchAllCollection,
         homeList: store.state.homeList,
@@ -52,6 +59,7 @@ class HomeViewModel {
         wishItems: store.state.wishItems,
         onFetchWishList: _onFetchWishList,
         fetchBannerImages: _onFetchBannerImages,
-        photos: store.state.photos);
+        photos: store.state.photos,
+        onRefresh: _onRefresh);
   }
 }

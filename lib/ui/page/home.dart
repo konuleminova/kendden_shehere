@@ -6,6 +6,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/home/home_viewmodel.dart';
+import 'package:kendden_shehere/redux/shoplist/shopList_thunk.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_shop_list.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem1.dart';
@@ -20,6 +21,7 @@ class HomePage extends StatelessWidget {
   List<String> photos = new List();
   String title;
   AsyncMemoizer memoizer = new AsyncMemoizer();
+  HomeViewModel viewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,7 @@ class HomePage extends StatelessWidget {
     height = MediaQuery.of(context).size.height;
     return new StoreConnector(
         onInitialBuild: (HomeViewModel viewModel) {
+          this.viewModel = viewModel;
           viewModel.onFetchShopList();
           viewModel.onFetchWishList();
           viewModel.onFetchAllCollection();
@@ -34,7 +37,7 @@ class HomePage extends StatelessWidget {
         onDispose: (store) {
           store.state.homeList.homelist.clear();
           store.state.wishItems.clear();
-         // store.state.shopItems.clear();
+          // store.state.shopItems.clear();
         },
         onDidChange: (HomeViewModel viewModel) {
           print("On did chnage");
@@ -120,121 +123,138 @@ class HomePage extends StatelessWidget {
                 child: new Icon(Icons.chat),
               ),
               drawer: DrawerWidget(),
-              body: SingleChildScrollView(
-                child: new Wrap(children: <Widget>[
-                  // _buildCarousel(),
-                  new SizedBox(
-                    width: width,
-                    height: 200,
-                    child: new PageView(children: <Widget>[
-                      new FutureBuilder(future: memoizer.runOnce(() {
-                        return Networks().bannerImages();
-                      }), builder:
-                          (BuildContext context, AsyncSnapshot snapshot) {
-                        if (snapshot.hasData) {
-                          photos = snapshot.data;
-                          List<Widget> imagesWidget = new List();
-                          for (int i = 0; i < photos.length; i++) {
-                            imagesWidget.add(new Container(
-                              width: width,
-                              child: new Image(
-                                image: NetworkImage(
-                                  photos[i],
-                                ),
-                                fit: BoxFit.cover,
-                              ),
-                            ));
-                          }
-                          return Carousel(
-                            images: imagesWidget,
-                            dotSize: 4.0,
-                            dotSpacing: 15.0,
-                            dotColor: Colors.lightGreenAccent,
-                            indicatorBgPadding: 5.0,
-                            dotBgColor: Colors.transparent,
-                            borderRadius: true,
-                          );
-                        } else {
-                          return Center(
-                            child: new CircularProgressIndicator(),
-                          );
-                        }
-                      })
+              body: RefreshIndicator(
+                  child: SingleChildScrollView(
+                    child: new Wrap(children: <Widget>[
+                      // _buildCarousel(),
+                      new SizedBox(
+                        width: width,
+                        height: 200,
+                        child: new PageView(children: <Widget>[
+                          new FutureBuilder(future: memoizer.runOnce(() {
+                            return Networks().bannerImages();
+                          }), builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
+                            if (snapshot.hasData) {
+                              photos = snapshot.data;
+                              List<Widget> imagesWidget = new List();
+                              for (int i = 0; i < photos.length; i++) {
+                                imagesWidget.add(new Container(
+                                  width: width,
+                                  child: new Image(
+                                    image: NetworkImage(
+                                      photos[i],
+                                    ),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ));
+                              }
+                              return Carousel(
+                                images: imagesWidget,
+                                dotSize: 4.0,
+                                dotSpacing: 15.0,
+                                dotColor: Colors.lightGreenAccent,
+                                indicatorBgPadding: 5.0,
+                                dotBgColor: Colors.transparent,
+                                borderRadius: true,
+                              );
+                            } else {
+                              return Center(
+                                child: new CircularProgressIndicator(),
+                              );
+                            }
+                          })
+                        ]),
+                      ),
+
+                      viewModel.homeList.homelist != null
+                          ? ListView.builder(
+                              shrinkWrap: true,
+                              physics: ClampingScrollPhysics(),
+                              itemCount: viewModel.homeList.homelist.length,
+                              itemBuilder: (
+                                BuildContext context,
+                                int index,
+                              ) {
+                                String langCode =
+                                    Localizations.localeOf(context)
+                                        .languageCode;
+                                if (langCode == "tr") {
+                                  title = viewModel
+                                      .homeList.homelist[index].name_az
+                                      .trim();
+                                } else if (langCode == "en") {
+                                  title = viewModel
+                                      .homeList.homelist[index].name_en
+                                      .trim();
+                                } else if (langCode == "ru") {
+                                  title = viewModel
+                                      .homeList.homelist[index].name_ru
+                                      .trim();
+                                }
+                                return Container(
+                                    child: Column(
+                                  children: <Widget>[
+                                    _titleContainer(title),
+                                    Container(
+                                      child: ListView.builder(
+                                          physics: ClampingScrollPhysics(),
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: viewModel.homeList
+                                              .homelist[index].list.length,
+                                          itemBuilder: (BuildContext context,
+                                              int index2) {
+                                            return Container(
+                                              height: height * 0.5,
+                                              child: Column(
+                                                children: <Widget>[
+                                                  Container(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.5,
+                                                      height: height * 0.5,
+                                                      child: InkWell(
+                                                          child: Container(
+                                                              child: InkWell(
+                                                        child:
+                                                            GroceryListItemOne(
+                                                          product: viewModel
+                                                              .homeList
+                                                              .homelist[index]
+                                                              .list[index2],
+                                                        ),
+                                                      ))))
+                                                ],
+                                              ),
+                                            );
+                                          }),
+                                      height: height * 0.5,
+                                    )
+                                  ],
+                                ));
+                              })
+                          : Container(
+                              child: CircularProgressIndicator(),
+                              alignment: Alignment.center,
+                              margin: EdgeInsets.only(top: 100),
+                            ),
                     ]),
                   ),
-
-                  viewModel.homeList.homelist != null
-                      ? ListView.builder(
-                          shrinkWrap: true,
-                          physics: ClampingScrollPhysics(),
-                          itemCount: viewModel.homeList.homelist.length,
-                          itemBuilder: (
-                            BuildContext context,
-                            int index,
-                          ) {
-                            String langCode =
-                                Localizations.localeOf(context).languageCode;
-                            if (langCode == "tr") {
-                              title = viewModel.homeList.homelist[index].name_az
-                                  .trim();
-                            } else if (langCode == "en") {
-                              title = viewModel.homeList.homelist[index].name_en
-                                  .trim();
-                            } else if (langCode == "ru") {
-                              title = viewModel.homeList.homelist[index].name_ru
-                                  .trim();
-                            }
-                            return Container(
-                                child: Column(
-                              children: <Widget>[
-                                _titleContainer(title),
-                                Container(
-                                  child: ListView.builder(
-                                      physics: ClampingScrollPhysics(),
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount: viewModel
-                                          .homeList.homelist[index].list.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index2) {
-                                        return Container(
-                                          height: height * 0.5,
-                                          child: Column(
-                                            children: <Widget>[
-                                              Container(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.5,
-                                                  height: height * 0.5,
-                                                  child: InkWell(
-                                                      child: Container(
-                                                          child: InkWell(
-                                                    child: GroceryListItemOne(
-                                                      product: viewModel
-                                                          .homeList
-                                                          .homelist[index]
-                                                          .list[index2],
-                                                    ),
-                                                  ))))
-                                            ],
-                                          ),
-                                        );
-                                      }),
-                                  height: height * 0.5,
-                                )
-                              ],
-                            ));
-                          })
-                      : Container(
-                          child: CircularProgressIndicator(),
-                          alignment: Alignment.center,
-                          margin: EdgeInsets.only(top: 100),
-                        ),
-                ]),
-              ));
+                  onRefresh: _refreshLocalGallery));
         });
     // TODO: implement build
+  }
+
+  Future<Null> _refreshLocalGallery() async {
+    print('refreshing stocks...');
+    await Future.delayed(Duration(seconds: 1));
+    if (viewModel != null) {
+      viewModel.onRefresh();
+    }
+    return null;
   }
 
   _titleContainer(String title) => new Container(
