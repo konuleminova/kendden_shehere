@@ -42,7 +42,6 @@ class _MapPage1State extends State<MapPage1 >{
     return FutureBuilder(
         future: _getAddress(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          print("SNAP DATA" + snapshot.data.toString());
           return Column(
             children: <Widget>[
               new Container(
@@ -94,18 +93,8 @@ class _MapPage1State extends State<MapPage1 >{
   }
 
   pointInPolygon(polygonPath, x1, y1) {
-//    var numberOfVertexs = polygonPath.length - 1;
-//    var inPoly = false;
-//    LatLng {
-//      lat
-//    , lng } = coordinates;
-
-//    var lastVertex = polygonPath[numberOfVertexs];
-//    var vertex1, vertex2;
-
     var x = x1;
     var y = y1;
-
     var inside = false;
     for (var i = 0, j = polygonPath.length - 1;
         i < polygonPath.length;
