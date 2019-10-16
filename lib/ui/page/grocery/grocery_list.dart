@@ -135,7 +135,7 @@ class GroceryListPage extends StatelessWidget {
   }
 
   void loadMore() async {
-    isScrolling = true;
+    //isScrolling = true;
     page = page + 10;
     loadm();
   }
