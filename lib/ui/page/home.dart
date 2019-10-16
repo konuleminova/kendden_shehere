@@ -20,6 +20,7 @@ class HomePage extends StatelessWidget {
   List<String> photos = new List();
   String title;
   AsyncMemoizer memoizer = new AsyncMemoizer();
+
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
@@ -38,7 +39,7 @@ class HomePage extends StatelessWidget {
         onDidChange: (HomeViewModel viewModel) {
           print("On did chnage");
         },
-         rebuildOnChange: true,
+        rebuildOnChange: true,
         converter: (Store<AppState> store) => HomeViewModel.create(store),
         builder: (BuildContext context, HomeViewModel viewModel) {
           return new Scaffold(
@@ -127,41 +128,39 @@ class HomePage extends StatelessWidget {
                     width: width,
                     height: 200,
                     child: new PageView(children: <Widget>[
-                      new FutureBuilder(
-                          future: memoizer.runOnce((){
-                           return Networks().bannerImages();
-                          }),
-                          builder:
-                              (BuildContext context, AsyncSnapshot snapshot) {
-                            if (snapshot.hasData) {
-                              photos = snapshot.data;
-                              List<Widget> imagesWidget = new List();
-                              for (int i = 0; i < photos.length; i++) {
-                                imagesWidget.add(new Container(
-                                  width: width,
-                                  child: new Image(
-                                    image: NetworkImage(
-                                      photos[i],
-                                    ),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ));
-                              }
-                              return Carousel(
-                                images: imagesWidget,
-                                dotSize: 4.0,
-                                dotSpacing: 15.0,
-                                dotColor: Colors.lightGreenAccent,
-                                indicatorBgPadding: 5.0,
-                                dotBgColor: Colors.transparent,
-                                borderRadius: true,
-                              );
-                            } else {
-                              return Center(
-                                child: new CircularProgressIndicator(),
-                              );
-                            }
-                          })
+                      new FutureBuilder(future: memoizer.runOnce(() {
+                        return Networks().bannerImages();
+                      }), builder:
+                          (BuildContext context, AsyncSnapshot snapshot) {
+                        if (snapshot.hasData) {
+                          photos = snapshot.data;
+                          List<Widget> imagesWidget = new List();
+                          for (int i = 0; i < photos.length; i++) {
+                            imagesWidget.add(new Container(
+                              width: width,
+                              child: new Image(
+                                image: NetworkImage(
+                                  photos[i],
+                                ),
+                                fit: BoxFit.cover,
+                              ),
+                            ));
+                          }
+                          return Carousel(
+                            images: imagesWidget,
+                            dotSize: 4.0,
+                            dotSpacing: 15.0,
+                            dotColor: Colors.lightGreenAccent,
+                            indicatorBgPadding: 5.0,
+                            dotBgColor: Colors.transparent,
+                            borderRadius: true,
+                          );
+                        } else {
+                          return Center(
+                            child: new CircularProgressIndicator(),
+                          );
+                        }
+                      })
                     ]),
                   ),
 
@@ -228,7 +227,11 @@ class HomePage extends StatelessWidget {
                               ],
                             ));
                           })
-                      : Center(child: CircularProgressIndicator()),
+                      : Container(
+                          child: CircularProgressIndicator(),
+                          alignment: Alignment.center,
+                          margin: EdgeInsets.only(top: 100),
+                        ),
                 ]),
               ));
         });
