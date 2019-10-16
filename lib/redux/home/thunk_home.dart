@@ -10,17 +10,20 @@ ThunkAction<AppState> shoAllCollectionThunkAction() {
     print(response);
     if (response != null) {
       store.dispatch(ShowAllCollectionAction(homeList: response));
-      store.dispatch(ShowHomeBasketAction(store));
-      store.dispatch(ShowHomeWishAction(store));
+      Future.delayed(const Duration(milliseconds: 1500), () {
+        store.dispatch(ShowHomeBasketAction(store));
+        store.dispatch(ShowHomeWishAction(store));
+      });
     }
   };
 }
-ThunkAction<AppState> bannerImagesThunkAction(){
+
+ThunkAction<AppState> bannerImagesThunkAction() {
   return (Store<AppState> store) async {
     var response = await Networks().bannerImages();
     print(response);
     if (response != null) {
-      store.dispatch(BannerImagesAction(photos:response));
+      store.dispatch(BannerImagesAction(photos: response));
     }
   };
 }

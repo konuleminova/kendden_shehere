@@ -14,13 +14,17 @@ ThunkAction<AppState> productListThunkAction(String id, String lang,
       if (state == "init") {
         store.dispatch(
             FetchProductListAction(data: response.productsInCategory));
-        store.dispatch(ShowBasketAction(store));
-        store.dispatch(ShowWishAction(store));
-      }  else {
+        Future.delayed(const Duration(milliseconds: 1000), () {
+          store.dispatch(ShowBasketAction(store));
+          store.dispatch(ShowWishAction(store));
+        });
+      } else {
         store.dispatch(
             LoadMoreProductListAction(data: response.productsInCategory));
-        store.dispatch(ShowBasketAction(store));
-        store.dispatch(ShowWishAction(store));
+        Future.delayed(const Duration(milliseconds: 1000), () {
+          store.dispatch(ShowBasketAction(store));
+          store.dispatch(ShowWishAction(store));
+        });
       }
     } else {
       //  store.dispatch(FetchProductListAction(data: []));
