@@ -40,15 +40,11 @@ class _BuildTotalWidgetAnimationState extends State<BuildTotalWidgetAnimation>
   return  new StoreConnector(
         onInitialBuild: (ShoppingCartViewModel viewModel) {
           this.viewModel = viewModel;
-          print("ONN INIT"+viewModel.shopItems[0].weight.toString());
 
         },
         onDispose: (store) {
           store.state.shopItems.clear();
         },
-      onDidChange: (ShoppingCartViewModel viewModel){
-         print("ONN DIID CHNAGE"+viewModel.shopItems[0].weight.toString());
-      },
         converter: (Store<AppState> store) =>
             ShoppingCartViewModel.create(store),
         builder: (BuildContext context, ShoppingCartViewModel viewModel) {
