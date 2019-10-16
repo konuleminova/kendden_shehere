@@ -139,18 +139,20 @@ class HomePage extends StatelessWidget {
                               (BuildContext context, AsyncSnapshot snapshot) {
                             if (snapshot.hasData) {
                               photos = snapshot.data;
-                              List<Widget> images = new List();
+                              List<Widget> imagesWidget = new List();
                               for (int i = 0; i < photos.length; i++) {
-                                images.add(new Container(
+                                imagesWidget.add(new Container(
                                   width: width,
                                   child: new Image(
-                                    image: NetworkImage(photos[i],),
+                                    image: NetworkImage(
+                                      photos[i],
+                                    ),
                                     fit: BoxFit.cover,
                                   ),
                                 ));
                               }
                               return Carousel(
-                                images: images,
+                                images: imagesWidget,
                                 dotSize: 4.0,
                                 dotSpacing: 15.0,
                                 dotColor: Colors.lightGreenAccent,
