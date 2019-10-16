@@ -74,10 +74,10 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-  - images/noimage.png
-  - assets/locale/localization_en.json
-  - assets/locale/localization_ru.json
-  - assets/locale/localization_tr.json
+    - images/noimage.png
+    - assets/locale/localization_en.json
+    - assets/locale/localization_ru.json
+    - assets/locale/localization_tr.json
 
 
   # To add assets to your application, add an assets section, like this:
