@@ -23,8 +23,13 @@ class _MapPage1State extends State<MapPage1> {
   GoogleMapController _mapController;
   final Set<Marker> _markers = {};
   LatLng _lastMapPositon;
-
+  List<LatLng> points = new List<LatLng>();
+  List<LatLng> points2 = new List<LatLng>();
+  List<LatLng> points3 = new List<LatLng>();
   String p;
+  String _deliveryPrice = '';
+  var x1;
+  var y1;
 
   @override
   void initState() {
@@ -33,41 +38,64 @@ class _MapPage1State extends State<MapPage1> {
   }
 
   @override
+  void setState(VoidCallback fn) {
+    super.setState(fn);
+    print("SET STATE");
+  }
+
+  @override
+  void didUpdateWidget(Widget oldWidget) {
+    print("update");
+
+  }
+
+  @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return new Container(
-      padding: EdgeInsets.all(1),
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height * 0.35,
-      alignment: AlignmentDirectional.topCenter,
-      color: Colors.white,
-      child: FutureBuilder(
-          future: _getAddress(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            return GoogleMap(
-              gestureRecognizers: Set()
-                ..add(
-                    Factory<PanGestureRecognizer>(() => PanGestureRecognizer()))
-                ..add(Factory<VerticalDragGestureRecognizer>(
-                    () => VerticalDragGestureRecognizer())),
-              onTap: (LatLng location) {
-                Route route=MaterialPageRoute(builder: (BuildContext context)=>MapPageBig());
-                Navigator.push(context, route);
-                //MapDemoPage mp = new MapDemoPage();
-                //mp.showMap();
-              },
-              polygons: setPolygon(),
-              tiltGesturesEnabled: true,
-              scrollGesturesEnabled: true,
-              zoomGesturesEnabled: true,
-              markers: _markers,
-              onCameraMove: _onCameraMove,
-              onMapCreated: _onMapCreated,
-              initialCameraPosition:
-                  CameraPosition(target: _lastMapPositon, zoom: 11.00),
-            );
-          }),
-      margin: EdgeInsets.only(left: 16, right: 16, bottom: 20, top: 5),
+    return Column(
+      children: <Widget>[
+        new Container(
+          padding: EdgeInsets.all(1),
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height * 0.35,
+          alignment: AlignmentDirectional.topCenter,
+          color: Colors.white,
+          child: FutureBuilder(
+              future: _getAddress(),
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                return GoogleMap(
+                  gestureRecognizers: Set()
+                    ..add(Factory<PanGestureRecognizer>(
+                        () => PanGestureRecognizer()))
+                    ..add(Factory<VerticalDragGestureRecognizer>(
+                        () => VerticalDragGestureRecognizer())),
+                  onTap: (LatLng location) {
+                    Route route = MaterialPageRoute(
+                        builder: (BuildContext context) => MapPageBig());
+                    Navigator.push(context, route);
+                    //MapDemoPage mp = new MapDemoPage();
+                    //mp.showMap();
+                  },
+                  polygons: setPolygon(),
+                  tiltGesturesEnabled: true,
+                  scrollGesturesEnabled: true,
+                  zoomGesturesEnabled: true,
+                  markers: _markers,
+                  onCameraMove: _onCameraMove,
+                  onMapCreated: _onMapCreated,
+                  initialCameraPosition:
+                      CameraPosition(target: _lastMapPositon, zoom: 11.00),
+                );
+              }),
+          margin: EdgeInsets.only(left: 16, right: 16, bottom: 20, top: 5),
+        ),
+        Container(
+          child: Text(
+            _deliveryPrice,
+            style: TextStyle(color: Colors.green, fontSize: 18),
+          ),
+        )
+      ],
     );
   }
 
@@ -75,8 +103,35 @@ class _MapPage1State extends State<MapPage1> {
     _mapController = controller;
   }
 
+  pointInPolygon(polygonPath, x1, y1) {
+    var numberOfVertexs = polygonPath.length - 1;
+    var inPoly = false;
+//    LatLng {
+//      lat
+//    , lng } = coordinates;
+
+    var lastVertex = polygonPath[numberOfVertexs];
+    var vertex1, vertex2;
+
+    var x = x1;
+    var y = y1;
+
+    var inside = false;
+    for (var i = 0, j = polygonPath.length - 1;
+        i < polygonPath.length;
+        j = i++) {
+      var xi = polygonPath[i].latitude, yi = polygonPath[i].longitude;
+      var xj = polygonPath[j].latitude, yj = polygonPath[j].longitude;
+
+      var intersect =
+          ((yi > y) != (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+      if (intersect) inside = !inside;
+    }
+
+    return inside;
+  }
+
   setPolygon() {
-    List<LatLng> points = new List<LatLng>();
     points.add(new LatLng(40.3716222, 49.8555191));
     points.add(new LatLng(40.3716876, 49.8568066));
     points.add(new LatLng(40.3715487, 49.8570962));
@@ -155,7 +210,6 @@ class _MapPage1State extends State<MapPage1> {
     points.add(new LatLng(40.3716222, 49.8555191));
 
     //
-    List<LatLng> points2 = new List<LatLng>();
     points2.add(new LatLng(40.3385315, 49.8338732));
     points2.add(new LatLng(40.3380542, 49.834199));
     points2.add(new LatLng(40.3382571, 49.8347267));
@@ -280,7 +334,6 @@ class _MapPage1State extends State<MapPage1> {
     points2.add(new LatLng(40.3385315, 49.8338732));
 
     ///
-    List<LatLng> points3 = new List<LatLng>();
     points3.add(new LatLng(40.3739614, 49.8961811));
     points3.add(new LatLng(40.3647513, 49.9293135));
     points3.add(new LatLng(40.3562141, 49.945106));
@@ -395,6 +448,8 @@ class _MapPage1State extends State<MapPage1> {
     plo.addAll(_lines);
     plo.addAll(_lines2);
     plo.addAll(_lines3);
+    // _lines[0].points[0].latitude;
+
     return plo;
   }
 
@@ -402,6 +457,8 @@ class _MapPage1State extends State<MapPage1> {
 
   _getAddress() async {
     String address = await SharedPrefUtil().getString(SharedPrefUtil().address);
+    x1 = double.parse(await SharedPrefUtil().getString(SharedPrefUtil().lat));
+    y1 = double.parse(await SharedPrefUtil().getString(SharedPrefUtil().lng));
     _lastMapPositon = new LatLng(
         double.parse(await SharedPrefUtil().getString(SharedPrefUtil().lat)),
         double.parse(await SharedPrefUtil().getString(SharedPrefUtil().lng)));
@@ -415,6 +472,26 @@ class _MapPage1State extends State<MapPage1> {
     if (_mapController != null) {
       _mapController.animateCamera(CameraUpdate.newCameraPosition(
           new CameraPosition(target: _lastMapPositon, zoom: 12.00)));
+
+      if (x1 != null && y1 != null) {
+        if (pointInPolygon(points, x1, y1)) {
+            _deliveryPrice = "Qirmizi 4 AZN";
+          print("Point in Polygon11 ::::" +
+              pointInPolygon(points, x1, y1).toString());
+        } else if (pointInPolygon(points2, x1, y1)) {
+            _deliveryPrice = "Yasil 4 AZN";
+          print("Point in Polygon22 ::::" +
+              pointInPolygon(points2, x1, y1).toString());
+        } else if (pointInPolygon(points3, x1, y1)) {
+            _deliveryPrice = "Sarii 7 AZN";
+          print("Point in Polygon33 ::::" +
+              pointInPolygon(points3, x1, y1).toString());
+        } else {
+          // _deliveryPrice="null";
+          print("Point in PolygonNONNN ::::" +
+              pointInPolygon(points3, x1, y1).toString());
+        }
+      }
     }
     return address;
   }
