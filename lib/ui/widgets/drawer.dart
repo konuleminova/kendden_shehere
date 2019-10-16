@@ -3,24 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/animation/scale.dart';
-import 'package:kendden_shehere/ui/animation/slide.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_categories.dart';
-import 'package:kendden_shehere/ui/page/grocery/grocery_shop_list.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_wish_list.dart';
 import 'package:kendden_shehere/ui/page/grocery/order_history.dart';
 import 'package:kendden_shehere/ui/page/menu/about_us.dart';
 import 'package:kendden_shehere/ui/page/menu/contacts.dart';
 import 'package:kendden_shehere/ui/page/menu/delivery.dart';
 import 'package:kendden_shehere/ui/page/menu/fag.dart';
-import 'package:kendden_shehere/util/sharedpref_util.dart';
 
-//class DrawerWidget extends StatefulWidget {
-//  @override
-//  State<StatefulWidget> createState() {
-//    // TODO: implement createState
-//    return DrawerState();
-//  }
-//}
 
 class DrawerWidget extends StatelessWidget {
 

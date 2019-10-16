@@ -12,13 +12,14 @@ import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem
 import 'package:kendden_shehere/ui/widgets/drawer.dart';
 import 'package:kendden_shehere/ui/widgets/search.dart';
 import 'package:redux/redux.dart';
+import 'package:async/async.dart';
 
 class HomePage extends StatelessWidget {
   double height = 0;
   double width = 0;
   List<String> photos = new List();
   String title;
-
+  AsyncMemoizer memoizer = new AsyncMemoizer();
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
@@ -127,7 +128,9 @@ class HomePage extends StatelessWidget {
                     height: 200,
                     child: new PageView(children: <Widget>[
                       new FutureBuilder(
-                          future: Networks().bannerImages(),
+                          future: memoizer.runOnce((){
+                           return Networks().bannerImages();
+                          }),
                           builder:
                               (BuildContext context, AsyncSnapshot snapshot) {
                             if (snapshot.hasData) {

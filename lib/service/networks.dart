@@ -73,6 +73,7 @@ class Networks {
   dynamic bannerImages() async {
     try {
       final response = await http.get(BASE_KS_URL + "bannerimages");
+      print("Banner Images");
       if (response.statusCode == 200) {
         List<String> photos =
             json.decode(response.body).map<String>((m) => m as String).toList();
