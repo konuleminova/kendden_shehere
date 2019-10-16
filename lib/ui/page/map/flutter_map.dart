@@ -10,19 +10,19 @@ import 'package:kendden_shehere/util/sharedpref_util.dart';
 const kGoogleApiKey = "AIzaSyC1XWcwMQ-WDLXUWZOTwQW7325Wb-OeysU";
 // "AIzaSyBbSJwbLSidCTD5AAn_QuAwuF5Du5ANAvg";
 
-class MapPage1 extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return _MapPage1State();
-  }
-}
+//class MapPage1 extends StatefulWidget {
+//  @override
+//  State<StatefulWidget> createState() {
+//    // TODO: implement createState
+//    return _MapPage1State();
+//  }
+//}
 
-class _MapPage1State extends State<MapPage1> {
+class MapPage1 extends StatelessWidget {
   static const LatLng _bakuLatLng = const LatLng(40.3716222, 49.8555191);
   GoogleMapController _mapController;
   final Set<Marker> _markers = {};
-  LatLng _lastMapPositon;
+  LatLng _lastMapPositon = _bakuLatLng;
   List<LatLng> points = new List<LatLng>();
   List<LatLng> points2 = new List<LatLng>();
   List<LatLng> points3 = new List<LatLng>();
@@ -32,38 +32,26 @@ class _MapPage1State extends State<MapPage1> {
   var y1;
 
   @override
-  void initState() {
-    super.initState();
-    _lastMapPositon = _bakuLatLng;
-  }
-
-  @override
-  void setState(VoidCallback fn) {
-    super.setState(fn);
-    print("SET STATE");
-  }
-
-  @override
   void didUpdateWidget(Widget oldWidget) {
     print("update");
-
   }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Column(
-      children: <Widget>[
-        new Container(
-          padding: EdgeInsets.all(1),
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height * 0.35,
-          alignment: AlignmentDirectional.topCenter,
-          color: Colors.white,
-          child: FutureBuilder(
-              future: _getAddress(),
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                return GoogleMap(
+    return FutureBuilder(
+        future: _getAddress(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          print("SNAP DATA"+snapshot.data.toString());
+          return Column(
+            children: <Widget>[
+              new Container(
+                padding: EdgeInsets.all(1),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.35,
+                alignment: AlignmentDirectional.topCenter,
+                color: Colors.white,
+                child: GoogleMap(
                   gestureRecognizers: Set()
                     ..add(Factory<PanGestureRecognizer>(
                         () => PanGestureRecognizer()))
@@ -85,18 +73,27 @@ class _MapPage1State extends State<MapPage1> {
                   onMapCreated: _onMapCreated,
                   initialCameraPosition:
                       CameraPosition(target: _lastMapPositon, zoom: 11.00),
-                );
-              }),
-          margin: EdgeInsets.only(left: 16, right: 16, bottom: 20, top: 5),
-        ),
-        Container(
-          child: Text(
-            _deliveryPrice,
-            style: TextStyle(color: Colors.green, fontSize: 18),
-          ),
-        )
-      ],
-    );
+                ),
+                margin:
+                    EdgeInsets.only(left: 16, right: 16, bottom: 20, top: 5),
+              ),
+              Container(
+                child: snapshot.data!=null?Text(
+                  pointInPolygon(points, snapshot.data[0], snapshot.data[1])
+                      ? "qirmizi"
+                      : pointInPolygon(
+                      points2, snapshot.data[0], snapshot.data[1])
+                      ? "yasil"
+                      : pointInPolygon(
+                      points3, snapshot.data[0], snapshot.data[1])
+                      ? "sari"
+                      : "nun",
+                  style: TextStyle(color: Colors.green, fontSize: 18),
+                ):Container()
+              )
+            ],
+          );
+        });
   }
 
   _onMapCreated(GoogleMapController controller) {
@@ -104,14 +101,14 @@ class _MapPage1State extends State<MapPage1> {
   }
 
   pointInPolygon(polygonPath, x1, y1) {
-    var numberOfVertexs = polygonPath.length - 1;
-    var inPoly = false;
+//    var numberOfVertexs = polygonPath.length - 1;
+//    var inPoly = false;
 //    LatLng {
 //      lat
 //    , lng } = coordinates;
 
-    var lastVertex = polygonPath[numberOfVertexs];
-    var vertex1, vertex2;
+//    var lastVertex = polygonPath[numberOfVertexs];
+//    var vertex1, vertex2;
 
     var x = x1;
     var y = y1;
@@ -455,7 +452,7 @@ class _MapPage1State extends State<MapPage1> {
 
   void _onCameraMove(CameraPosition position) {}
 
-  _getAddress() async {
+Future<List<double>> _getAddress() async {
     String address = await SharedPrefUtil().getString(SharedPrefUtil().address);
     x1 = double.parse(await SharedPrefUtil().getString(SharedPrefUtil().lat));
     y1 = double.parse(await SharedPrefUtil().getString(SharedPrefUtil().lng));
@@ -472,27 +469,30 @@ class _MapPage1State extends State<MapPage1> {
     if (_mapController != null) {
       _mapController.animateCamera(CameraUpdate.newCameraPosition(
           new CameraPosition(target: _lastMapPositon, zoom: 12.00)));
-
-      if (x1 != null && y1 != null) {
-        if (pointInPolygon(points, x1, y1)) {
-            _deliveryPrice = "Qirmizi 4 AZN";
-          print("Point in Polygon11 ::::" +
-              pointInPolygon(points, x1, y1).toString());
-        } else if (pointInPolygon(points2, x1, y1)) {
-            _deliveryPrice = "Yasil 4 AZN";
-          print("Point in Polygon22 ::::" +
-              pointInPolygon(points2, x1, y1).toString());
-        } else if (pointInPolygon(points3, x1, y1)) {
-            _deliveryPrice = "Sarii 7 AZN";
-          print("Point in Polygon33 ::::" +
-              pointInPolygon(points3, x1, y1).toString());
-        } else {
-          // _deliveryPrice="null";
-          print("Point in PolygonNONNN ::::" +
-              pointInPolygon(points3, x1, y1).toString());
-        }
-      }
     }
-    return address;
+//    if (x1 != null && y1 != null) {
+//      if (pointInPolygon(points, x1, y1)) {
+//        _deliveryPrice = "Qirmizi 4 AZN";
+//        print("Point in Polygon11 ::::" +
+//            pointInPolygon(points, x1, y1).toString());
+//      } else if (pointInPolygon(points2, x1, y1)) {
+//        _deliveryPrice = "Yasil 4 AZN";
+//        print("Point in Polygon22 ::::" +
+//            pointInPolygon(points2, x1, y1).toString());
+//      } else if (pointInPolygon(points3, x1, y1)) {
+//        _deliveryPrice = "Sarii 7 AZN";
+//        print("Point in Polygon33 ::::" +
+//            pointInPolygon(points3, x1, y1).toString());
+//      } else {
+//        // _deliveryPrice="null";
+//        print("Point in PolygonNONNN ::::" +
+//            pointInPolygon(points3, x1, y1).toString());
+//      }
+//    }
+    List<double> a = new List();
+    a.add(x1);
+    a.add(y1);
+
+    return a;
   }
 }

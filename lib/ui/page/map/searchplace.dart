@@ -26,6 +26,7 @@ class CustomSearchScaffold extends PlacesAutocompleteWidget {
 Future<Null> displayPrediction(
     Prediction p, ScaffoldState scaffold, BuildContext context) async {
   GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
+
   if (p != null) {
     // get detail (lat/lng)
     PlacesDetailsResponse detail = await _places.getDetailsByPlaceId(p.placeId);
