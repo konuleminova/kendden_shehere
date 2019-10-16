@@ -443,15 +443,16 @@ class MapPage1 extends StatelessWidget {
     return plo;
   }
 
-  void _onCameraMove(CameraPosition position) {}
+  void _onCameraMove(CameraPosition position) {
+  }
 
   _getAddress() async {
     String address = await SharedPrefUtil().getString(SharedPrefUtil().address);
     x1 = double.parse(await SharedPrefUtil().getString(SharedPrefUtil().lat));
     y1 = double.parse(await SharedPrefUtil().getString(SharedPrefUtil().lng));
     _lastMapPositon = new LatLng(
-        double.parse(await SharedPrefUtil().getString(SharedPrefUtil().lat)),
-        double.parse(await SharedPrefUtil().getString(SharedPrefUtil().lng)));
+       x1,
+        y1);
     _markers.clear();
     _markers.add(Marker(
         draggable: true,
@@ -463,22 +464,14 @@ class MapPage1 extends StatelessWidget {
       _mapController.animateCamera(CameraUpdate.newCameraPosition(
           new CameraPosition(target: _lastMapPositon, zoom: 12.00)));
     }
-    if (x1 != null && y1 != null) {
-      if (pointInPolygon(points, x1, y1)) {
-        _deliveryPrice = "Your delivery amount  4 AZN";
-        print("Point in Polygon11 ::::" +
-            pointInPolygon(points, x1, y1).toString());
-      } else if (pointInPolygon(points2, x1, y1)) {
-        _deliveryPrice = "Your delivery amount 4 AZN";
-        print("Point in Polygon22 ::::" +
-            pointInPolygon(points2, x1, y1).toString());
-      } else if (pointInPolygon(points3, x1, y1)) {
-        _deliveryPrice = "Your delivery amount 7 AZN";
-        print("Point in Polygon33 ::::" +
-            pointInPolygon(points3, x1, y1).toString());
-      } else {
-         _deliveryPrice="Hemin eraziye catdirilma movcud deyil";
-      }
+    if (pointInPolygon(points, x1, y1)) {
+      _deliveryPrice = "Your delivery amount  4 AZN";
+    } else if (pointInPolygon(points2, x1, y1)) {
+      _deliveryPrice = "Your delivery amount 4 AZN";
+    } else if (pointInPolygon(points3, x1, y1)) {
+      _deliveryPrice = "Your delivery amount 7 AZN";
+    } else {
+      _deliveryPrice="Hemin eraziye catdirilma movcud deyil";
     }
     return _deliveryPrice;
   }
