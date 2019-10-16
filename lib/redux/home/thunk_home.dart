@@ -10,8 +10,8 @@ ThunkAction<AppState> shoAllCollectionThunkAction() {
     print(response);
     if (response != null) {
       store.dispatch(ShowAllCollectionAction(homeList: response));
-//      store.dispatch(ShowHomeBasketAction(store));
-//      store.dispatch(ShowHomeWishAction(store));
+      store.dispatch(ShowHomeBasketAction(store));
+      store.dispatch(ShowHomeWishAction(store));
     }
   };
 }
