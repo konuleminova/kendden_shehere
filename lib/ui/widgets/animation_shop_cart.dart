@@ -63,7 +63,7 @@ class _BuildTotalWidgetAnimationState extends State<BuildTotalWidgetAnimation>
   Widget _buildTotals() {
     double subtotal = 0;
     for (int i = 0; i < widget.viewModel.shopItems.length; i++) {
-      subtotal = subtotal + double.parse(widget.viewModel.shopItems[i].price);
+      subtotal = subtotal + double.parse(widget.viewModel.shopItems[i].price)*widget.viewModel.shopItems[i].weight;
     }
     SharedPrefUtil()
         .setString(SharedPrefUtil().price, subtotal.toStringAsFixed(2));
