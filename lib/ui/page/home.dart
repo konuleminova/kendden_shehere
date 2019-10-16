@@ -34,7 +34,7 @@ class HomePage extends StatelessWidget {
         onDispose: (store) {
           store.state.homeList.homelist.clear();
           store.state.wishItems.clear();
-          store.state.shopItems.clear();
+         // store.state.shopItems.clear();
         },
         onDidChange: (HomeViewModel viewModel) {
           print("On did chnage");

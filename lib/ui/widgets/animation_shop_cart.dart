@@ -42,7 +42,7 @@ class _BuildTotalWidgetAnimationState extends State<BuildTotalWidgetAnimation>
 
         },
         onDispose: (store) {
-          store.state.shopItems.clear();
+         // store.state.shopItems.clear();
         },
         converter: (Store<AppState> store) =>
             ShoppingCartViewModel.create(store),

@@ -22,7 +22,7 @@ class GroceryShopCartPage extends StatelessWidget {
           viewModel.onFetchShopList();
         },
         onDispose: (store){
-          store.state.shopItems.clear();
+          //store.state.shopItems.clear();
         },
         converter: (Store<AppState> store) =>
             ShoppingCartViewModel.create(store),
