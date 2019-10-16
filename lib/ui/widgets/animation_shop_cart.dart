@@ -5,23 +5,24 @@ import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem
 import 'package:kendden_shehere/ui/widgets/oval_tap.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 
-class ListTimeWidgetAnimation extends StatefulWidget {
+class BuildTotalWidgetAnimation extends StatefulWidget {
   ShoppingCartViewModel viewModel;
 
-  ListTimeWidgetAnimation(this.viewModel);
+  BuildTotalWidgetAnimation(this.viewModel);
 
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _ListTimeWidgetAnimationState();
+    return _BuildTotalWidgetAnimationState();
   }
 }
 
-class _ListTimeWidgetAnimationState extends State<ListTimeWidgetAnimation>
+class _BuildTotalWidgetAnimationState extends State<BuildTotalWidgetAnimation>
     with SingleTickerProviderStateMixin {
   /// Attributes
   AnimationController controller;
   Animation<Offset> offset;
+  double _height=10;
   /// Widgets
   @override
   void initState() {
@@ -127,6 +128,7 @@ class _ListTimeWidgetAnimationState extends State<ListTimeWidgetAnimation>
   }
   Widget _shopBody(ShoppingCartViewModel viewModel) => new Container(
       margin: EdgeInsets.only(bottom: 10, top: 16, left: 10, right: 12),
+      padding: EdgeInsets.only(bottom: 140),
       child: NotificationListener(
         child: new ListView(
           shrinkWrap: true,
@@ -141,6 +143,7 @@ class _ListTimeWidgetAnimationState extends State<ListTimeWidgetAnimation>
         onNotification: (t) {
           if (t is ScrollStartNotification) {
             controller.forward();
+
           } else if (t is ScrollEndNotification) {
             controller.reverse();
           }

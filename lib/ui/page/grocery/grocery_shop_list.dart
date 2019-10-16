@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/ui/page/home.dart';
 import 'package:kendden_shehere/ui/widgets/animation_shop_cart.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/payment_success_dialog.dart';
-import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem3.dart';
-import 'package:kendden_shehere/util/sharedpref_util.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/shoplist/shop_viewmodel.dart';
-import 'package:kendden_shehere/ui/widgets/oval_tap.dart';
 class GroceryShopCartPage extends StatelessWidget {
   bool fromCheckout = false;
   ShoppingCartViewModel viewModel;
@@ -64,7 +60,7 @@ class GroceryShopCartPage extends StatelessWidget {
                           return Container();
                         }),
                   )
-                      : ListTimeWidgetAnimation(viewModel)),
+                      : BuildTotalWidgetAnimation(viewModel)),
               onWillPop: () {
 //                Navigator.popUntil(
 //                    context, ModalRoute.withName(Navigator.defaultRouteName));
