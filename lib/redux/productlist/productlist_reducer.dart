@@ -58,6 +58,7 @@ List<NewProduct> showBasketProductListReducer(
     action.store.state.shopItems.forEach((f) {
       if (item.id == f.id) {
         item.isAdded = true;
+        item.weight=f.weight;
       }
     });
   });

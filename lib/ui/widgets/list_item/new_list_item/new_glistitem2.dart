@@ -24,7 +24,6 @@ class NewGroceryListItemTwo extends StatefulWidget {
 class NewGroceryListItemTwoState extends State<NewGroceryListItemTwo> {
   NewProduct product;
   String image, title;
-  int weight = 1;
   ProductViewModel viewModel;
 
   @override
@@ -147,6 +146,7 @@ class NewGroceryListItemTwoState extends State<NewGroceryListItemTwo> {
   }
 
   _updateContainer() {
+    int weight=product.weight;
     if (!product.isAdded) {
       return new GestureDetector(
           child: new Container(
