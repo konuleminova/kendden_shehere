@@ -182,11 +182,21 @@ class HomePage extends StatelessWidget {
                             BuildContext context,
                             int index,
                           ) {
+                            String langCode = Localizations.localeOf(context).languageCode;
+                            if (langCode == "tr") {
+                              title = viewModel.homeList.homelist[index].name_az
+                                  .trim();
+                            } else if (langCode == "en") {
+                              title = viewModel.homeList.homelist[index].name_en
+                                  .trim();
+                            } else if (langCode == "ru") {
+                              title = viewModel.homeList.homelist[index].name_ru
+                                  .trim();
+                            }
                             return Container(
                                 child: Column(
                               children: <Widget>[
-                                _titleContainer(
-                                    viewModel.homeList.homelist[index].name_az),
+                                _titleContainer(title),
                                 Container(
                                   child: ListView.builder(
                                       physics: ClampingScrollPhysics(),
