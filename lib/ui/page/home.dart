@@ -39,7 +39,6 @@ class HomePage extends StatelessWidget {
         onDidChange: (HomeViewModel viewModel) {
           print("On did chnage");
         },
-        rebuildOnChange: true,
         converter: (Store<AppState> store) => HomeViewModel.create(store),
         builder: (BuildContext context, HomeViewModel viewModel) {
           return new Scaffold(
