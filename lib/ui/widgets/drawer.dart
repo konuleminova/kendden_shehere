@@ -39,9 +39,7 @@ class DrawerWidget extends StatelessWidget {
                       );
                     } else {
                       // default show loading while state is waiting
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
+                      return SizedBox();
                     }
                   },
                 ),
