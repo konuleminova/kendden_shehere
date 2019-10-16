@@ -10,15 +10,15 @@ import 'package:kendden_shehere/util/sharedpref_util.dart';
 const kGoogleApiKey = "AIzaSyC1XWcwMQ-WDLXUWZOTwQW7325Wb-OeysU";
 // "AIzaSyBbSJwbLSidCTD5AAn_QuAwuF5Du5ANAvg";
 
-//class MapPage1 extends StatefulWidget {
-//  @override
-//  State<StatefulWidget> createState() {
-//    // TODO: implement createState
-//    return _MapPage1State();
-//  }
-//}
+class MapPage1 extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _MapPage1State();
+  }
+}
 
-class MapPage1 extends StatelessWidget {
+class _MapPage1State extends State<MapPage1 >{
   static const LatLng _bakuLatLng = const LatLng(40.3716222, 49.8555191);
   GoogleMapController _mapController;
   final Set<Marker> _markers = {};
@@ -444,6 +444,7 @@ class MapPage1 extends StatelessWidget {
   }
 
   void _onCameraMove(CameraPosition position) {
+
   }
 
   _getAddress() async {
