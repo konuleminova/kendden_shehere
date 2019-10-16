@@ -16,7 +16,7 @@ class MapPage1 extends StatefulWidget {
   }
 }
 
-class _MapPage1State extends State<MapPage1 >{
+class _MapPage1State extends State<MapPage1> {
   static const LatLng _bakuLatLng = const LatLng(40.3716222, 49.8555191);
   GoogleMapController _mapController;
   final Set<Marker> _markers = {};
@@ -28,6 +28,7 @@ class _MapPage1State extends State<MapPage1 >{
   String _deliveryPrice;
   var lat;
   var lng;
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -84,6 +85,34 @@ class _MapPage1State extends State<MapPage1 >{
     _mapController = controller;
   }
 
+  _getAddress() async {
+    String address = await SharedPrefUtil().getString(SharedPrefUtil().address);
+    lat = double.parse(await SharedPrefUtil().getString(SharedPrefUtil().lat));
+    lng = double.parse(await SharedPrefUtil().getString(SharedPrefUtil().lng));
+    _lastMapPositon = new LatLng(lat, lng);
+    _markers.clear();
+    _markers.add(Marker(
+        draggable: true,
+        markerId: MarkerId(_lastMapPositon.toString()),
+        position: _lastMapPositon,
+        infoWindow: InfoWindow(title: address, snippet: ""),
+        icon: BitmapDescriptor.defaultMarker));
+    if (_mapController != null) {
+      _mapController.animateCamera(CameraUpdate.newCameraPosition(
+          new CameraPosition(target: _lastMapPositon, zoom: 12.00)));
+    }
+    if (pointInPolygon(points, lat, lng)) {
+      _deliveryPrice = "Your delivery amount  4 AZN";
+    } else if (pointInPolygon(points2, lat, lng)) {
+      _deliveryPrice = "Your delivery amount 4 AZN";
+    } else if (pointInPolygon(points3, lat, lng)) {
+      _deliveryPrice = "Your delivery amount 7 AZN";
+    } else {
+      _deliveryPrice = "Hemin eraziye catdirilma movcud deyil";
+    }
+    return _deliveryPrice;
+  }
+
   pointInPolygon(polygonPath, x1, y1) {
     var x = x1;
     var y = y1;
@@ -101,6 +130,8 @@ class _MapPage1State extends State<MapPage1 >{
 
     return inside;
   }
+
+  void _onCameraMove(CameraPosition position) {}
 
   setPolygon() {
     points.add(new LatLng(40.3716222, 49.8555191));
@@ -422,39 +453,5 @@ class _MapPage1State extends State<MapPage1 >{
     // _lines[0].points[0].latitude;
 
     return plo;
-  }
-
-  void _onCameraMove(CameraPosition position) {
-
-  }
-
-  _getAddress() async {
-    String address = await SharedPrefUtil().getString(SharedPrefUtil().address);
-    lat = double.parse(await SharedPrefUtil().getString(SharedPrefUtil().lat));
-    lng = double.parse(await SharedPrefUtil().getString(SharedPrefUtil().lng));
-    _lastMapPositon = new LatLng(
-       lat,
-        lng);
-    _markers.clear();
-    _markers.add(Marker(
-        draggable: true,
-        markerId: MarkerId(_lastMapPositon.toString()),
-        position: _lastMapPositon,
-        infoWindow: InfoWindow(title: address, snippet: ""),
-        icon: BitmapDescriptor.defaultMarker));
-    if (_mapController != null) {
-      _mapController.animateCamera(CameraUpdate.newCameraPosition(
-          new CameraPosition(target: _lastMapPositon, zoom: 12.00)));
-    }
-    if (pointInPolygon(points, lat, lng)) {
-      _deliveryPrice = "Your delivery amount  4 AZN";
-    } else if (pointInPolygon(points2, lat, lng)) {
-      _deliveryPrice = "Your delivery amount 4 AZN";
-    } else if (pointInPolygon(points3, lat, lng)) {
-      _deliveryPrice = "Your delivery amount 7 AZN";
-    } else {
-      _deliveryPrice="Hemin eraziye catdirilma movcud deyil";
-    }
-    return _deliveryPrice;
   }
 }
