@@ -40,12 +40,12 @@ Future<Null> displayPrediction(
     if (p != null) {
       await SharedPrefUtil().setString(SharedPrefUtil().address, p.description);
     }
+
     await SharedPrefUtil().setString(
         SharedPrefUtil().lat,lat.toString());
     await SharedPrefUtil().setString(
         SharedPrefUtil().lng,lng.toString());
     Navigator.pop(context);
-
 //    Route route = MaterialPageRoute(
 //        builder: (context) => MapPage1(placeModel: placeModel));
 //    Navigator.pushReplacement(context,route);

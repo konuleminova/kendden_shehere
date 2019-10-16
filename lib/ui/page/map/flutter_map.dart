@@ -42,7 +42,7 @@ class MapPage1 extends StatelessWidget {
     return FutureBuilder(
         future: _getAddress(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          print("SNAP DATA"+snapshot.data.toString());
+          print("SNAP DATA" + snapshot.data.toString());
           return Column(
             children: <Widget>[
               new Container(
@@ -78,19 +78,12 @@ class MapPage1 extends StatelessWidget {
                     EdgeInsets.only(left: 16, right: 16, bottom: 20, top: 5),
               ),
               Container(
-                child: snapshot.data!=null?Text(
-                  pointInPolygon(points, snapshot.data[0], snapshot.data[1])
-                      ? "qirmizi"
-                      : pointInPolygon(
-                      points2, snapshot.data[0], snapshot.data[1])
-                      ? "yasil"
-                      : pointInPolygon(
-                      points3, snapshot.data[0], snapshot.data[1])
-                      ? "sari"
-                      : "nun",
-                  style: TextStyle(color: Colors.green, fontSize: 18),
-                ):Container()
-              )
+                  child: snapshot.data != null
+                      ? Text(
+                          snapshot.data,
+                          style: TextStyle(color: Colors.green, fontSize: 18),
+                        )
+                      : Container())
             ],
           );
         });
@@ -452,7 +445,7 @@ class MapPage1 extends StatelessWidget {
 
   void _onCameraMove(CameraPosition position) {}
 
-Future<List<double>> _getAddress() async {
+  Future<String> _getAddress() async {
     String address = await SharedPrefUtil().getString(SharedPrefUtil().address);
     x1 = double.parse(await SharedPrefUtil().getString(SharedPrefUtil().lat));
     y1 = double.parse(await SharedPrefUtil().getString(SharedPrefUtil().lng));
@@ -470,29 +463,26 @@ Future<List<double>> _getAddress() async {
       _mapController.animateCamera(CameraUpdate.newCameraPosition(
           new CameraPosition(target: _lastMapPositon, zoom: 12.00)));
     }
-//    if (x1 != null && y1 != null) {
-//      if (pointInPolygon(points, x1, y1)) {
-//        _deliveryPrice = "Qirmizi 4 AZN";
-//        print("Point in Polygon11 ::::" +
-//            pointInPolygon(points, x1, y1).toString());
-//      } else if (pointInPolygon(points2, x1, y1)) {
-//        _deliveryPrice = "Yasil 4 AZN";
-//        print("Point in Polygon22 ::::" +
-//            pointInPolygon(points2, x1, y1).toString());
-//      } else if (pointInPolygon(points3, x1, y1)) {
-//        _deliveryPrice = "Sarii 7 AZN";
-//        print("Point in Polygon33 ::::" +
-//            pointInPolygon(points3, x1, y1).toString());
-//      } else {
-//        // _deliveryPrice="null";
-//        print("Point in PolygonNONNN ::::" +
-//            pointInPolygon(points3, x1, y1).toString());
-//      }
-//    }
-    List<double> a = new List();
-    a.add(x1);
-    a.add(y1);
+    if (x1 != null && y1 != null) {
+      if (pointInPolygon(points, x1, y1)) {
+        _deliveryPrice = "Qirmizi 4 AZN";
+        print("Point in Polygon11 ::::" +
+            pointInPolygon(points, x1, y1).toString());
+      } else if (pointInPolygon(points2, x1, y1)) {
+        _deliveryPrice = "Yasil 4 AZN";
+        print("Point in Polygon22 ::::" +
+            pointInPolygon(points2, x1, y1).toString());
+      } else if (pointInPolygon(points3, x1, y1)) {
+        _deliveryPrice = "Sarii 7 AZN";
+        print("Point in Polygon33 ::::" +
+            pointInPolygon(points3, x1, y1).toString());
+      } else {
+        // _deliveryPrice="null";
+        print("Point in PolygonNONNN ::::" +
+            pointInPolygon(points3, x1, y1).toString());
+      }
+    }
 
-    return a;
+    return _deliveryPrice;
   }
 }
