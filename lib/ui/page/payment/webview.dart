@@ -19,18 +19,13 @@ class WebViewPage extends StatefulWidget {
 }
 
 class WebViewState extends State<WebViewPage> {
-//  final Completer<WebViewController> _controller =
-//      Completer<WebViewController>();
-  //final flutterWebViewPlugin = FlutterWebviewPlugin();
-  var kAndroidUserAgent =
-      'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Mobile Safari/537.36';
 
   @override
   void initState() {
     super.initState();
     //flutterWebViewPlugin.close();
     final flutterWebviewPlugin = new FlutterWebviewPlugin();
-
+    flutterWebviewPlugin.launch('https://www.apple.com', hidden: false);
     flutterWebviewPlugin.onUrlChanged.listen((String url) {
       print(url);
       if (widget.url != url) {
@@ -57,7 +52,7 @@ class WebViewState extends State<WebViewPage> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return new WebviewScaffold(
-        url: widget.url,
+        url: 'https://www.apple.com',
         appBar: new AppBar(
           backgroundColor: Colors.lightGreen,
           title: const Text('Payment'),

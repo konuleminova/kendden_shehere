@@ -48,11 +48,14 @@ class HomePage extends StatelessWidget {
                         builder: (BuildContext context) {
                           return PaymentSuccessDialog(context);
                         });
-                  }else{
+                  } else {
                     showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return PaymentErrorDialog(context);
+                          return PaymentErrorDialog(
+                              context,
+                              "Odeme heyate kecmedi.",
+                              'Xahiş edirik əməliyyatı yenidən təkrarlayasınız.');
                         });
                   }
                 });

@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 
 class PaymentErrorDialog extends StatelessWidget {
   BuildContext context;
+  String title;
+  String subtitle;
 
-  PaymentErrorDialog(this.context);
+  PaymentErrorDialog(this.context,this.title,this.subtitle);
 
   final image = 'assets/img/3.jpg';
-  final TextStyle subtitle = TextStyle(fontSize: 12.0, color: Colors.grey);
+  final TextStyle subtitles = TextStyle(fontSize: 12.0, color: Colors.grey);
   final TextStyle label = TextStyle(fontSize: 14.0, color: Colors.grey);
 
   @override
@@ -21,11 +23,11 @@ class PaymentErrorDialog extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Text(
-                  "Catdirilma yoxdur!",
+                  title,
                   style: TextStyle(color: Colors.red,fontSize: 20),
                 ),
                 Text(
-                  "Seçdiyiniz əraziyə hal hazırda çatdırılma yoxdur.",
+                 subtitle,
                   style: label,
                 ),
                 Divider(),
