@@ -46,6 +46,11 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
         await SharedPrefUtil().getString(SharedPrefUtil().deliveryPrice);
     if (checkout.dtime_selected_val == "Tecili catdirilma") {
       checkout.teciliCatdirlma = "2";
+    }else{
+      checkout.teciliCatdirlma=null;
+    }
+    if (checkout.dtime_selected_val == "Magazadan gotur") {
+      checkout.deliveryPrice="0";
     }
     total = (double.parse(checkout.price) +
             double.parse(checkout.deliveryPrice) +
