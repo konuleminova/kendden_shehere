@@ -45,35 +45,35 @@ class CheckoutsPageState extends State<CheckoutsPage> {
               style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
             ),
           ),
-          Container(
-            child: Card(
-              child: ListTile(
-                title: FutureBuilder(
-                    future: _getAddress(),
-                    builder: (BuildContext context, AsyncSnapshot snapshot) {
-                      return Text(
-                        snapshot.hasData && snapshot.data != ""
-                            ? snapshot.data
-                            : "Please add new address",
-                        style: TextStyle(color: Colors.grey),
-                      );
-                    }),
-                trailing: IconButton(
-                  icon: Icon(Icons.edit),
-                  onPressed:null
-                ),
-                onTap: (){
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) =>
-                          Dialog(child: CustomSearchScaffold()));
-                },
-              ),
-              elevation: 2,
-            ),
-            margin: EdgeInsets.only(left: 12,right: 12,bottom: 8)
-          ),
-          Container(
+          checkout.dtime_selected_val != "Magazadan gotur"
+              ? Container(
+                  child: Card(
+                    child: ListTile(
+                      title: FutureBuilder(
+                          future: _getAddress(),
+                          builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
+                            return Text(
+                              snapshot.hasData && snapshot.data != ""
+                                  ? snapshot.data
+                                  : "Please add new address",
+                              style: TextStyle(color: Colors.grey),
+                            );
+                          }),
+                      trailing:
+                          IconButton(icon: Icon(Icons.edit), onPressed: null),
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                Dialog(child: CustomSearchScaffold()));
+                      },
+                    ),
+                    elevation: 2,
+                  ),
+                  margin: EdgeInsets.only(left: 12, right: 12, bottom: 8))
+              : SizedBox(height: 10,),
+          checkout.dtime_selected_val != "Magazadan gotur"? Container(
             margin: EdgeInsets.only(left: 12, right: 12, bottom: 16),
             child: Column(
               children: <Widget>[
@@ -149,7 +149,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                 )
               ],
             ),
-          ),
+          ):SizedBox(height: 10,),
           new Container(
             child: RaisedButton(
               color: Colors.green,
@@ -410,7 +410,9 @@ class CheckoutsPageState extends State<CheckoutsPage> {
     });
   }
 
-  _getGoogleMap() => MapPage1();
+  _getGoogleMap() => checkout.dtime_selected_val != "Magazadan gotur"
+      ? MapPage1()
+      : SizedBox();
 
   _getAddress() async {
     return await SharedPrefUtil().getString(SharedPrefUtil().address);
