@@ -115,11 +115,13 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
     Networks().finishBasket(checkout).then((onValue) {
       if (onValue['done'] == "1") {
         if (onValue['redirectUrl'] != null) {
+          Navigator.pop(context,true);
           Route route = MaterialPageRoute(
               builder: (BuildContext context) =>
                   WebViewPage(url: onValue['redirectUrl']));
-          Navigator.push(context, route);
+          Navigator.pushReplacement(context, route);
         } else {
+          Navigator.pop(context,true);
           Route route = MaterialPageRoute(
               builder: (BuildContext context) => GroceryShopCartPage(
                     fromCheckout: true,

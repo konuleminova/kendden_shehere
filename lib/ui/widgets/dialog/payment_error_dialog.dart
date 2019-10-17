@@ -40,7 +40,7 @@ class PaymentErrorDialog extends StatelessWidget {
                 RaisedButton(
                   color: Colors.red,
                   onPressed: () {
-                   Navigator.pop(this.context);
+                   Navigator.pop(this.context,true);
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
