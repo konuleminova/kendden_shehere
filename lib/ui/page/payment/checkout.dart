@@ -175,6 +175,14 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                             "Please fill all fields.",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
+                          duration: const Duration(seconds: 1),
+                          action: SnackBarAction(
+                            label: 'Ok',
+                            onPressed: () {
+                           _scaffoldKey.currentState.hideCurrentSnackBar();
+                              // Some code to undo the change.
+                            },
+                          ),
                           backgroundColor: Colors.red));
                     } else {
                       Route route = MaterialPageRoute(
