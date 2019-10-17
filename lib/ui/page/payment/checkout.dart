@@ -24,11 +24,13 @@ class CheckoutsPageState extends State<CheckoutsPage> {
   String choice = "11:30-13:00";
   ScrollController _scrollController;
   Checkout checkout = new Checkout();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return new Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: Colors.lightGreen,
         title: Text("Checkout"),
@@ -168,8 +170,12 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                       .getString(SharedPrefUtil().address)
                       .then((onValue) {
                     if (onValue.isEmpty) {
-//                    Scaffold.of(context)
-//                        .showSnackBar(snackBar("Please fill all fields."));
+                      _scaffoldKey.currentState.showSnackBar(new SnackBar(
+                          content: Text(
+                            "Please fill all fields.",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          backgroundColor: Colors.red));
                     } else {
                       Route route = MaterialPageRoute(
                           builder: (BuildContext context) => ConfirmOrderPage(
