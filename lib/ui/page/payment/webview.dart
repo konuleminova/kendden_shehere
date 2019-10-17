@@ -25,7 +25,6 @@ class WebViewState extends State<WebViewPage> {
     super.initState();
     //flutterWebViewPlugin.close();
     final flutterWebviewPlugin = new FlutterWebviewPlugin();
-    flutterWebviewPlugin.launch('https://www.apple.com', hidden: false);
     flutterWebviewPlugin.onUrlChanged.listen((String url) {
       print(url);
       if (widget.url != url) {
@@ -52,7 +51,7 @@ class WebViewState extends State<WebViewPage> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return new WebviewScaffold(
-        url: 'https://www.apple.com',
+        url: widget.url,
         appBar: new AppBar(
           backgroundColor: Colors.lightGreen,
           title: const Text('Payment'),
