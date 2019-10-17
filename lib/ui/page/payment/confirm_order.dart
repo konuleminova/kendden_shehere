@@ -30,13 +30,16 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
 
   getSharedPref() async {
     checkout.mobile = await SharedPrefUtil().getString(SharedPrefUtil().mobile);
-    checkout.username = await SharedPrefUtil().getString(SharedPrefUtil().username);
+    checkout.username =
+        await SharedPrefUtil().getString(SharedPrefUtil().username);
     checkout.id = await SharedPrefUtil().getString(SharedPrefUtil().id);
     alkaqol = await SharedPrefUtil().getString(SharedPrefUtil().alkaqol);
-    checkout.address = await SharedPrefUtil().getString(SharedPrefUtil().address);
+    checkout.address =
+        await SharedPrefUtil().getString(SharedPrefUtil().address);
     checkout.delivery_place =
         await SharedPrefUtil().getString(SharedPrefUtil().coordinates);
-    checkout.delivery_price=await SharedPrefUtil().getString(SharedPrefUtil().price);
+    checkout.delivery_price =
+        await SharedPrefUtil().getString(SharedPrefUtil().price);
     return checkout;
   }
 
@@ -158,11 +161,7 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
                           ),
                         ),
                         Divider(),
-                        ListTile(
-                          title: Text("Price"),
-                          subtitle: Text(checkout.delivery_price+" AZN",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
-                        ),
-                        Divider(),
+                      //  Divider(),
                         ListTile(
                           title: Text("Username"),
                           subtitle: Text(checkout.username),
@@ -177,25 +176,68 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
                           title: Text("Payment Option"),
                           subtitle: Text(checkout.dpayment_selected_val),
                         ),
-                        SizedBox(
-                          height: 10.0,
+
+                        Container(
+                          child: Column(
+                            children: <Widget>[
+                              Expanded(
+                                child: ListTile(
+                                  title: Text("Subtotal Price"),
+                                  trailing: Text(
+                                    checkout.delivery_price + " AZN",
+                                    style: TextStyle(fontSize: 15),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: ListTile(
+                                  title: Text("Delivery Price"),
+                                  trailing: Text(
+                                    checkout.delivery_price + " AZN",
+                                    style: TextStyle(fontSize: 15),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: ListTile(
+                                  title: Text("Tecili catdirilma",style: TextStyle(color: Colors.red),),
+                                  trailing: Text(
+                                    checkout.delivery_price + " AZN",
+                                    style: TextStyle(fontSize: 15,color: Colors.red),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: ListTile(
+                                  title: Text("Total Price",style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold),),
+                                  trailing: Text(
+                                    checkout.delivery_price + " AZN",
+                                    style: TextStyle(fontSize: 15,color: Colors.green,fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ),
+
+                            ],
+                          ),
+                          height: 120,
                         ),
+                        SizedBox(height: 16,),
                         RaisedButton(
                           color: Colors.green,
                           onPressed: () {
-                           if(checkout.mobile.isEmpty||checkout.address.isEmpty){
-
-
-                             // Find the Scaffold in the widget tree and use
-                             // it to show a SnackBar.
-                             Scaffold.of(context).showSnackBar(snackBar("Please fill all fields."));
-                           }else{
-                             if (alkaqol == "1") {
-                               _showDialog();
-                             } else {
-                               _finishBAsket();
-                             }
-                           }
+                            if (checkout.mobile.isEmpty ||
+                                checkout.address.isEmpty) {
+                              // Find the Scaffold in the widget tree and use
+                              // it to show a SnackBar.
+                              Scaffold.of(context).showSnackBar(
+                                  snackBar("Please fill all fields."));
+                            } else {
+                              if (alkaqol == "1") {
+                                _showDialog();
+                              } else {
+                                _finishBAsket();
+                              }
+                            }
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
