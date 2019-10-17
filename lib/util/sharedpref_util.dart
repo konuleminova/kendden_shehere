@@ -26,6 +26,7 @@ class SharedPrefUtil {
   String lat = "lat";
   String lng = "lng";
   String price = "price";
+  String deliveryPrice="Delivery price";
 
   Future<bool> getBool(String key) async {
     // sleep(const Duration(seconds:5));

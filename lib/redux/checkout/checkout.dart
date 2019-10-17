@@ -5,8 +5,10 @@ class Checkout {
   String mobile;
   String dtime_selected_val;
   String username;
-  String delivery_price;
+  String price;
   String dpayment_selected_val;
+  String deliveryPrice;
+  String teciliCatdirlma;
 
   Checkout(
       {this.id,
@@ -15,12 +17,12 @@ class Checkout {
       this.mobile,
       this.dtime_selected_val,
       this.username,
-      this.delivery_price,
-      this.dpayment_selected_val});
+      this.price,
+      this.dpayment_selected_val,this.deliveryPrice,this.teciliCatdirlma});
 
   @override
   String toString() {
-    return 'Checkout{id: $id, address: $address, delivery_place: $delivery_place, mobile: $mobile, dtime_selected_val: $dtime_selected_val, username: $username, delivery_price: $delivery_price, dpayment_selected_val: $dpayment_selected_val}';
+    return 'Checkout{id: $id, address: $address, delivery_place: $delivery_place, mobile: $mobile, dtime_selected_val: $dtime_selected_val, username: $username, delivery_price: $price, dpayment_selected_val: $dpayment_selected_val}';
   }
 
 

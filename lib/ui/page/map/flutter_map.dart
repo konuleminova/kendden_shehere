@@ -26,6 +26,7 @@ class _MapPage1State extends State<MapPage1> {
   List<LatLng> points3 = new List<LatLng>();
   String p;
   String _deliveryPrice;
+  String _deliveryAmount;
   var lat;
   var lng;
 
@@ -105,18 +106,24 @@ class _MapPage1State extends State<MapPage1> {
     }
     if (pointInPolygon(points, lat, lng)) {
       if (price >= 20) {
-        _deliveryPrice = "Your delivery is free";
+        _deliveryPrice = "0";
+        _deliveryAmount="Your delivery is free";
       } else {
-        _deliveryPrice = "Your delivery amount  4 AZN";
+        _deliveryPrice = "4";
+        _deliveryAmount="Your delivery amount is 4 AZN";
       }
     } else if (pointInPolygon(points2, lat, lng)) {
-      _deliveryPrice = "Your delivery amount 4 AZN";
+      _deliveryPrice = "4";
+      _deliveryAmount="Your delivery amount is 4 AZN";
     } else if (pointInPolygon(points3, lat, lng)) {
-      _deliveryPrice = "Your delivery amount 7 AZN";
+      _deliveryPrice = "7";
+      _deliveryAmount="Your delivery amount is 7 AZN";
     } else {
-      _deliveryPrice = "Hemin eraziye catdirilma movcud deyil";
+      _deliveryPrice = "-1";
+      _deliveryAmount="Hemin eraziye catdirilma movcud deyil.";
     }
-    return _deliveryPrice;
+    SharedPrefUtil().setString(SharedPrefUtil().deliveryPrice, _deliveryPrice);
+    return _deliveryAmount;
   }
 
   pointInPolygon(polygonPath, x1, y1) {

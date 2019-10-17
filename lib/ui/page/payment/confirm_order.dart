@@ -27,6 +27,7 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
   final flutterWebviewPlugin = new FlutterWebviewPlugin();
   Checkout checkout;
   String alkaqol;
+  String total;
 
   getSharedPref() async {
     checkout.mobile = await SharedPrefUtil().getString(SharedPrefUtil().mobile);
@@ -38,8 +39,18 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
         await SharedPrefUtil().getString(SharedPrefUtil().address);
     checkout.delivery_place =
         await SharedPrefUtil().getString(SharedPrefUtil().coordinates);
-    checkout.delivery_price =
-        await SharedPrefUtil().getString(SharedPrefUtil().price);
+    checkout.price = await SharedPrefUtil().getString(SharedPrefUtil().price);
+    checkout.deliveryPrice =
+        await SharedPrefUtil().getString(SharedPrefUtil().deliveryPrice);
+    if (checkout.dtime_selected_val == "Tecili catdirilma") {
+      checkout.teciliCatdirlma = "2";
+    }
+    total = (double.parse(checkout.price) +
+            double.parse(checkout.deliveryPrice) +
+            (checkout.teciliCatdirlma != null
+                ? double.parse(checkout.teciliCatdirlma)
+                : 0))
+        .toString();
     return checkout;
   }
 
@@ -90,6 +101,7 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
       checkout.dtime_selected_val = "19";
     } else if (checkout.dtime_selected_val == "Tecili catdirilma") {
       checkout.dtime_selected_val = "T";
+      checkout.teciliCatdirlma = "2";
     } else {
       checkout.dtime_selected_val = "N";
     }
@@ -161,7 +173,7 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
                           ),
                         ),
                         Divider(),
-                      //  Divider(),
+                        //  Divider(),
                         ListTile(
                           title: Text("Username"),
                           subtitle: Text(checkout.username),
@@ -184,7 +196,7 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
                                 child: ListTile(
                                   title: Text("Subtotal Price"),
                                   trailing: Text(
-                                    checkout.delivery_price + " AZN",
+                                    checkout.price + " AZN",
                                     style: TextStyle(fontSize: 15),
                                   ),
                                 ),
@@ -193,35 +205,50 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
                                 child: ListTile(
                                   title: Text("Delivery Price"),
                                   trailing: Text(
-                                    checkout.delivery_price + " AZN",
+                                    checkout.deliveryPrice + " AZN",
                                     style: TextStyle(fontSize: 15),
                                   ),
                                 ),
                               ),
+                              checkout.teciliCatdirlma != null
+                                  ? Expanded(
+                                      child: ListTile(
+                                        title: Text(
+                                          "Tecili catdirilma",
+                                          style: TextStyle(color: Colors.red),
+                                        ),
+                                        trailing: Text(
+                                          checkout.teciliCatdirlma + " AZN",
+                                          style: TextStyle(
+                                              fontSize: 15, color: Colors.red),
+                                        ),
+                                      ),
+                                    )
+                                  : SizedBox(),
                               Expanded(
                                 child: ListTile(
-                                  title: Text("Tecili catdirilma",style: TextStyle(color: Colors.red),),
+                                  title: Text(
+                                    "Total Price",
+                                    style: TextStyle(
+                                        color: Colors.green,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                   trailing: Text(
-                                    checkout.delivery_price + " AZN",
-                                    style: TextStyle(fontSize: 15,color: Colors.red),
+                                    total + " AZN",
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.green,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ),
                               ),
-                              Expanded(
-                                child: ListTile(
-                                  title: Text("Total Price",style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold),),
-                                  trailing: Text(
-                                    checkout.delivery_price + " AZN",
-                                    style: TextStyle(fontSize: 15,color: Colors.green,fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ),
-
                             ],
                           ),
                           height: 120,
                         ),
-                        SizedBox(height: 16,),
+                        SizedBox(
+                          height: 16,
+                        ),
                         RaisedButton(
                           color: Colors.green,
                           onPressed: () {
