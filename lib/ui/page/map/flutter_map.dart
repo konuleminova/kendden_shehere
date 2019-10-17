@@ -87,6 +87,8 @@ class _MapPage1State extends State<MapPage1> {
 
   _getAddress() async {
     String address = await SharedPrefUtil().getString(SharedPrefUtil().address);
+    double price =
+        double.parse(await SharedPrefUtil().getString(SharedPrefUtil().price));
     lat = double.parse(await SharedPrefUtil().getString(SharedPrefUtil().lat));
     lng = double.parse(await SharedPrefUtil().getString(SharedPrefUtil().lng));
     _lastMapPositon = new LatLng(lat, lng);
@@ -102,7 +104,11 @@ class _MapPage1State extends State<MapPage1> {
           new CameraPosition(target: _lastMapPositon, zoom: 12.00)));
     }
     if (pointInPolygon(points, lat, lng)) {
-      _deliveryPrice = "Your delivery amount  4 AZN";
+      if (price >= 20) {
+        _deliveryPrice = "Your delivery is free";
+      } else {
+        _deliveryPrice = "Your delivery amount  4 AZN";
+      }
     } else if (pointInPolygon(points2, lat, lng)) {
       _deliveryPrice = "Your delivery amount 4 AZN";
     } else if (pointInPolygon(points3, lat, lng)) {
