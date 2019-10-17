@@ -32,7 +32,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
-    this.context=context;
+    this.context = context;
     return WillPopScope(
         child: new StoreConnector(
             onInit: (store) {
@@ -300,9 +300,13 @@ class HomePage extends StatelessWidget {
 
   Future<Null> _refreshLocalGallery() async {
     await Future.delayed(Duration(seconds: 1));
-    Navigator.pushReplacement(
+    Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (_) => HomePage(fromCheckout: false,)));
+        MaterialPageRoute(
+            builder: (_) => HomePage(
+                  fromCheckout: false,
+                )),
+        (Route<dynamic> route) => false);
     return null;
   }
 
