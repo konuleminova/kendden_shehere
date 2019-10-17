@@ -357,7 +357,7 @@ class Networks {
         BASE_KS_URL +
             "finishbasket&uid=${uid}&id=${checkout.id}&address=${checkout.address}&delivery_place=${checkout.delivery_place}"
                 "&mobile=${checkout.mobile}&dtime_selected_val=${checkout.dtime_selected_val}"
-                "&username=${checkout.username}&delivery_price=${checkout.username}&dpayment_selected_val=${checkout.dpayment_selected_val}",
+                "&username=${checkout.username}&delivery_price=${checkout.deliveryPrice}&dpayment_selected_val=${checkout.dpayment_selected_val}",
         headers: {"Content-Type": "application/json"},
       );
       if (response.statusCode == 200) {

@@ -29,7 +29,6 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
   final flutterWebviewPlugin = new FlutterWebviewPlugin();
   Checkout checkout;
   String alkaqol;
-  String total;
 
   getSharedPref() async {
     checkout.mobile = await SharedPrefUtil().getString(SharedPrefUtil().mobile);
@@ -52,7 +51,7 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
     if (checkout.dtime_selected_val == "Magazadan gotur") {
       checkout.deliveryPrice="0";
     }
-    total = (double.parse(checkout.price) +
+    checkout.total = (double.parse(checkout.price) +
             double.parse(checkout.deliveryPrice) +
             (checkout.teciliCatdirlma != null
                 ? double.parse(checkout.teciliCatdirlma)
@@ -243,7 +242,7 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                   trailing: Text(
-                                    total + " AZN",
+                                    checkout.total + " AZN",
                                     style: TextStyle(
                                         fontSize: 15,
                                         color: Colors.green,

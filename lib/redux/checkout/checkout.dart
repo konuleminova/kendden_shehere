@@ -9,6 +9,7 @@ class Checkout {
   String dpayment_selected_val;
   String deliveryPrice;
   String teciliCatdirlma;
+  String total;
 
   Checkout(
       {this.id,
@@ -18,7 +19,7 @@ class Checkout {
       this.dtime_selected_val,
       this.username,
       this.price,
-      this.dpayment_selected_val,this.deliveryPrice,this.teciliCatdirlma});
+      this.dpayment_selected_val,this.deliveryPrice,this.teciliCatdirlma,this.total});
 
   @override
   String toString() {
