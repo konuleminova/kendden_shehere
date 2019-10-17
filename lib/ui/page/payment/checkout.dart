@@ -10,9 +10,6 @@ import 'package:kendden_shehere/ui/page/map/searchplace.dart';
 import 'package:kendden_shehere/ui/page/payment/confirm_order.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 
-const kAndroidUserAgent =
-    'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Mobile Safari/537.36';
-
 class CheckoutsPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -25,9 +22,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
   var selectedIndex = 0;
   String choice = "11:30-13:00";
   ScrollController _scrollController;
-  bool _isOnTop = true;
   Checkout checkout = new Checkout();
-  final flutterWebviewPlugin = new FlutterWebviewPlugin();
 
   @override
   Widget build(BuildContext context) {
@@ -78,10 +73,6 @@ class CheckoutsPageState extends State<CheckoutsPage> {
             ),
             margin: EdgeInsets.only(left: 12,right: 12,bottom: 8)
           ),
-//          GestureDetector(
-//            child: _getGoogleMap(),
-//            onTap: _isOnTop ? _scrollToBottom : _scrollToTop,
-//          ),
           Container(
             margin: EdgeInsets.only(left: 12, right: 12, bottom: 16),
             child: Column(
