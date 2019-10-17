@@ -4,6 +4,8 @@ import 'package:kendden_shehere/redux/checkout/checkout.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_shop_list.dart';
 import 'package:kendden_shehere/ui/page/payment/webview.dart';
+import 'package:kendden_shehere/ui/widgets/dialog/payment_error_dialog.dart';
+import 'package:kendden_shehere/ui/widgets/dialog/payment_success_dialog.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/profile_edit_dialog.dart';
 import 'package:kendden_shehere/util/helper_class.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
@@ -145,7 +147,7 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
               future: getSharedPref(),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {
-                  return SingleChildScrollView(
+                  return snapshot.data.deliveryPrice!="-1"?SingleChildScrollView(
                     child: Column(
                       children: <Widget>[
                         ListTile(
@@ -212,18 +214,18 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
                               ),
                               checkout.teciliCatdirlma != null
                                   ? Expanded(
-                                      child: ListTile(
-                                        title: Text(
-                                          "Tecili catdirilma",
-                                          style: TextStyle(color: Colors.red),
-                                        ),
-                                        trailing: Text(
-                                          checkout.teciliCatdirlma + " AZN",
-                                          style: TextStyle(
-                                              fontSize: 15, color: Colors.red),
-                                        ),
-                                      ),
-                                    )
+                                child: ListTile(
+                                  title: Text(
+                                    "Tecili catdirilma",
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                  trailing: Text(
+                                    checkout.teciliCatdirlma + " AZN",
+                                    style: TextStyle(
+                                        fontSize: 15, color: Colors.red),
+                                  ),
+                                ),
+                              )
                                   : SizedBox(),
                               Expanded(
                                 child: ListTile(
@@ -276,7 +278,18 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
                         )
                       ],
                     ),
-                  );
+                  ): FutureBuilder(
+                      future: Future.delayed(
+                          Duration.zero,
+                              () => showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return PaymentErrorDialog(context);
+                              })),
+                      builder: (BuildContext context,
+                          AsyncSnapshot snapshot) {
+                        return Container();
+                      });
                 } else {
                   return Center(
                     child: CircularProgressIndicator(),
