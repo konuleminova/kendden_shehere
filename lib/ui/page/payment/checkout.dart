@@ -154,9 +154,6 @@ class CheckoutsPageState extends State<CheckoutsPage> {
             child: RaisedButton(
               color: Colors.green,
               onPressed: () {
-                checkout.address = "Baku Azerbaijan";
-                checkout.delivery_place = "40.4093°,49.8671° ";
-                checkout.delivery_price = "0";
                 Route route = MaterialPageRoute(
                     builder: (BuildContext context) => ConfirmOrderPage(
                           checkout: checkout,
