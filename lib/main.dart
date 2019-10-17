@@ -94,7 +94,7 @@ class MyAppState extends State<MyApp> {
           "/index": (BuildContext context) => IndexPage(),
           "/login": (BuildContext context) => LoginPage(),
           "/register": (BuildContext context) => RegisterPage(),
-          "/home": (BuildContext context) => HomePage(),
+          "/home": (BuildContext context) => HomePage(fromCheckout: false,),
         //  "/shopping_cart": (BuildContext context) => GroceryShopCartPage(),
           "/wish_list": (BuildContext context) => GroceryWishListPage(),
           "/confirm_order": (context) => ConfirmOrderPage(),

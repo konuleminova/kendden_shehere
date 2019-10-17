@@ -196,19 +196,21 @@ class Networks {
     try {
       var id = await SharedPrefUtil().getString(SharedPrefUtil().uid);
       final response = await http.get(BASE_KS_URL + "basket" + "&uid=${id}");
-      print("SHOPP LIST"+response.body.toString());
+      print("SHOPP LIST" + response.body.toString());
       if (response.statusCode == 200) {
         OrderHistoryListModel order =
             OrderHistoryListModel.fromJson(json.decode(response.body));
-        var a = json.decode(response.body) as List;
-        if (a.length > 0) {
-          if (a[0]['hasAlchocol'][0] != null) {
-            await SharedPrefUtil()
-                .setString(SharedPrefUtil().alkaqol, a[0]['hasAlchocol'][0]);
+        if (order.orderList[0].basket == "1") {
+          var a = json.decode(response.body) as List;
+          if (a.length > 0) {
+            if (a[0]['hasAlchocol'][0] != null) {
+              await SharedPrefUtil()
+                  .setString(SharedPrefUtil().alkaqol, a[0]['hasAlchocol'][0]);
+            }
           }
+          await SharedPrefUtil()
+              .setString(SharedPrefUtil().id, order.orderList[0].id);
         }
-        await SharedPrefUtil()
-            .setString(SharedPrefUtil().id, order.orderList[0].id);
         return OrderHistoryListModel.fromJson(json.decode(response.body));
       } else {
         return null;

@@ -22,7 +22,7 @@ class _IndexPageState extends State<IndexPage> {
             if (snapshot.data != null) {
               isLoggedIn = snapshot.data;
               if (isLoggedIn) {
-                return HomePage();
+                return HomePage(fromCheckout: false,);
               } else {
                 return LoginPage();
               }

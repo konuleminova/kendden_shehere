@@ -3,6 +3,7 @@ import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:kendden_shehere/redux/checkout/checkout.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_shop_list.dart';
+import 'package:kendden_shehere/ui/page/home.dart';
 import 'package:kendden_shehere/ui/page/payment/webview.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/payment_error_dialog.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/payment_success_dialog.dart';
@@ -122,9 +123,7 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
         } else {
           Navigator.pop(context,true);
           Route route = MaterialPageRoute(
-              builder: (BuildContext context) => GroceryShopCartPage(
-                    fromCheckout: true,
-                  ));
+              builder: (BuildContext context) => HomePage(fromCheckout: true,));
 
           Navigator.pushReplacement(context, route);
         }

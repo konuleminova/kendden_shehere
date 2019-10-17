@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_shop_list.dart';
+import 'package:kendden_shehere/ui/page/home.dart';
 //import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewPage extends StatefulWidget {
@@ -36,8 +37,8 @@ class WebViewState extends State<WebViewPage> {
         flutterWebviewPlugin.close();
         flutterWebviewPlugin.dispose();
         Route route = MaterialPageRoute(
-            builder: (BuildContext context) => GroceryShopCartPage(
-                  fromCheckout: false,
+            builder: (BuildContext context) => HomePage(
+                  fromCheckout: true,
                 ));
 
         Navigator.pushReplacement(context, route);
