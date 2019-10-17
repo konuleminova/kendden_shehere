@@ -15,7 +15,6 @@ const kAndroidUserAgent =
 
 class ConfirmOrderPage extends StatefulWidget {
   Checkout checkout;
-
   ConfirmOrderPage({this.checkout});
 
   @override
@@ -29,6 +28,7 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
   final flutterWebviewPlugin = new FlutterWebviewPlugin();
   Checkout checkout;
   String alkaqol;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   getSharedPref() async {
     checkout.mobile = await SharedPrefUtil().getString(SharedPrefUtil().mobile);
@@ -128,6 +128,13 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
 
           Navigator.pushReplacement(context, route);
         }
+      }else{
+        _scaffoldKey.currentState.showSnackBar(new SnackBar(
+            content: Text(
+           onValue.toString(),
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            backgroundColor: Colors.red));
       }
     });
   }
@@ -143,6 +150,7 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
     checkout = widget.checkout;
     // TODO: implement build
     return Scaffold(
+      key: _scaffoldKey,
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.lightGreen,
