@@ -261,8 +261,7 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
                         RaisedButton(
                           color: Colors.green,
                           onPressed: () {
-                            if (checkout.mobile.isEmpty ||
-                                checkout.address.isEmpty) {
+                            if (checkout.mobile.isEmpty) {
                               // Find the Scaffold in the widget tree and use
                               // it to show a SnackBar.
                               Scaffold.of(context).showSnackBar(

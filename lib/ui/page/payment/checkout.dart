@@ -8,6 +8,7 @@ import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/map/flutter_map.dart';
 import 'package:kendden_shehere/ui/page/map/searchplace.dart';
 import 'package:kendden_shehere/ui/page/payment/confirm_order.dart';
+import 'package:kendden_shehere/util/helper_class.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 
 class CheckoutsPage extends StatefulWidget {
@@ -72,93 +73,118 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                     elevation: 2,
                   ),
                   margin: EdgeInsets.only(left: 12, right: 12, bottom: 8))
-              : SizedBox(height: 10,),
-          checkout.dtime_selected_val != "Magazadan gotur"? Container(
-            margin: EdgeInsets.only(left: 12, right: 12, bottom: 16),
-            child: Column(
-              children: <Widget>[
-                _getGoogleMap(),
-                SizedBox(
-                  height: 8,
+              : SizedBox(
+                  height: 10,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Container(
-                      width: 20,
-                      height: 20,
-                      color: const Color(0xFFFDB2B4),
-                    ),
-                    SizedBox(
-                      width: 5.0,
-                    ),
-                    Flexible(
-                      child: Container(
-                        child: Text(
-                          "Delivery amount 4 AZN.When ordering from 20 AZN delivery is free. ",
-                        ),
-                        width: 250,
+          checkout.dtime_selected_val != "Magazadan gotur"
+              ? Container(
+                  margin: EdgeInsets.only(left: 12, right: 12, bottom: 16),
+                  child: Column(
+                    children: <Widget>[
+                      _getGoogleMap(),
+                      SizedBox(
+                        height: 8,
                       ),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 3.0,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Container(
-                        width: 20, height: 20, color: const Color(0xFFAAD47D)),
-                    SizedBox(
-                      width: 5.0,
-                    ),
-                    Flexible(
-                      child: Container(
-                        child: Text(
-                          "Delivery amount 4 AZN.",
-                        ),
-                        width: 250,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Container(
+                            width: 20,
+                            height: 20,
+                            color: const Color(0xFFFDB2B4),
+                          ),
+                          SizedBox(
+                            width: 5.0,
+                          ),
+                          Flexible(
+                            child: Container(
+                              child: Text(
+                                "Delivery amount 4 AZN.When ordering from 20 AZN delivery is free. ",
+                              ),
+                              width: 250,
+                            ),
+                          )
+                        ],
                       ),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 3.0,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Container(
-                      width: 20,
-                      height: 20,
-                      color: const Color(0xFFF8D986),
-                    ),
-                    SizedBox(
-                      width: 5.0,
-                    ),
-                    Flexible(
-                      child: Container(
-                        child: Text(
-                          "Delivery amount 7 AZN. ",
-                        ),
-                        width: 250,
+                      SizedBox(
+                        height: 3.0,
                       ),
-                    )
-                  ],
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Container(
+                              width: 20,
+                              height: 20,
+                              color: const Color(0xFFAAD47D)),
+                          SizedBox(
+                            width: 5.0,
+                          ),
+                          Flexible(
+                            child: Container(
+                              child: Text(
+                                "Delivery amount 4 AZN.",
+                              ),
+                              width: 250,
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 3.0,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Container(
+                            width: 20,
+                            height: 20,
+                            color: const Color(0xFFF8D986),
+                          ),
+                          SizedBox(
+                            width: 5.0,
+                          ),
+                          Flexible(
+                            child: Container(
+                              child: Text(
+                                "Delivery amount 7 AZN. ",
+                              ),
+                              width: 250,
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
                 )
-              ],
-            ),
-          ):SizedBox(height: 10,),
+              : SizedBox(
+                  height: 10,
+                ),
           new Container(
             child: RaisedButton(
               color: Colors.green,
               onPressed: () {
-                Route route = MaterialPageRoute(
-                    builder: (BuildContext context) => ConfirmOrderPage(
-                          checkout: checkout,
-                        ));
-                Navigator.push(context, route);
+                if (checkout.dtime_selected_val != "Magazadan gotur") {
+                  SharedPrefUtil()
+                      .getString(SharedPrefUtil().address)
+                      .then((onValue) {
+                    if (onValue.isEmpty) {
+//                    Scaffold.of(context)
+//                        .showSnackBar(snackBar("Please fill all fields."));
+                    } else {
+                      Route route = MaterialPageRoute(
+                          builder: (BuildContext context) => ConfirmOrderPage(
+                                checkout: checkout,
+                              ));
+                      Navigator.push(context, route);
+                    }
+                  });
+                } else {
+                  Route route = MaterialPageRoute(
+                      builder: (BuildContext context) => ConfirmOrderPage(
+                            checkout: checkout,
+                          ));
+                  Navigator.push(context, route);
+                }
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
