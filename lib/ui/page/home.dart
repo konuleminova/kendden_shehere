@@ -6,7 +6,6 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/home/home_viewmodel.dart';
-import 'package:kendden_shehere/redux/orderhistory/orderhistory_listmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_shop_list.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/payment_error_dialog.dart';
@@ -25,6 +24,7 @@ class HomePage extends StatelessWidget {
   AsyncMemoizer memoizer = new AsyncMemoizer();
   HomeViewModel viewModel;
   bool fromCheckout;
+  BuildContext context;
 
   HomePage({this.fromCheckout});
 
@@ -32,6 +32,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
+    this.context=context;
     return WillPopScope(
         child: new StoreConnector(
             onInit: (store) {
@@ -298,11 +299,10 @@ class HomePage extends StatelessWidget {
   }
 
   Future<Null> _refreshLocalGallery() async {
-    print('refreshing stocks...');
     await Future.delayed(Duration(seconds: 1));
-    if (viewModel != null) {
-      viewModel.onRefresh();
-    }
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => HomePage(fromCheckout: false,)));
     return null;
   }
 
