@@ -34,7 +34,7 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
               title: new Text(widget.title.trim()),
               backgroundColor: Colors.lightGreen,
             ),
-            body:hasInternet?categories.length > 0
+            body:categories.length > 0
                 ?  new ListView.builder(
               itemBuilder: (BuildContext context, int index) {
                 String title;
@@ -89,28 +89,23 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
               },
               itemCount: categories.length,
             )
-        :loading():Container());
+        :loading());
   }
 
   @override
   void initState() {
     super.initState();
     categories.clear();
-    checkInternetConnection().then((onValue) {
-      if (onValue) {
-        hasInternet=onValue;
-        getCategories().then((onValue) {
-          if (onValue != null) {
-            for (int i = 0; i < onValue.length; i++) {
-              if (onValue[i].parent == widget.id) {
-                setState(() {
-                  categories.add(onValue[i]);
-                });
-              }
-            }
-            tempCategories.addAll(onValue);
+    getCategories().then((onValue) {
+      if (onValue != null) {
+        for (int i = 0; i < onValue.length; i++) {
+          if (onValue[i].parent == widget.id) {
+            setState(() {
+              categories.add(onValue[i]);
+            });
           }
-        });
+        }
+        tempCategories.addAll(onValue);
       }
     });
   }
