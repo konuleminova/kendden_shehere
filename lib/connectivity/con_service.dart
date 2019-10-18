@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:kendden_shehere/connectivity/con_enum.dart';
+import 'package:kendden_shehere/util/helper_class.dart';
 
 class ConnectivityService {
   // Create our public controller
