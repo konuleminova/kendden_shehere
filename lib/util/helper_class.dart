@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:kendden_shehere/ui/page/home.dart';
 
 void showSnackBar(String content, GlobalKey<ScaffoldState> scaffoldKey) {
   scaffoldKey.currentState.showSnackBar(
@@ -35,15 +36,34 @@ snackBar(content) => SnackBar(
       ),
     );
 
-Widget noInternetConnection() => Center(
-        child: Container(
-      child: Text(
-        "No internet Connection",
-        style: TextStyle(color: Colors.white, fontSize: 20),
+Widget noInternetConnection() => Container(
+      child: Column(
+        children: <Widget>[
+          Text(
+            "Slow or no internet connection.",
+            style: TextStyle(color: Colors.grey, fontSize: 20),
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          Text(
+            "Please check your internet settings",
+            style: TextStyle(color: Colors.grey, fontSize: 18),
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          RaisedButton(
+            child: Text(
+              "Pull Down to Refres",
+              style: TextStyle(color: Colors.white),
+            ),
+            onPressed: null,
+            disabledColor: Colors.teal,
+          )
+        ],
       ),
-      padding: EdgeInsets.all(8.0),
-      decoration: BoxDecoration(color: Colors.green),
-    ));
+    );
 
 Widget loading() => Center(
       child: new CircularProgressIndicator(),
