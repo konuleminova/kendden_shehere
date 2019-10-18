@@ -301,15 +301,13 @@ class HomePage extends StatelessWidget {
                           )),
                           onRefresh: _refreshLocal)
                       : RefreshIndicator(
-                    color: Colors.red,
-                          backgroundColor: Colors.red,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               Center(
                                 child: noInternetConnection(),
-                              )
+                              ),
                             ],
                           ),
                           onRefresh: _refreshLocal,
