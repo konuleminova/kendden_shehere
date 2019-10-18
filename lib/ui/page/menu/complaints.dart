@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/services.dart' show rootBundle;
-import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:html2md/html2md.dart' as html2md;
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:kendden_shehere/util/helper_class.dart';
 
-class ComplaintsPage extends StatelessWidget {
+class ComplaintsPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return ComplaintsPageState();
+  }
+}
+class ComplaintsPageState extends State<ComplaintsPage> {
   String lang;
 
   @override
@@ -131,19 +135,21 @@ class ComplaintsPage extends StatelessWidget {
                         padding: EdgeInsets.all(4.0),
                         margin: EdgeInsets.all(16.0),
                       ),
-                   Container(child:    RaisedButton(
-                     color: Colors.green,
-                     onPressed: () {
-                     },
-                     child: Row(
-                       mainAxisAlignment:
-                       MainAxisAlignment.spaceAround,
-                       children: <Widget>[
-                         Text("Gonder",
-                             style: TextStyle(color: Colors.white)),
-                       ],
-                     ),
-                   ),margin: EdgeInsets.only(left: 16,right: 16,bottom: 16),)
+                      Container(
+                        child: RaisedButton(
+                          color: Colors.green,
+                          onPressed: () {},
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              Text("Gonder",
+                                  style: TextStyle(color: Colors.white)),
+                            ],
+                          ),
+                        ),
+                        margin:
+                            EdgeInsets.only(left: 16, right: 16, bottom: 16),
+                      )
                     ],
                   ));
             }
@@ -165,3 +171,4 @@ class ComplaintsPage extends StatelessWidget {
         });
   }
 }
+
