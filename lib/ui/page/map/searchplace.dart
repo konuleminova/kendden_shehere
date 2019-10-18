@@ -34,9 +34,9 @@ Future<Null> displayPrediction(
     final lat = detail.result.geometry.location.lat;
     final lng = detail.result.geometry.location.lng;
 
-    scaffold.showSnackBar(
-      SnackBar(content: Text("${p.description} - $lat/$lng")),
-    );
+//    scaffold.showSnackBar(
+//      SnackBar(content: Text("${p.description} - $lat/$lng")),
+//    );
     if (p != null) {
       await SharedPrefUtil().setString(SharedPrefUtil().address, p.description);
     }
