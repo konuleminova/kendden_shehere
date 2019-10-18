@@ -54,9 +54,6 @@ class SearchWidget extends SearchDelegate<String> {
     } else if (langCode == "ru") {
       lang = "1";
     }
-    // print(products.productsInCategory);
-    // TODO: implement buildResults
-    // TODO: implement build
     return StoreConnector(
         onInit: (store) {
           _scrollController = new ScrollController();
