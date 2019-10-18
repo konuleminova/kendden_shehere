@@ -333,7 +333,7 @@ int weight=product.weight;
       crossFadeState: !product.isAdded
           ? CrossFadeState.showFirst
           : CrossFadeState.showSecond,
-      duration: Duration(milliseconds: 500),
+      duration: Duration(milliseconds: 300),
       firstCurve: Curves.easeInToLinear,
       secondCurve: Curves.easeOutQuad,
     );
