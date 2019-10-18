@@ -39,6 +39,7 @@ snackBar(content) => SnackBar(
 Widget noInternetConnection() => Container(
       child: Column(
         children: <Widget>[
+          IconButton(icon: Icon(Icons.signal_wifi_off,size: 30,),onPressed: null,),
           Text(
             "Slow or no internet connection.",
             style: TextStyle(color: Colors.grey, fontSize: 20),
