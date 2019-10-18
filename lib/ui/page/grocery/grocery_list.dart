@@ -10,7 +10,6 @@ class GroceryListPage extends StatelessWidget {
   ScrollController _scrollController = new ScrollController();
   int page = 0;
   ProductListViewModel viewModel;
-  bool isScrolling = false;
   String title;
   String id;
   String order;
@@ -38,6 +37,7 @@ class GroceryListPage extends StatelessWidget {
         },
         onDispose: (store) {
           store.state.newProducts.clear();
+          store.state.isScrolling=false;
         },
         converter: (Store<AppState> store) =>
             ProductListViewModel.create(store),
@@ -95,7 +95,7 @@ class GroceryListPage extends StatelessWidget {
                           ],
                           // controller: _scrollController,
                         ),
-                        isScrolling && viewModel.productList.length > 0
+                        viewModel.isScrolling && viewModel.productList.length > 0
                             ? new Container(
                                 child: CircularProgressIndicator(),
                                 alignment: Alignment.bottomCenter,
@@ -135,7 +135,6 @@ class GroceryListPage extends StatelessWidget {
   }
 
   void loadMore() async {
-    //isScrolling = true;
     page = page + 10;
     loadm();
   }

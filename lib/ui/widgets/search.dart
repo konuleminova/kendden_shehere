@@ -100,6 +100,15 @@ class SearchWidget extends SearchDelegate<String> {
                       ],
                       // controller: _scrollController,
                     ),
+                    viewModel.isScrolling && viewModel.productList.length > 0
+                        ? new Container(
+                      child: CircularProgressIndicator(),
+                      alignment: Alignment.bottomCenter,
+                    )
+                        : SizedBox(
+                      height: 0.0,
+                      width: 0.0,
+                    )
                   ],
                 )
               : Center(

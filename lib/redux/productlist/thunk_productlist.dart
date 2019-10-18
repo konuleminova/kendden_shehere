@@ -24,6 +24,7 @@ ThunkAction<AppState> productListThunkAction(String id, String lang,
         Future.delayed(const Duration(milliseconds: 1000), () {
           store.dispatch(ShowBasketAction(store));
           store.dispatch(ShowWishAction(store));
+          store.state.isScrolling=false;
         });
       }
     } else {

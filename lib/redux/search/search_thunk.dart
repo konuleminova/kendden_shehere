@@ -22,6 +22,7 @@ ThunkAction<AppState> searchListThunkAction(String lang, String query,String pag
         Future.delayed(const Duration(milliseconds: 1000), () {
           store.dispatch(ShowBasketAction(store));
           store.dispatch(ShowWishAction(store));
+          store.state.isScrolling=false;
         });
       }
     }
