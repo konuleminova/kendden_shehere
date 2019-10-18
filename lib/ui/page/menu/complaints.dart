@@ -11,8 +11,11 @@ class ComplaintsPage extends StatefulWidget {
     return ComplaintsPageState();
   }
 }
+
 class ComplaintsPageState extends State<ComplaintsPage> {
   String lang;
+  bool isExpanded = false;
+  String _value;
 
   @override
   Widget build(BuildContext context) {
@@ -62,12 +65,15 @@ class ComplaintsPageState extends State<ComplaintsPage> {
                       Container(
                         margin: EdgeInsets.all(16.0),
                         child: ExpansionTile(
-                          title: Text(
-                              'Sizə göstərilən xidmətdən ümumi məmnuniyyət səviyyəniz:'),
+                          title: Text('Sizə göstərilən xidmətdən ümumi məmnuniyyət səviyyəniz:'),
                           children: <Widget>[
                             ListTile(
                               title: Text('Zeif'),
-                              onTap: () {},
+                              onTap: () {
+                                setState(() {
+                                  _value = "Zeif";
+                                });
+                              },
                             ),
                             ListTile(
                               title: Text('Normal'),
@@ -76,6 +82,12 @@ class ComplaintsPageState extends State<ComplaintsPage> {
                               title: Text('Ela'),
                             ),
                           ],
+                          initiallyExpanded: isExpanded,
+                          onExpansionChanged: (value) {
+                            if (value) {
+                              print(value);
+                            }
+                          },
                           backgroundColor: Colors.white,
                         ),
                         decoration: BoxDecoration(
@@ -171,4 +183,3 @@ class ComplaintsPageState extends State<ComplaintsPage> {
         });
   }
 }
-

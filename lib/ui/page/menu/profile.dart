@@ -24,8 +24,6 @@ enum SingingCharacter { lafayette, jefferson }
 class ProfileState extends State<ProfilePage> {
   File imageFile;
   UserModel userModel;
-  SingingCharacter _character = SingingCharacter.lafayette;
-  bool _isRadioSelected = false;
 
   List<DateTime> selectedMonthsDays;
   Iterable<DateTime> selectedWeeksDays;
