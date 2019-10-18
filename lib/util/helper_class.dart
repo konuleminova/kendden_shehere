@@ -55,7 +55,7 @@ Widget noInternetConnection() => Container(
           ),
           RaisedButton(
             child: Text(
-              "Pull Down to Refres",
+              "Try Again",
               style: TextStyle(color: Colors.white),
             ),
             onPressed: null,
