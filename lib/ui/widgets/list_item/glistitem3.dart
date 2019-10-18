@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
-import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
+import 'package:kendden_shehere/redux/productlist/product_model.dart';
 import 'package:kendden_shehere/redux/productlist/product_viewmodel.dart';
 import 'package:kendden_shehere/redux/productlist/productlist_action.dart';
-import 'package:kendden_shehere/redux/shoplist/shop_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_details_page.dart';
 import 'package:kendden_shehere/ui/widgets/gtile_title.dart';
 import 'package:redux/redux.dart';
 
-class NewGroceryListItemThree extends StatefulWidget {
-  NewProduct product;
+class GroceryListItemThree extends StatefulWidget {
+  Product product;
 
-  NewGroceryListItemThree(this.product);
+  GroceryListItemThree(this.product);
 
   @override
   State<StatefulWidget> createState() {
@@ -22,8 +21,8 @@ class NewGroceryListItemThree extends StatefulWidget {
   }
 }
 
-class NewGroceryListItemTwoState extends State<NewGroceryListItemThree> {
-  NewProduct product;
+class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
+  Product product;
   String image, title;
   bool isAdded = false, isLiked = true;
   ProductViewModel viewModel;

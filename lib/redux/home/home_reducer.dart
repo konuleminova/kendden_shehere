@@ -42,12 +42,3 @@ HomeList showWishHomeProductListReducer(
   });
   return state;
 }
-
-Reducer<List<String>> photoReducer = combineReducers<List<String>>([
-  TypedReducer<List<String>, BannerImagesAction>(bannerImagesReducer),
-]);
-
-List<String> bannerImagesReducer(
-    List<String> state, BannerImagesAction action) {
-  return action.photos;
-}

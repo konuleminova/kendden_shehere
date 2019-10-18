@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
-import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
+import 'package:kendden_shehere/redux/productlist/product_model.dart';
 import 'package:kendden_shehere/redux/productlist/product_viewmodel.dart';
-import 'package:kendden_shehere/redux/productlist/productlist_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_details_page.dart';
 import 'package:kendden_shehere/ui/widgets/gtile_title.dart';
@@ -11,7 +10,7 @@ import 'package:kendden_shehere/ui/widgets/rating_star.dart';
 import 'package:redux/redux.dart';
 
 class GroceryListItemOne extends StatefulWidget {
-  NewProduct product;
+  Product product;
 
   GroceryListItemOne({this.product});
 
@@ -25,7 +24,7 @@ class GroceryListItemOne extends StatefulWidget {
 class GroceryListItemOneState extends State<GroceryListItemOne>
     with SingleTickerProviderStateMixin {
   String title;
-  NewProduct product;
+  Product product;
   ProductViewModel viewModel;
   AnimationController animationController;
   Animation animation;

@@ -1,4 +1,3 @@
-import 'package:kendden_shehere/redux/categories/category_item.dart';
 import 'package:kendden_shehere/redux/home/home_model.dart';
 
 class HomeList {

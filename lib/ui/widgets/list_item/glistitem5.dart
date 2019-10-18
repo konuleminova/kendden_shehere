@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
+import 'package:kendden_shehere/redux/productlist/product_model.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_details_page.dart';
 import 'package:kendden_shehere/ui/widgets/gtile_title.dart';
 
-class NewGroceryListItemFive extends StatefulWidget {
-  NewProduct orderProduct;
+class GroceryListItemFive extends StatefulWidget {
+  Product orderProduct;
 
-  NewGroceryListItemFive(this.orderProduct);
+  GroceryListItemFive(this.orderProduct);
 
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return NewGroceryListItemFiveState();
+    return GroceryListItemFiveState();
   }
 }
 
-class NewGroceryListItemFiveState extends State<NewGroceryListItemFive> {
-  NewProduct product;
+class GroceryListItemFiveState extends State<GroceryListItemFive> {
+  Product product;
   String title,image;
   int amount;
 

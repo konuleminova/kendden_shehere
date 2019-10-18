@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
+import 'package:kendden_shehere/redux/productlist/product_model.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/rating_star_dialog.dart';
-import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem5.dart';
+import 'package:kendden_shehere/ui/widgets/list_item/glistitem5.dart';
 import 'package:kendden_shehere/ui/widgets/rating_star.dart';
 
 import 'grocery_details_page.dart';
 
 class OrderShopListPage extends StatelessWidget {
-  List<NewProduct> products;
+  List<Product> products;
 
   OrderShopListPage({this.products});
 
@@ -48,15 +48,15 @@ class OrderShopListPage extends StatelessWidget {
           shrinkWrap: true,
           physics: ClampingScrollPhysics(),
           children: products
-              .map((NewProduct product) => _builOrderListItem(product))
+              .map((Product product) => _builOrderListItem(product))
               .toList(),
         ),
       );
 
-  Widget _builOrderListItem(NewProduct product) => GestureDetector(
+  Widget _builOrderListItem(Product product) => GestureDetector(
         child: new Stack(
           children: <Widget>[
-            NewGroceryListItemFive(product),
+            GroceryListItemFive(product),
           ],
         ),
         onTap: () {

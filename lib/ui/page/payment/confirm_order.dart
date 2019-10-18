@@ -2,17 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:kendden_shehere/redux/checkout/checkout.dart';
 import 'package:kendden_shehere/service/networks.dart';
-import 'package:kendden_shehere/ui/page/grocery/grocery_shop_list.dart';
 import 'package:kendden_shehere/ui/page/home.dart';
 import 'package:kendden_shehere/ui/page/payment/webview.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/payment_error_dialog.dart';
-import 'package:kendden_shehere/ui/widgets/dialog/payment_success_dialog.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/profile_edit_dialog.dart';
 import 'package:kendden_shehere/util/helper_class.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
-
-const kAndroidUserAgent =
-    'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Mobile Safari/537.36';
 
 class ConfirmOrderPage extends StatefulWidget {
   Checkout checkout;

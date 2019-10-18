@@ -8,7 +8,7 @@ import 'package:kendden_shehere/redux/home/home_list.dart';
 import 'package:kendden_shehere/redux/information/information.dart';
 import 'package:kendden_shehere/redux/login/user_model.dart';
 import 'package:kendden_shehere/redux/orderhistory/orderhistory_listmodel.dart';
-import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
+import 'package:kendden_shehere/redux/productlist/product_model.dart';
 import 'package:kendden_shehere/redux/productlist/products_in_category_model.dart';
 import 'package:kendden_shehere/redux/register/register_model.dart';
 import 'package:kendden_shehere/redux/wishlist/list_wish_model.dart';
@@ -101,9 +101,6 @@ class Networks {
       final response = await http.get(BASE_KS_URL +
           "search" +
           "&q=${query}+&start=${0}+&limit=${100}+&lang=${lang}");
-      print("code");
-      print(response.statusCode);
-      print(response.toString());
       if (response.statusCode == 200) {
         return ProductsInCategory.fromJson(json.decode(response.body));
       } else {
@@ -117,9 +114,6 @@ class Networks {
       final response = await http.get(BASE_KS_URL +
           "qsearch" +
           "&q=${query}+&start=${0}+&limit=${100}+&lang=${lang}");
-      print("code");
-      print(response.statusCode);
-      print(response.toString());
       if (response.statusCode == 200) {
         print(json.decode(response.body));
         return ProductsInCategory.fromJson(json.decode(response.body));
@@ -136,12 +130,6 @@ class Networks {
             "+&mobile=${userModel.mobile}+&pass=${userModel.password}"
             "+&pass2=${userModel.password2}");
     if (response.statusCode == 200) {
-      print("code");
-      print(json.decode(response.body));
-//        print(RegisterModel.fromJson(json.decode(response.body)).login);
-      print('IF WORKS');
-      print('RESPONSE: --> ${response.body}');
-      print('JSON RESPONSE: --> ${jsonDecode(response.body)}');
       return RegisterModel.fromJson(json.decode(response.body));
     } else {
       print('ELSE WORKS');
@@ -149,35 +137,34 @@ class Networks {
     }
   }
 
-  getCollections() async {
-    try {
-      final response = await http.get(BASE_KS_URL + "collection" + "&inf");
-      if (response.statusCode == 200) {
-        print(".. HOME collection");
-        return ProductsInCategory.fromJson(json.decode(response.body));
-      } else {
-        return null;
-      }
-    } catch (exception) {}
-  }
-
-  getCollectionItem(String id) async {
-    try {
-      final response =
-          await http.get(BASE_KS_URL + "collection" + "&inf=${id}");
-
-      if (response.statusCode == 200) {
-        print(id + ".. HOME");
-        // print(response.body);
-        List<NewProduct> pro =
-            ProductsInCategory.fromJson(json.decode(response.body))
-                .productsInCategory;
-        return pro;
-      } else {
-        return null;
-      }
-    } catch (exception) {}
-  }
+//  getCollections() async {
+//    try {
+//      final response = await http.get(BASE_KS_URL + "collection" + "&inf");
+//      if (response.statusCode == 200) {
+//        return ProductsInCategory.fromJson(json.decode(response.body));
+//      } else {
+//        return null;
+//      }
+//    } catch (exception) {}
+//  }
+//
+//  getCollectionItem(String id) async {
+//    try {
+//      final response =
+//          await http.get(BASE_KS_URL + "collection" + "&inf=${id}");
+//
+//      if (response.statusCode == 200) {
+//        print(id + ".. HOME");
+//        // print(response.body);
+//        List<Product> pro =
+//            ProductsInCategory.fromJson(json.decode(response.body))
+//                .productsInCategory;
+//        return pro;
+//      } else {
+//        return null;
+//      }
+//    } catch (exception) {}
+//  }
 
   orderHistory() async {
     try {
@@ -196,7 +183,6 @@ class Networks {
     try {
       var id = await SharedPrefUtil().getString(SharedPrefUtil().uid);
       final response = await http.get(BASE_KS_URL + "basket" + "&uid=${id}");
-      print("SHOPP LIST" + response.body.toString());
       if (response.statusCode == 200) {
         OrderHistoryListModel order =
             OrderHistoryListModel.fromJson(json.decode(response.body));
@@ -236,7 +222,6 @@ class Networks {
           .get(BASE_KS_URL + "information&inf=delivery" + "&lang=${lang}");
       if (response.statusCode == 200) {
         var a = json.decode(response.body) as List;
-
         return a;
       } else {
         return null;
@@ -250,7 +235,6 @@ class Networks {
           .get(BASE_KS_URL + "information&inf=aboutus" + "&lang=${lang}");
       if (response.statusCode == 200) {
         var a = json.decode(response.body) as List;
-
         return a;
       } else {
         return null;
@@ -264,7 +248,6 @@ class Networks {
           .get(BASE_KS_URL + "information&inf=contacts" + "&lang=${lang}");
       if (response.statusCode == 200) {
         var a = json.decode(response.body);
-
         return a;
       } else {
         return null;
@@ -279,8 +262,6 @@ class Networks {
           "updateuser&uid=${uid}" +
           "&inf=${inf}" +
           "&data=${data}");
-      print(response.statusCode);
-      print(response.body);
       if (response.statusCode == 200) {
         var a = json.decode(response.body);
         Navigator.pop(context);
@@ -349,8 +330,6 @@ class Networks {
   }
 
   dynamic finishBasket(Checkout checkout) async {
-    print("BASKEt");
-    print(checkout);
     try {
       var uid = await SharedPrefUtil().getString(
         SharedPrefUtil().uid,
@@ -364,7 +343,6 @@ class Networks {
       );
       if (response.statusCode == 200) {
         var a = json.decode(response.body);
-        print(a);
         return a;
       } else {
         return null;
@@ -379,9 +357,6 @@ class Networks {
       Map<String, String> headers = {"Content-type": "application/json"};
       String jsonn = '{"uid": "$uid", "photo": "$photo"}';
       final response = await http.post(url, headers: headers, body: jsonn);
-      print(response.statusCode);
-      print(response.body);
-      print('Responsee');
       if (response.statusCode == 200) {
         var a = json.decode(response.body);
         return a;

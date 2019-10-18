@@ -1,18 +1,18 @@
-import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
+import 'package:kendden_shehere/redux/productlist/product_model.dart';
 
 class RemoveShopItemAction {
-  List<NewProduct> shopItems;
- NewProduct removeShopItem;
+  List<Product> shopItems;
+ Product removeShopItem;
 
   RemoveShopItemAction({this.shopItems, this.removeShopItem});
 }
 
-class AddProductAction {
-  NewProduct product;
+class AddShopItemAction {
+  Product product;
 
-  AddProductAction({this.product});
+  AddShopItemAction({this.product});
 }
 class FetchShopListAction {
-  List<NewProduct> data;
+  List<Product> data;
   FetchShopListAction({this.data});
 }

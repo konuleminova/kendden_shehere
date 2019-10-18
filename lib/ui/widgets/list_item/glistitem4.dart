@@ -3,19 +3,19 @@ import 'package:kendden_shehere/redux/orderhistory/orderhistrory_model.dart';
 import 'package:kendden_shehere/ui/page/grocery/order_shop_list.dart';
 import 'package:kendden_shehere/ui/widgets/gtile_title.dart';
 
-class NewGroceryListItemFour extends StatefulWidget {
+class GroceryListItemFour extends StatefulWidget {
   OrderHistoryModel orderItem;
 
-  NewGroceryListItemFour(this.orderItem);
+  GroceryListItemFour(this.orderItem);
 
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return NewGroceryListItemFourState();
+    return GroceryListItemFourState();
   }
 }
 
-class NewGroceryListItemFourState extends State<NewGroceryListItemFour> {
+class GroceryListItemFourState extends State<GroceryListItemFour> {
   OrderHistoryModel orderItem;
   bool status = true;
   int amount;

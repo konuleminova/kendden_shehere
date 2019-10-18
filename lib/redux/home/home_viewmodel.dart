@@ -1,7 +1,6 @@
-import 'package:kendden_shehere/redux/home/home_action.dart';
 import 'package:kendden_shehere/redux/home/home_list.dart';
 import 'package:kendden_shehere/redux/home/thunk_home.dart';
-import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
+import 'package:kendden_shehere/redux/productlist/product_model.dart';
 import 'package:kendden_shehere/redux/shoplist/shopList_thunk.dart';
 import 'package:kendden_shehere/redux/wishlist/wishlist_thunk.dart';
 import 'package:redux/redux.dart';
@@ -10,13 +9,12 @@ import 'package:kendden_shehere/redux/app/app_state_model.dart';
 class HomeViewModel {
   Function() onFetchAllCollection;
   HomeList homeList;
-  List<NewProduct> shopItems;
+  List<Product> shopItems;
   Function() onFetchShopList;
-  List<NewProduct> wishItems;
+  List<Product> wishItems;
   Function() onFetchWishList;
   Function() fetchBannerImages;
   List<String> photos;
-  Function() onRefresh;
 
   HomeViewModel(
       {this.onFetchAllCollection,
@@ -26,8 +24,7 @@ class HomeViewModel {
       this.wishItems,
       this.onFetchWishList,
       this.fetchBannerImages,
-      this.photos,
-      this.onRefresh});
+      this.photos,});
 
   factory HomeViewModel.create(Store<AppState> store) {
     _onFetchAllCollection() {
@@ -41,16 +38,6 @@ class HomeViewModel {
     _onFetchWishList() {
       store.dispatch(wishListThunkAction());
     }
-
-    _onFetchBannerImages() {
-      store.dispatch(bannerImagesThunkAction());
-    }
-
-    _onRefresh() {
-      store.dispatch(ShowHomeBasketAction(store));
-      store.dispatch(ShowHomeWishAction(store));
-    }
-
     return HomeViewModel(
         onFetchAllCollection: _onFetchAllCollection,
         homeList: store.state.homeList,
@@ -58,8 +45,6 @@ class HomeViewModel {
         onFetchShopList: _onFetchShopList,
         wishItems: store.state.wishItems,
         onFetchWishList: _onFetchWishList,
-        fetchBannerImages: _onFetchBannerImages,
-        photos: store.state.photos,
-        onRefresh: _onRefresh);
+        photos: store.state.photos,);
   }
 }

@@ -1,5 +1,4 @@
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
-import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
 import 'package:kendden_shehere/redux/productlist/products_in_category_model.dart';
 import 'package:kendden_shehere/redux/productlist/productlist_action.dart';
 import 'package:kendden_shehere/service/networks.dart';
@@ -10,7 +9,6 @@ ThunkAction<AppState> searchListThunkAction(String lang, String query) {
   return (Store<AppState> store) async {
     ProductsInCategory response = await Networks().search(lang, query);
     if (response != null) {
-      print("SEARCH::" + response.toString());
       store.dispatch(FetchProductListAction(data: response.productsInCategory));
       store.dispatch(ShowBasketAction(store));
       store.dispatch(ShowWishAction(store));

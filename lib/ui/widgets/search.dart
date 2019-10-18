@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
-import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
+import 'package:kendden_shehere/redux/productlist/product_model.dart';
 import 'package:kendden_shehere/redux/productlist/productlist_viewmodel.dart';
 import 'package:kendden_shehere/redux/productlist/products_in_category_model.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_categories.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_details_page.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_list.dart';
-import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem1.dart';
+import 'package:kendden_shehere/ui/widgets/list_item/glistitem1.dart';
 import 'package:redux/redux.dart';
 
 class SearchWidget extends SearchDelegate<String> {
   ScrollController _scrollController;
   int page = 0;
-  List<NewProduct> productList = new List();
-  List<NewProduct> suggesstionList = new List();
+  List<Product> productList = new List();
+  List<Product> suggesstionList = new List();
   ProductListViewModel viewModel;
   String lang;
 

@@ -1,12 +1,12 @@
-import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
+import 'package:kendden_shehere/redux/productlist/product_model.dart';
 import 'package:kendden_shehere/redux/wishlist/wishlist_action.dart';
 import 'package:kendden_shehere/redux/wishlist/wishlist_thunk.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 
 class WishListViewModel {
-  Function(NewProduct shopItem) removeWishItem;
-  List<NewProduct> wishItems;
+  Function(Product wishItem) removeWishItem;
+  List<Product> wishItems;
   Function() onFetchWishList;
 
   WishListViewModel(
@@ -19,7 +19,7 @@ class WishListViewModel {
       store.dispatch(wishListThunkAction());
     }
 
-    _removeShopItem(NewProduct product) {
+    _removeShopItem(Product product) {
       store.dispatch(RemoveWishItemAction(removeWishItem: product));
     }
 

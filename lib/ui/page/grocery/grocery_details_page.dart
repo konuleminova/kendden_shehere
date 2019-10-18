@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
-import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
+import 'package:kendden_shehere/redux/productlist/product_model.dart';
 import 'package:kendden_shehere/redux/productlist/product_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/animation/slide_left.dart';
@@ -14,7 +14,7 @@ import 'package:redux/redux.dart';
 import 'grocery_shop_list.dart';
 
 class GroceryDetailsPage extends StatefulWidget {
-  NewProduct product;
+  Product product;
 
   GroceryDetailsPage(this.product);
 
@@ -28,7 +28,7 @@ class GroceryDetailsPage extends StatefulWidget {
 class GroceryDetailsState extends State<GroceryDetailsPage> {
   var weight;
   String title, description;
-  NewProduct product;
+  Product product;
   String img;
   ProductViewModel viewModel;
   int lenght;

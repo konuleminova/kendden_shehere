@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as prefix0;
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
-import 'package:kendden_shehere/main.dart';
 import 'package:kendden_shehere/redux/checkout/checkout.dart';
-import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/map/flutter_map.dart';
 import 'package:kendden_shehere/ui/page/map/searchplace.dart';
 import 'package:kendden_shehere/ui/page/payment/confirm_order.dart';
-import 'package:kendden_shehere/util/helper_class.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 
 class CheckoutsPage extends StatefulWidget {

@@ -1,4 +1,4 @@
-import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
+import 'package:kendden_shehere/redux/productlist/product_model.dart';
 import 'package:kendden_shehere/redux/productlist/products_in_category_model.dart';
 
 class Home {
@@ -6,7 +6,7 @@ class Home {
   String name_az;
   String name_en;
   String name_ru;
-  List<NewProduct> list;
+  List<Product> list;
 
   Home({this.id, this.name_az, this.name_en, this.name_ru, this.list});
 

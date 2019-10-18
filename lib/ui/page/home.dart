@@ -10,7 +10,7 @@ import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_shop_list.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/payment_error_dialog.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/payment_success_dialog.dart';
-import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem1.dart';
+import 'package:kendden_shehere/ui/widgets/list_item/glistitem1.dart';
 import 'package:kendden_shehere/ui/widgets/drawer.dart';
 import 'package:kendden_shehere/ui/widgets/search.dart';
 import 'package:redux/redux.dart';

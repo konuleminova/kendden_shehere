@@ -1,16 +1,16 @@
-import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
+import 'package:kendden_shehere/redux/productlist/product_model.dart';
 
 class ProductsInCategory {
-  List<NewProduct> productsInCategory;
+  List<Product> productsInCategory;
   ProductsInCategory({this.productsInCategory});
 
   factory ProductsInCategory.fromJson(List<dynamic> json) {
-    List<NewProduct> products = new List<NewProduct>();
-    products = json.map((i) => NewProduct.fromJson(i)).toList();
+    List<Product> products = new List<Product>();
+    products = json.map((i) => Product.fromJson(i)).toList();
     return ProductsInCategory(productsInCategory: products);
   }
 
-  ProductsInCategory copyWith({List<NewProduct> productsInCategory}) {
+  ProductsInCategory copyWith({List<Product> productsInCategory}) {
     return ProductsInCategory(productsInCategory: productsInCategory ?? this.productsInCategory);
   }
 

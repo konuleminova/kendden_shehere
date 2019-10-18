@@ -1,28 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
-import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
+import 'package:kendden_shehere/redux/productlist/product_model.dart';
 import 'package:kendden_shehere/redux/productlist/product_viewmodel.dart';
-import 'package:kendden_shehere/redux/shoplist/shop_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_details_page.dart';
 import 'package:kendden_shehere/ui/widgets/gtile_title.dart';
 import 'package:redux/redux.dart';
 
-class NewGroceryListItemTwo extends StatefulWidget {
-  NewProduct product;
+class GroceryListItemTwo extends StatefulWidget {
+  Product product;
 
-  NewGroceryListItemTwo(this.product);
+  GroceryListItemTwo(this.product);
 
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return NewGroceryListItemTwoState();
+    return GroceryListItemTwoState();
   }
 }
 
-class NewGroceryListItemTwoState extends State<NewGroceryListItemTwo> {
-  NewProduct product;
+class GroceryListItemTwoState extends State<GroceryListItemTwo> {
+  Product product;
   String image, title;
   ProductViewModel viewModel;
 

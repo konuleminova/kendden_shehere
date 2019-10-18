@@ -1,6 +1,5 @@
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:redux/redux.dart';
-
 import 'package:kendden_shehere/redux/home/home_list.dart';
 
 class ShowAllCollectionAction {
@@ -18,10 +17,4 @@ class ShowHomeWishAction{
   Store<AppState> store;
 
   ShowHomeWishAction(this.store);
-}
-class BannerImagesAction{
-  List<String> photos;
-
-  BannerImagesAction({this.photos});
-
 }

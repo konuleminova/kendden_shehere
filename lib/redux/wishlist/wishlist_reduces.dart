@@ -1,25 +1,25 @@
-import 'package:kendden_shehere/redux/productlist/new_product_model.dart';
+import 'package:kendden_shehere/redux/productlist/product_model.dart';
 import 'package:kendden_shehere/redux/wishlist/wishlist_action.dart';
 import 'package:redux/redux.dart';
 
-Reducer<List<NewProduct>> wishListReducer = combineReducers<List<NewProduct>>([
-  new TypedReducer<List<NewProduct>, FetchWishListAction>(fetchWishListAction),
-  new TypedReducer<List<NewProduct>, RemoveWishItemAction>(
+Reducer<List<Product>> wishListReducer = combineReducers<List<Product>>([
+  new TypedReducer<List<Product>, FetchWishListAction>(fetchWishListAction),
+  new TypedReducer<List<Product>, RemoveWishItemAction>(
       removeWishItemReducer),
-  new TypedReducer<List<NewProduct>, AddWishItemAction>(addWishItemReducer),
+  new TypedReducer<List<Product>, AddWishItemAction>(addWishItemReducer),
 ]);
 
-List<NewProduct> removeWishItemReducer(
-    List<NewProduct> state, RemoveWishItemAction action) {
+List<Product> removeWishItemReducer(
+    List<Product> state, RemoveWishItemAction action) {
   return List.from(state)..remove(action.removeWishItem);
 }
 
-List<NewProduct> addWishItemReducer(
-    List<NewProduct> state, AddWishItemAction action) {
+List<Product> addWishItemReducer(
+    List<Product> state, AddWishItemAction action) {
   return List.from(state)..add(action.product);
 }
 
-List<NewProduct> fetchWishListAction(
-    List<NewProduct> state, FetchWishListAction action) {
+List<Product> fetchWishListAction(
+    List<Product> state, FetchWishListAction action) {
   return action.data;
 }

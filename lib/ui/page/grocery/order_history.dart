@@ -4,7 +4,7 @@ import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/orderhistory/orderhistory_listmodel.dart';
 import 'package:kendden_shehere/redux/orderhistory/orderhistrory_model.dart';
 import 'package:kendden_shehere/service/networks.dart';
-import 'package:kendden_shehere/ui/widgets/list_item/new_list_item/new_glistitem4.dart';
+import 'package:kendden_shehere/ui/widgets/list_item/glistitem4.dart';
 import 'package:kendden_shehere/util/helper_class.dart';
 
 class OrderHistoryPage extends StatefulWidget {
@@ -135,7 +135,7 @@ class OrderHistoryState extends State<OrderHistoryPage> {
                     child: ListView.builder(
                         itemCount: orderList.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return NewGroceryListItemFour(orderList[index]);
+                          return GroceryListItemFour(orderList[index]);
                         }));
               } else if(snapshot.connectionState==ConnectionState.waiting){
                 return loading();

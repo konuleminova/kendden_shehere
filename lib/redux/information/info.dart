@@ -1,7 +1,6 @@
 class Info {
   String q;
   String a;
-  //String header;
   String body;
 
   Info({this.q, this.a, this.body});

@@ -1,6 +1,5 @@
 import 'package:kendden_shehere/redux/categories/category_item.dart';
 
-
 class ListCategories {
   List<Category> categories;
 

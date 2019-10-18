@@ -3,7 +3,6 @@ import 'package:photo_view/photo_view.dart';
 
 class GroceryBigImage extends StatelessWidget {
   String code;
-
   GroceryBigImage({this.code});
 
   @override

@@ -1,4 +1,4 @@
-class NewProduct {
+class Product {
   String type;
   String name;
   String id;
@@ -20,7 +20,7 @@ class NewProduct {
   bool isAdded;
   int weight;
 
-  NewProduct(
+  Product(
       {this.id,
       this.name_az,
       this.name_ru,
@@ -39,8 +39,8 @@ class NewProduct {
       this.catid,
       this.catIdParent,this.isLiked,this.isAdded,this.weight});
 
-  factory NewProduct.fromJson(Map<String, dynamic> json) {
-    return NewProduct(
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(
       type: json['type'] ?? "",
       name: json['name'] ?? "",
       id: json["id"],
