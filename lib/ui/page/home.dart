@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:kendden_shehere/connectivity/con_enum.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/home/home_viewmodel.dart';
@@ -13,6 +14,8 @@ import 'package:kendden_shehere/ui/widgets/dialog/payment_success_dialog.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/glistitem1.dart';
 import 'package:kendden_shehere/ui/widgets/drawer.dart';
 import 'package:kendden_shehere/ui/widgets/search.dart';
+import 'package:kendden_shehere/util/helper_class.dart';
+import 'package:provider/provider.dart';
 import 'package:redux/redux.dart';
 import 'package:async/async.dart';
 
@@ -33,6 +36,7 @@ class HomePage extends StatelessWidget {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     this.context = context;
+    var connectionStatus = Provider.of<ConnectivityStatus>(context);
     return WillPopScope(
         child: new StoreConnector(
             onInit: (store) {

@@ -53,6 +53,8 @@ dependencies:
   flutter_webview_plugin:
   dio: ^3.0.3
   carousel_pro: ^1.0.0
+  connectivity: ^0.4.5
+  provider: ^2.0.1
   intro_views_flutter:
 
 
