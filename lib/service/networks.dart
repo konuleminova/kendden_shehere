@@ -96,11 +96,11 @@ class Networks {
     } catch (exception) {}
   }
 
-  dynamic search(String lang, String query) async {
+  dynamic search(String lang, String query,String start) async {
     try {
       final response = await http.get(BASE_KS_URL +
           "search" +
-          "&q=${query}+&start=${0}+&limit=${100}+&lang=${lang}");
+          "&q=${query}+&start=${start}+&limit=${10}+&lang=${lang}");
       if (response.statusCode == 200) {
         return ProductsInCategory.fromJson(json.decode(response.body));
       } else {

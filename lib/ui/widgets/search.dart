@@ -64,7 +64,8 @@ class SearchWidget extends SearchDelegate<String> {
         },
         onInitialBuild: (ProductListViewModel viewModel) {
           this.viewModel = viewModel;
-          viewModel.onSearchProductList(lang, query);
+          page=0;
+          viewModel.onSearchProductList(lang, query,page.toString());
         },
         onDispose: (store) {
           store.state.newProducts.clear();
@@ -111,7 +112,11 @@ class SearchWidget extends SearchDelegate<String> {
                 );
         });
   }
-
+  void loadMore() async {
+    //isScrolling = true;
+    page = page + 10;
+    viewModel.onSearchLoadMore(lang,query,page.toString());
+  }
   @override
   Widget buildSuggestions(BuildContext context) {
     String langCode = Localizations.localeOf(context).languageCode;
@@ -212,11 +217,7 @@ class SearchWidget extends SearchDelegate<String> {
     if (_scrollController.offset >=
         _scrollController.position.maxScrollExtent &&
         !_scrollController.position.outOfRange) {
-     // loadMore();
-//      setState(() {
-//
-//        print("reach the bottom");
-//      });
+      loadMore();
     }
     if (_scrollController.offset <=
         _scrollController.position.minScrollExtent &&

@@ -14,7 +14,9 @@ class ProductListViewModel {
       onLoadMoreProductList;
   Function(String id, String lang, String limit, String page, String order)
       onChangeOrderProductList;
-  Function(String lang, String query) onSearchProductList;
+  Function(String lang, String query, String page) onSearchProductList;
+  Function(String lang, String query, String page) onSearchLoadMore;
+
   ProductListViewModel(
       {this.onFetchProductList,
       this.productList,
@@ -22,8 +24,8 @@ class ProductListViewModel {
       this.order,
       this.onLoadMoreProductList,
       this.onChangeOrderProductList,
-      this.onSearchProductList
-      });
+      this.onSearchProductList,
+      this.onSearchLoadMore});
 
   factory ProductListViewModel.create(Store<AppState> store) {
     _onFetchProductList(
@@ -44,16 +46,20 @@ class ProductListViewModel {
           productListThunkAction(id, lang, limit, page, order, "change"));
     }
 
-    _onSearchProductList(String lang, String query) {
-      store.dispatch(searchListThunkAction(lang, query));
+    _onSearchProductList(String lang, String query, String page) {
+      store.dispatch(searchListThunkAction(lang, query, page,"init"));
     }
 
+    _onSearchMore(String lang, String query, String page) {
+      store.dispatch(searchListThunkAction(lang, query, page,'loadmore'));
+    }
     return ProductListViewModel(
-        productList: store.state.newProducts,
-        onFetchProductList: _onFetchProductList,
-        onLoadMoreProductList: _onLoadMoreProductList,
-        onChangeOrderProductList: _onChangeOrderProductList,
-        onSearchProductList: _onSearchProductList
-        );
+      productList: store.state.newProducts,
+      onFetchProductList: _onFetchProductList,
+      onLoadMoreProductList: _onLoadMoreProductList,
+      onChangeOrderProductList: _onChangeOrderProductList,
+      onSearchProductList: _onSearchProductList,
+      onSearchLoadMore: _onSearchMore,
+    );
   }
 }

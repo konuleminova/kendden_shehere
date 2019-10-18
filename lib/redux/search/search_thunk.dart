@@ -5,13 +5,25 @@ import 'package:kendden_shehere/service/networks.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 
-ThunkAction<AppState> searchListThunkAction(String lang, String query) {
+ThunkAction<AppState> searchListThunkAction(String lang, String query,String page,String state) {
   return (Store<AppState> store) async {
-    ProductsInCategory response = await Networks().search(lang, query);
+    ProductsInCategory response = await Networks().search(lang, query,page);
     if (response != null) {
-      store.dispatch(FetchProductListAction(data: response.productsInCategory));
-      store.dispatch(ShowBasketAction(store));
-      store.dispatch(ShowWishAction(store));
+      if (state == "init") {
+        store.dispatch(
+            FetchProductListAction(data: response.productsInCategory));
+        Future.delayed(const Duration(milliseconds: 1000), () {
+          store.dispatch(ShowBasketAction(store));
+          store.dispatch(ShowWishAction(store));
+        });
+      } else {
+        store.dispatch(
+            LoadMoreProductListAction(data: response.productsInCategory));
+        Future.delayed(const Duration(milliseconds: 1000), () {
+          store.dispatch(ShowBasketAction(store));
+          store.dispatch(ShowWishAction(store));
+        });
+      }
     }
   };
 }
