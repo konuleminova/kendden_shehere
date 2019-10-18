@@ -36,15 +36,118 @@ class ComplaintsPage extends StatelessWidget {
                     title: Text(header),
                     backgroundColor: Colors.lightGreen,
                   ),
-                  body: SingleChildScrollView(
-                    child: new Container(
-                        margin: EdgeInsets.all(16),
-                        child: new MarkdownBody(
-                          data: markdown,
-                        )),
+                  body: ListView(
+                    children: <Widget>[
+                      new Container(
+                          margin: EdgeInsets.all(16),
+                          child: new MarkdownBody(
+                            data: markdown,
+                          )),
+                      Container(
+                        child: TextField(
+                          decoration: InputDecoration(
+                              hintText: "Ad Soyad", border: InputBorder.none),
+                        ),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(4.0),
+                            color: Colors.white),
+                        padding: EdgeInsets.all(4.0),
+                        margin: EdgeInsets.all(16.0),
+                      ),
+                      Container(
+                        margin: EdgeInsets.all(16.0),
+                        child: ExpansionTile(
+                          title: Text(
+                              'Sizə göstərilən xidmətdən ümumi məmnuniyyət səviyyəniz:'),
+                          children: <Widget>[
+                            ListTile(
+                              title: Text('Zeif'),
+                              onTap: () {},
+                            ),
+                            ListTile(
+                              title: Text('Normal'),
+                            ),
+                            ListTile(
+                              title: Text('Ela'),
+                            ),
+                          ],
+                          backgroundColor: Colors.white,
+                        ),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(4.0)),
+                      ),
+                      Container(
+                        margin: EdgeInsets.all(16.0),
+                        child: ExpansionTile(
+                          title:
+                              Text('Təklif və ya şikayətiniz nə ilə bağlıdır?'),
+                          children: <Widget>[
+                            ListTile(
+                              title: Text('Zeif'),
+                              onTap: () {},
+                            ),
+                            ListTile(
+                              title: Text('Normal'),
+                            ),
+                            ListTile(
+                              title: Text('Ela'),
+                            ),
+                          ],
+                          backgroundColor: Colors.white,
+                        ),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(4.0)),
+                      ),
+                      Container(
+                        height: 100,
+                        child: TextField(
+                          decoration: InputDecoration(
+                              hintText: "Təklif və ya iradınız",
+                              border: InputBorder.none),
+                          maxLines: 10,
+                        ),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(4.0)),
+                        padding: EdgeInsets.all(4.0),
+                        margin: EdgeInsets.all(16.0),
+                      ),
+                      Container(
+                        child: TextField(
+                          decoration: InputDecoration(
+                              hintText: "Əlaqə vasitəsi",
+                              border: InputBorder.none),
+                        ),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(4.0)),
+                        padding: EdgeInsets.all(4.0),
+                        margin: EdgeInsets.all(16.0),
+                      ),
+                   Container(child:    RaisedButton(
+                     color: Colors.green,
+                     onPressed: () {
+                     },
+                     child: Row(
+                       mainAxisAlignment:
+                       MainAxisAlignment.spaceAround,
+                       children: <Widget>[
+                         Text("Gonder",
+                             style: TextStyle(color: Colors.white)),
+                       ],
+                     ),
+                   ),margin: EdgeInsets.only(left: 16,right: 16,bottom: 16),)
+                    ],
                   ));
             }
-          }else if (snapshot.connectionState == ConnectionState.waiting) {
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
             return Scaffold(
               body: loading(),
             );
