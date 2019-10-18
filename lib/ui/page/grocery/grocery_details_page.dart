@@ -178,7 +178,7 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                               height: 5.0,
                             ),
                             GrocerySubtitle(
-                                text: product.counttype + " " + product.price),
+                                text: product.counttype + " " + product.price+" AZN"),
                             new Container(
                               margin: EdgeInsets.all(6),
                               child: RatingStarWidget(5, 4, 22),
