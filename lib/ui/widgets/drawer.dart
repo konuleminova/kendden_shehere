@@ -7,6 +7,7 @@ import 'package:kendden_shehere/ui/page/grocery/grocery_categories.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_wish_list.dart';
 import 'package:kendden_shehere/ui/page/grocery/order_history.dart';
 import 'package:kendden_shehere/ui/page/menu/about_us.dart';
+import 'package:kendden_shehere/ui/page/menu/complaints.dart';
 import 'package:kendden_shehere/ui/page/menu/contacts.dart';
 import 'package:kendden_shehere/ui/page/menu/delivery.dart';
 import 'package:kendden_shehere/ui/page/menu/fag.dart';
@@ -153,6 +154,16 @@ class DrawerWidget extends StatelessWidget {
                   context,
                   ScaleRoute(
                       page: ContactsPage()));
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.people),
+            title: Text(AppTranslations.of(context).text("complaints")),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  ScaleRoute(
+                      page: ComplaintsPage()));
             },
           ),
         ],
