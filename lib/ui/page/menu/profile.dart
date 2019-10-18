@@ -1,14 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_calendar/flutter_calendar.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/redux/login/user_model.dart';
 import 'package:kendden_shehere/service/networks.dart';
-import 'package:kendden_shehere/ui/widgets/dialog/image_picker_dialog.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/profile_edit_dialog.dart';
-import 'package:kendden_shehere/ui/widgets/gender.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
