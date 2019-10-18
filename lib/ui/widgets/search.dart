@@ -222,9 +222,6 @@ class SearchWidget extends SearchDelegate<String> {
     if (_scrollController.offset <=
         _scrollController.position.minScrollExtent &&
         !_scrollController.position.outOfRange) {
-//      setState(() {
-//        print("reach the top");
-//      });
     }
   }
 }
