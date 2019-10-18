@@ -14,8 +14,19 @@ class ComplaintsPage extends StatefulWidget {
 
 class ComplaintsPageState extends State<ComplaintsPage> {
   String lang;
-  bool isExpanded = false;
-  String _value;
+  bool isExpanded1 = false;
+  bool isExpanded2 = false;
+  String _value1;
+  String _value2;
+  List<String> compaints = [
+    'Mehsulun Keyfiyyeti',
+    'Catdirilma',
+    'Xidmetin Ehatesi',
+    'Xidmetin Keyfiyyeti',
+    'Saytin Isleme Prinsipi',
+    'Saytin interfeysi',
+    'Diger'
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -62,63 +73,116 @@ class ComplaintsPageState extends State<ComplaintsPage> {
                         padding: EdgeInsets.all(4.0),
                         margin: EdgeInsets.all(16.0),
                       ),
-                      Container(
-                        margin: EdgeInsets.all(16.0),
-                        child: ExpansionTile(
-                          title: Text('Sizə göstərilən xidmətdən ümumi məmnuniyyət səviyyəniz:'),
-                          children: <Widget>[
-                            ListTile(
-                              title: Text('Zeif'),
-                              onTap: () {
-                                setState(() {
-                                  _value = "Zeif";
-                                });
-                              },
+                      _value1 == null
+                          ? Container(
+                              margin: EdgeInsets.all(16.0),
+                              child: ExpansionTile(
+                                title: Text(
+                                    'Sizə göstərilən xidmətdən ümumi məmnuniyyət səviyyəniz:'),
+                                children: <Widget>[
+                                  ListTile(
+                                    title: Text('Zeif'),
+                                    onTap: () {
+                                      setState(() {
+                                        _value1 = "Zeif";
+                                      });
+                                    },
+                                  ),
+                                  ListTile(
+                                    title: Text('Normal'),
+                                    onTap: () {
+                                      setState(() {
+                                        _value1 = "Normal";
+                                      });
+                                    },
+                                  ),
+                                  ListTile(
+                                    title: Text('Ela'),
+                                    onTap: () {
+                                      setState(() {
+                                        _value1 = "Ela";
+                                      });
+                                    },
+                                  ),
+                                ],
+                                initiallyExpanded: isExpanded1,
+                                onExpansionChanged: (value) {
+                                  if (value) {
+                                    print(value);
+                                  }
+                                },
+                                backgroundColor: Colors.white,
+                              ),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(color: Colors.grey),
+                                  borderRadius: BorderRadius.circular(4.0)),
+                            )
+                          : Container(
+                              child: ListTile(
+                                title: Text(_value1),
+                                onTap: () {
+                                  setState(() {
+                                    _value1 = null;
+                                    isExpanded1 = true;
+                                  });
+                                },
+                              ),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(color: Colors.grey),
+                                  borderRadius: BorderRadius.circular(4.0)),
+                              padding: EdgeInsets.all(4.0),
+                              margin: EdgeInsets.all(16.0),
                             ),
-                            ListTile(
-                              title: Text('Normal'),
-                            ),
-                            ListTile(
-                              title: Text('Ela'),
-                            ),
-                          ],
-                          initiallyExpanded: isExpanded,
-                          onExpansionChanged: (value) {
-                            if (value) {
-                              print(value);
-                            }
-                          },
-                          backgroundColor: Colors.white,
-                        ),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(4.0)),
-                      ),
-                      Container(
+                     _value2==null? Container(
                         margin: EdgeInsets.all(16.0),
                         child: ExpansionTile(
                           title:
                               Text('Təklif və ya şikayətiniz nə ilə bağlıdır?'),
                           children: <Widget>[
-                            ListTile(
-                              title: Text('Zeif'),
-                              onTap: () {},
-                            ),
-                            ListTile(
-                              title: Text('Normal'),
-                            ),
-                            ListTile(
-                              title: Text('Ela'),
-                            ),
+                            Container(
+                              height: 200,
+                              child: ListView.builder(
+                                itemBuilder: (BuildContext context, int index) {
+                                  return ListTile(
+                                    title: Text(compaints[index]),
+                                    onTap: () {
+                                      setState(() {
+                                        _value2 = compaints[index];
+                                        isExpanded2 = true;
+                                      });
+                                    },
+                                  );
+                                },
+                                itemCount: compaints.length,
+                              ),
+                            )
                           ],
                           backgroundColor: Colors.white,
+                          initiallyExpanded: isExpanded2,
                         ),
                         decoration: BoxDecoration(
                             color: Colors.white,
                             border: Border.all(color: Colors.grey),
                             borderRadius: BorderRadius.circular(4.0)),
-                      ),
+                      ): Container(
+                       child: ListTile(
+                         title: Text(_value2),
+                         onTap: () {
+                           setState(() {
+                             _value2 = null;
+                             isExpanded2 = true;
+                           });
+                         },
+                       ),
+                       decoration: BoxDecoration(
+                           color: Colors.white,
+                           border: Border.all(color: Colors.grey),
+                           borderRadius: BorderRadius.circular(4.0)),
+                       padding: EdgeInsets.all(4.0),
+                       margin: EdgeInsets.all(16.0),
+                     ),
                       Container(
                         height: 100,
                         child: TextField(
