@@ -31,11 +31,13 @@ class HomePage extends StatelessWidget {
 
   HomePage({this.fromCheckout});
 
+  GlobalKey _scaffold = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
-    this.context = context;
+    //this.context = context;
     var connectionStatus = Provider.of<ConnectivityStatus>(context);
     return WillPopScope(
         child: new StoreConnector(
@@ -46,22 +48,24 @@ class HomePage extends StatelessWidget {
               if (fromCheckout) {
                 print("FROM CHECKOUT");
                 Networks().basket().then((onValue) {
-                  if (onValue =='0') {
-                    print("TRUEE");
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return PaymentSuccessDialog(context);
-                        });
-                  } else {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return PaymentErrorDialog(
-                              context,
-                              "Odeme heyate kecmedi.",
-                              'Xahiş edirik əməliyyatı yenidən təkrarlayasınız.');
-                        });
+                  if (_scaffold.currentContext != null) {
+                    if (onValue == '0') {
+                      print("TRUEE");
+                      showDialog(
+                          context: _scaffold.currentContext,
+                          builder: (BuildContext context) {
+                            return PaymentSuccessDialog(context);
+                          });
+                    } else {
+                      showDialog(
+                          context: _scaffold.currentContext,
+                          builder: (BuildContext context) {
+                            return PaymentErrorDialog(
+                                context,
+                                "Odeme heyate kecmedi.",
+                                'Xahiş edirik əməliyyatı yenidən təkrarlayasınız.');
+                          });
+                    }
                   }
                 });
               }
@@ -83,7 +87,7 @@ class HomePage extends StatelessWidget {
             converter: (Store<AppState> store) => HomeViewModel.create(store),
             builder: (BuildContext context, HomeViewModel viewModel) {
               return new Scaffold(
-                  //key: scaffoldKey,
+                  key: _scaffold,
                   appBar: new AppBar(
                     backgroundColor: Colors.lightGreen,
                     leading: Builder(
