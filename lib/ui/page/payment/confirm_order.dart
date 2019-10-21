@@ -186,23 +186,31 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
                                   },
                                 ),
                               ),
-                              Divider(),
                               //  Divider(),
                               ListTile(
                                 title: Text("Username"),
                                 subtitle: Text(checkout.username),
                               ),
                               Divider(),
-                              ListTile(
+                              ExpansionTile(
                                 title: Text("Time"),
-                                subtitle: Text(checkout.dtime_selected_val),
+                                children: <Widget>[
+                                  ListTile(
+                                    title: Text(checkout.dtime_selected_val),
+                                  ),
+                                ],
                               ),
-                              Divider(),
-                              ListTile(
+                              ExpansionTile(
                                 title: Text("Payment Option"),
-                                subtitle: Text(checkout.dpayment_selected_val),
+                                children: <Widget>[
+                                  ListTile(
+                                    title: Text(checkout.dpayment_selected_val),
+                                  ),
+                                ],
                               ),
-
+                              SizedBox(
+                                height: 8.0,
+                              ),
                               Container(
                                 child: Column(
                                   children: <Widget>[
