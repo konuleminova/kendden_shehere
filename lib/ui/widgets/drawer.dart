@@ -12,9 +12,28 @@ import 'package:kendden_shehere/ui/page/menu/contacts.dart';
 import 'package:kendden_shehere/ui/page/menu/delivery.dart';
 import 'package:kendden_shehere/ui/page/menu/fag.dart';
 
+class DrawerWidget extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return DrawerWidgetState();
+  }
+}
 
-class DrawerWidget extends StatelessWidget {
+class DrawerWidgetState extends State<DrawerWidget> {
+  Future _future;
 
+  @override
+  void initState() {
+    super.initState();
+    _future = Networks().userinfo();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _future=null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +46,7 @@ class DrawerWidget extends StatelessWidget {
             children: <Widget>[
               UserAccountsDrawerHeader(
                 accountName: new FutureBuilder(
-                  future: memoizer.runOnce(() {
-                    return Networks().userinfo();
-                  }),
+                  future: _future,
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
                     if (snapshot.hasData) {
                       return new Text(
@@ -84,7 +101,7 @@ class DrawerWidget extends StatelessWidget {
             onTap: () {
               Navigator.push(
                   context,
-                 ScaleRoute(
+                  ScaleRoute(
                       page: new GroceryCategoriesPage(
                           id: "0",
                           title:
@@ -98,10 +115,7 @@ class DrawerWidget extends StatelessWidget {
               title: Text(AppTranslations.of(context).text("wish_list")),
             ),
             onTap: () {
-              Navigator.push(
-                  context,
-                  ScaleRoute(
-                      page: GroceryWishListPage()));
+              Navigator.push(context, ScaleRoute(page: GroceryWishListPage()));
             },
           ),
           GestureDetector(
@@ -110,60 +124,42 @@ class DrawerWidget extends StatelessWidget {
               title: Text(AppTranslations.of(context).text("order_history")),
             ),
             onTap: () {
-              Navigator.push(
-                  context,
-                  ScaleRoute(
-                      page:OrderHistoryPage()));
+              Navigator.push(context, ScaleRoute(page: OrderHistoryPage()));
             },
           ),
           ListTile(
             leading: Icon(Icons.feedback),
             title: Text(AppTranslations.of(context).text("delivery_terms")),
             onTap: () {
-              Navigator.push(
-                  context,
-                  ScaleRoute(
-                      page: DeliveryPage()));
+              Navigator.push(context, ScaleRoute(page: DeliveryPage()));
             },
           ),
           ListTile(
             leading: Icon(Icons.question_answer),
             title: Text(AppTranslations.of(context).text("fag")),
             onTap: () {
-              Navigator.push(
-                  context,
-                  ScaleRoute(
-                      page: FagPage()));
+              Navigator.push(context, ScaleRoute(page: FagPage()));
             },
           ),
           ListTile(
             leading: Icon(Icons.info),
             title: Text(AppTranslations.of(context).text("about_us")),
             onTap: () {
-              Navigator.push(
-                  context,
-                  ScaleRoute(
-                      page: AboutUsPage()));
+              Navigator.push(context, ScaleRoute(page: AboutUsPage()));
             },
           ),
           ListTile(
             leading: Icon(Icons.phone),
             title: Text(AppTranslations.of(context).text("contact_us")),
             onTap: () {
-              Navigator.push(
-                  context,
-                  ScaleRoute(
-                      page: ContactsPage()));
+              Navigator.push(context, ScaleRoute(page: ContactsPage()));
             },
           ),
           ListTile(
             leading: Icon(Icons.people),
             title: Text(AppTranslations.of(context).text("complaints")),
             onTap: () {
-              Navigator.push(
-                  context,
-                  ScaleRoute(
-                      page: ComplaintsPage()));
+              Navigator.push(context, ScaleRoute(page: ComplaintsPage()));
             },
           ),
         ],

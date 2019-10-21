@@ -28,10 +28,11 @@ class HomePage extends StatelessWidget {
   HomeViewModel viewModel;
   bool fromCheckout;
   BuildContext context;
+  Future _future;
 
   HomePage({this.fromCheckout});
 
- // GlobalKey _scaffold = GlobalKey();
+  // GlobalKey _scaffold = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +43,7 @@ class HomePage extends StatelessWidget {
     return WillPopScope(
         child: new StoreConnector(
             onInit: (store) {
+              _future = Networks().bannerImages();
               store.state.wishItems.clear();
               store.state.shopItems.clear();
               print("INITT");
@@ -58,7 +60,7 @@ class HomePage extends StatelessWidget {
                           });
                     } else {
                       showDialog(
-                          context:context,
+                          context: context,
                           builder: (BuildContext context) {
                             return PaymentErrorDialog(
                                 context,
@@ -178,42 +180,42 @@ class HomePage extends StatelessWidget {
                                   height: 200,
                                   child: new PageView(children: <Widget>[
                                     new FutureBuilder(
-                                        future: memoizer.runOnce(() {
-                                      return Networks().bannerImages();
-                                    }), builder: (BuildContext context,
+                                        future: _future,
+                                        builder: (BuildContext context,
                                             AsyncSnapshot snapshot) {
-                                      if (snapshot.hasData) {
-                                        photos = snapshot.data;
-                                        List<Widget> imagesWidget = new List();
-                                        for (int i = 0;
-                                            i < photos.length;
-                                            i++) {
-                                          imagesWidget.add(new Container(
-                                            width: width,
-                                            child: new Image(
-                                              image: NetworkImage(
-                                                photos[i],
-                                              ),
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ));
-                                        }
-                                        return Carousel(
-                                          images: imagesWidget,
-                                          dotSize: 4.0,
-                                          dotSpacing: 15.0,
-                                          dotColor: Colors.lightGreenAccent,
-                                          indicatorBgPadding: 5.0,
-                                          dotBgColor: Colors.transparent,
-                                          borderRadius: true,
-                                        );
-                                      } else {
-                                        return Center(
-                                          child:
-                                              new CircularProgressIndicator(),
-                                        );
-                                      }
-                                    })
+                                          if (snapshot.hasData) {
+                                            photos = snapshot.data;
+                                            List<Widget> imagesWidget =
+                                                new List();
+                                            for (int i = 0;
+                                                i < photos.length;
+                                                i++) {
+                                              imagesWidget.add(new Container(
+                                                width: width,
+                                                child: new Image(
+                                                  image: NetworkImage(
+                                                    photos[i],
+                                                  ),
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ));
+                                            }
+                                            return Carousel(
+                                              images: imagesWidget,
+                                              dotSize: 4.0,
+                                              dotSpacing: 15.0,
+                                              dotColor: Colors.lightGreenAccent,
+                                              indicatorBgPadding: 5.0,
+                                              dotBgColor: Colors.transparent,
+                                              borderRadius: true,
+                                            );
+                                          } else {
+                                            return Center(
+                                              child:
+                                                  new CircularProgressIndicator(),
+                                            );
+                                          }
+                                        })
                                   ]),
                                 ),
 

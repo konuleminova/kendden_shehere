@@ -7,8 +7,23 @@ import 'package:html2md/html2md.dart' as html2md;
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:kendden_shehere/util/helper_class.dart';
 
-class AboutUsPage extends StatelessWidget {
+class AboutUsPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return AboutUsPageState();
+  }
+}
+
+class AboutUsPageState extends State<AboutUsPage> {
   String lang;
+  Future future;
+
+  @override
+  void initState() {
+    super.initState();
+    future=Networks().aboutus(lang);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +38,7 @@ class AboutUsPage extends StatelessWidget {
 
     // TODO: implement build
     return new FutureBuilder(
-        future: Networks().aboutus(lang),
+        future: future,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             // ListInfo information = snapshot.data;
