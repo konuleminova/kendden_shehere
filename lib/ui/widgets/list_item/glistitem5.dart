@@ -78,7 +78,7 @@ class GroceryListItemFiveState extends State<GroceryListItemFive> {
   }
   _statusWidget() {
     return Text(
-      product.count+" kq",
+      product.weight.toString()+" kq",
       style: TextStyle(
           color: Colors.green, fontSize: 18, fontWeight: FontWeight.bold),
     );
