@@ -19,16 +19,14 @@ class OrderHistoryModel {
       this.delivery_price,
       this.basket});
 
-  factory OrderHistoryModel.fromJson(Map<String, dynamic> json) {
-    return new OrderHistoryModel(
-        basket: json['basket'] ?? '',
-        id: json['id'] ?? "",
-        bprice: json['bprice'] ?? "",
-        dtsubmit: json['dtsubmit'] ?? "",
-        status: json['status'] ?? "",
-        delivery_price: json['delivery_price'] ?? "",
-        list: ProductsInCategory.fromJson(json['list']));
-  }
+  OrderHistoryModel.fromJson(Map<String, dynamic> json)
+      : basket = json['basket'] ?? '',
+        id = json['id'] ?? "",
+        bprice = json['bprice'] ?? "",
+        dtsubmit = json['dtsubmit'] ?? "",
+        status = json['status'] ?? "",
+        delivery_price = json['delivery_price'] ?? "",
+        list = ProductsInCategory.fromJson(json['list']) ?? [];
 
   @override
   String toString() {

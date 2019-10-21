@@ -8,12 +8,16 @@ import 'package:redux_thunk/redux_thunk.dart';
 
 ThunkAction<AppState> shopListThunkAction() {
   return (Store<AppState> store) async {
-    OrderHistoryListModel response = await Networks().basket();
+    var response = await Networks().basket();
+
     if (response != null) {
-      store.state.shopItems = response.orderList[0].list.productsInCategory;
-      store.dispatch(FetchShopListAction(
-          data: response.orderList[0].list.productsInCategory));
-      store.dispatch(ShowBasketAction(store));
+      if (response != '0') {
+        OrderHistoryListModel responsex=response;
+        store.state.shopItems = responsex.orderList[0].list.productsInCategory;
+        store.dispatch(FetchShopListAction(
+            data: responsex.orderList[0].list.productsInCategory));
+        store.dispatch(ShowBasketAction(store));
+      }
     }
   };
 }

@@ -54,11 +54,11 @@ class Networks {
     } catch (exception) {}
   }
 
-  dynamic productsInCategory(String id, String order, String lang, String limit,
-      String start) async {
+  dynamic productsInCategory(
+      String id, String order, String lang, String limit, String start) async {
     try {
       print("Product in cat");
-      print("PRoduct:"+id);
+      print("PRoduct:" + id);
       final response = await http.get(BASE_KS_URL +
           "productincat&id=" +
           id +
@@ -73,14 +73,13 @@ class Networks {
   }
 
   dynamic bannerImages() async {
-
     try {
       print("Product in cat");
       final response = await http.get(BASE_KS_URL + "bannerimages");
       print("Banner Images");
       if (response.statusCode == 200) {
         List<String> photos =
-        json.decode(response.body).map<String>((m) => m as String).toList();
+            json.decode(response.body).map<String>((m) => m as String).toList();
         return photos;
       } else {
         return null;
@@ -133,8 +132,7 @@ class Networks {
   Future<RegisterModel> register(String lang, UserModel userModel) async {
     final response = await http.get(BASE_KS_URL +
         "register" +
-        "&lang=${lang}+&login=${userModel.username}+&name=${userModel
-            .name}+&surname=${userModel.surname}"
+        "&lang=${lang}+&login=${userModel.username}+&name=${userModel.name}+&surname=${userModel.surname}"
             "+&mobile=${userModel.mobile}+&pass=${userModel.password}"
             "+&pass2=${userModel.password2}");
     if (response.statusCode == 200) {
@@ -179,7 +177,7 @@ class Networks {
     try {
       var id = await SharedPrefUtil().getString(SharedPrefUtil().uid);
       final response =
-      await http.get(BASE_KS_URL + "orderhistory" + "&id=${id}");
+          await http.get(BASE_KS_URL + "orderhistory" + "&id=${id}");
       if (response.statusCode == 200) {
         return OrderHistoryListModel.fromJson(json.decode(response.body));
       } else {
@@ -191,23 +189,29 @@ class Networks {
   dynamic basket() async {
     try {
       print("Basket");
+
       var id = await SharedPrefUtil().getString(SharedPrefUtil().uid);
       final response = await http.get(BASE_KS_URL + "basket" + "&uid=${id}");
       if (response.statusCode == 200) {
-        OrderHistoryListModel order =
-        OrderHistoryListModel.fromJson(json.decode(response.body));
-        if (order.orderList[0].basket == "1") {
+        print("200");
+        var basket = json.decode(response.body)[0]['basket'];
+        print(json.decode(response.body)[0]['basket']);
+        if (basket == '1') {
+          OrderHistoryListModel order =
+              OrderHistoryListModel.fromJson(json.decode(response.body));
           var a = json.decode(response.body) as List;
           if (a.length > 0) {
             if (a[0]['hasAlchocol'][0] != null) {
               await SharedPrefUtil()
                   .setString(SharedPrefUtil().alkaqol, a[0]['hasAlchocol'][0]);
             }
+            await SharedPrefUtil()
+                .setString(SharedPrefUtil().id, order.orderList[0].id);
           }
-          await SharedPrefUtil()
-              .setString(SharedPrefUtil().id, order.orderList[0].id);
+          return OrderHistoryListModel.fromJson(json.decode(response.body));
+        } else {
+          return basket;
         }
-        return OrderHistoryListModel.fromJson(json.decode(response.body));
       } else {
         return null;
       }
@@ -218,7 +222,7 @@ class Networks {
     try {
       print("Fag");
       final response =
-      await http.get(BASE_KS_URL + "information&inf=faq" + "&lang=${lang}");
+          await http.get(BASE_KS_URL + "information&inf=faq" + "&lang=${lang}");
       if (response.statusCode == 200) {
         return ListInfo.fromJson(json.decode(response.body));
       } else {
@@ -308,7 +312,7 @@ class Networks {
       print("Add Remove wish list");
       var uid = await SharedPrefUtil().getString(SharedPrefUtil().uid);
       final response =
-      await http.get(BASE_KS_URL + "addtowishlist&uid=${uid}&id=${id}");
+          await http.get(BASE_KS_URL + "addtowishlist&uid=${uid}&id=${id}");
       if (response.statusCode == 200) {
         var a = json.decode(response.body);
         return a;
@@ -338,7 +342,7 @@ class Networks {
       print("Remove from basket");
       var uid = await SharedPrefUtil().getString(SharedPrefUtil().uid);
       final response =
-      await http.get(BASE_KS_URL + "removefrombasket&uid=${uid}&id=${id}");
+          await http.get(BASE_KS_URL + "removefrombasket&uid=${uid}&id=${id}");
       if (response.statusCode == 200) {
         var a = json.decode(response.body);
         return a;
@@ -356,13 +360,9 @@ class Networks {
       );
       final response = await http.get(
         BASE_KS_URL +
-            "finishbasket&uid=${uid}&id=${checkout.id}&address=${checkout
-                .address}&delivery_place=${checkout.delivery_place}"
-                "&mobile=${checkout.mobile}&dtime_selected_val=${checkout
-                .dtime_selected_val}"
-                "&username=${checkout.username}&delivery_price=${checkout
-                .deliveryPrice}&dpayment_selected_val=${checkout
-                .dpayment_selected_val}",
+            "finishbasket&uid=${uid}&id=${checkout.id}&address=${checkout.address}&delivery_place=${checkout.delivery_place}"
+                "&mobile=${checkout.mobile}&dtime_selected_val=${checkout.dtime_selected_val}"
+                "&username=${checkout.username}&delivery_price=${checkout.deliveryPrice}&dpayment_selected_val=${checkout.dpayment_selected_val}",
         headers: {"Content-Type": "application/json"},
       );
       if (response.statusCode == 200) {

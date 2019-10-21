@@ -46,7 +46,7 @@ class HomePage extends StatelessWidget {
               if (fromCheckout) {
                 print("FROM CHECKOUT");
                 Networks().basket().then((onValue) {
-                  if (onValue == null) {
+                  if (onValue =='0') {
                     print("TRUEE");
                     showDialog(
                         context: context,
