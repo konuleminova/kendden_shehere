@@ -34,9 +34,12 @@ class PaymentErrorDialog extends StatelessWidget {
                 CircleAvatar(
                   radius: 30,
                   backgroundColor: Colors.red,
-                  child: Icon(
-                    Icons.clear,
+                  child: IconButton(
+                    icon:Icon(Icons.clear),
                     color: Colors.white,
+                    onPressed: (){
+                      Navigator.pop(context);
+                    },
                   ),
                 ),
                 RaisedButton(
