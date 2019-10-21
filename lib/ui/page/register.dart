@@ -89,7 +89,7 @@ class RegisterPageState extends State<RegisterPage> {
         builder: (BuildContext context, RegisterViewModel viewModel) {
           this.viewModel = viewModel;
           return Scaffold(
-            key: scaffoldRegisterKey,
+          //  key: scaffoldRegisterKey,
             body: Stack(
               children: <Widget>[
                 Container(

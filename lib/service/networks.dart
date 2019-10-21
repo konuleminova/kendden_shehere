@@ -57,6 +57,7 @@ class Networks {
   dynamic productsInCategory(String id, String order, String lang, String limit,
       String start) async {
     try {
+      print("PRoduct:"+id);
       final response = await http.get(BASE_KS_URL +
           "productincat&id=" +
           id +

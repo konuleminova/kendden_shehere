@@ -12,6 +12,7 @@ import 'package:kendden_shehere/redux/login/login_action.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 import 'package:redux_thunk/redux_thunk.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 ThunkAction<AppState> loginThunkFunction(String username, String password) {
   return (Store<AppState> store) async {
@@ -35,11 +36,29 @@ ThunkAction<AppState> loginThunkFunction(String username, String password) {
         if (onValue) {
           userLogin.status = STATUS.FAIL;
           store.dispatch(LoginAction(status: STATUS.FAIL));
-          showSnackBar("Username or password is wrong.", scaffoldKey);
+          Fluttertoast.showToast(
+              msg: "Username or password is wrong.",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIos: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0
+          );
+         // showSnackBar("Username or password is wrong.", scaffoldKey);
         } else {
           userLogin.status = STATUS.NETWORK_ERROR;
           store.dispatch(LoginAction(status: STATUS.NETWORK_ERROR));
-          showSnackBar("No internet connection.", scaffoldKey);
+          Fluttertoast.showToast(
+              msg: "No internet connection.",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIos: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0
+          );
+          //showSnackBar("No internet connection.", scaffoldKey);
         }
       });
     }

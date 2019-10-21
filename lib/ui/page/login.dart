@@ -5,8 +5,7 @@ import 'package:kendden_shehere/main.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/login/login_viewmodel.dart';
-import 'package:kendden_shehere/redux/app/app_state_reducer.dart';
-import 'package:kendden_shehere/ui/page/index.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -46,7 +45,7 @@ class LoginState extends State<LoginPage> {
         });
       },
       builder: (BuildContext context, ViewModel viewModel) => Scaffold(
-          key: scaffoldKey,
+         // key: scaffoldKey,
           body: SingleChildScrollView(
             child: Container(
               decoration: new BoxDecoration(color: Colors.lightGreen),
