@@ -22,6 +22,20 @@ class OrderHistoryState extends State<OrderHistoryPage> {
   String from = "From";
   String to = "To";
   OrderHistoryListModel order;
+  Future _future;
+
+  @override
+  void initState() {
+    super.initState();
+    _future = Networks().orderHistory();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _future=null;
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,9 +98,7 @@ class OrderHistoryState extends State<OrderHistoryPage> {
           ],
         ),
         body: FutureBuilder(
-            future: memoizer.runOnce((){
-             return Networks().orderHistory();
-            }),
+            future: _future,
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
                 order = snapshot.data;
@@ -137,12 +149,11 @@ class OrderHistoryState extends State<OrderHistoryPage> {
                         itemBuilder: (BuildContext context, int index) {
                           return GroceryListItemFour(orderList[index]);
                         }));
-              } else if(snapshot.connectionState==ConnectionState.waiting){
+              } else if (snapshot.connectionState == ConnectionState.waiting) {
                 return loading();
-              }else{
+              } else {
                 return Container();
               }
-
             }));
   }
 
