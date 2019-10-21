@@ -31,7 +31,7 @@ class HomePage extends StatelessWidget {
 
   HomePage({this.fromCheckout});
 
-  GlobalKey _scaffold = GlobalKey();
+ // GlobalKey _scaffold = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -48,17 +48,17 @@ class HomePage extends StatelessWidget {
               if (fromCheckout) {
                 print("FROM CHECKOUT");
                 Networks().basket().then((onValue) {
-                  if (_scaffold.currentContext != null) {
+                  if (context != null) {
                     if (onValue == '0') {
                       print("TRUEE");
                       showDialog(
-                          context: _scaffold.currentContext,
+                          context: context,
                           builder: (BuildContext context) {
                             return PaymentSuccessDialog(context);
                           });
                     } else {
                       showDialog(
-                          context: _scaffold.currentContext,
+                          context:context,
                           builder: (BuildContext context) {
                             return PaymentErrorDialog(
                                 context,
@@ -87,7 +87,7 @@ class HomePage extends StatelessWidget {
             converter: (Store<AppState> store) => HomeViewModel.create(store),
             builder: (BuildContext context, HomeViewModel viewModel) {
               return new Scaffold(
-                  key: _scaffold,
+                  //key: _scaffold,
                   appBar: new AppBar(
                     backgroundColor: Colors.lightGreen,
                     leading: Builder(
