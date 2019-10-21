@@ -29,7 +29,7 @@ ThunkAction<AppState> registerThunkFunction(String lang, UserModel userModel) {
               store.dispatch(LoginAction(status: STATUS.FAIL));
               if (responseBody.login.error != "no-error") {
                 Fluttertoast.showToast(
-                    msg: "Username must be at least 5 characters long.",
+                    msg: responseBody.login.error,
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.CENTER,
                     timeInSecForIos: 1,

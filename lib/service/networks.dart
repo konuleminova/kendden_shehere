@@ -8,7 +8,6 @@ import 'package:kendden_shehere/redux/home/home_list.dart';
 import 'package:kendden_shehere/redux/information/information.dart';
 import 'package:kendden_shehere/redux/login/user_model.dart';
 import 'package:kendden_shehere/redux/orderhistory/orderhistory_listmodel.dart';
-import 'package:kendden_shehere/redux/productlist/product_model.dart';
 import 'package:kendden_shehere/redux/productlist/products_in_category_model.dart';
 import 'package:kendden_shehere/redux/register/register_model.dart';
 import 'package:kendden_shehere/redux/wishlist/list_wish_model.dart';
