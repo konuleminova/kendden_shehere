@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_shop_list.dart';
 import 'package:kendden_shehere/ui/page/home.dart';
+import 'package:kendden_shehere/util/helper_class.dart';
 //import 'package:webview_flutter/webview_flutter.dart';
 
 //class WebViewPage extends StatefulWidget {
@@ -75,9 +76,7 @@ class WebViewPage extends StatelessWidget {
         withZoom: true,
         withLocalStorage: true,
         initialChild: Container(
-          child: const Center(
-            child: Text('Waiting.....'),
-          ),
+          child: loading()
         ));
   }
 }
