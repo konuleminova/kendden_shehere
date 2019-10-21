@@ -45,6 +45,7 @@ class Networks {
   dynamic listCategories() async {
     try {
       final response = await http.get(BASE_KS_URL + "list_categories");
+      print("List Categoreis");
       if (response.statusCode == 200) {
         return ListCategories.fromJson(json.decode(response.body));
       } else {
@@ -56,6 +57,7 @@ class Networks {
   dynamic productsInCategory(String id, String order, String lang, String limit,
       String start) async {
     try {
+      print("Product in cat");
       print("PRoduct:"+id);
       final response = await http.get(BASE_KS_URL +
           "productincat&id=" +
@@ -71,7 +73,9 @@ class Networks {
   }
 
   dynamic bannerImages() async {
+
     try {
+      print("Product in cat");
       final response = await http.get(BASE_KS_URL + "bannerimages");
       print("Banner Images");
       if (response.statusCode == 200) {
@@ -85,6 +89,7 @@ class Networks {
   }
 
   dynamic wishList() async {
+    print("Wish List");
     try {
       var id = await SharedPrefUtil().getString(SharedPrefUtil().uid);
       final response = await http.get(BASE_KS_URL + "wishlist" + "&id=${id}");
@@ -98,6 +103,7 @@ class Networks {
 
   dynamic search(String lang, String query, String start) async {
     try {
+      print("Search");
       final response = await http.get(BASE_KS_URL +
           "search" +
           "&q=${query}+&start=${start}+&limit=${10}+&lang=${lang}");
@@ -111,6 +117,7 @@ class Networks {
 
   dynamic qsearch(String lang, String query) async {
     try {
+      print("Qsearch");
       final response = await http.get(BASE_KS_URL +
           "qsearch" +
           "&q=${query}+&start=${0}+&limit=${100}+&lang=${lang}");
@@ -168,6 +175,7 @@ class Networks {
 //  }
 
   orderHistory() async {
+    print("Order history");
     try {
       var id = await SharedPrefUtil().getString(SharedPrefUtil().uid);
       final response =
@@ -182,6 +190,7 @@ class Networks {
 
   dynamic basket() async {
     try {
+      print("Basket");
       var id = await SharedPrefUtil().getString(SharedPrefUtil().uid);
       final response = await http.get(BASE_KS_URL + "basket" + "&uid=${id}");
       if (response.statusCode == 200) {
@@ -207,6 +216,7 @@ class Networks {
 
   dynamic fag(String lang) async {
     try {
+      print("Fag");
       final response =
       await http.get(BASE_KS_URL + "information&inf=faq" + "&lang=${lang}");
       if (response.statusCode == 200) {
@@ -219,6 +229,7 @@ class Networks {
 
   dynamic delivery(String lang) async {
     try {
+      print("delivery");
       final response = await http
           .get(BASE_KS_URL + "information&inf=delivery" + "&lang=${lang}");
       if (response.statusCode == 200) {
@@ -232,6 +243,7 @@ class Networks {
 
   dynamic aboutus(String lang) async {
     try {
+      print("About Us");
       final response = await http
           .get(BASE_KS_URL + "information&inf=aboutus" + "&lang=${lang}");
       if (response.statusCode == 200) {
@@ -245,6 +257,7 @@ class Networks {
 
   dynamic contacts(String lang) async {
     try {
+      print("Contacts");
       final response = await http
           .get(BASE_KS_URL + "information&inf=contacts" + "&lang=${lang}");
       if (response.statusCode == 200) {
@@ -258,6 +271,7 @@ class Networks {
 
   dynamic updateUser(BuildContext context, String inf, String data) async {
     try {
+      print("Update User");
       var uid = await SharedPrefUtil().getString(SharedPrefUtil().uid);
       final response = await http.get(BASE_KS_URL +
           "updateuser&uid=${uid}" +
@@ -276,6 +290,7 @@ class Networks {
 
   userinfo() async {
     try {
+      print("User info");
       var uid = await SharedPrefUtil().getString(SharedPrefUtil().uid);
       final response = await http.get(BASE_KS_URL + "userinfo&id=${uid}");
       if (response.statusCode == 200) {
@@ -290,6 +305,7 @@ class Networks {
 
   dynamic add_Remove_WishList(String id) async {
     try {
+      print("Add Remove wish list");
       var uid = await SharedPrefUtil().getString(SharedPrefUtil().uid);
       final response =
       await http.get(BASE_KS_URL + "addtowishlist&uid=${uid}&id=${id}");
@@ -304,6 +320,7 @@ class Networks {
 
   dynamic addToBasket(String id, String weight) async {
     try {
+      print("Add to basket");
       var uid = await SharedPrefUtil().getString(SharedPrefUtil().uid);
       final response = await http.get(
           BASE_KS_URL + "addtobasket&uid=${uid}&id=${id}&weight=${weight}");
@@ -318,6 +335,7 @@ class Networks {
 
   dynamic removeFromBasket(String id) async {
     try {
+      print("Remove from basket");
       var uid = await SharedPrefUtil().getString(SharedPrefUtil().uid);
       final response =
       await http.get(BASE_KS_URL + "removefrombasket&uid=${uid}&id=${id}");
@@ -332,6 +350,7 @@ class Networks {
 
   dynamic finishBasket(Checkout checkout) async {
     try {
+      print("Finish basket");
       var uid = await SharedPrefUtil().getString(
         SharedPrefUtil().uid,
       );
@@ -373,6 +392,7 @@ class Networks {
 
   dynamic showAllCollection() async {
     try {
+      print("Show all Collection");
       final response = await http.get(BASE_KS_URL + "collection&showall=1");
       if (response.statusCode == 200) {
         return HomeList.fromJson(json.decode(response.body));
@@ -384,6 +404,7 @@ class Networks {
 
   dynamic complaints(String lang) async {
     try {
+      print("Complaints");
       final response = await http
           .get(BASE_KS_URL + "information&inf=compliants" + "&lang=${lang}");
       if (response.statusCode == 200) {
