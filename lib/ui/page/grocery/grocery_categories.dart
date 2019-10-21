@@ -110,6 +110,7 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
     });
   }
 
+
   Future<List<Category>> getCategories() async {
     ListCategories categories = await Networks().listCategories();
     if (categories != null) {
@@ -122,7 +123,7 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
   @override
   void dispose() {
     super.dispose();
-    categories.clear();
-    tempCategories.clear();
+    categories=null;
+    tempCategories=null;
   }
 }
