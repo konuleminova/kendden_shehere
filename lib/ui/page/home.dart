@@ -31,6 +31,8 @@ class HomePage extends StatelessWidget {
   BuildContext context;
   Future _future;
   Future _future2;
+  Store<AppState> _store;
+
 
   HomePage({this.fromCheckout});
 
@@ -45,6 +47,8 @@ class HomePage extends StatelessWidget {
     return WillPopScope(
         child: new StoreConnector(
             onInit: (store) {
+
+              _store=store;
               _future = Networks().bannerImages();
               _future2=Networks().userinfo();
               store.state.wishItems.clear();
@@ -88,6 +92,24 @@ class HomePage extends StatelessWidget {
             },
             onDidChange: (HomeViewModel viewModel) {
               print("On did chnage");
+//             if(_store.state.homeList.homelist!=null){
+//               if(_store.state.homeList.homelist.length<=0){
+//                 print("Different");
+//                 viewModel.onFetchAllCollection();
+//               }
+//             }
+//              if(_store.state.wishItems!=null){
+//                if(_store.state.wishItems.length<=0){
+//                  print("Different");
+//                  viewModel.onFetchWishList();
+//                }
+//              }
+//              if(_store.state.shopItems!=null){
+//                if(_store.state.shopItems.length<=0){
+//                  print("Different");
+//                  viewModel.onFetchShopList();
+//                }
+//              }
             },
             converter: (Store<AppState> store) => HomeViewModel.create(store),
             builder: (BuildContext context, HomeViewModel viewModel) {
@@ -216,6 +238,9 @@ class HomePage extends StatelessWidget {
                               child: new IconButton(
                                 icon: new Icon(Icons.settings),
                                 onPressed: () {
+                                 _store.state.homeList.homelist.clear();
+                                 _store.state.wishItems.clear();
+                                 _store.state.shopItems.clear();
                                   Navigator.pushNamed(context, "/settings");
                                 },
                                 iconSize: 25,
