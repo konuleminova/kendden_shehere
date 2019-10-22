@@ -182,11 +182,12 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
           });
     } else {
       return new Container(
+        height: 40,
         // padding: EdgeInsets.all(4),
         // margin: EdgeInsets.only(top: 8, bottom: 8),
         decoration: new BoxDecoration(
-            borderRadius: BorderRadius.circular(2),
-            color: Colors.white,
+            borderRadius: BorderRadius.circular(4),
+            color: Colors.grey[100],
             border: Border.all(color: Colors.grey)),
         alignment: Alignment.topRight,
         child: new Row(
