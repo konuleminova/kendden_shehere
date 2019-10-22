@@ -32,7 +32,7 @@ class DrawerWidgetState extends State<DrawerWidget> {
   @override
   void dispose() {
     super.dispose();
-    _future=null;
+    _future = null;
   }
 
   @override
@@ -101,11 +101,12 @@ class DrawerWidgetState extends State<DrawerWidget> {
             onTap: () {
               Navigator.push(
                   context,
-                  ScaleRoute(
-                      page: new GroceryCategoriesPage(
-                          id: "0",
-                          title:
-                              AppTranslations.of(context).text("categories"))));
+                  MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          new GroceryCategoriesPage(
+                              id: "0",
+                              title: AppTranslations.of(context)
+                                  .text("categories"))));
               // Navigator.pushNamed(context, "/categories");
             },
           ),
@@ -115,7 +116,7 @@ class DrawerWidgetState extends State<DrawerWidget> {
               title: Text(AppTranslations.of(context).text("wish_list")),
             ),
             onTap: () {
-              Navigator.push(context, ScaleRoute(page: GroceryWishListPage()));
+              Navigator.pushNamed(context, "/wish_list");
             },
           ),
           GestureDetector(
@@ -124,42 +125,42 @@ class DrawerWidgetState extends State<DrawerWidget> {
               title: Text(AppTranslations.of(context).text("order_history")),
             ),
             onTap: () {
-              Navigator.push(context, ScaleRoute(page: OrderHistoryPage()));
+              Navigator.pushNamed(context, "/order_history");
             },
           ),
           ListTile(
             leading: Icon(Icons.feedback),
             title: Text(AppTranslations.of(context).text("delivery_terms")),
             onTap: () {
-              Navigator.push(context, ScaleRoute(page: DeliveryPage()));
+              Navigator.pushNamed(context, "/delivery_terms");
             },
           ),
           ListTile(
             leading: Icon(Icons.question_answer),
             title: Text(AppTranslations.of(context).text("fag")),
             onTap: () {
-              Navigator.push(context, ScaleRoute(page: FagPage()));
+              Navigator.pushNamed(context, "/fag");
             },
           ),
           ListTile(
             leading: Icon(Icons.info),
             title: Text(AppTranslations.of(context).text("about_us")),
             onTap: () {
-              Navigator.push(context, ScaleRoute(page: AboutUsPage()));
+              Navigator.pushNamed(context, "/about_us");
             },
           ),
           ListTile(
             leading: Icon(Icons.phone),
             title: Text(AppTranslations.of(context).text("contact_us")),
             onTap: () {
-              Navigator.push(context, ScaleRoute(page: ContactsPage()));
+              Navigator.pushNamed(context, "/contacts");
             },
           ),
           ListTile(
             leading: Icon(Icons.people),
             title: Text(AppTranslations.of(context).text("complaints")),
             onTap: () {
-              Navigator.push(context, ScaleRoute(page: ComplaintsPage()));
+              Navigator.pushNamed(context, "/complaints");
             },
           ),
         ],

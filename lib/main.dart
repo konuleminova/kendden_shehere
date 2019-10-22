@@ -9,6 +9,7 @@ import 'package:kendden_shehere/redux/navigation/navigation_middleware.dart';
 import 'package:kendden_shehere/redux/navigation/navigation_observer.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_categories.dart';
 import 'package:kendden_shehere/ui/page/menu/about_us.dart';
+import 'package:kendden_shehere/ui/page/menu/complaints.dart';
 import 'package:kendden_shehere/ui/page/menu/contacts.dart';
 import 'package:kendden_shehere/ui/page/menu/delivery.dart';
 import 'package:kendden_shehere/ui/page/menu/fag.dart';
@@ -115,7 +116,8 @@ class MyAppState extends State<MyApp> {
               "/delivery_terms": (BuildContext context) => DeliveryPage(),
               "/fag": (BuildContext context) => FagPage(),
               "/contacts": (BuildContext context) => ContactsPage(),
-              "/categories": (BuildContext context) => GroceryCategoriesPage()
+              "/categories": (BuildContext context) => GroceryCategoriesPage(),
+              '/complaints':(BuildContext context) => ComplaintsPage()
 
               // "/product_list": (BuildContext context) => ProductListPage()
             },
