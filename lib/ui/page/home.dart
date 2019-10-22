@@ -238,9 +238,6 @@ class HomePage extends StatelessWidget {
                               child: new IconButton(
                                 icon: new Icon(Icons.settings),
                                 onPressed: () {
-                                 _store.state.homeList.homelist.clear();
-                                 _store.state.wishItems.clear();
-                                 _store.state.shopItems.clear();
                                   Navigator.pushNamed(context, "/settings");
                                 },
                                 iconSize: 25,
