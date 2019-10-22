@@ -3,42 +3,48 @@ import 'package:kendden_shehere/ui/page/home.dart';
 import 'package:kendden_shehere/ui/page/login.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 
-class IndexPage extends StatefulWidget {
-  @override
-  _IndexPageState createState() => _IndexPageState();
-}
-
 class _IndexPageState extends State<IndexPage> {
-  bool isLoggedIn = false;
-  bool progress = true;
+  bool isLogin = false;
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      body: new FutureBuilder(
-        future: SharedPrefUtil().getBool(SharedPrefUtil().isLoginKey),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.hasData) {
-            if (snapshot.data != null) {
-              isLoggedIn = snapshot.data;
-              if (isLoggedIn) {
-                return HomePage(fromCheckout: false,);
-              } else {
-                return LoginPage();
-              }
-            }
-          } else {
-            // default show loading while state is waiting
-            return _loadingView;
-          }
-        },
-      ),
+      body: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          color: Colors.white,
+          child: Image.asset(
+            "images/ks/splash.png",
+            fit: BoxFit.contain,
+          ))
     );
   }
 
-   Widget get _loadingView {
-    return new Center(
-      child: new CircularProgressIndicator(),
-    );
+  @override
+  void initState() {
+    super.initState();
+
+    SharedPrefUtil().getBool(SharedPrefUtil().isLoginKey).then((onValue) {
+      isLogin=onValue;
+      if (!onValue) {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (BuildContext context) => LoginPage()));
+      } else {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) => HomePage(
+                      fromCheckout: false,
+                    )));
+      }
+    });
+  }
+}
+
+class IndexPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _IndexPageState();
   }
 }
