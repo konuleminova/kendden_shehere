@@ -94,47 +94,50 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
                                       ],
                                     ),
                                   ),
-                                  onTap: (){
+                                  onTap: () {
                                     Route route = MaterialPageRoute(
                                         builder: (BuildContext context) =>
                                             GroceryDetailsPage(product));
                                     Navigator.push(context, route);
                                   },
                                 ),
-                                flex: 5,
+                                flex: 7,
                               ),
                               Expanded(
-                                flex: 2,
+                                  flex: 3,
                                   child: Container(
-                                margin: EdgeInsets.only(right: 16),
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: <Widget>[
-                                    IconButton(
-                                      icon: Icon(
-                                        Icons.delete_outline,
-                                        color: Colors.green[400],
-                                        size: 25,
-                                      ),
-                                      onPressed: () {
-                                        Networks()
-                                            .removeFromBasket(product.id)
-                                            .then((onvalue) {
-                                          if (onvalue != null) {
-                                            if (onvalue['action'] == "done") {
-                                              viewModel.removeShopItem(product);
-                                            }
-                                          }
-                                        });
-                                      },
+                                    margin: EdgeInsets.only(right: 16),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: <Widget>[
+                                        IconButton(
+                                          icon: Icon(
+                                            Icons.delete_outline,
+                                            color: Colors.green[400],
+                                            size: 25,
+                                          ),
+                                          onPressed: () {
+                                            Networks()
+                                                .removeFromBasket(product.id)
+                                                .then((onvalue) {
+                                              if (onvalue != null) {
+                                                if (onvalue['action'] ==
+                                                    "done") {
+                                                  viewModel
+                                                      .removeShopItem(product);
+                                                }
+                                              }
+                                            });
+                                          },
+                                        ),
+                                        _updateContainer()
+                                      ],
                                     ),
-                                    _updateContainer()
-                                  ],
-                                ),
-                                height: MediaQuery.of(context).size.height,
-                              ))
+                                    height: MediaQuery.of(context).size.height,
+                                  ))
                             ],
                           ))),
                 )
@@ -192,78 +195,70 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
           children: <Widget>[
             Expanded(
                 child: Container(
-                    child: IconButton(
-                      icon: new Icon(Icons.remove),
-                      iconSize: 20,
-                      onPressed: () {
-                        weight--;
-                        if (weight < 1) {
-                          weight = 1;
-                          Networks()
-                              .removeFromBasket(product.id)
-                              .then((onvalue) {
-                            print("REMOVE");
-                            if (onvalue != null) {
-                              if (onvalue['action'] == "done") {
-                                viewModel.removeShopItem(product);
-                              }
-                            }
-                          });
-                        } else {
-                          Networks()
-                              .addToBasket(product.id, weight.toString())
-                              .then((onvalue) {
-                            if (onvalue != null) {
-                              if (onvalue['action'] == "done") {
-                                store.dispatch(ShowBasketAction(store));
-                                setState(() {
-                                  // product.isAdded = !product.isAdded;
-                                  product.weight--;
-                                });
-                                //viewModel.changeAddStatus(index, true, weight);
-                              }
-                            }
-                          });
-                        }
-                      },
-                    ),)),
-            SizedBox(width: 10,),
+              child: IconButton(
+                icon: new Icon(Icons.remove),
+                iconSize: 20,
+                onPressed: () {
+                  setState(() {
+                    // product.isAdded = !product.isAdded;
+                    if (product.weight > 1) {
+                      product.weight--;
+                    }
+                  });
+                  Networks()
+                      .addToBasket(product.id, weight.toString())
+                      .then((onvalue) {
+                    if (onvalue != null) {
+                      if (onvalue['action'] == "done") {
+                        store.dispatch(ShowBasketAction(store));
+                        //viewModel.changeAddStatus(index, true, weight);
+                      }
+                    }
+                  });
+                },
+              ),
+            )),
+            SizedBox(
+              width: 10,
+            ),
             Expanded(
                 child: Container(
-                  child: new Text(
-                    product.weight.toString(),
-                    textAlign: TextAlign.center,
-                    style: new TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
-                )),
+              child: new Text(
+                product.weight.toString(),
+                textAlign: TextAlign.center,
+                style: new TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+            )),
             Expanded(
                 child: Container(
-                  child: IconButton(
-                    icon: new Icon(Icons.add),
-                    iconSize: 20,
-                    onPressed: () {
-                      weight++;
-                      Networks()
-                          .addToBasket(product.id, weight.toString())
-                          .then((onvalue) {
-                        if (onvalue != null) {
-                          if (onvalue['action'] == "done") {
-                            //  viewModel.changeAddStatus(index, true, weight);
-                            //viewModel.onFetchShopList();
-                            store.dispatch(ShowBasketAction(store));
-                            setState(() {
-                              product.weight++;
-                            });
-                          }
-                        }
-                      });
-                      //Networks().addToBasket(product.id, amount.toString());
-                    },
-                  ),
-                )),
-            SizedBox(width: 8,)
+              child: IconButton(
+                icon: new Icon(Icons.add),
+                iconSize: 20,
+                onPressed: () {
+                  weight++;
+                  setState(() {
+                    product.weight++;
+                  });
+                  Networks()
+                      .addToBasket(product.id, weight.toString())
+                      .then((onvalue) {
+                    if (onvalue != null) {
+                      if (onvalue['action'] == "done") {
+                        //  viewModel.changeAddStatus(index, true, weight);
+                        //viewModel.onFetchShopList();
+                        store.dispatch(ShowBasketAction(store));
+                      }
+                    }
+                  });
+                  //Networks().addToBasket(product.id, amount.toString());
+                },
+              ),
+            )),
+            SizedBox(
+              width: 8,
+            )
           ],
         ),
       );
