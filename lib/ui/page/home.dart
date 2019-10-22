@@ -8,6 +8,7 @@ import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/home/home_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
+import 'package:kendden_shehere/ui/page/grocery/grocery_categories.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_shop_list.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/payment_error_dialog.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/payment_success_dialog.dart';
@@ -29,6 +30,7 @@ class HomePage extends StatelessWidget {
   bool fromCheckout;
   BuildContext context;
   Future _future;
+  Future _future2;
 
   HomePage({this.fromCheckout});
 
@@ -44,6 +46,7 @@ class HomePage extends StatelessWidget {
         child: new StoreConnector(
             onInit: (store) {
               _future = Networks().bannerImages();
+              _future2=Networks().userinfo();
               store.state.wishItems.clear();
               store.state.shopItems.clear();
               print("INITT");
@@ -167,7 +170,133 @@ class HomePage extends StatelessWidget {
                     },
                     child: new Icon(Icons.chat),
                   ),
-                  drawer: DrawerWidget(),
+                  drawer: new Drawer(
+                    child: ListView(
+                      children: <Widget>[
+                        new Stack(
+                          children: <Widget>[
+                            UserAccountsDrawerHeader(
+                              accountName: new FutureBuilder(
+                                future: _future2,
+                                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                                  if (snapshot.hasData) {
+                                    return new Text(
+                                      snapshot.data[1]['name'] +
+                                          " " +
+                                          snapshot.data[1]['surname'],
+                                      style: new TextStyle(fontSize: 18),
+                                    );
+                                  } else {
+                                    // default show loading while state is waiting
+                                    return SizedBox();
+                                  }
+                                },
+                              ),
+                              accountEmail: new Text(""),
+                              currentAccountPicture: CircleAvatar(
+                                  minRadius: 60,
+                                  backgroundColor: Colors.green.shade300,
+                                  child: CircleAvatar(
+                                    radius: 50.0,
+                                    backgroundImage: NetworkImage(
+                                        'https://content-static.upwork.com/uploads/2014/10/01073427/profilephoto1.jpg'),
+                                    backgroundColor: Colors.transparent,
+                                  )),
+                              decoration: new BoxDecoration(color: Colors.lightGreen),
+                              onDetailsPressed: () {
+                                Navigator.pushNamed<dynamic>(context, "/profile")
+                                    .then((isLoggedOut) {
+                                  if (isLoggedOut != null && isLoggedOut == true) {
+                                    Navigator.pushReplacementNamed(context, '/login');
+                                  }
+                                });
+                              },
+                            ),
+                            Container(
+                              child: new IconButton(
+                                icon: new Icon(Icons.settings),
+                                onPressed: () {
+                                  Navigator.pushNamed(context, "/settings");
+                                },
+                                iconSize: 25,
+                                disabledColor: Colors.white,
+                                color: Colors.white,
+                              ),
+                              alignment: Alignment.topRight,
+                            )
+                          ],
+                        ),
+                        ListTile(
+                          leading: Icon(Icons.category),
+                          title: Text(AppTranslations.of(context).text("categories")),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                    new GroceryCategoriesPage(
+                                        id: "0",
+                                        title: AppTranslations.of(context)
+                                            .text("categories"))));
+                            // Navigator.pushNamed(context, "/categories");
+                          },
+                        ),
+                        GestureDetector(
+                          child: ListTile(
+                            leading: Icon(Icons.favorite),
+                            title: Text(AppTranslations.of(context).text("wish_list")),
+                          ),
+                          onTap: () {
+                            Navigator.pushNamed(context, "/wish_list");
+                          },
+                        ),
+                        GestureDetector(
+                          child: ListTile(
+                            leading: Icon(Icons.history),
+                            title: Text(AppTranslations.of(context).text("order_history")),
+                          ),
+                          onTap: () {
+                            Navigator.pushNamed(context, "/order_history");
+                          },
+                        ),
+                        ListTile(
+                          leading: Icon(Icons.feedback),
+                          title: Text(AppTranslations.of(context).text("delivery_terms")),
+                          onTap: () {
+                            Navigator.pushNamed(context, "/delivery_terms");
+                          },
+                        ),
+                        ListTile(
+                          leading: Icon(Icons.question_answer),
+                          title: Text(AppTranslations.of(context).text("fag")),
+                          onTap: () {
+                            Navigator.pushNamed(context, "/fag");
+                          },
+                        ),
+                        ListTile(
+                          leading: Icon(Icons.info),
+                          title: Text(AppTranslations.of(context).text("about_us")),
+                          onTap: () {
+                            Navigator.pushNamed(context, "/about_us");
+                          },
+                        ),
+                        ListTile(
+                          leading: Icon(Icons.phone),
+                          title: Text(AppTranslations.of(context).text("contact_us")),
+                          onTap: () {
+                            Navigator.pushNamed(context, "/contacts");
+                          },
+                        ),
+                        ListTile(
+                          leading: Icon(Icons.people),
+                          title: Text(AppTranslations.of(context).text("complaints")),
+                          onTap: () {
+                            Navigator.pushNamed(context, "/complaints");
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
                   body: connectionStatus != ConnectivityStatus.Offline
                       ? RefreshIndicator(
                           child: SingleChildScrollView(
