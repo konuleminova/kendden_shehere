@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kendden_shehere/ui/page/map/map_big.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
+import 'package:location/location.dart';
 
 const kGoogleApiKey = "AIzaSyC1XWcwMQ-WDLXUWZOTwQW7325Wb-OeysU";
 // "AIzaSyBbSJwbLSidCTD5AAn_QuAwuF5Du5ANAvg";
@@ -29,9 +30,11 @@ class _MapPage1State extends State<MapPage1> {
   String _deliveryAmount;
   var lat;
   var lng;
+  Future _future;
 
   @override
   Widget build(BuildContext context) {
+
     // TODO: implement build
     return FutureBuilder(
         future: _getAddress(),
@@ -44,28 +47,37 @@ class _MapPage1State extends State<MapPage1> {
                 height: MediaQuery.of(context).size.height * 0.35,
                 alignment: AlignmentDirectional.topCenter,
                 color: Colors.white,
-                child: GoogleMap(
-                  gestureRecognizers: Set()
-                    ..add(Factory<PanGestureRecognizer>(
-                        () => PanGestureRecognizer()))
-                    ..add(Factory<VerticalDragGestureRecognizer>(
-                        () => VerticalDragGestureRecognizer())),
-                  onTap: (LatLng location) {
-                    Route route = MaterialPageRoute(
-                        builder: (BuildContext context) => MapPageBig());
-                    Navigator.push(context, route);
-                    //MapDemoPage mp = new MapDemoPage();
-                    //mp.showMap();
+                child: FutureBuilder(
+                  future: _future,
+                  builder: (BuildContext context, AsyncSnapshot snapshot2) {
+                    if (snapshot2.hasData) {
+                   return  snapshot2.data?  GoogleMap(
+                       gestureRecognizers: Set()
+                         ..add(Factory<PanGestureRecognizer>(
+                                 () => PanGestureRecognizer()))
+                         ..add(Factory<VerticalDragGestureRecognizer>(
+                                 () => VerticalDragGestureRecognizer())),
+                       onTap: (LatLng location) {
+                         Route route = MaterialPageRoute(
+                             builder: (BuildContext context) => MapPageBig());
+                         Navigator.push(context, route);
+                         //MapDemoPage mp = new MapDemoPage();
+                         //mp.showMap();
+                       },
+                       polygons: setPolygon(),
+                       tiltGesturesEnabled: true,
+                       scrollGesturesEnabled: true,
+                       zoomGesturesEnabled: true,
+                       markers: _markers,
+                       onCameraMove: _onCameraMove,
+                       onMapCreated: _onMapCreated,
+                       initialCameraPosition: CameraPosition(
+                           target: _lastMapPositon, zoom: 11.00),
+                     ):SizedBox();
+                    } else {
+                      return SizedBox();
+                    }
                   },
-                  polygons: setPolygon(),
-                  tiltGesturesEnabled: true,
-                  scrollGesturesEnabled: true,
-                  zoomGesturesEnabled: true,
-                  markers: _markers,
-                  onCameraMove: _onCameraMove,
-                  onMapCreated: _onMapCreated,
-                  initialCameraPosition:
-                      CameraPosition(target: _lastMapPositon, zoom: 11.00),
                 ),
                 margin:
                     EdgeInsets.only(left: 16, right: 16, bottom: 20, top: 5),
@@ -81,6 +93,7 @@ class _MapPage1State extends State<MapPage1> {
           );
         });
   }
+
 
   _onMapCreated(GoogleMapController controller) {
     _mapController = controller;
@@ -107,20 +120,20 @@ class _MapPage1State extends State<MapPage1> {
     if (pointInPolygon(points, lat, lng)) {
       if (price >= 20) {
         _deliveryPrice = "0";
-        _deliveryAmount="Your delivery is free";
+        _deliveryAmount = "Your delivery is free";
       } else {
         _deliveryPrice = "4";
-        _deliveryAmount="Your delivery amount is 4 AZN";
+        _deliveryAmount = "Your delivery amount is 4 AZN";
       }
     } else if (pointInPolygon(points2, lat, lng)) {
       _deliveryPrice = "4";
-      _deliveryAmount="Your delivery amount is 4 AZN";
+      _deliveryAmount = "Your delivery amount is 4 AZN";
     } else if (pointInPolygon(points3, lat, lng)) {
       _deliveryPrice = "7";
-      _deliveryAmount="Your delivery amount is 7 AZN";
+      _deliveryAmount = "Your delivery amount is 7 AZN";
     } else {
       _deliveryPrice = "-1";
-      _deliveryAmount="Hemin eraziye catdirilma movcud deyil.";
+      _deliveryAmount = "Hemin eraziye catdirilma movcud deyil.";
     }
     SharedPrefUtil().setString(SharedPrefUtil().deliveryPrice, _deliveryPrice);
     return _deliveryAmount;
@@ -466,5 +479,40 @@ class _MapPage1State extends State<MapPage1> {
     // _lines[0].points[0].latitude;
 
     return plo;
+  }
+
+  _getPermission()async {
+    bool val=false;
+    print("STARTING LOCATION SERVICE");
+    var location = Location();
+    location.changeSettings(
+        accuracy: LocationAccuracy.POWERSAVE,
+        interval: 1000,
+        distanceFilter: 500);
+    if (!await location.hasPermission()) {
+    bool isa=  await location.requestPermission();
+    print("ISAA"+isa.toString());
+    val=isa;
+    }else{
+      val=true;
+    }
+
+//    try {
+//      await location.onLocationChanged().listen((LocationData currentLocation) {
+//        print(currentLocation.latitude);
+//        print(currentLocation.longitude);
+//      // val='2';
+//      });
+//    } on Exception {
+//      location = null;
+//      val=null;
+//    }
+    return val;
+  }
+  @override
+  void initState() {
+    super.initState();
+    _future=_getPermission();
+
   }
 }
