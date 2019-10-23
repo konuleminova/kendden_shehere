@@ -22,7 +22,7 @@ class AboutUsPageState extends State<AboutUsPage> {
   @override
   void initState() {
     super.initState();
-    future=Networks().aboutus(lang);
+    future = Networks().aboutus(lang);
   }
 
   @override
@@ -37,43 +37,36 @@ class AboutUsPageState extends State<AboutUsPage> {
     }
 
     // TODO: implement build
-    return new FutureBuilder(
-        future: future,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.hasData) {
-            // ListInfo information = snapshot.data;
-            if (snapshot.data != null) {
-              String header = snapshot.data[0]['header'] ?? "";
-              String body = snapshot.data[1]['body'] ?? "";
-              String markdown = html2md.convert(body);
-              return new Scaffold(
-                  appBar: new AppBar(
-                    title: Text(header),
-                    backgroundColor: Colors.lightGreen,
-                  ),
-                  body: SingleChildScrollView(
-                    child: new Container(
-                        margin: EdgeInsets.all(16),
-                        child: new MarkdownBody(
-                          data: markdown,
-                        )),
-                  ));
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "About us",
+        ),
+        backgroundColor: Colors.lightGreen,
+      ),
+      body: new FutureBuilder(
+          future: future,
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.hasData) {
+              // ListInfo information = snapshot.data;
+              if (snapshot.data != null) {
+                String header = snapshot.data[0]['header'] ?? "";
+                String body = snapshot.data[1]['body'] ?? "";
+                String markdown = html2md.convert(body);
+                return SingleChildScrollView(
+                  child: new Container(
+                      margin: EdgeInsets.all(16),
+                      child: new MarkdownBody(
+                        data: markdown,
+                      )),
+                );
+              }
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
+              return loading();
+            } else {
+              return Container();
             }
-          } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return Scaffold(
-              body: loading(),
-            );
-          } else {
-            return Scaffold(
-              appBar: AppBar(
-                title: Text(
-                  "About us",
-                ),
-                backgroundColor: Colors.lightGreen,
-              ),
-              body: Container(),
-            );
-          }
-        });
+          }),
+    );
   }
 }
