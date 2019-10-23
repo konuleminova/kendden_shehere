@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/productlist/product_model.dart';
 import 'package:kendden_shehere/redux/productlist/product_viewmodel.dart';
@@ -108,18 +109,28 @@ class GroceryListItemTwoState extends State<GroceryListItemTwo> {
                                           color: Colors.green[400],
                                           size: 25,
                                         ),
-                                        onPressed: () {
+                                        onPressed: ()async {
+                                          viewModel.removeWishItem(product);
                                           Networks()
                                               .add_Remove_WishList(product.id)
                                               .then((onvalue) {
                                             if (onvalue != null) {
                                               if (onvalue['action'] ==
                                                   "added") {
-                                                viewModel.addWishItem(product);
+
                                               } else if (onvalue['action'] ==
                                                   "removed") {
-                                                viewModel
-                                                    .removeWishItem(product);
+                                                Fluttertoast.showToast(
+                                                    msg: "Product removed",
+                                                    toastLength:
+                                                        Toast.LENGTH_SHORT,
+                                                    gravity:
+                                                        ToastGravity.CENTER,
+                                                    timeInSecForIos: 1,
+                                                    backgroundColor:
+                                                        Colors.green,
+                                                    textColor: Colors.white,
+                                                    fontSize: 16.0);
                                               }
                                             }
                                           });
@@ -145,7 +156,7 @@ class GroceryListItemTwoState extends State<GroceryListItemTwo> {
   }
 
   _updateContainer() {
-    int weight=product.weight;
+    int weight = product.weight;
     if (!product.isAdded) {
       return new GestureDetector(
           child: new Container(
