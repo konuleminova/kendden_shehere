@@ -22,43 +22,36 @@ class ContactsPage extends StatelessWidget {
     }
 
     // TODO: implement build
-    return new FutureBuilder(
-        future: Networks().contacts(lang),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.hasData) {
-            // ListInfo information = snapshot.data;
-            if (snapshot.data != null) {
-              String header = snapshot.data['header'] ?? "";
-              String body = snapshot.data['body'] ?? "";
-              String markdown = html2md.convert(body);
-              return new Scaffold(
-                  appBar: new AppBar(
-                    title: Text(header),
-                    backgroundColor: Colors.lightGreen,
-                  ),
-                  body: SingleChildScrollView(
-                    child: new Container(
-                        margin: EdgeInsets.all(16),
-                        child: new MarkdownBody(
-                          data: markdown,
-                        )),
-                  ));
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Contacts",
+        ),
+        backgroundColor: Colors.lightGreen,
+      ),
+      body: new FutureBuilder(
+          future: Networks().contacts(lang),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.hasData) {
+              // ListInfo information = snapshot.data;
+              if (snapshot.data != null) {
+                String header = snapshot.data['header'] ?? "";
+                String body = snapshot.data['body'] ?? "";
+                String markdown = html2md.convert(body);
+                return SingleChildScrollView(
+                  child: new Container(
+                      margin: EdgeInsets.all(16),
+                      child: new MarkdownBody(
+                        data: markdown,
+                      )),
+                );
+              }
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
+              return loading();
+            } else {
+              return Container();
             }
-          }else if (snapshot.connectionState == ConnectionState.waiting) {
-            return Scaffold(
-              body: loading(),
-            );
-          } else {
-            return Scaffold(
-              appBar: AppBar(
-                title: Text(
-                  "Contacts",
-                ),
-                backgroundColor: Colors.lightGreen,
-              ),
-              body: Container(),
-            );
-          }
-        });
+          }),
+    );
   }
 }
