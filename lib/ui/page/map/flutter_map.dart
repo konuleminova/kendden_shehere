@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -34,66 +36,70 @@ class _MapPage1State extends State<MapPage1> {
 
   @override
   Widget build(BuildContext context) {
-
     // TODO: implement build
-    return FutureBuilder(
-        future: _getAddress(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          return Column(
-            children: <Widget>[
-              new Container(
-                padding: EdgeInsets.all(1),
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.35,
-                alignment: AlignmentDirectional.topCenter,
-                color: Colors.white,
-                child: FutureBuilder(
-                  future: _future,
-                  builder: (BuildContext context, AsyncSnapshot snapshot2) {
-                    if (snapshot2.hasData) {
-                   return  snapshot2.data?  GoogleMap(
-                       gestureRecognizers: Set()
-                         ..add(Factory<PanGestureRecognizer>(
-                                 () => PanGestureRecognizer()))
-                         ..add(Factory<VerticalDragGestureRecognizer>(
-                                 () => VerticalDragGestureRecognizer())),
-                       onTap: (LatLng location) {
-                         Route route = MaterialPageRoute(
-                             builder: (BuildContext context) => MapPageBig());
-                         Navigator.push(context, route);
-                         //MapDemoPage mp = new MapDemoPage();
-                         //mp.showMap();
-                       },
-                       polygons: setPolygon(),
-                       tiltGesturesEnabled: true,
-                       scrollGesturesEnabled: true,
-                       zoomGesturesEnabled: true,
-                       markers: _markers,
-                       onCameraMove: _onCameraMove,
-                       onMapCreated: _onMapCreated,
-                       initialCameraPosition: CameraPosition(
-                           target: _lastMapPositon, zoom: 11.00),
-                     ):SizedBox();
-                    } else {
-                      return SizedBox();
-                    }
-                  },
-                ),
-                margin:
-                    EdgeInsets.only(left: 16, right: 16, bottom: 20, top: 5),
-              ),
-              Container(
+    return Column(
+      children: <Widget>[
+        new Container(
+          padding: EdgeInsets.all(1),
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height * 0.35,
+          alignment: AlignmentDirectional.topCenter,
+          color: Colors.white,
+          child: FutureBuilder(
+            future: _future,
+            builder: (BuildContext context, AsyncSnapshot snapshot2) {
+              if (snapshot2.hasData) {
+                return snapshot2.data
+                    ? GoogleMap(
+                        gestureRecognizers: Set()
+                          ..add(Factory<PanGestureRecognizer>(
+                              () => PanGestureRecognizer()))
+                          ..add(Factory<VerticalDragGestureRecognizer>(
+                              () => VerticalDragGestureRecognizer())),
+                        onTap: (LatLng location) {
+                          Route route = MaterialPageRoute(
+                              builder: (BuildContext context) => MapPageBig());
+                          Navigator.push(context, route);
+                          //MapDemoPage mp = new MapDemoPage();
+                          //mp.showMap();
+                        },
+                        polygons: setPolygon(),
+                        tiltGesturesEnabled: true,
+                        scrollGesturesEnabled: true,
+                        zoomGesturesEnabled: true,
+                        markers: _markers,
+                        onCameraMove: _onCameraMove,
+                        onMapCreated: _onMapCreated,
+                        initialCameraPosition: CameraPosition(
+                            target: _lastMapPositon, zoom: 11.00),
+                      )
+                    : SizedBox();
+              } else {
+                return SizedBox();
+              }
+            },
+          ),
+          margin: EdgeInsets.only(left: 16, right: 16, bottom: 20, top: 5),
+        ),
+        FutureBuilder(
+          future: _getAddress(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.hasData) {
+              return Container(
                   child: snapshot.data != null
                       ? Text(
                           snapshot.data,
                           style: TextStyle(color: Colors.green, fontSize: 18),
                         )
-                      : Container())
-            ],
-          );
-        });
+                      : Container());
+            }else{
+              return SizedBox();
+            }
+          },
+        )
+      ],
+    );
   }
-
 
   _onMapCreated(GoogleMapController controller) {
     _mapController = controller;
@@ -481,8 +487,8 @@ class _MapPage1State extends State<MapPage1> {
     return plo;
   }
 
-  _getPermission()async {
-    bool val=false;
+  _getPermission() async {
+    bool val = false;
     print("STARTING LOCATION SERVICE");
     var location = Location();
     location.changeSettings(
@@ -490,11 +496,11 @@ class _MapPage1State extends State<MapPage1> {
         interval: 1000,
         distanceFilter: 500);
     if (!await location.hasPermission()) {
-    bool isa=  await location.requestPermission();
-    print("ISAA"+isa.toString());
-    val=isa;
-    }else{
-      val=true;
+      bool isa = await location.requestPermission();
+      print("ISAA" + isa.toString());
+      val = isa;
+    } else {
+      val = true;
     }
 
 //    try {
@@ -509,10 +515,10 @@ class _MapPage1State extends State<MapPage1> {
 //    }
     return val;
   }
+
   @override
   void initState() {
     super.initState();
-    _future=_getPermission();
-
+    _future = _getPermission();
   }
 }
