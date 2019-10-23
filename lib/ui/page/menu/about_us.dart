@@ -18,6 +18,7 @@ class AboutUsPage extends StatefulWidget {
 class AboutUsPageState extends State<AboutUsPage> {
   String lang;
   Future future;
+  String _title="About us";
 
   @override
   void initState() {
@@ -40,7 +41,7 @@ class AboutUsPageState extends State<AboutUsPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "About us",
+          _title,
         ),
         backgroundColor: Colors.lightGreen,
       ),
@@ -51,6 +52,7 @@ class AboutUsPageState extends State<AboutUsPage> {
               // ListInfo information = snapshot.data;
               if (snapshot.data != null) {
                 String header = snapshot.data[0]['header'] ?? "";
+                  _title=header;
                 String body = snapshot.data[1]['body'] ?? "";
                 String markdown = html2md.convert(body);
                 return SingleChildScrollView(
