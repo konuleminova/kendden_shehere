@@ -6,6 +6,8 @@ import 'package:kendden_shehere/redux/productlist/productlist_viewmodel.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/glistitem1.dart';
 import 'package:redux/redux.dart';
 
+import 'grocery_shop_list.dart';
+
 class GroceryListPage extends StatelessWidget {
   ScrollController _scrollController = new ScrollController();
   int page = 0;
@@ -13,13 +15,17 @@ class GroceryListPage extends StatelessWidget {
   String title;
   String id;
   String order;
+
   GroceryListPage({this.title, this.id, this.order});
+
   String lang;
+  Store<AppState>_store;
 
   @override
   Widget build(BuildContext context) {
     return StoreConnector(
         onInit: (store) {
+          _store=store;
           _scrollController = new ScrollController();
           _scrollController.addListener(_scrollListener);
           String langCode = Localizations.localeOf(context).languageCode;
@@ -37,7 +43,7 @@ class GroceryListPage extends StatelessWidget {
         },
         onDispose: (store) {
           store.state.newProducts.clear();
-          store.state.isScrolling=false;
+          store.state.isScrolling = false;
         },
         converter: (Store<AppState> store) =>
             ProductListViewModel.create(store),
@@ -57,7 +63,52 @@ class GroceryListPage extends StatelessWidget {
                         );
                       }).toList();
                     },
-                  )
+                  ),
+                  new Stack(
+                    children: <Widget>[
+                      InkWell(
+                        child: new IconButton(
+                            icon: Icon(
+                              Icons.shopping_cart,
+                              color: Colors.white,
+                            ),
+                            onPressed: null),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => GroceryShopCartPage(
+                                        fromCheckout: false,
+                                      )));
+                        },
+                      ),
+                      _store.state.shopItems.length != 0
+                          ? new Positioned(
+                              right: 11,
+                              top: 11,
+                              child: new Container(
+                                padding: EdgeInsets.all(2),
+                                decoration: new BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                constraints: BoxConstraints(
+                                  minWidth: 14,
+                                  minHeight: 14,
+                                ),
+                                child: Text(
+                                  _store.state.shopItems.length.toString(),
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 8,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            )
+                          : new Container()
+                    ],
+                  ),
                 ],
               ),
               body: viewModel.productList.length > 0
@@ -95,7 +146,8 @@ class GroceryListPage extends StatelessWidget {
                           ],
                           // controller: _scrollController,
                         ),
-                        viewModel.isScrolling && viewModel.productList.length > 0
+                        viewModel.isScrolling &&
+                                viewModel.productList.length > 0
                             ? new Container(
                                 child: CircularProgressIndicator(),
                                 alignment: Alignment.bottomCenter,
