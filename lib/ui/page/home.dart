@@ -33,7 +33,6 @@ class HomePage extends StatelessWidget {
   Future _future2;
   Store<AppState> _store;
 
-
   HomePage({this.fromCheckout});
 
   // GlobalKey _scaffold = GlobalKey();
@@ -47,10 +46,9 @@ class HomePage extends StatelessWidget {
     return WillPopScope(
         child: new StoreConnector(
             onInit: (store) {
-
-              _store=store;
+              _store = store;
               _future = Networks().bannerImages();
-              _future2=Networks().userinfo();
+              _future2 = Networks().userinfo();
               store.state.wishItems.clear();
               store.state.shopItems.clear();
               print("INITT");
@@ -200,7 +198,8 @@ class HomePage extends StatelessWidget {
                             UserAccountsDrawerHeader(
                               accountName: new FutureBuilder(
                                 future: _future2,
-                                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                                builder: (BuildContext context,
+                                    AsyncSnapshot snapshot) {
                                   if (snapshot.hasData) {
                                     return new Text(
                                       snapshot.data[1]['name'] +
@@ -224,12 +223,16 @@ class HomePage extends StatelessWidget {
                                         'https://content-static.upwork.com/uploads/2014/10/01073427/profilephoto1.jpg'),
                                     backgroundColor: Colors.transparent,
                                   )),
-                              decoration: new BoxDecoration(color: Colors.lightGreen),
+                              decoration:
+                                  new BoxDecoration(color: Colors.lightGreen),
                               onDetailsPressed: () {
-                                Navigator.pushNamed<dynamic>(context, "/profile")
+                                Navigator.pushNamed<dynamic>(
+                                        context, "/profile")
                                     .then((isLoggedOut) {
-                                  if (isLoggedOut != null && isLoggedOut == true) {
-                                    Navigator.pushReplacementNamed(context, '/login');
+                                  if (isLoggedOut != null &&
+                                      isLoggedOut == true) {
+                                    Navigator.pushReplacementNamed(
+                                        context, '/login');
                                   }
                                 });
                               },
@@ -250,23 +253,25 @@ class HomePage extends StatelessWidget {
                         ),
                         ListTile(
                           leading: Icon(Icons.category),
-                          title: Text(AppTranslations.of(context).text("categories")),
+                          title: Text(
+                              AppTranslations.of(context).text("categories")),
                           onTap: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (BuildContext context) =>
-                                    new GroceryCategoriesPage(
-                                        id: "0",
-                                        title: AppTranslations.of(context)
-                                            .text("categories"))));
+                                        new GroceryCategoriesPage(
+                                            id: "0",
+                                            title: AppTranslations.of(context)
+                                                .text("categories"))));
                             // Navigator.pushNamed(context, "/categories");
                           },
                         ),
                         GestureDetector(
                           child: ListTile(
                             leading: Icon(Icons.favorite),
-                            title: Text(AppTranslations.of(context).text("wish_list")),
+                            title: Text(
+                                AppTranslations.of(context).text("wish_list")),
                           ),
                           onTap: () {
                             Navigator.pushNamed(context, "/wish_list");
@@ -275,7 +280,8 @@ class HomePage extends StatelessWidget {
                         GestureDetector(
                           child: ListTile(
                             leading: Icon(Icons.history),
-                            title: Text(AppTranslations.of(context).text("order_history")),
+                            title: Text(AppTranslations.of(context)
+                                .text("order_history")),
                           ),
                           onTap: () {
                             Navigator.pushNamed(context, "/order_history");
@@ -283,7 +289,8 @@ class HomePage extends StatelessWidget {
                         ),
                         ListTile(
                           leading: Icon(Icons.feedback),
-                          title: Text(AppTranslations.of(context).text("delivery_terms")),
+                          title: Text(AppTranslations.of(context)
+                              .text("delivery_terms")),
                           onTap: () {
                             Navigator.pushNamed(context, "/delivery_terms");
                           },
@@ -297,21 +304,24 @@ class HomePage extends StatelessWidget {
                         ),
                         ListTile(
                           leading: Icon(Icons.info),
-                          title: Text(AppTranslations.of(context).text("about_us")),
+                          title: Text(
+                              AppTranslations.of(context).text("about_us")),
                           onTap: () {
                             Navigator.pushNamed(context, "/about_us");
                           },
                         ),
                         ListTile(
                           leading: Icon(Icons.phone),
-                          title: Text(AppTranslations.of(context).text("contact_us")),
+                          title: Text(
+                              AppTranslations.of(context).text("contact_us")),
                           onTap: () {
                             Navigator.pushNamed(context, "/contacts");
                           },
                         ),
                         ListTile(
                           leading: Icon(Icons.people),
-                          title: Text(AppTranslations.of(context).text("complaints")),
+                          title: Text(
+                              AppTranslations.of(context).text("complaints")),
                           onTap: () {
                             Navigator.pushNamed(context, "/complaints");
                           },
@@ -453,6 +463,18 @@ class HomePage extends StatelessWidget {
                                         alignment: Alignment.center,
                                         margin: EdgeInsets.only(top: 100),
                                       ),
+                                viewModel.homeList.homelist != null? Container(
+                                  alignment: Alignment.center,
+                                  color: Colors.lightGreen,
+                                  child: ListTile(
+                                    title: Text(
+                                      '© 2019 Agro Trade',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ):SizedBox()
                               ])
                             ],
                           )),
