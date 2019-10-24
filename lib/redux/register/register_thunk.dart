@@ -96,9 +96,16 @@ ThunkAction<AppState> registerThunkFunction(String lang, UserModel userModel) {
             }
           });
         } else {
+          print("Heree");
           userLogin.status = STATUS.SUCCESS;
           store.dispatch(LoginAction(status: STATUS.SUCCESS));
           userLogin.isLogin = true;
+          print("MoBILEE"+userModel.mobile);
+          await SharedPrefUtil()
+              .setString(SharedPrefUtil().username, userModel.username);
+          await SharedPrefUtil()
+              .setString(SharedPrefUtil().password, userModel.password);
+          print("MoBILEE"+userModel.mobile);
           Networks().sendSms(userModel.mobile).then((onValue) {
             store.dispatch(NavigateReplaceAction("/pin_code"));
           });
@@ -109,12 +116,10 @@ ThunkAction<AppState> registerThunkFunction(String lang, UserModel userModel) {
 //          await SharedPrefUtil()
 //              .setString(SharedPrefUtil().surname, userModel.surname);
 //          await SharedPrefUtil()
-//              .setString(SharedPrefUtil().username, userModel.username);
-//          await SharedPrefUtil()
 //              .setString(SharedPrefUtil().mobile, userModel.mobile);
           //  SharedPrefUtil().setString(SharedPrefUtil().id, responseBody.id);
-          store.dispatch(NavigateReplaceAction("/login"));
-          store.state.user_info = userModel;
+          //store.dispatch(NavigateReplaceAction("/login"));
+          //store.state.user_info = userModel;
         }
       }
     } catch (e) {}

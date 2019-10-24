@@ -27,6 +27,8 @@ class SharedPrefUtil {
   String lng = "lng";
   String price = "price";
   String deliveryPrice="Delivery price";
+  String pinCode="Pin Code";
+  String password="Password";
 
   Future<bool> getBool(String key) async {
     // sleep(const Duration(seconds:5));

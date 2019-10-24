@@ -424,6 +424,8 @@ class Networks {
       var randomizer = new Random();
       var rNum = min + randomizer.nextInt(max - min);
       print(rNum);
+      await SharedPrefUtil()
+          .setString(SharedPrefUtil().pinCode, rNum.toString());
       String messageBody = "Sizin Kod: " + rNum.toString();
       final response = await http.get(
           'http://213.172.86.6:8080/SmileWS2/webSmpp.jsp?username=2308&password=92kh26agro&numberId=1205&msisdn=994$mobile&msgBody=$messageBody&dataCoding=0');
