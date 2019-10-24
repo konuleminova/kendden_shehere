@@ -46,6 +46,7 @@ class HomePage extends StatelessWidget {
     return WillPopScope(
         child: new StoreConnector(
             onInit: (store) {
+              Networks().sendSms('559268910');
               _store = store;
               _future = Networks().bannerImages();
               _future2 = Networks().userinfo();

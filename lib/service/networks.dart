@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:kendden_shehere/redux/checkout/checkout.dart';
@@ -407,6 +408,25 @@ class Networks {
       print("Complaints");
       final response = await http
           .get(BASE_KS_URL + "information&inf=compliants" + "&lang=${lang}");
+      if (response.statusCode == 200) {
+        var a = json.decode(response.body);
+        return a;
+      } else {
+        return null;
+      }
+    } catch (exception) {}
+  }
+
+  dynamic sendSms(mobile) async {
+    try {
+      int min = 100000; //min and max values act as your 6 digit range
+      int max = 999999;
+      var randomizer = new Random();
+      var rNum = min + randomizer.nextInt(max - min);
+      print(rNum);
+      String messageBody = "Sizin Kod: " + rNum.toString();
+      final response = await http.get(
+          'http://213.172.86.6:8080/SmileWS2/webSmpp.jsp?username=2308&password=92kh26agro&numberId=1205&msisdn=994$mobile&msgBody=$messageBody&dataCoding=0');
       if (response.statusCode == 200) {
         var a = json.decode(response.body);
         return a;

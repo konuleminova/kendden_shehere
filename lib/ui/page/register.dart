@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:kendden_shehere/main.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
-import 'package:kendden_shehere/redux/login/login_viewmodel.dart';
 import 'package:kendden_shehere/redux/login/user_model.dart';
 import 'package:kendden_shehere/redux/register/register_viewmodel.dart';
-import 'package:kendden_shehere/service/networks.dart';
-import 'package:kendden_shehere/util/helper_class.dart';
 import 'package:redux/redux.dart';
 
 class RegisterPage extends StatefulWidget {
