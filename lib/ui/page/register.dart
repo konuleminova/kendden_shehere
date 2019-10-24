@@ -85,7 +85,7 @@ class RegisterPageState extends State<RegisterPage> {
         builder: (BuildContext context, RegisterViewModel viewModel) {
           this.viewModel = viewModel;
           return Scaffold(
-          //  key: scaffoldRegisterKey,
+            //  key: scaffoldRegisterKey,
             body: Stack(
               children: <Widget>[
                 Container(
@@ -162,7 +162,8 @@ class RegisterPageState extends State<RegisterPage> {
                                 _validatePassword &&
                                 _validateName &&
                                 _validateSurname &&
-                                _validateMobile && _validatePass2) {
+                                _validateMobile &&
+                                _validatePass2) {
                               opacity = 1;
                             } else {
                               opacity = 0.5;
@@ -207,7 +208,8 @@ class RegisterPageState extends State<RegisterPage> {
                                 _validatePassword &&
                                 _validateName &&
                                 _validateSurname &&
-                                _validateMobile && _validatePass2) {
+                                _validateMobile &&
+                                _validatePass2) {
                               opacity = 1;
                             } else {
                               opacity = 0.5;
@@ -254,7 +256,8 @@ class RegisterPageState extends State<RegisterPage> {
                                 _validatePassword &&
                                 _validateName &&
                                 _validateSurname &&
-                                _validateMobile && _validatePass2) {
+                                _validateMobile &&
+                                _validatePass2) {
                               opacity = 1;
                             } else {
                               opacity = 0.5;
@@ -299,7 +302,8 @@ class RegisterPageState extends State<RegisterPage> {
                                 _validatePassword &&
                                 _validateName &&
                                 _validateSurname &&
-                                _validateMobile && _validatePass2) {
+                                _validateMobile &&
+                                _validatePass2) {
                               opacity = 1;
                             } else {
                               opacity = 0.5;
@@ -312,13 +316,15 @@ class RegisterPageState extends State<RegisterPage> {
                           FocusScope.of(context).requestFocus(passFocus);
                         },
                         keyboardType: TextInputType.phone,
+                        maxLength: 9,
                         decoration: InputDecoration(
                             hintText: "Phone Number",
+                            counterText: "",
                             hintStyle: TextStyle(color: Colors.blue.shade200),
                             border: InputBorder.none,
-                            icon: Icon(
-                              Icons.phone,
-                              color: Colors.blue,
+                            icon: Text(
+                              "+994",
+                              style: TextStyle(color: Colors.blue,fontWeight: FontWeight.bold),
                             )),
                       )),
                   Container(
@@ -345,7 +351,8 @@ class RegisterPageState extends State<RegisterPage> {
                                 _validatePassword &&
                                 _validateName &&
                                 _validateSurname &&
-                                _validateMobile && _validatePass2) {
+                                _validateMobile &&
+                                _validatePass2) {
                               opacity = 1;
                             } else {
                               opacity = 0.5;
@@ -397,7 +404,7 @@ class RegisterPageState extends State<RegisterPage> {
                             UserModel userModel = new UserModel();
                             userModel.name = _controllerName.text;
                             userModel.surname = _controllerSurname.text;
-                            userModel.mobile=_controllerMobile.text;
+                            userModel.mobile = _controllerMobile.text;
                             userModel.username = _controllerUsername.text;
                             userModel.password = _controllerPass.text;
                             userModel.password2 = _controllerPass2.text;
@@ -418,7 +425,8 @@ class RegisterPageState extends State<RegisterPage> {
                                 _validatePassword &&
                                 _validateName &&
                                 _validateSurname &&
-                                _validateMobile && _validatePass2) {
+                                _validateMobile &&
+                                _validatePass2) {
                               opacity = 1;
                             } else {
                               opacity = 0.5;
@@ -473,7 +481,7 @@ class RegisterPageState extends State<RegisterPage> {
                     userModel.name = _controllerName.text;
                     userModel.surname = _controllerSurname.text;
                     userModel.username = _controllerUsername.text;
-                    userModel.mobile=_controllerMobile.text;
+                    userModel.mobile = _controllerMobile.text;
                     userModel.password = _controllerPass.text;
                     userModel.password2 = _controllerPass2.text;
                     viewModel.buildRegister(lang, userModel);
