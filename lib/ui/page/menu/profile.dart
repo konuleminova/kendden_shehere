@@ -78,7 +78,7 @@ class ProfileState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-        backgroundColor: Colors.grey.shade300,
+        backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text("View Profile"),
           backgroundColor: Colors.lightGreen,
@@ -97,13 +97,13 @@ class ProfileState extends State<ProfilePage> {
                               begin: Alignment.centerLeft,
                               end: Alignment.centerRight,
                               stops: [
-                            0.5,
-                            0.9
-                          ],
+                                0.5,
+                                0.9
+                              ],
                               colors: [
-                            Colors.lightGreen,
-                            Colors.lightGreen.shade300
-                          ])),
+                                Colors.lightGreen,
+                                Colors.lightGreen.shade300
+                              ])),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -119,7 +119,7 @@ class ProfileState extends State<ProfilePage> {
                                         radius: 50.0,
                                         backgroundImage: imageFile == null
                                             ? NetworkImage(
-                                                'https://content-static.upwork.com/uploads/2014/10/01073427/profilephoto1.jpg')
+                                            'https://content-static.upwork.com/uploads/2014/10/01073427/profilephoto1.jpg')
                                             : new FileImage(imageFile),
                                         backgroundColor: Colors.transparent,
                                       )),
@@ -134,7 +134,7 @@ class ProfileState extends State<ProfilePage> {
                                             child: Dialog(
                                               elevation: 0,
                                               backgroundColor:
-                                                  Colors.transparent,
+                                              Colors.transparent,
                                               child: Container(
                                                 padding: EdgeInsets.only(
                                                     right: 12.0, left: 12),
@@ -147,11 +147,11 @@ class ProfileState extends State<ProfilePage> {
                                                     Expanded(
                                                       child: Column(
                                                         mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceEvenly,
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
                                                         crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
+                                                        CrossAxisAlignment
+                                                            .center,
                                                         children: <Widget>[
                                                           SizedBox(
                                                             height: 10.0,
@@ -279,20 +279,20 @@ class ProfileState extends State<ProfilePage> {
                                     });
                               },
                             ),
-                            ListTile(
-                              title: Text("Email"),
-                              leading: Icon(Icons.person_outline),
-                              subtitle: Text(snapshot.data[1]['email']),
-                              onTap: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (buildContext) {
-                                      return ProfileEditDialog("email");
-                                    });
-                              },
-                            ),
+//                            ListTile(
+//                              title: Text("Email"),
+//                              leading: Icon(Icons.person_outline),
+//                              subtitle: Text(snapshot.data[1]['email']),
+//                              onTap: () {
+//                                showDialog(
+//                                    context: context,
+//                                    builder: (buildContext) {
+//                                      return ProfileEditDialog("email");
+//                                    });
+//                              },
+//                            ),
                             SizedBox(
-                              height: 2.0,
+                              height: 16.0,
                             ),
                             Row(
                               children: <Widget>[
@@ -300,9 +300,9 @@ class ProfileState extends State<ProfilePage> {
                                     flex: 2,
                                     child: Column(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                      MainAxisAlignment.start,
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Container(
                                           child: Text("Date of birth",
@@ -320,7 +320,7 @@ class ProfileState extends State<ProfilePage> {
                                               PopupMenuButton<String>(
                                                 onSelected: choiceAction,
                                                 icon:
-                                                    Icon(Icons.arrow_drop_down),
+                                                Icon(Icons.arrow_drop_down),
                                                 itemBuilder:
                                                     (BuildContext context) {
                                                   return Constants.gender
@@ -335,7 +335,7 @@ class ProfileState extends State<ProfilePage> {
                                               )
                                             ],
                                             mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                            MainAxisAlignment.center,
                                           ),
                                           decoration: BoxDecoration(
                                               border: Border.all(
@@ -353,9 +353,9 @@ class ProfileState extends State<ProfilePage> {
                                         child: GestureDetector(
                                           child: Column(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.start,
+                                            MainAxisAlignment.start,
                                             crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            CrossAxisAlignment.start,
                                             children: <Widget>[
                                               Container(
                                                 child: Text(
@@ -369,19 +369,19 @@ class ProfileState extends State<ProfilePage> {
                                               Container(
                                                 height: 40,
                                                 margin:
-                                                    EdgeInsets.only(right: 16),
+                                                EdgeInsets.only(right: 16),
                                                 alignment: Alignment.center,
                                                 child: Row(
                                                   mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceAround,
+                                                  MainAxisAlignment
+                                                      .spaceAround,
                                                   children: <Widget>[
                                                     SizedBox(
                                                       width: 8.0,
                                                     ),
                                                     Text(
                                                       _selectedDate.year
-                                                              .toString() +
+                                                          .toString() +
                                                           " /" +
                                                           _selectedDate.month
                                                               .toString() +
@@ -389,7 +389,7 @@ class ProfileState extends State<ProfilePage> {
                                                           _selectedDate.day
                                                               .toString(),
                                                       textAlign:
-                                                          TextAlign.center,
+                                                      TextAlign.center,
                                                       style: TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 16),
@@ -400,7 +400,7 @@ class ProfileState extends State<ProfilePage> {
                                                 decoration: BoxDecoration(
                                                     border: Border.all(
                                                         color:
-                                                            Colors.grey[400])),
+                                                        Colors.grey[400])),
                                               ),
                                             ],
                                           ),
@@ -412,6 +412,7 @@ class ProfileState extends State<ProfilePage> {
                             ),
                           ],
                         )),
+                    SizedBox(height: 16,),
                     Container(
                       color: Colors.white,
                       padding: EdgeInsets.all(16),
@@ -449,9 +450,9 @@ class ProfileState extends State<ProfilePage> {
 
   imageSelector(BuildContext context, ImageSource imageSource) async {
     imageFile = await ImagePicker.pickImage(source: imageSource
-        //maxHeight: 50.0,
-        //maxWidth: 50.0,
-        );
+      //maxHeight: 50.0,
+      //maxWidth: 50.0,
+    );
     if (imageFile != null) {
       List<int> imageBytes = imageFile.readAsBytesSync();
       String base64Image = base64Encode(imageBytes);
