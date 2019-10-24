@@ -397,6 +397,7 @@ class RegisterPageState extends State<RegisterPage> {
                             UserModel userModel = new UserModel();
                             userModel.name = _controllerName.text;
                             userModel.surname = _controllerSurname.text;
+                            userModel.mobile=_controllerMobile.text;
                             userModel.username = _controllerUsername.text;
                             userModel.password = _controllerPass.text;
                             userModel.password2 = _controllerPass2.text;
@@ -472,6 +473,7 @@ class RegisterPageState extends State<RegisterPage> {
                     userModel.name = _controllerName.text;
                     userModel.surname = _controllerSurname.text;
                     userModel.username = _controllerUsername.text;
+                    userModel.mobile=_controllerMobile.text;
                     userModel.password = _controllerPass.text;
                     userModel.password2 = _controllerPass2.text;
                     viewModel.buildRegister(lang, userModel);

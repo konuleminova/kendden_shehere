@@ -97,14 +97,13 @@ ThunkAction<AppState> registerThunkFunction(String lang, UserModel userModel) {
           });
         } else {
           print("Heree");
-          userLogin.status = STATUS.SUCCESS;
-          store.dispatch(LoginAction(status: STATUS.SUCCESS));
-          userLogin.isLogin = true;
-          print("MoBILEE"+userModel.mobile);
           await SharedPrefUtil()
               .setString(SharedPrefUtil().username, userModel.username);
           await SharedPrefUtil()
               .setString(SharedPrefUtil().password, userModel.password);
+          userLogin.status = STATUS.SUCCESS;
+          store.dispatch(LoginAction(status: STATUS.SUCCESS));
+         // userLogin.isLogin = true;
           print("MoBILEE"+userModel.mobile);
           Networks().sendSms(userModel.mobile).then((onValue) {
             store.dispatch(NavigateReplaceAction("/pin_code"));

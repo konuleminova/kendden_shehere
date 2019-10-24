@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kendden_shehere/redux/login/thunk_login.dart';
 import 'package:kendden_shehere/service/networks.dart';
+import 'package:kendden_shehere/ui/page/home.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 import 'package:pin_code_view/pin_code_view.dart';
 
@@ -38,10 +40,29 @@ class PinCodePageState extends State<PinCodePage> {
         correctPin: _pin,
         onCodeSuccess: (code) {
           print(code);
-          loginThunkFunction(_userName, _password);
+          Networks().login(_userName, _password).then((onValue) {
+            if (onValue != null) {
+              SharedPrefUtil().setBool(SharedPrefUtil().isLoginKey, true);
+              SharedPrefUtil().setString(SharedPrefUtil().uid, onValue.id);
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => HomePage(
+                            fromCheckout: false,
+                          )));
+            }
+          });
         },
         onCodeFail: (code) {
-          print(code);
+          Fluttertoast.showToast(
+              msg: "Pin code is wrong.",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIos: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0
+          );
         },
       ),
     );
