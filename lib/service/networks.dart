@@ -286,6 +286,7 @@ class Networks {
         var a = json.decode(response.body);
         Navigator.pop(context);
         SharedPrefUtil().setString(inf, data);
+        print(response.body);
         return a;
       } else {
         return null;

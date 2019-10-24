@@ -43,7 +43,9 @@ class PinCodePageState extends State<PinCodePage> {
           Networks().login(_userName, _password).then((onValue) {
             if (onValue != null) {
               SharedPrefUtil().setBool(SharedPrefUtil().isLoginKey, true);
-              SharedPrefUtil().setString(SharedPrefUtil().uid, onValue.id);
+              SharedPrefUtil().setString(SharedPrefUtil().uid, onValue.id).then((onValue){
+                Networks().updateUser(context, 'sms', '1');
+              });
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
@@ -54,6 +56,7 @@ class PinCodePageState extends State<PinCodePage> {
           });
         },
         onCodeFail: (code) {
+          Networks().updateUser(context, 'sms', '0');
           Fluttertoast.showToast(
               msg: "Pin code is wrong.",
               toastLength: Toast.LENGTH_SHORT,
