@@ -17,6 +17,7 @@
         android:name="io.flutter.app.FlutterApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="Kendden Shehere">
+
         <activity
             android:name=".ChatActivity"
             android:theme="@style/AppTheme.FullScreen"></activity>
@@ -34,6 +35,7 @@
                  there is no splash screen (such as the default splash screen
                  defined in @style/LaunchTheme).
             -->
+            <meta-data android:name="android.webkit.WebView.EnableSafeBrowsing" android:value="false" />
             <meta-data
                 android:name="io.flutter.app.android.SplashScreenUntilFirstFrame"
                 android:value="true" />
