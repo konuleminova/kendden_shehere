@@ -37,20 +37,20 @@ class _MapPage1State extends State<MapPage1> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Column(
-      children: <Widget>[
-        new Container(
-          padding: EdgeInsets.all(1),
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height * 0.35,
-          alignment: AlignmentDirectional.topCenter,
-          color: Colors.white,
-          child: FutureBuilder(
-            future: _future,
-            builder: (BuildContext context, AsyncSnapshot snapshot2) {
-              if (snapshot2.hasData) {
-                return snapshot2.data
-                    ? GoogleMap(
+    return FutureBuilder(
+      future: _future,
+      builder: (BuildContext context, AsyncSnapshot snapshot2) {
+        if (snapshot2.hasData) {
+          return snapshot2.data
+              ? Column(
+                  children: <Widget>[
+                    new Container(
+                      padding: EdgeInsets.all(1),
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.35,
+                      alignment: AlignmentDirectional.topCenter,
+                      color: Colors.white,
+                      child: GoogleMap(
                         gestureRecognizers: Set()
                           ..add(Factory<PanGestureRecognizer>(
                               () => PanGestureRecognizer()))
@@ -72,32 +72,34 @@ class _MapPage1State extends State<MapPage1> {
                         onMapCreated: _onMapCreated,
                         initialCameraPosition: CameraPosition(
                             target: _lastMapPositon, zoom: 11.00),
-                      )
-                    : SizedBox();
-              } else {
-                return SizedBox();
-              }
-            },
-          ),
-          margin: EdgeInsets.only(left: 16, right: 16, bottom: 20, top: 5),
-        ),
-        FutureBuilder(
-          future: _getAddress(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.hasData) {
-              return Container(
-                  child: snapshot.data != null
-                      ? Text(
-                          snapshot.data,
-                          style: TextStyle(color: Colors.green, fontSize: 18),
-                        )
-                      : Container());
-            }else{
-              return SizedBox();
-            }
-          },
-        )
-      ],
+                      ),
+                      margin: EdgeInsets.only(
+                          left: 16, right: 16, bottom: 20, top: 5),
+                    ),
+                    FutureBuilder(
+                      future: _getAddress(),
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        if (snapshot.hasData) {
+                          return Container(
+                              child: snapshot.data != null
+                                  ? Text(
+                                      snapshot.data,
+                                      style: TextStyle(
+                                          color: Colors.green, fontSize: 18),
+                                    )
+                                  : Container());
+                        } else {
+                          return SizedBox();
+                        }
+                      },
+                    )
+                  ],
+                )
+              : SizedBox();
+        } else {
+          return SizedBox();
+        }
+      },
     );
   }
 
