@@ -32,7 +32,6 @@ ThunkAction<AppState> loginThunkFunction(String username, String password) {
       SharedPrefUtil().setString(SharedPrefUtil().uid, responseBody.id);
       store.dispatch(NavigateReplaceAction("/home"));
     } else {
-      store.dispatch(NavigateReplaceAction("/pin_code"));
       checkInternetConnection().then((onValue) {
         if (onValue) {
           userLogin.status = STATUS.FAIL;
