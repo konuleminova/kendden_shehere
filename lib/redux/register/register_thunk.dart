@@ -99,14 +99,19 @@ ThunkAction<AppState> registerThunkFunction(String lang, UserModel userModel) {
           userLogin.status = STATUS.SUCCESS;
           store.dispatch(LoginAction(status: STATUS.SUCCESS));
           userLogin.isLogin = true;
-          SharedPrefUtil()
-              .setBool(SharedPrefUtil().isLoginKey, userLogin.isLogin);
-          SharedPrefUtil().setString(SharedPrefUtil().name, userModel.name);
-          SharedPrefUtil()
-              .setString(SharedPrefUtil().surname, userModel.surname);
-          SharedPrefUtil()
-              .setString(SharedPrefUtil().username, userModel.username);
-          SharedPrefUtil().setString(SharedPrefUtil().mobile, userModel.mobile);
+          Networks().sendSms(userModel.mobile).then((onValue) {
+            store.dispatch(NavigateReplaceAction("/pin_code"));
+          });
+//          await SharedPrefUtil()
+//              .setBool(SharedPrefUtil().isLoginKey, userLogin.isLogin);
+//          await SharedPrefUtil()
+//              .setString(SharedPrefUtil().name, userModel.name);
+//          await SharedPrefUtil()
+//              .setString(SharedPrefUtil().surname, userModel.surname);
+//          await SharedPrefUtil()
+//              .setString(SharedPrefUtil().username, userModel.username);
+//          await SharedPrefUtil()
+//              .setString(SharedPrefUtil().mobile, userModel.mobile);
           //  SharedPrefUtil().setString(SharedPrefUtil().id, responseBody.id);
           store.dispatch(NavigateReplaceAction("/login"));
           store.state.user_info = userModel;

@@ -24,6 +24,7 @@ import 'package:kendden_shehere/ui/page/menu/settings.dart';
 import 'package:kendden_shehere/ui/page/home.dart';
 import 'package:kendden_shehere/ui/page/index.dart';
 import 'package:kendden_shehere/ui/page/login.dart';
+import 'package:kendden_shehere/ui/page/pin_code_view.dart';
 import 'package:kendden_shehere/ui/page/register.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:provider/provider.dart';
@@ -117,7 +118,8 @@ class MyAppState extends State<MyApp> {
               "/fag": (BuildContext context) => FagPage(),
               "/contacts": (BuildContext context) => ContactsPage(),
               "/categories": (BuildContext context) => GroceryCategoriesPage(),
-              '/complaints':(BuildContext context) => ComplaintsPage()
+              '/complaints':(BuildContext context) => ComplaintsPage(),
+              '/pin_code':(BuildContext context) => PinCodePage()
 
               // "/product_list": (BuildContext context) => ProductListPage()
             },
