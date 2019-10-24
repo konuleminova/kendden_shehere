@@ -105,8 +105,17 @@ ThunkAction<AppState> registerThunkFunction(String lang, UserModel userModel) {
           store.dispatch(LoginAction(status: STATUS.SUCCESS));
          // userLogin.isLogin = true;
           print("MoBILEE"+userModel.mobile);
+          store.dispatch(NavigatePushAction("/pin_code"));
           Networks().sendSms(userModel.mobile).then((onValue) {
-            store.dispatch(NavigateReplaceAction("/pin_code"));
+            Fluttertoast.showToast(
+                msg: "SMS send.",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIos: 1,
+                backgroundColor: Colors.green,
+                textColor: Colors.white,
+                fontSize: 16.0
+            );
           });
 //          await SharedPrefUtil()
 //              .setBool(SharedPrefUtil().isLoginKey, userLogin.isLogin);
