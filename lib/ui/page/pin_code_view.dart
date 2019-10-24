@@ -3,7 +3,8 @@ import 'package:pin_code_view/pin_code_view.dart';
 
 class PinCodePage extends StatelessWidget {
   Widget build(BuildContext context) {
-    return PinCode(
+    return Scaffold(backgroundColor:Colors.lightGreen,body: PinCode(
+      backgroundColor: Colors.lightGreen,
       title: Text(
         "Lock Screen",
         style: TextStyle(
@@ -24,6 +25,6 @@ class PinCodePage extends StatelessWidget {
       onCodeFail: (code) {
         print(code);
       },
-    );
+    ),);
   }
 }
