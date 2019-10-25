@@ -26,28 +26,26 @@ class GroceryListItemOneState extends State<GroceryListItemOne>
   String title;
   Product product;
   ProductViewModel viewModel;
-  AnimationController animationController;
-  Animation animation;
+//  AnimationController animationController;
+//  Animation animation;
   int currentState = 0;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    animationController =
-        AnimationController(duration: Duration(milliseconds: 100), vsync: this);
-    animation = Tween(begin: 28, end: 32.0).animate(animationController)
-      ..addListener(() {
-        setState(() {});
-      });
+//    animationController =
+//        AnimationController(duration: Duration(milliseconds: 100), vsync: this);
+//    animation = Tween(begin: 28, end: 32.0).animate(animationController)
+//      ..addListener(() {
+//        setState(() {});
+//      });
   }
 
   @override
   Widget build(BuildContext context) {
     product = widget.product;
-    String langCode = Localizations
-        .localeOf(context)
-        .languageCode;
+    String langCode = Localizations.localeOf(context).languageCode;
     if (langCode == "tr") {
       title = product.name_az.trim();
     } else if (langCode == "en") {
@@ -68,154 +66,140 @@ class GroceryListItemOneState extends State<GroceryListItemOne>
         builder: (BuildContext context, ProductViewModel viewModel) {
           return product != null
               ? Container(
-            decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(
-                    color: !product.isAdded
-                        ? Colors.grey[300]
-                        : Colors.green[300]),
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(5.0),
-                    topRight: Radius.circular(5.0)),
-                boxShadow: [
-                  BoxShadow(
-                      blurRadius: 10.0,
-                      color: Colors.grey.shade200,
-                      spreadRadius: 2.0)
-                ]),
-            margin: EdgeInsets.all(4.0),
-            child: Column(
-              children: <Widget>[
-                Expanded(
-                  child: Container(
-                    padding: EdgeInsets.all(10.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        GestureDetector(
-                          child: Container(
-                              child: FadeInImage.assetNetwork(
-                                image:
-                                "https://kenddenshehere.az/images/pr/th/" +
-                                    product.code +
-                                    ".jpg",
-                                placeholder: "images/noimage.png",
-                                fit: BoxFit.cover,
-                                height: 150,
-                              ),
-                              height: 150,
-                              padding: EdgeInsets.only(
-                                  left: 10,
-                                  right: 10,
-                                  top: 10,
-                                  bottom: 4)),
-                          onTap: () {
-                            //   Navigator.pushNamed(context, "/product_detail");
-                            Route route = MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    GroceryDetailsPage(product));
-                            Navigator.push(context, route);
-                          },
-                        ),
-                        new GroceryTitle(text: title),
-                        new Container(
-                            height: 20,
-                            child: new Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment:
-                              CrossAxisAlignment.center,
-                              children: <Widget>[
-                                new Row(
-                                  children: <Widget>[
-                                    new RatingStarWidget(1, 1, 16),
-                                    new Container(
-                                      child: Text("4.2"),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                          color: !product.isAdded
+                              ? Colors.grey[300]
+                              : Colors.green[300]),
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(5.0),
+                          topRight: Radius.circular(5.0)),
+                      boxShadow: [
+                        BoxShadow(
+                            blurRadius: 10.0,
+                            color: Colors.grey.shade200,
+                            spreadRadius: 2.0)
+                      ]),
+                  margin: EdgeInsets.all(4.0),
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.all(10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              GestureDetector(
+                                child: Container(
+                                    child: FadeInImage.assetNetwork(
+                                      image:
+                                          "https://kenddenshehere.az/images/pr/th/" +
+                                              product.code +
+                                              ".jpg",
+                                      placeholder: "images/noimage.png",
+                                      fit: BoxFit.cover,
+                                      height: 150,
                                     ),
-                                  ],
-                                ),
-                                new InkWell(
-                                    focusColor: Colors.green,
-                                    highlightColor: Colors.green,
-                                    hoverColor: Colors.green,
-                                    child: IconButton(
-                                      icon: Icon(
-                                        product.isLiked
-                                            ? Icons.favorite
-                                            : Icons.favorite_border,
-                                        color: Colors.pink[400],
-                                        size: double.parse(
-                                            animation.value.toString()),
+                                    height: 150,
+                                    padding: EdgeInsets.only(
+                                        left: 10,
+                                        right: 10,
+                                        top: 10,
+                                        bottom: 4)),
+                                onTap: () {
+                                  //   Navigator.pushNamed(context, "/product_detail");
+                                  Route route = MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          GroceryDetailsPage(product));
+                                  Navigator.push(context, route);
+                                },
+                              ),
+                              new GroceryTitle(text: title),
+                              new Container(
+                                  height: 20,
+                                  child: new Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      new Row(
+                                        children: <Widget>[
+                                          new RatingStarWidget(1, 1, 16),
+                                          new Container(
+                                            child: Text("4.2"),
+                                          ),
+                                        ],
                                       ),
-                                      onPressed: () {
-//                                              if(currentState == 0){
-//                                                animationController.forward();
-//                                                currentState = 1;
-//                                              } else{
-//                                                animationController.reverse();
-//                                                currentState = 0;
-//                                              }
-                                        Networks()
-                                            .add_Remove_WishList(
-                                            product.id)
-                                            .then((onvalue) {
-                                          if (onvalue != null) {
-                                            if (onvalue['action'] ==
-                                                "added") {
-                                              // this.viewModel.changeLikeStatus(index, true);
-                                              viewModel
-                                                  .addWishItem(product);
-                                              setState(() {
-                                                product.isLiked = true;
-                                                animationController
-                                                    .forward();
-                                              });
-                                            } else if (onvalue[
-                                            'action'] ==
-                                                "removed") {
-                                              // this.viewModel.changeLikeStatus(index, false);
-                                              viewModel.removeWishItem(
-                                                  product);
-                                              setState(() {
-                                                product.isLiked = false;
-                                                animationController
-                                                    .reverse();
-                                              });
+                                      IconButton(
+                                        icon: Icon(
+                                            product.isLiked
+                                                ? Icons.favorite
+                                                : Icons.favorite_border,
+                                            color: Colors.pink[400],
+                                            size: 30
+                                        ),
+                                        onPressed: () {
+                                          setState(() {
+                                            if (!product.isLiked) {
+                                              product.isLiked = true;
+                                              // animationController.forward();
+                                            } else {
+                                              product.isLiked = false;
+                                              // animationController.reverse();
                                             }
-                                            print(onvalue);
-                                          }
-                                        });
-                                      },
-                                    )),
-                              ],
-                            )),
-                        new Column(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            new GrocerySubtitle(text: product.counttype),
-                            new GrocerySubtitle(
-                                text: product.price + " AZN"),
-                          ],
+                                          });
+                                          Networks()
+                                              .add_Remove_WishList(
+                                              product.id)
+                                              .then((onvalue) {
+                                            if (onvalue != null) {
+                                              if (onvalue['action'] ==
+                                                  "added") {
+                                                // this.viewModel.changeLikeStatus(index, true);
+                                                viewModel
+                                                    .addWishItem(product);
+                                              } else if (onvalue[
+                                              'action'] ==
+                                                  "removed") {
+                                                // this.viewModel.changeLikeStatus(index, false);
+                                                viewModel.removeWishItem(
+                                                    product);
+                                              }
+                                              print(onvalue);
+                                            }
+                                          });
+                                        },
+                                      )
+                                    ],
+                                  )),
+                              new Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  new GrocerySubtitle(text: product.counttype),
+                                  new GrocerySubtitle(
+                                      text: product.price + " AZN"),
+                                ],
+                              ),
+                              addedWidget(),
+                            ],
+                          ),
                         ),
-                        addedWidget(),
-
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
-          )
+                )
               : SizedBox();
         });
   }
 
   addedWidget() {
-int weight=product.weight;
-   return AnimatedCrossFade(
+    int weight = product.weight;
+    return AnimatedCrossFade(
       firstChild: Container(
           alignment: Alignment.bottomRight,
           child: IconButton(
@@ -226,8 +210,7 @@ int weight=product.weight;
               ),
               onPressed: () {
                 Networks()
-                    .addToBasket(product.id,
-                    product.weight.toString())
+                    .addToBasket(product.id, product.weight.toString())
                     .then((onvalue) {
                   print(onvalue);
                   if (onvalue != null) {
@@ -235,8 +218,7 @@ int weight=product.weight;
                       viewModel.addShopItem(product);
                       // viewModel.onFetchShopList();
                       setState(() {
-                        product.isAdded =
-                        !product.isAdded;
+                        product.isAdded = !product.isAdded;
                       });
                       //viewModel.changeAddStatus(index, true, product.weight);
                     }
@@ -251,10 +233,8 @@ int weight=product.weight;
             border: Border.all(color: Colors.grey)),
         alignment: Alignment.topRight,
         child: new Row(
-          crossAxisAlignment:
-          CrossAxisAlignment.center,
-          mainAxisAlignment:
-          MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             new IconButton(
               icon: new Icon(Icons.remove),
@@ -263,18 +243,13 @@ int weight=product.weight;
                 weight--;
                 if (weight < 1) {
                   weight = 1;
-                  Networks()
-                      .removeFromBasket(product.id)
-                      .then((onvalue) {
+                  Networks().removeFromBasket(product.id).then((onvalue) {
                     print("REMOVE");
                     if (onvalue != null) {
-                      if (onvalue['action'] ==
-                          "done") {
-                        viewModel
-                            .removeShopItem(product);
+                      if (onvalue['action'] == "done") {
+                        viewModel.removeShopItem(product);
                         setState(() {
-                          product.isAdded =
-                          !product.isAdded;
+                          product.isAdded = !product.isAdded;
                           product.weight = weight;
                         });
                         //viewModel.changeAddStatus(index, false, weight);
@@ -283,12 +258,10 @@ int weight=product.weight;
                   });
                 } else {
                   Networks()
-                      .addToBasket(product.id,
-                      weight.toString())
+                      .addToBasket(product.id, weight.toString())
                       .then((onvalue) {
                     if (onvalue != null) {
-                      if (onvalue['action'] ==
-                          "done") {
+                      if (onvalue['action'] == "done") {
                         setState(() {
                           // product.isAdded = !product.isAdded;
                           product.weight--;
@@ -311,8 +284,7 @@ int weight=product.weight;
               onPressed: () {
                 weight++;
                 Networks()
-                    .addToBasket(
-                    product.id, weight.toString())
+                    .addToBasket(product.id, weight.toString())
                     .then((onvalue) {
                   if (onvalue != null) {
                     if (onvalue['action'] == "done") {
