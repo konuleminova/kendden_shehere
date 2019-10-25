@@ -17,6 +17,7 @@ class ProductListViewModel {
   Function(String lang, String query, String page) onSearchProductList;
   Function(String lang, String query, String page) onSearchLoadMore;
   bool isScrolling=false;
+  bool isLoading=false;
 
   ProductListViewModel(
       {this.onFetchProductList,
@@ -26,7 +27,7 @@ class ProductListViewModel {
       this.onLoadMoreProductList,
       this.onChangeOrderProductList,
       this.onSearchProductList,
-      this.onSearchLoadMore,this.isScrolling});
+      this.onSearchLoadMore,this.isScrolling,this.isLoading});
 
   factory ProductListViewModel.create(Store<AppState> store) {
     _onFetchProductList(
@@ -59,6 +60,7 @@ class ProductListViewModel {
     return ProductListViewModel(
       productList: store.state.newProducts,
       isScrolling: store.state.isScrolling,
+      isLoading: store.state.isLoading,
       onFetchProductList: _onFetchProductList,
       onLoadMoreProductList: _onLoadMoreProductList,
       onChangeOrderProductList: _onChangeOrderProductList,

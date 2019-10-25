@@ -10,13 +10,15 @@ class ProductViewModel {
   Function(Product shopItem) addWishItem;
   Function(Product shopItem) removeWishItem;
   List<Product>shopItems;
+  bool isLoading;
   ProductViewModel(
       {
         this.addShopItem,
         this.removeShopItem,
         this.addWishItem,
         this.removeWishItem,
-        this.shopItems
+        this.shopItems,
+        this.isLoading
       });
 
   factory ProductViewModel.create(Store<AppState> store) {
@@ -41,7 +43,8 @@ class ProductViewModel {
         removeShopItem: _removeShopItem,
         addWishItem: _addWishItem,
         removeWishItem: _removeWishItem,
-      shopItems: store.state.shopItems
+      shopItems: store.state.shopItems,
+      isLoading: store.state.isLoading
     );
   }
 }

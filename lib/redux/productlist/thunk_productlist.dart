@@ -10,7 +10,10 @@ ThunkAction<AppState> productListThunkAction(String id, String lang,
   return (Store<AppState> store) async {
     ProductsInCategory response =
         await Networks().productsInCategory(id, order, lang, limit, page);
+    print("RResponse");
+    store.state.isLoading = false;
     if (response != null) {
+      store.state.isLoading = false;
       if (state == "init") {
         store.dispatch(
             FetchProductListAction(data: response.productsInCategory));
@@ -24,10 +27,11 @@ ThunkAction<AppState> productListThunkAction(String id, String lang,
         Future.delayed(const Duration(milliseconds: 1000), () {
           store.dispatch(ShowBasketAction(store));
           store.dispatch(ShowWishAction(store));
-          store.state.isScrolling=false;
+          store.state.isScrolling = false;
         });
       }
     } else {
+      store.state.isLoading = false;
       //  store.dispatch(FetchProductListAction(data: []));
     }
   };

@@ -4,6 +4,7 @@ import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/productlist/productlist_viewmodel.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/glistitem1.dart';
+import 'package:kendden_shehere/util/helper_class.dart';
 import 'package:redux/redux.dart';
 
 import 'grocery_shop_list.dart';
@@ -19,13 +20,14 @@ class GroceryListPage extends StatelessWidget {
   GroceryListPage({this.title, this.id, this.order});
 
   String lang;
-  Store<AppState>_store;
+  Store<AppState> _store;
 
   @override
   Widget build(BuildContext context) {
     return StoreConnector(
         onInit: (store) {
-          _store=store;
+          store.state.isLoading=true;
+          _store = store;
           _scrollController = new ScrollController();
           _scrollController.addListener(_scrollListener);
           String langCode = Localizations.localeOf(context).languageCode;
@@ -37,8 +39,12 @@ class GroceryListPage extends StatelessWidget {
             lang = "1";
           }
         },
+        onDidChange: (ProductListViewModel viewModel){
+          viewModel.isLoading=false;
+        },
         onInitialBuild: (ProductListViewModel viewModel) {
           this.viewModel = viewModel;
+          //viewModel.isLoading=true;
           fetchProductList();
         },
         onDispose: (store) {
@@ -111,58 +117,60 @@ class GroceryListPage extends StatelessWidget {
                   ),
                 ],
               ),
-              body: viewModel.productList.length > 0
-                  ? new Stack(
-                      children: <Widget>[
-                        new CustomScrollView(
-                          controller: _scrollController,
-                          slivers: <Widget>[
-                            SliverPadding(
-                                padding: const EdgeInsets.all(8),
-                                sliver: new SliverGrid(
-                                    gridDelegate:
-                                        SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisSpacing: 1,
-                                            mainAxisSpacing: 1,
-                                            crossAxisCount: 2,
-                                            childAspectRatio: 0.5),
-                                    delegate: new SliverChildBuilderDelegate(
-                                        (BuildContext context, int index) {
-                                      return Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.6,
-                                          height: 370,
-                                          child: InkWell(
-                                            child: GroceryListItemOne(
-                                              product:
-                                                  viewModel.productList[index],
-                                            ),
-                                          ));
-                                    },
-                                        childCount:
-                                            viewModel.productList.length)))
+              body: !viewModel.isLoading
+                  ? (viewModel.productList.length > 0
+                      ? new Stack(
+                          children: <Widget>[
+                            new CustomScrollView(
+                              controller: _scrollController,
+                              slivers: <Widget>[
+                                SliverPadding(
+                                    padding: const EdgeInsets.all(8),
+                                    sliver: new SliverGrid(
+                                        gridDelegate:
+                                            SliverGridDelegateWithFixedCrossAxisCount(
+                                                crossAxisSpacing: 1,
+                                                mainAxisSpacing: 1,
+                                                crossAxisCount: 2,
+                                                childAspectRatio: 0.5),
+                                        delegate:
+                                            new SliverChildBuilderDelegate(
+                                                (BuildContext context,
+                                                    int index) {
+                                          return Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.6,
+                                              height: 370,
+                                              child: InkWell(
+                                                child: GroceryListItemOne(
+                                                  product: viewModel
+                                                      .productList[index],
+                                                ),
+                                              ));
+                                        },
+                                                childCount: viewModel
+                                                    .productList.length)))
+                              ],
+                              // controller: _scrollController,
+                            ),
+                            viewModel.isScrolling &&
+                                    viewModel.productList.length > 0
+                                ? new Container(
+                                    child: CircularProgressIndicator(),
+                                    alignment: Alignment.bottomCenter,
+                                  )
+                                : SizedBox(
+                                    height: 0.0,
+                                    width: 0.0,
+                                  )
                           ],
-                          // controller: _scrollController,
-                        ),
-                        viewModel.isScrolling &&
-                                viewModel.productList.length > 0
-                            ? new Container(
-                                child: CircularProgressIndicator(),
-                                alignment: Alignment.bottomCenter,
-                              )
-                            : SizedBox(
-                                height: 0.0,
-                                width: 0.0,
-                              )
-                      ],
-                    )
-                  : Center(
-                      child: viewModel.productList.length > 0
-                          ? CircularProgressIndicator()
-                          : Text("Product is not found."),
-                    ));
+                        )
+                      : Center(
+                          child: Text("Product is not found.")
+                        ))
+                  : loading());
         });
   }
 

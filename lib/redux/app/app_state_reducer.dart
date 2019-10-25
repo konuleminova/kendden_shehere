@@ -12,6 +12,7 @@ AppState appStateReducer(AppState state, dynamic action) {
         action,
       ),
       isScrolling: state.isScrolling,
+      isLoading: state.isLoading,
       wishItems: wishListReducer(state.wishItems, action),
       user_info: loginReducer(state.user_info, action),
       newProducts: productListReducer(state.newProducts, action),
