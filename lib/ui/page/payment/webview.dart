@@ -55,7 +55,7 @@ class WebViewPage extends StatelessWidget {
     final flutterWebviewPlugin = new FlutterWebviewPlugin();
     flutterWebviewPlugin.onUrlChanged.listen((String urls) {
       print("printt"+urls);
-      if (urls == 'https://kenddenshehere.az/basket/') {
+      if (urls == 'https://kendden.az/') {
         Route route = MaterialPageRoute(
             builder: (BuildContext context) => HomePage(
               fromCheckout: true,
