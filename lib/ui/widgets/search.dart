@@ -67,6 +67,9 @@ class SearchWidget extends SearchDelegate<String> {
         onDispose: (store) {
           store.state.newProducts.clear();
         },
+        onDidChange: (ProductListViewModel viewModel){
+        //print(  viewModel.productList);
+        },
         converter: (Store<AppState> store) =>
             ProductListViewModel.create(store),
         builder: (BuildContext context, ProductListViewModel viewModel) {
@@ -112,9 +115,7 @@ class SearchWidget extends SearchDelegate<String> {
                   ],
                 )
               : Center(
-                  child: viewModel.productList.length > 0
-                      ? CircularProgressIndicator()
-                      : Text("Product is not found."),
+                  child:  CircularProgressIndicator()
                 );
         });
   }
