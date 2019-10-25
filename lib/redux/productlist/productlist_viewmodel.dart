@@ -38,7 +38,6 @@ class ProductListViewModel {
 
     _onLoadMoreProductList(
         String id, String lang, String limit, String page, String order) {
-      store.state.isScrolling=true;
       store.dispatch(
           productListThunkAction(id, lang, limit, page, order, "loadMore"));
     }
@@ -54,7 +53,6 @@ class ProductListViewModel {
     }
 
     _onSearchMore(String lang, String query, String page) {
-      store.state.isScrolling=true;
       store.dispatch(searchListThunkAction(lang, query, page,'loadmore'));
     }
     return ProductListViewModel(

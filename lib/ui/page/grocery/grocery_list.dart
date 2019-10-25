@@ -195,7 +195,7 @@ class GroceryListPage extends StatelessWidget {
   }
 
   void loadMore() async {
-    page = page + 10;
+    page = page + 30;
     loadm();
   }
 
@@ -211,10 +211,11 @@ class GroceryListPage extends StatelessWidget {
   }
 
   void fetchProductList() {
-    viewModel.onFetchProductList(id, lang, "10", page.toString(), order);
+    viewModel.onFetchProductList(id, lang, "30", page.toString(), order);
   }
 
   void loadm() {
-    viewModel.onLoadMoreProductList(id, lang, "10", page.toString(), order);
+    viewModel.isScrolling=true;
+    viewModel.onLoadMoreProductList(id, lang, "30", page.toString(), order);
   }
 }

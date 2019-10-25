@@ -14,6 +14,7 @@ ThunkAction<AppState> productListThunkAction(String id, String lang,
     store.state.isLoading = false;
     if (response != null) {
       store.state.isLoading = false;
+      store.state.isScrolling=false;
       if (state == "init") {
         store.dispatch(
             FetchProductListAction(data: response.productsInCategory));
@@ -32,6 +33,7 @@ ThunkAction<AppState> productListThunkAction(String id, String lang,
       }
     } else {
       store.state.isLoading = false;
+      store.state.isScrolling=false;
       //  store.dispatch(FetchProductListAction(data: []));
     }
   };
