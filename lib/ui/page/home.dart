@@ -256,6 +256,7 @@ class HomePage extends StatelessWidget {
                           title: Text(
                               AppTranslations.of(context).text("categories")),
                           onTap: () {
+                            Navigator.pop(context);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -274,6 +275,7 @@ class HomePage extends StatelessWidget {
                                 AppTranslations.of(context).text("wish_list")),
                           ),
                           onTap: () {
+                            Navigator.pop(context);
                             Navigator.pushNamed(context, "/wish_list");
                           },
                         ),
@@ -284,6 +286,7 @@ class HomePage extends StatelessWidget {
                                 .text("order_history")),
                           ),
                           onTap: () {
+                            Navigator.pop(context);
                             Navigator.pushNamed(context, "/order_history");
                           },
                         ),
@@ -292,6 +295,7 @@ class HomePage extends StatelessWidget {
                           title: Text(AppTranslations.of(context)
                               .text("delivery_terms")),
                           onTap: () {
+                            Navigator.pop(context);
                             Navigator.pushNamed(context, "/delivery_terms");
                           },
                         ),
@@ -299,6 +303,7 @@ class HomePage extends StatelessWidget {
                           leading: Icon(Icons.question_answer),
                           title: Text(AppTranslations.of(context).text("fag")),
                           onTap: () {
+                            Navigator.pop(context);
                             Navigator.pushNamed(context, "/fag");
                           },
                         ),
@@ -307,6 +312,7 @@ class HomePage extends StatelessWidget {
                           title: Text(
                               AppTranslations.of(context).text("about_us")),
                           onTap: () {
+                            Navigator.pop(context);
                             Navigator.pushNamed(context, "/about_us");
                           },
                         ),
@@ -315,6 +321,7 @@ class HomePage extends StatelessWidget {
                           title: Text(
                               AppTranslations.of(context).text("contact_us")),
                           onTap: () {
+                            Navigator.pop(context);
                             Navigator.pushNamed(context, "/contacts");
                           },
                         ),
@@ -323,6 +330,7 @@ class HomePage extends StatelessWidget {
                           title: Text(
                               AppTranslations.of(context).text("complaints")),
                           onTap: () {
+                            Navigator.pop(context);
                             Navigator.pushNamed(context, "/complaints");
                           },
                         ),
