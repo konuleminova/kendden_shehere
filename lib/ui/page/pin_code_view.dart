@@ -40,12 +40,20 @@ class PinCodePageState extends State<PinCodePage> {
         correctPin: _pin,
         onCodeSuccess: (code) {
           print(code);
-          Networks().login(_userName, _password).then((onValue) {
+          Networks().login(_userName, _password).then((onValue) async {
             if (onValue != null) {
-              SharedPrefUtil().setBool(SharedPrefUtil().isLoginKey, true);
-              SharedPrefUtil().setString(SharedPrefUtil().uid, onValue.id).then((onValue){
+              await SharedPrefUtil().setBool(SharedPrefUtil().isLoginKey, true);
+              await SharedPrefUtil()
+                  .setString(SharedPrefUtil().uid, onValue.id)
+                  .then((onValue) {
                 Networks().updateUser(context, 'sms', '1');
               });
+              await SharedPrefUtil()
+                  .setString(SharedPrefUtil().name, onValue.name);
+              await SharedPrefUtil()
+                  .setString(SharedPrefUtil().surname, onValue.surname);
+              await SharedPrefUtil()
+                  .setString(SharedPrefUtil().mobile, onValue.mobile);
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
@@ -64,8 +72,7 @@ class PinCodePageState extends State<PinCodePage> {
               timeInSecForIos: 1,
               backgroundColor: Colors.red,
               textColor: Colors.white,
-              fontSize: 16.0
-          );
+              fontSize: 16.0);
         },
       ),
     );
