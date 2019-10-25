@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/util/helper_class.dart';
+import 'package:kendden_shehere/util/sharedpref_util.dart';
 
 class ProfileEditDialog extends StatelessWidget {
   String text;
@@ -69,6 +70,8 @@ class ProfileEditDialog extends StatelessWidget {
                             colorBrightness: Brightness.dark,
                             onPressed: () {
                               if (_textController.text.isNotEmpty) {
+                                SharedPrefUtil()
+                                    .setString(text, _textController.text);
                                 Networks().updateUser(
                                     context, text, _textController.text);
                               } else {

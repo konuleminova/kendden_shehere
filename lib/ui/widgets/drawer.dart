@@ -150,7 +150,7 @@ class DrawerWidget extends StatelessWidget {
   }
 
   _getData() {
-    name = SharedPrefUtil().name;
+    name =  SharedPrefUtil().name;
     surname = SharedPrefUtil().surname;
     return Networks().userinfo();
   }
