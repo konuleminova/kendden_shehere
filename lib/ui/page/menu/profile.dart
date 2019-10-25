@@ -111,6 +111,7 @@ class ProfileState extends State<ProfilePage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: <Widget>[
+
                               GestureDetector(
                                   child: CircleAvatar(
                                       minRadius: 60,
