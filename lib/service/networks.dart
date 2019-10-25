@@ -106,7 +106,7 @@ class Networks {
       print("Search");
       final response = await http.get(BASE_KS_URL +
           "search" +
-          "&q=${query}+&start=${start}+&limit=${10}+&lang=${lang}");
+          "&q=${query}+&start=${start}+&limit=${30}+&lang=${lang}");
       if (response.statusCode == 200) {
         return ProductsInCategory.fromJson(json.decode(response.body));
       } else {

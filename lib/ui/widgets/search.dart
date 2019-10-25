@@ -121,7 +121,7 @@ class SearchWidget extends SearchDelegate<String> {
   }
   void loadMore() async {
     //isScrolling = true;
-    page = page + 10;
+    page = page + 30;
     viewModel.onSearchLoadMore(lang,query,page.toString());
   }
   @override
