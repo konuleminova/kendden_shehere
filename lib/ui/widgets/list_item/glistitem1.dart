@@ -283,6 +283,9 @@ class GroceryListItemOneState extends State<GroceryListItemOne>
               icon: new Icon(Icons.add),
               onPressed: () {
                 weight++;
+                setState(() {
+                  product.weight++;
+                });
                 Networks()
                     .addToBasket(product.id, weight.toString())
                     .then((onvalue) {
@@ -290,9 +293,6 @@ class GroceryListItemOneState extends State<GroceryListItemOne>
                     if (onvalue['action'] == "done") {
                       //  viewModel.changeAddStatus(index, true, weight);
                       //viewModel.onFetchShopList();
-                      setState(() {
-                        product.weight++;
-                      });
                     }
                   }
                 });
