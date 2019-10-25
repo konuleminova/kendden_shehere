@@ -81,6 +81,7 @@ flutter:
   uses-material-design: true
   assets:
     - images/noimage.png
+    - images/profile.png
     - images/ks/
     - assets/locale/localization_en.json
     - assets/locale/localization_ru.json

@@ -118,8 +118,7 @@ class ProfileState extends State<ProfilePage> {
                                       child: CircleAvatar(
                                         radius: 50.0,
                                         backgroundImage: imageFile == null
-                                            ? NetworkImage(
-                                            'https://content-static.upwork.com/uploads/2014/10/01073427/profilephoto1.jpg')
+                                            ? AssetImage('images/profile.png')
                                             : new FileImage(imageFile),
                                         backgroundColor: Colors.transparent,
                                       )),

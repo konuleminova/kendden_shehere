@@ -44,8 +44,7 @@ class DrawerWidget extends StatelessWidget {
                     backgroundColor: Colors.green.shade300,
                     child: CircleAvatar(
                       radius: 50.0,
-                      backgroundImage: NetworkImage(
-                          'https://content-static.upwork.com/uploads/2014/10/01073427/profilephoto1.jpg'),
+                      backgroundImage: AssetImage('images/profile.png'),
                       backgroundColor: Colors.transparent,
                     )),
                 decoration: new BoxDecoration(color: Colors.lightGreen),
