@@ -12,13 +12,15 @@ Reducer<List<Product>> productListReducer = combineReducers<List<Product>>([
 
 List<Product> fetchProductListReducer(
     List<Product> state, FetchProductListAction action) {
-  state.clear();
   List<Product> tempList = new List();
   print(action.data.toString() + "actionn data");
-  for (int i = 0; i < action.data.length; i++) {
-    tempList.add(action.data[i]);
+  if (action.data.length > 0) {
+    state.clear();
+    for (int i = 0; i < action.data.length; i++) {
+      tempList.add(action.data[i]);
+    }
+    state.addAll(tempList);
   }
-  state.addAll(tempList);
 
   return state;
 }
@@ -27,7 +29,6 @@ List<Product> loadMoreProductListReducer(
     List<Product> state, LoadMoreProductListAction action) {
   if (action.data.length > 0) {
     state.addAll(action.data);
-    return state;
   }
   return state;
 }
