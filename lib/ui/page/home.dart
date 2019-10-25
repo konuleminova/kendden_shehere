@@ -362,13 +362,14 @@ class HomePage extends StatelessWidget {
 
   Future<Null> _refreshLocal() async {
     await Future.delayed(Duration(seconds: 1));
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-            builder: (_) => HomePage(
-                  fromCheckout: false,
-                )),
-        (Route<dynamic> route) => false);
+    viewModel.onFetchAllCollection();
+//    Navigator.pushAndRemoveUntil(
+//        context,
+//        MaterialPageRoute(
+//            builder: (_) => HomePage(
+//                  fromCheckout: false,
+//                )),
+//        (Route<dynamic> route) => false);
     return null;
   }
 
