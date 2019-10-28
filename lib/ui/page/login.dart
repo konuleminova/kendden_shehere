@@ -297,9 +297,9 @@ class LoginState extends State<LoginPage> {
                         ),
                         Expanded(
                           child: RaisedButton(
-                              child: Text("Twitter"),
+                              child: Text("Instagram"),
                               textColor: Colors.white,
-                              color: Colors.indigo,
+                              color: const Color(0xFFbc2a8d),
                               shape: RoundedRectangleBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(40)),
