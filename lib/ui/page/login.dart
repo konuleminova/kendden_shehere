@@ -7,7 +7,9 @@ import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/login/login_viewmodel.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
+import 'package:kendden_shehere/util/instagram.dart' as insta;
 import 'dart:convert';
+
 class LoginPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -61,6 +63,16 @@ class LoginState extends State<LoginPage> {
   Future<Null> _logOut() async {
     await facebookSignIn.logOut();
     _showMessage('Logged out.');
+  }
+
+  void instagram_login() {
+    insta.getToken('3164283233644276','https://kendden.az').then((token) {
+      if (token != null) {
+        _showMessage("Login Success");
+      } else {
+        _showMessage("Login Error");
+      }
+    });
   }
 
   _showMessage(message) {
@@ -269,15 +281,14 @@ class LoginState extends State<LoginPage> {
                         ),
                         Expanded(
                           child: RaisedButton(
-                            child: Text("Facebook"),
-                            textColor: Colors.white,
-                            color: Colors.blue,
-                            shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(40)),
-                            ),
-                            onPressed:_login
-                          ),
+                              child: Text("Facebook"),
+                              textColor: Colors.white,
+                              color: Colors.blue,
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(40)),
+                              ),
+                              onPressed: _login),
                         ),
                         SizedBox(
                           width: 10.0,
@@ -291,7 +302,7 @@ class LoginState extends State<LoginPage> {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(40)),
                             ),
-                            onPressed: () {},
+                            onPressed:instagram_login
                           ),
                         ),
                         SizedBox(
