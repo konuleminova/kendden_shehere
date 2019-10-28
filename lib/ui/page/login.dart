@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/redux/login/user_model.dart';
-import 'package:kendden_shehere/main.dart';
-import 'package:kendden_shehere/service/networks.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/login/login_viewmodel.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 class LoginPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -23,6 +23,56 @@ class LoginState extends State<LoginPage> {
   bool _validatePassword = false;
   double opacity;
   bool status = false;
+  static final FacebookLogin facebookSignIn = new FacebookLogin();
+
+  String _message = 'Log in/out by pressing the buttons below.';
+
+  Future<Null> _login() async {
+    final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
+
+    switch (result.status) {
+      case FacebookLoginStatus.loggedIn:
+        final FacebookAccessToken accessToken = result.accessToken;
+        final graphResponse = await http.get(
+            'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=${accessToken}');
+        final profile = json.decode(graphResponse.body);
+        print("Profile:::");
+        print(profile);
+        _showMessage('''
+         Logged in!
+         
+         Token: ${accessToken.token}
+         User id: ${accessToken.userId}
+         Expires: ${accessToken.expires}
+         Permissions: ${accessToken.permissions}
+         Declined permissions: ${accessToken.declinedPermissions}
+         ''');
+        break;
+      case FacebookLoginStatus.cancelledByUser:
+        _showMessage('Login cancelled by the user.');
+        break;
+      case FacebookLoginStatus.error:
+        _showMessage('Something went wrong with the login process.\n'
+            'Here\'s the error Facebook gave us: ${result.errorMessage}');
+        break;
+    }
+  }
+
+  Future<Null> _logOut() async {
+    await facebookSignIn.logOut();
+    _showMessage('Logged out.');
+  }
+
+  _showMessage(message) {
+    Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIos: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -180,16 +230,15 @@ class LoginState extends State<LoginPage> {
                           padding: EdgeInsets.symmetric(vertical: 16.0),
                           color: Colors.green[700],
                           onPressed: () {
-
-                                passFocus.unfocus();
-                                userFocus.unfocus();
-                                if (_validateUsername && _validatePassword) {
-                                  viewModel.buildLogin(_controllerUsername.text,
-                                      _controllerPass.text);
-                                  setState(() {
-                                    status = true;
-                                  });
-                                }
+                            passFocus.unfocus();
+                            userFocus.unfocus();
+                            if (_validateUsername && _validatePassword) {
+                              viewModel.buildLogin(_controllerUsername.text,
+                                  _controllerPass.text);
+                              setState(() {
+                                status = true;
+                              });
+                            }
                           },
                           elevation: 7,
                           shape: RoundedRectangleBorder(
@@ -227,7 +276,7 @@ class LoginState extends State<LoginPage> {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(40)),
                             ),
-                            onPressed: () {},
+                            onPressed:_login
                           ),
                         ),
                         SizedBox(
