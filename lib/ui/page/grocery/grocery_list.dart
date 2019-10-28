@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
+import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/productlist/productlist_viewmodel.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/glistitem1.dart';
@@ -168,7 +169,7 @@ class GroceryListPage extends StatelessWidget {
                           ],
                         )
                       : Center(
-                          child: Text("Product is not found.")
+                          child: Text(AppTranslations.of(context).text("no_product"))
                         ))
                   : loading());
         });

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/productlist/product_model.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/rating_star_dialog.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/glistitem5.dart';
@@ -20,7 +21,7 @@ class OrderShopListPage extends StatelessWidget {
     return new Scaffold(
       appBar: new AppBar(
         backgroundColor: Colors.lightGreen,
-        title: new Text("Order History"),
+        title: new Text(AppTranslations.of(context).text("order_history")),
       ),
       body: Column(
         children: <Widget>[
@@ -73,7 +74,7 @@ class OrderShopListPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           new Text(
-            "Write a Review",
+           AppTranslations.of(context).text("review"),
             style: TextStyle(color: Colors.green, fontSize: 22),
           ),
           new RatingStarWidget(5, 0, 35),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/service/networks.dart';
-import 'package:kendden_shehere/util/helper_class.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 
 class ProfileEditDialog extends StatelessWidget {
@@ -32,7 +32,7 @@ class ProfileEditDialog extends StatelessWidget {
                     SizedBox(height: 10.0),
                     Flexible(
                       child: Text(
-                        "Do you want to save changes?",
+                        AppTranslations.of(context).text("save_changes"),
                         style: TextStyle(color: Colors.pink),
                       ),
                     ),
@@ -52,7 +52,7 @@ class ProfileEditDialog extends StatelessWidget {
                       children: <Widget>[
                         Expanded(
                           child: RaisedButton(
-                            child: Text("No"),
+                            child: Text(AppTranslations.of(context).text("no")),
                             color: Colors.red,
                             colorBrightness: Brightness.dark,
                             onPressed: () {
@@ -65,7 +65,7 @@ class ProfileEditDialog extends StatelessWidget {
                         SizedBox(width: 10.0),
                         Expanded(
                           child: RaisedButton(
-                            child: Text("Yes"),
+                            child: Text(AppTranslations.of(context).text("yes")),
                             color: Colors.green,
                             colorBrightness: Brightness.dark,
                             onPressed: () {

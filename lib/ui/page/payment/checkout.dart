@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
+import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/checkout/checkout.dart';
 import 'package:kendden_shehere/ui/page/map/flutter_map.dart';
 import 'package:kendden_shehere/ui/page/map/searchplace.dart';
@@ -28,7 +29,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
       key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: Colors.lightGreen,
-        title: Text("Checkout"),
+        title: Text(AppTranslations.of(context).text("checkout")),
         centerTitle: true,
       ),
       body: new ListView(

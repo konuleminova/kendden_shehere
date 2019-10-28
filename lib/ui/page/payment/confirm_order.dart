@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/checkout/checkout.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/home.dart';
@@ -70,22 +71,22 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
-          title: new Text("Information"),
+          title: new Text(AppTranslations.of(context).text("info")),
           content: new Text(
-            "Sale of alcoholic beverages by PORTAL to minors (persons below 18 years of age) is prohibited. When a customer orders an order, ALICI's identity will be determined in the appropriate document (ID card). If ALICI is under 18 years of age, the sale of goods to the customer will be stopped.",
+              AppTranslations.of(context).text("saleof"),
             style: TextStyle(color: Colors.red),
           ),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
 
             new FlatButton(
-              child: new Text("Close"),
+              child: new Text(AppTranslations.of(context).text("close")),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             new FlatButton(
-              child: new Text("Accept"),
+              child: new Text(AppTranslations.of(context).text("accept")),
               onPressed: () {
                 Navigator.of(context).pop();
                 _finishBAsket();

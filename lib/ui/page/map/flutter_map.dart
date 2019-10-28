@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/ui/page/map/map_big.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 import 'package:location/location.dart';
@@ -128,20 +129,20 @@ class _MapPage1State extends State<MapPage1> {
     if (pointInPolygon(points, lat, lng)) {
       if (price >= 20) {
         _deliveryPrice = "0";
-        _deliveryAmount = "Your delivery is free";
+        _deliveryAmount = AppTranslations.of(context).text("amount_0");
       } else {
         _deliveryPrice = "4";
-        _deliveryAmount = "Your delivery amount is 4 AZN";
+        _deliveryAmount = AppTranslations.of(context).text("amount_1");
       }
     } else if (pointInPolygon(points2, lat, lng)) {
       _deliveryPrice = "4";
-      _deliveryAmount = "Your delivery amount is 4 AZN";
+      _deliveryAmount = AppTranslations.of(context).text("amount_2");
     } else if (pointInPolygon(points3, lat, lng)) {
       _deliveryPrice = "7";
-      _deliveryAmount = "Your delivery amount is 7 AZN";
+      _deliveryAmount = AppTranslations.of(context).text("amount_3");
     } else {
       _deliveryPrice = "-1";
-      _deliveryAmount = "Hemin eraziye catdirilma movcud deyil.";
+      _deliveryAmount = AppTranslations.of(context).text("amount_4");
     }
     SharedPrefUtil().setString(SharedPrefUtil().deliveryPrice, _deliveryPrice);
     return _deliveryAmount;

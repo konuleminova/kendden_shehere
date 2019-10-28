@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/productlist/product_model.dart';
 import 'package:kendden_shehere/redux/productlist/product_viewmodel.dart';
@@ -244,7 +245,7 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                 new Container(
                   padding: EdgeInsets.only(right: 8.0),
                   child: new Text(
-                    "Add to Cart",
+                 AppTranslations.of(context).text("add_to_cart"),
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,

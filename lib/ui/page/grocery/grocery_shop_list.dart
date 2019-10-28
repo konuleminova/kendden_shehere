@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:kendden_shehere/ui/page/home.dart';
+import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/ui/widgets/animation_shop_cart.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/payment_success_dialog.dart';
 import 'package:redux/redux.dart';
@@ -31,7 +31,7 @@ class GroceryShopCartPage extends StatelessWidget {
           return new Scaffold(
               appBar: new AppBar(
                 backgroundColor: Colors.lightGreen,
-                title: new Text("Shopping List"),
+                title: new Text(AppTranslations.of(context).text('shop_list')),
               ),
               body: fromCheckout
                   ? Container(

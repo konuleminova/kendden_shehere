@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/productlist/product_model.dart';
 import 'package:kendden_shehere/redux/shoplist/shop_viewmodel.dart';
@@ -132,7 +133,7 @@ class _BuildTotalWidgetAnimationState extends State<BuildTotalWidgetAnimation>
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
-                        Text("Checkout", style: TextStyle(color: Colors.white)),
+                        Text(AppTranslations.of(context).text("checkout"), style: TextStyle(color: Colors.white)),
                       ],
                     ),
                   )
