@@ -65,8 +65,10 @@ class LoginState extends State<LoginPage> {
     _showMessage('Logged out.');
   }
 
+//constants.APP_ID,
+//constants.APP_SECRET
   void instagram_login() {
-    insta.getToken('3164283233644276','https://kendden.az').then((token) {
+    insta.getToken('3164283233644276', 'https://kendden.az').then((token) {
       if (token != null) {
         _showMessage("Login Success");
       } else {
@@ -295,15 +297,14 @@ class LoginState extends State<LoginPage> {
                         ),
                         Expanded(
                           child: RaisedButton(
-                            child: Text("Twitter"),
-                            textColor: Colors.white,
-                            color: Colors.indigo,
-                            shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(40)),
-                            ),
-                            onPressed:instagram_login
-                          ),
+                              child: Text("Twitter"),
+                              textColor: Colors.white,
+                              color: Colors.indigo,
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(40)),
+                              ),
+                              onPressed: instagram_login),
                         ),
                         SizedBox(
                           width: 20.0,
