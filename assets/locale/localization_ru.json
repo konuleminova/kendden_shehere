@@ -5,103 +5,95 @@
   "tab_notifications": "Notificaciones",
   "categories": "Kатегории",
   "title_select_language": "домашняя страница",
-  "wish_list":"Избранные товары",
-  "order_history":"История заказов",
-  "notifications":"Уведомления",
-  "delivery_terms":"Условия доставки",
-  "fag":"Вопрос/Ответ ",
-  "about_us":"О Компании",
-  "contact_us":"Контакты",
-  "complaints":"Жалобы и предложения",
-  "english":
-  "no":
-  "info":
-  "saleof":
-  "checkout":
-  "close":
-  "accept":
-  "confirm_order":
-  "delivery_address":
-  "name":
-  "surname":
-  "mobile":
-  "email":
-  "dob":
-  "username":
-  "time":
-  "next":
-  "payment_option":
-  "shop_list":
-  "sub_total_price":
-  "delivery_price":
-  "fast_delivery":
-  "fag":
-  "got_answer":
-  "settings":
-  "login":
-  "forget_pass":
-  "connect_with":
-  "dont_account":
-  "sign_up":
-  "subtotal":
-  "total":
-  "checkout":
-  "view_profile":
-  "no_product":
-  "send":
-  "no_internet":
-  "internet_settings":
-  "try_again":
-  "thank you":
-  "your_transaction":
-  "profile_photo":
-  "processing":
-  "camera":
-  "gallery":
-  "total_price":
-  "save_changes":
-  "rate_app":
-  "review":
-  "amount_1":
-  "amount_2":
-  "amount_3":
-  "select_lang":
-  "please_fill":
-  "save":
-  "russian":
-  "az":
-  "profile_photo":
-  "add_to_cart":
-  "sign_up":
-  "sign_out":
-  "time_1":
-  "time_2":
-  "time_3":
-  "time_4":
-  "female":
-  "male":
-  "order_1":
-  "order_2":
-  "order_3":
-  "order_4":
-  "fast_delivery":
-  "poor":
-  "normal":
-  "good":
-  "reason_review":
-  "payment":
-  "address":
-  "online_payment":
-  "on_delivery":
-  "delivery_time":
-  "satisfy":
-  "new_address":
-  "select_camera":
-  "suggestion_or_complaint":
-  "enter_phonenumber",:
-
-
-
-
-
+  "wish_list": "Избранные товары",
+  "order_history": "История заказов",
+  "notifications": "Уведомления",
+  "delivery_terms": "Условия доставки",
+  "about_us": "О Компании",
+  "contact_us": "Контакты",
+  "complaints": "Жалобы и предложения",
+  "english": "Английский",
+  "no": "Нет",
+  "yes": "Bəli",
+  "info": "Да",
+  "saleof": "Продажа алкогольных напитков ПОРТАЛОМ несовершеннолетним (лицам младше 18 лет) запрещена. Когда клиент заказывает заказ, личность покупателя будет определена в соответствующем документе (удостоверение личности). Если покупатель18 является лицом ниже продажи товара покупателю.",
+  "checkout": "Оформить заказ",
+  "close": "Закрыть",
+  "accept": "Принять",
+  "confirm_order": "Подтвердите заказ",
+  "delivery_address": "Адрес доставки",
+  "name": "Имя",
+  "surname": "Фамилия",
+  "mobile": "Мобильный",
+  "email": "Электронная почта",
+  "dob": "Дата рождения",
+  "username": "Имя пользователя",
+  "time": "Время",
+  "next": "Далее",
+  "payment_option": "Вариант оплаты",
+  "shop_list": "Список покупок",
+  "sub_total_price": "Итоговая цена",
+  "delivery_price": "Цена доставки",
+  "fast_delivery1": "Быстрая доставка",
+  "fag": "F.A.G",
+  "got_answer": "Получил ответ",
+  "settings": "Настройки",
+  "login": "Войти",
+  "forget_pass": "Забыли пароль?",
+  "connect_with": "Связаться с",
+  "dont_account": "У вас нет учетной записи?",
+  "sign_up": "Зарегистрируйтесь",
+  "subtotal": "Итого",
+  "total": "CОбщая",
+  "view_profile": "Просмотр профиля",
+  "no_product": "Товар не найден.",
+  "send": "Отправить",
+  "no_internet": "Медленно или нет подключения к интернету.",
+  "internet_settings": "Пожалуйста, проверьте настройки интернета.",
+  "try_again": "Попробуй еще раз",
+  "thank you": "Спасибо!",
+  "your_transaction": "Ваша транзакция прошла успешно",
+  "profile_photo": "Фотография профиля",
+  "processing": "Обработка ...",
+  "camera": "Камера",
+  "gallery": "Галерея",
+  "total_price": "Общая стоимость",
+  "save_changes": "Общая стоимость\nХотите сохранить изменения?",
+  "rate_app": "Как вы оцениваете наше приложение?",
+  "review": "Написать отзыв",
+  "amount_1": "Сумма доставки 4 AZN. При заказе от 20 AZN доставка бесплатна.",
+  "amount_2": "Сумма доставки 4 AZN.",
+  "amount_3": "Сумма доставки 7 AZN",
+  "select_lang": "Выберите язык",
+  "please_fill": "Пожалуйста, заполните все поля.",
+  "save": "Сохранить",
+  "russian": "Русский",
+  "az": "Азербайджанский",
+  "add_to_cart": "Добавить в корзину",
+  "sign_out": "Выйти",
+  "time_1": "11:30-13:00",
+  "time_2": "13:00-19:30",
+  "time_3": "Быстрая доставка",
+  "time_4": "Возьми из магазина",
+  "female": "Женщина",
+  "male": "Мужчина",
+  "order_1": "Имя: А-Я",
+  "order_2": "Имя: Я- А",
+  "order_3": "Дешевые - Дорогие",
+  "order_4": "Дорого-Дешевые",
+  "fast_delivery2": "Для быстрой доставки 2 (иконка) будут добавлены к стоимости.",
+  "poor": "Плохо",
+  "normal": "Нормальный",
+  "good": "Хорошо",
+  "reason_review": "В чем причина вашего  отзыва?",
+  "payment": "Оплата",
+  "address": "Адрес",
+  "online_payment": "Онлайн оплата",
+  "on_delivery": "При доставкe",
+  "delivery_time": "Время доставки",
+  "satisfy": "Довольны ли вы предоставленной услугой?",
+  "new_address": "Пожалуйста, добавьте новый адрес",
+  "select_camera": "Выберите изображение с камеры:",
+  "suggestion_or_complaint": "Предложение или жалоба",
+  "enter_phonenumber": "Введите номер телефона или адрес электронной почты"
 }
