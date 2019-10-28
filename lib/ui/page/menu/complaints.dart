@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:html2md/html2md.dart' as html2md;
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -42,7 +43,7 @@ class ComplaintsPageState extends State<ComplaintsPage> {
     // TODO: implement build
     return new Scaffold(
         appBar: new AppBar(
-          title: Text("Complaints"),
+          title: Text(AppTranslations.of(context).text("suggestion_or_complaint")),
           backgroundColor: Colors.lightGreen,
         ),
         body: new FutureBuilder(
@@ -81,26 +82,26 @@ class ComplaintsPageState extends State<ComplaintsPage> {
                                     'Sizə göstərilən xidmətdən ümumi məmnuniyyət səviyyəniz:'),
                                 children: <Widget>[
                                   ListTile(
-                                    title: Text('Zeif'),
+                                    title: Text(AppTranslations.of(context).text("poor")),
                                     onTap: () {
                                       setState(() {
-                                        _value1 = "Zeif";
+                                        _value1 = AppTranslations.of(context).text("poor");
                                       });
                                     },
                                   ),
                                   ListTile(
-                                    title: Text('Normal'),
+                                    title: Text(AppTranslations.of(context).text("normal")),
                                     onTap: () {
                                       setState(() {
-                                        _value1 = "Normal";
+                                        _value1 = AppTranslations.of(context).text("normal");
                                       });
                                     },
                                   ),
                                   ListTile(
-                                    title: Text('Ela'),
+                                    title: Text(AppTranslations.of(context).text("good")),
                                     onTap: () {
                                       setState(() {
-                                        _value1 = "Ela";
+                                        _value1 = AppTranslations.of(context).text("good");
                                       });
                                     },
                                   ),
