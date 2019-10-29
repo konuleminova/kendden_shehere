@@ -44,7 +44,6 @@ class GroceryListPage extends StatelessWidget {
         },
         onInitialBuild: (ProductListViewModel viewModel) {
           this.viewModel = viewModel;
-          //viewModel.isLoading=true;
           fetchProductList();
         },
         onDispose: (store) {
@@ -211,9 +210,9 @@ class GroceryListPage extends StatelessWidget {
   }
 
   void fetchProductList() {
-    try{
+    try {
       viewModel.onFetchProductList(id, lang, "30", page.toString(), order);
-    }catch(e){
+    } catch (e) {
       print(e);
     }
   }
