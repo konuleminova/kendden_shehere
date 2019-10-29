@@ -49,10 +49,10 @@ class GroceryListItemFourState extends State<GroceryListItemFour> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         new GroceryTitle(text: orderItem.id),
-                        Text(
+                        orderItem.payment_status.isNotEmpty?Text(
                           orderItem.payment_status,
                           style: TextStyle(color: Colors.grey),
-                        ),
+                        ):SizedBox(),
                         new GrocerySubtitle(text: orderItem.dtsubmit),
                       ],
                     ),
