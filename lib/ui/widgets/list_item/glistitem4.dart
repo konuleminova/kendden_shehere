@@ -43,12 +43,16 @@ class GroceryListItemFourState extends State<GroceryListItemFour> {
                     Navigator.push(context, route);
                   },
                   title: Container(
-                    height: 90.0,
+                    height: 100,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         new GroceryTitle(text: orderItem.id),
+                        Text(
+                          orderItem.payment_status,
+                          style: TextStyle(color: Colors.grey),
+                        ),
                         new GrocerySubtitle(text: orderItem.dtsubmit),
                       ],
                     ),
@@ -61,10 +65,6 @@ class GroceryListItemFourState extends State<GroceryListItemFour> {
                       children: <Widget>[
                         new GroceryTitle(text: orderItem.bprice + " AZN"),
                         // new RatingStarWidget(5, 0, 20),
-                        Text(
-                          orderItem.payment_status,
-                          style: TextStyle(color: Colors.grey),
-                        ),
                         _statusWidget(orderItem.status),
 
                         //new GrocerySubtitle(text: amount.toString()+" kq"),
