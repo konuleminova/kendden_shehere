@@ -147,7 +147,7 @@ class OrderHistoryState extends State<OrderHistoryPage> {
                     child: ListView.builder(
                         itemCount: orderList.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return GroceryListItemFour(orderList[index]);
+                          return GroceryListItemFour(orderList.reversed.toList()[index]);
                         }));
               } else if (snapshot.connectionState == ConnectionState.waiting) {
                 return loading();
