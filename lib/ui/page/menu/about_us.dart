@@ -7,28 +7,22 @@ import 'package:html2md/html2md.dart' as html2md;
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:kendden_shehere/util/helper_class.dart';
 
-class AboutUsPage extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return AboutUsPageState();
-  }
-}
+//class AboutUsPage extends StatefulWidget {
+//  @override
+//  State<StatefulWidget> createState() {
+//    // TODO: implement createState
+//    return AboutUsPageState();
+//  }
+//}
 
-class AboutUsPageState extends State<AboutUsPage> {
+class AboutUsPage extends StatelessWidget {
   String lang;
   Future future;
-  String _title = "About us";
-
-  @override
-  void initState() {
-    super.initState();
-    future = Networks().aboutus(lang);
-  }
+  String langCode;
 
   @override
   Widget build(BuildContext context) {
-    String langCode = Localizations.localeOf(context).languageCode;
+    langCode = Localizations.localeOf(context).languageCode;
     if (langCode == "tr") {
       lang = "0";
     } else if (langCode == "en") {
@@ -36,7 +30,6 @@ class AboutUsPageState extends State<AboutUsPage> {
     } else if (langCode == "ru") {
       lang = "1";
     }
-
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
@@ -44,13 +37,12 @@ class AboutUsPageState extends State<AboutUsPage> {
         backgroundColor: Colors.lightGreen,
       ),
       body: new FutureBuilder(
-          future: future,
+          future: Networks().aboutus(lang),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
               // ListInfo information = snapshot.data;
               if (snapshot.data != null) {
-                String header = snapshot.data[0]['header'] ?? "";
-                _title = header;
+                // String header = snapshot.data[0]['header'] ?? "";
                 String body = snapshot.data[1]['body'] ?? "";
                 String markdown = html2md.convert(body);
                 return SingleChildScrollView(

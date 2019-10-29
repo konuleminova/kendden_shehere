@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:google_maps_webservice/places.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:flutter/material.dart';
+import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 
 const kGoogleApiKey = "AIzaSyC1XWcwMQ-WDLXUWZOTwQW7325Wb-OeysU";
@@ -41,10 +42,8 @@ Future<Null> displayPrediction(
       await SharedPrefUtil().setString(SharedPrefUtil().address, p.description);
     }
 
-    await SharedPrefUtil().setString(
-        SharedPrefUtil().lat,lat.toString());
-    await SharedPrefUtil().setString(
-        SharedPrefUtil().lng,lng.toString());
+    await SharedPrefUtil().setString(SharedPrefUtil().lat, lat.toString());
+    await SharedPrefUtil().setString(SharedPrefUtil().lng, lng.toString());
     Navigator.pop(context);
 //    Route route = MaterialPageRoute(
 //        builder: (context) => MapPage1(placeModel: placeModel));
@@ -58,21 +57,22 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
     final appBar = AppBar(
       title: AppBarPlacesAutoCompleteTextField(),
       backgroundColor: Colors.lightGreen,
-      leading: IconButton(icon: Icon(Icons.clear),onPressed: (){
-        Navigator.pop(context);
-      },),
-
+      leading: IconButton(
+        icon: Icon(Icons.clear),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
     );
     final body = PlacesAutocompleteResult(
       onTap: (p) {
         displayPrediction(p, searchScaffoldKey.currentState, context);
         //print(p.description);
       },
-       logo: Row(
+      logo: Row(
         children: [Container()],
         mainAxisAlignment: MainAxisAlignment.center,
       ),
-
     );
     return Scaffold(key: searchScaffoldKey, appBar: appBar, body: body);
   }
@@ -90,7 +90,7 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
     super.onResponse(response);
     if (response != null && response.predictions.isNotEmpty) {
       searchScaffoldKey.currentState.showSnackBar(
-        SnackBar(content: Text("Got answer")),
+        SnackBar(content: Text(AppTranslations.of(context).text("got_answer"))),
       );
     }
   }
