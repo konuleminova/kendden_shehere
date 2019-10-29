@@ -6,6 +6,7 @@ import 'package:kendden_shehere/ui/page/map/flutter_map.dart';
 import 'package:kendden_shehere/ui/page/map/searchplace.dart';
 import 'package:kendden_shehere/ui/page/payment/confirm_order.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
+import 'package:intl/intl.dart';
 
 class CheckoutsPage extends StatefulWidget {
   @override
@@ -17,10 +18,37 @@ class CheckoutsPage extends StatefulWidget {
 
 class CheckoutsPageState extends State<CheckoutsPage> {
   var selectedIndex = 0;
-  String choice = "11:30-13:00";
+  String choice = Constants.deliveryTimes[0];
   ScrollController _scrollController;
   Checkout checkout = new Checkout();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  String _text = "";
+  DateFormat dateFormat = new DateFormat.Hm();
+  DateTime now = DateTime.now();
+  DateTime open;
+  DateTime close;
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+    checkout.dpayment_selected_val = "online";
+    checkout.dtime_selected_val = choice;
+    open = dateFormat.parse("11:30");
+    open = new DateTime(now.year, now.month, now.day, open.hour, open.minute);
+    close = dateFormat.parse("19:30");
+    close =
+        new DateTime(now.year, now.month, now.day, close.hour, close.minute);
+    if(now.isAfter(open)){
+      _text="Odenishiniz sabah yerine yetirelecek";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +72,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
               style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
             ),
           ),
-          checkout.dtime_selected_val != "Magazadan gotur"
+          checkout.dtime_selected_val != Constants.deliveryTimes[3]
               ? Container(
                   child: Card(
                     child: ListTile(
@@ -74,7 +102,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
               : SizedBox(
                   height: 10,
                 ),
-          checkout.dtime_selected_val != "Magazadan gotur"
+          checkout.dtime_selected_val != Constants.deliveryTimes[3]
               ? Container(
                   margin: EdgeInsets.only(left: 12, right: 12, bottom: 16),
                   child: Column(
@@ -161,7 +189,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
             child: RaisedButton(
               color: Colors.green,
               onPressed: () {
-                if (checkout.dtime_selected_val != "Magazadan gotur") {
+                if (checkout.dtime_selected_val != Constants.deliveryTimes[3]) {
                   SharedPrefUtil()
                       .getString(SharedPrefUtil().address)
                       .then((onValue) {
@@ -175,7 +203,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                           action: SnackBarAction(
                             label: 'Ok',
                             onPressed: () {
-                           _scaffoldKey.currentState.hideCurrentSnackBar();
+                              _scaffoldKey.currentState.hideCurrentSnackBar();
                               // Some code to undo the change.
                             },
                           ),
@@ -208,20 +236,6 @@ class CheckoutsPageState extends State<CheckoutsPage> {
         ],
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController = ScrollController();
-    checkout.dpayment_selected_val = "online";
-    checkout.dtime_selected_val = choice;
   }
 
   Widget _getAccountTypeSection() {
@@ -419,16 +433,11 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                     ),
                     new Container(
                       padding: EdgeInsets.all(12),
-                      child: (choice == "Tecili catdirilma")
-                          ? Text('Təcili sifarişlərə 2 AZN əlavə tətbiq olunur',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 15.0,
-                                  color: Colors.redAccent))
-                          : new SizedBox(
-                              height: 0,
-                              width: 0,
-                            ),
+                      child: Text(_text,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 15.0,
+                              color:choice!= Constants.deliveryTimes[2]?Colors.green:Colors.redAccent)),
                       alignment: AlignmentDirectional.topStart,
                     ),
                   ],
@@ -443,6 +452,23 @@ class CheckoutsPageState extends State<CheckoutsPage> {
     setState(() {
       this.choice = choice;
       checkout.dtime_selected_val = choice;
+      if (choice == Constants.deliveryTimes[0]) {
+        if (now.isAfter(open)) {
+          _text = "Odenishiniz sabah yerine yetirelecek.";
+        } else {
+          _text = "";
+        }
+      } else if (choice == Constants.deliveryTimes[1]) {
+        if (now.isAfter(close)) {
+          _text = "Odenishiniz sabah yerine yetirelecek.";
+        } else {
+          _text = "";
+        }
+      } else if (choice == Constants.deliveryTimes[2]) {
+        _text = "Təcili sifarişlərə 2 AZN əlavə tətbiq olunur";
+      } else {
+        _text = "";
+      }
     });
   }
 
