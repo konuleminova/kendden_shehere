@@ -26,7 +26,7 @@ class GroceryListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreConnector(
         onInit: (store) {
-       //   this._store=store;
+          //   this._store=store;
           store.state.isLoading = true;
           _scrollController = new ScrollController();
           _scrollController.addListener(_scrollListener);
@@ -88,29 +88,31 @@ class GroceryListPage extends StatelessWidget {
                                       )));
                         },
                       ),
-                     viewModel.shopItemsLenght!=0? new Positioned(
-                       right: 11,
-                       top: 11,
-                       child: new Container(
-                         padding: EdgeInsets.all(2),
-                         decoration: new BoxDecoration(
-                           color: Colors.red,
-                           borderRadius: BorderRadius.circular(6),
-                         ),
-                         constraints: BoxConstraints(
-                           minWidth: 14,
-                           minHeight: 14,
-                         ),
-                         child: Text(
-                           viewModel.shopItemsLenght.toString(),
-                           style: TextStyle(
-                             color: Colors.white,
-                             fontSize: 8,
-                           ),
-                           textAlign: TextAlign.center,
-                         ),
-                       ),
-                     ):Container()
+                      viewModel.shopItemsLenght != 0
+                          ? new Positioned(
+                              right: 11,
+                              top: 11,
+                              child: new Container(
+                                padding: EdgeInsets.all(2),
+                                decoration: new BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                constraints: BoxConstraints(
+                                  minWidth: 14,
+                                  minHeight: 14,
+                                ),
+                                child: Text(
+                                  viewModel.shopItemsLenght.toString(),
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 8,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            )
+                          : Container()
                     ],
                   ),
                 ],
@@ -209,7 +211,11 @@ class GroceryListPage extends StatelessWidget {
   }
 
   void fetchProductList() {
-    viewModel.onFetchProductList(id, lang, "30", page.toString(), order);
+    try{
+      viewModel.onFetchProductList(id, lang, "30", page.toString(), order);
+    }catch(e){
+      print(e);
+    }
   }
 
   void loadm() {
