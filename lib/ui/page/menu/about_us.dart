@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:html2md/html2md.dart' as html2md;
