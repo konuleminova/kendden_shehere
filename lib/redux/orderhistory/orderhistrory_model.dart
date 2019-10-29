@@ -8,6 +8,7 @@ class OrderHistoryModel {
   String dtsubmit;
   String status;
   String delivery_price;
+  String payment_status;
   ProductsInCategory list;
 
   OrderHistoryModel(
@@ -17,11 +18,13 @@ class OrderHistoryModel {
       this.status,
       this.list,
       this.delivery_price,
-      this.basket});
+      this.basket,
+      this.payment_status});
 
   OrderHistoryModel.fromJson(Map<String, dynamic> json)
       : basket = json['basket'] ?? '',
         id = json['id'] ?? "",
+        payment_status = json['payment_status']??"",
         bprice = json['bprice'] ?? "",
         dtsubmit = json['dtsubmit'] ?? "",
         status = json['status'] ?? "",

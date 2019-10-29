@@ -17,7 +17,6 @@ class GroceryListItemFour extends StatefulWidget {
 
 class GroceryListItemFourState extends State<GroceryListItemFour> {
   OrderHistoryModel orderItem;
-  bool status = true;
   int amount;
 
   @override
@@ -55,7 +54,6 @@ class GroceryListItemFourState extends State<GroceryListItemFour> {
                     ),
                   ),
                   trailing: new Container(
-                    height: 70,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -63,7 +61,12 @@ class GroceryListItemFourState extends State<GroceryListItemFour> {
                       children: <Widget>[
                         new GroceryTitle(text: orderItem.bprice + " AZN"),
                         // new RatingStarWidget(5, 0, 20),
-                        _statusWidget(),
+                        Text(
+                          orderItem.payment_status,
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        _statusWidget(orderItem.status),
+
                         //new GrocerySubtitle(text: amount.toString()+" kq"),
                       ],
                     ),
@@ -71,16 +74,16 @@ class GroceryListItemFourState extends State<GroceryListItemFour> {
             )));
   }
 
-  _statusWidget() {
-    if (status) {
+  _statusWidget(String string) {
+    if (string=="finished") {
       return Text(
-        "Deliverid",
+        string,
         style: TextStyle(
             color: Colors.green, fontSize: 18, fontWeight: FontWeight.bold),
       );
     } else {
       return Text(
-        "Processing",
+        string,
         style: TextStyle(
             color: Colors.red, fontSize: 18, fontWeight: FontWeight.bold),
       );
