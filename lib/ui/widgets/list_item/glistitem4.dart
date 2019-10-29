@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/orderhistory/orderhistrory_model.dart';
 import 'package:kendden_shehere/ui/page/grocery/order_shop_list.dart';
 import 'package:kendden_shehere/ui/widgets/gtile_title.dart';
@@ -51,7 +52,10 @@ class GroceryListItemFourState extends State<GroceryListItemFour> {
                         new GroceryTitle(text: orderItem.id),
                         orderItem.payment_status.isNotEmpty
                             ? Text(
-                                orderItem.payment_status,
+                                orderItem.payment_status == "OFFLINE"
+                                    ? AppTranslations.of(context).text("on_delivery")
+                                    : AppTranslations.of(context)
+                                        .text("online_payment"),
                                 style: TextStyle(color: Colors.grey),
                               )
                             : SizedBox(),
