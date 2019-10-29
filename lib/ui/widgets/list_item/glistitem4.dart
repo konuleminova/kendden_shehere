@@ -49,10 +49,12 @@ class GroceryListItemFourState extends State<GroceryListItemFour> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         new GroceryTitle(text: orderItem.id),
-                        orderItem.payment_status.isNotEmpty?Text(
-                          orderItem.payment_status,
-                          style: TextStyle(color: Colors.grey),
-                        ):SizedBox(),
+                        orderItem.payment_status.isNotEmpty
+                            ? Text(
+                                orderItem.payment_status,
+                                style: TextStyle(color: Colors.grey),
+                              )
+                            : SizedBox(),
                         new GrocerySubtitle(text: orderItem.dtsubmit),
                       ],
                     ),
@@ -75,7 +77,7 @@ class GroceryListItemFourState extends State<GroceryListItemFour> {
   }
 
   _statusWidget(String string) {
-    if (string=="finished") {
+    if (string == "finished") {
       return Text(
         string,
         style: TextStyle(
