@@ -68,7 +68,7 @@ class LoginState extends State<LoginPage> {
 //constants.APP_ID,
 //constants.APP_SECRET
   void instagram_login() {
-    insta.getToken('3164283233644276', 'https://kendden.az').then((token) {
+    insta.getToken('3164283233644276', '8c1ae9b878bfd2a582cfece9def0646d').then((token) {
       if (token != null) {
         _showMessage("Login Success");
       } else {
