@@ -21,14 +21,13 @@ class GroceryListPage extends StatelessWidget {
   GroceryListPage({this.title, this.id, this.order});
 
   String lang;
-  Store<AppState> _store;
 
   @override
   Widget build(BuildContext context) {
     return StoreConnector(
         onInit: (store) {
-          store.state.isLoading=true;
-          _store = store;
+       //   this._store=store;
+          store.state.isLoading = true;
           _scrollController = new ScrollController();
           _scrollController.addListener(_scrollListener);
           String langCode = Localizations.localeOf(context).languageCode;
@@ -40,8 +39,8 @@ class GroceryListPage extends StatelessWidget {
             lang = "1";
           }
         },
-        onDidChange: (ProductListViewModel viewModel){
-          viewModel.isLoading=false;
+        onDidChange: (ProductListViewModel viewModel) {
+          viewModel.isLoading = false;
         },
         onInitialBuild: (ProductListViewModel viewModel) {
           this.viewModel = viewModel;
@@ -89,31 +88,29 @@ class GroceryListPage extends StatelessWidget {
                                       )));
                         },
                       ),
-                      _store.state.shopItems.length != 0
-                          ? new Positioned(
-                              right: 11,
-                              top: 11,
-                              child: new Container(
-                                padding: EdgeInsets.all(2),
-                                decoration: new BoxDecoration(
-                                  color: Colors.red,
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                constraints: BoxConstraints(
-                                  minWidth: 14,
-                                  minHeight: 14,
-                                ),
-                                child: Text(
-                                  _store.state.shopItems.length.toString(),
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 8,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            )
-                          : new Container()
+                     viewModel.shopItemsLenght!=0? new Positioned(
+                       right: 11,
+                       top: 11,
+                       child: new Container(
+                         padding: EdgeInsets.all(2),
+                         decoration: new BoxDecoration(
+                           color: Colors.red,
+                           borderRadius: BorderRadius.circular(6),
+                         ),
+                         constraints: BoxConstraints(
+                           minWidth: 14,
+                           minHeight: 14,
+                         ),
+                         child: Text(
+                           viewModel.shopItemsLenght.toString(),
+                           style: TextStyle(
+                             color: Colors.white,
+                             fontSize: 8,
+                           ),
+                           textAlign: TextAlign.center,
+                         ),
+                       ),
+                     ):Container()
                     ],
                   ),
                 ],
@@ -169,8 +166,8 @@ class GroceryListPage extends StatelessWidget {
                           ],
                         )
                       : Center(
-                          child: Text(AppTranslations.of(context).text("no_product"))
-                        ))
+                          child: Text(
+                              AppTranslations.of(context).text("no_product"))))
                   : loading());
         });
   }
@@ -216,7 +213,7 @@ class GroceryListPage extends StatelessWidget {
   }
 
   void loadm() {
-    viewModel.isScrolling=true;
+    viewModel.isScrolling = true;
     viewModel.onLoadMoreProductList(id, lang, "30", page.toString(), order);
   }
 }

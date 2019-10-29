@@ -162,6 +162,7 @@ class SearchWidget extends SearchDelegate<String> {
                       // print(qSearch.qsearchList);
                       if (snapshot.data.productsInCategory[index].catid !=
                           null) {
+                        print("Categories::");
                         Navigator.push(
                             context,
                             new MaterialPageRoute(
@@ -172,10 +173,11 @@ class SearchWidget extends SearchDelegate<String> {
                                       title: qSearch
                                           .productsInCategory[index].name,
                                     )));
-                      }
+                      }else
                       if (qSearch.productsInCategory[index].catIdParent !=
                               null &&
                           qSearch.productsInCategory[index].catid == null) {
+                        print("Product List:");
                         Navigator.push(
                             context,
                             new MaterialPageRoute(
@@ -186,7 +188,7 @@ class SearchWidget extends SearchDelegate<String> {
                                       title: qSearch
                                           .productsInCategory[index].name,
                                     )));
-                      }
+                      }else
                       if (qSearch.productsInCategory[index].catIdParent ==
                               null &&
                           qSearch.productsInCategory[index].catid == null) {
