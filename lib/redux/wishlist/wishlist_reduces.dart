@@ -4,8 +4,7 @@ import 'package:redux/redux.dart';
 
 Reducer<List<Product>> wishListReducer = combineReducers<List<Product>>([
   new TypedReducer<List<Product>, FetchWishListAction>(fetchWishListAction),
-  new TypedReducer<List<Product>, RemoveWishItemAction>(
-      removeWishItemReducer),
+  new TypedReducer<List<Product>, RemoveWishItemAction>(removeWishItemReducer),
   new TypedReducer<List<Product>, AddWishItemAction>(addWishItemReducer),
 ]);
 
@@ -21,5 +20,8 @@ List<Product> addWishItemReducer(
 
 List<Product> fetchWishListAction(
     List<Product> state, FetchWishListAction action) {
+  action.data.forEach((f) {
+    f.isLiked = true;
+  });
   return action.data;
 }
