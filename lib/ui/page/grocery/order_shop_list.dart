@@ -16,7 +16,7 @@ class OrderShopListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //context = this.context
+    this.context=context;
     // TODO: implement build
     return new Scaffold(
       appBar: new AppBar(
@@ -30,7 +30,7 @@ class OrderShopListPage extends StatelessWidget {
             height: 10.0,
           ),
           GestureDetector(
-              child: _buildRatingStar(),
+              child: _buildRatingStar(context),
               onTap: () {
                 showDialog(
                     context: context,
@@ -67,7 +67,7 @@ class OrderShopListPage extends StatelessWidget {
         },
       );
 
-  _buildRatingStar() => Container(
+  _buildRatingStar(BuildContext context) => Container(
       height: 100,
       padding: EdgeInsets.only(bottom: 16),
       child: new Column(

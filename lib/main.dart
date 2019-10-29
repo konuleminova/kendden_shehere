@@ -54,6 +54,7 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> {
   AppTranslationsDelegate _newLocaleDelegate;
+  BuildContext context;
 
   Locale _locale;
 
@@ -72,6 +73,7 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    //context=this.context;
     // TODO: implement build
     return StreamProvider<ConnectivityStatus>(
         builder: (context) => ConnectivityService().connectionStatusController,
@@ -81,8 +83,8 @@ class MyAppState extends State<MyApp> {
             navigatorKey: navigatorKey,
             navigatorObservers: [routeObserver],
             locale: _locale,
-            onGenerateTitle: (BuildContext context) =>
-                AppTranslations.of(context).text("title_select_language"),
+//            onGenerateTitle: (BuildContext context) =>
+//                AppTranslations.of(context).text("title_select_language"),
             localizationsDelegates: [
               _newLocaleDelegate,
               //provides localised strings
