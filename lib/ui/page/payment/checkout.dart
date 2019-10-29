@@ -45,8 +45,8 @@ class CheckoutsPageState extends State<CheckoutsPage> {
     close = dateFormat.parse("19:30");
     close =
         new DateTime(now.year, now.month, now.day, close.hour, close.minute);
-    if(now.isAfter(open)){
-      _text="Odenishiniz sabah yerine yetirelecek";
+    if (now.isAfter(open)) {
+      _text = "Odenishiniz sabah yerine yetirelecek";
     }
   }
 
@@ -437,7 +437,9 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                           style: TextStyle(
                               fontWeight: FontWeight.w700,
                               fontSize: 15.0,
-                              color:choice!= Constants.deliveryTimes[2]?Colors.green:Colors.redAccent)),
+                              color: choice != Constants.deliveryTimes[2]
+                                  ? Colors.green
+                                  : Colors.redAccent)),
                       alignment: AlignmentDirectional.topStart,
                     ),
                   ],
