@@ -42,6 +42,7 @@ class ProductViewModel {
 
     _onHomeRefresh() {
       store.dispatch(ShowHomeWishAction(store));
+      store.dispatch(ShowHomeBasketAction(store));
     }
 
     return ProductViewModel(
