@@ -43,17 +43,24 @@ class GroceryListItemFourState extends State<GroceryListItemFour> {
                             ));
                     Navigator.push(context, route);
                   },
+                  leading: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: new GroceryTitle(text: orderItem.id),
+                      ),Expanded(child: IconButton(icon: Icon(Icons.restore),onPressed: null,),)
+                    ],
+                  ),
                   title: Container(
                     height: 100,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        new GroceryTitle(text: orderItem.id),
                         orderItem.payment_status.isNotEmpty
                             ? Text(
                                 orderItem.payment_status == "OFFLINE"
-                                    ? AppTranslations.of(context).text("on_delivery")
+                                    ? AppTranslations.of(context)
+                                        .text("on_delivery")
                                     : AppTranslations.of(context)
                                         .text("online_payment"),
                                 style: TextStyle(color: Colors.grey),
