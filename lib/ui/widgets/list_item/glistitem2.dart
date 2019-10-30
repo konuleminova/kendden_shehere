@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
+import 'package:kendden_shehere/redux/home/home_action.dart';
 import 'package:kendden_shehere/redux/productlist/product_model.dart';
 import 'package:kendden_shehere/redux/productlist/product_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
@@ -39,12 +40,18 @@ class GroceryListItemTwoState extends State<GroceryListItemTwo> {
       title = product.name_ru.trim();
     }
 
+
     // TODO: implement build
     return StoreConnector(
+        onInit: (store) {},
         onInitialBuild: (ProductViewModel viewModel) {
           this.viewModel = viewModel;
         },
         onDispose: (store) {
+          print("on DIsponse");
+          print(store.state.wishItems.toString());
+          //store.dispatch(ShowHomeBasketAction(store));
+          store.dispatch(ShowHomeWishAction(store));
           // store.state.newProducts.clear();
         },
         converter: (Store<AppState> store) => ProductViewModel.create(store),
@@ -109,7 +116,7 @@ class GroceryListItemTwoState extends State<GroceryListItemTwo> {
                                           color: Colors.green[400],
                                           size: 25,
                                         ),
-                                        onPressed: ()async {
+                                        onPressed: () async {
                                           viewModel.removeWishItem(product);
                                           Networks()
                                               .add_Remove_WishList(product.id)
@@ -117,7 +124,6 @@ class GroceryListItemTwoState extends State<GroceryListItemTwo> {
                                             if (onvalue != null) {
                                               if (onvalue['action'] ==
                                                   "added") {
-
                                               } else if (onvalue['action'] ==
                                                   "removed") {
                                                 Fluttertoast.showToast(
