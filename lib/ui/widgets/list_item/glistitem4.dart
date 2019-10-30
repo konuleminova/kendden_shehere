@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/orderhistory/orderhistrory_model.dart';
+import 'package:kendden_shehere/ui/page/grocery/grocery_shop_list.dart';
 import 'package:kendden_shehere/ui/page/grocery/order_shop_list.dart';
 import 'package:kendden_shehere/ui/widgets/gtile_title.dart';
 
@@ -47,7 +48,19 @@ class GroceryListItemFourState extends State<GroceryListItemFour> {
                     children: <Widget>[
                       Expanded(
                         child: new GroceryTitle(text: orderItem.id),
-                      ),Expanded(child: IconButton(icon: Icon(Icons.restore),onPressed: null,),)
+                      ),
+                      Expanded(
+                        child: IconButton(
+                          icon: Icon(Icons.restore),
+                          onPressed: () {
+                           Navigator.push(context,  MaterialPageRoute(
+                               builder: (BuildContext context) =>
+                                   GroceryShopCartPage(
+                                     fromCheckout: false,
+                                   )));
+                          },
+                        ),
+                      )
                     ],
                   ),
                   title: Container(
