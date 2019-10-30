@@ -48,7 +48,7 @@ class GroceryListItemTwoState extends State<GroceryListItemTwo> {
           this.viewModel = viewModel;
         },
         onDispose: (store) {
-          viewModel.onHomeRefresh();
+          //viewModel.onHomeRefresh();
           //store.dispatch(ShowHomeBasketAction(store));
           // store.state.newProducts.clear();
         },

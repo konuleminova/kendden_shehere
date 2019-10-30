@@ -128,7 +128,7 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
                                                     "done") {
                                                   viewModel
                                                       .removeShopItem(product);
-                                                  viewModel.onHomeRefresh();
+                                                  //viewModel.onHomeRefresh();
                                                 }
                                               }
                                             });

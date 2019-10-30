@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
+import 'package:kendden_shehere/redux/home/home_action.dart';
 import 'package:kendden_shehere/redux/productlist/productlist_viewmodel.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/glistitem1.dart';
 import 'package:kendden_shehere/util/helper_class.dart';
@@ -47,6 +48,8 @@ class GroceryListPage extends StatelessWidget {
           fetchProductList();
         },
         onDispose: (store) {
+          store.dispatch(ShowHomeWishAction(store));
+          store.dispatch(ShowHomeBasketAction(store));
           store.state.newProducts.clear();
           store.state.isScrolling = false;
         },

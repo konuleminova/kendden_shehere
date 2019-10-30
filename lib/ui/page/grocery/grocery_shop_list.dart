@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
+import 'package:kendden_shehere/redux/home/home_action.dart';
 import 'package:kendden_shehere/ui/widgets/animation_shop_cart.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/payment_success_dialog.dart';
 import 'package:redux/redux.dart';
@@ -22,6 +23,8 @@ class GroceryShopCartPage extends StatelessWidget {
           viewModel.onFetchShopList();
         },
         onDispose: (store){
+          store.dispatch(ShowHomeWishAction(store));
+          store.dispatch(ShowHomeBasketAction(store));
           //store.state.shopItems.clear();
         },
         converter: (Store<AppState> store) =>

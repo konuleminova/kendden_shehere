@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
+import 'package:kendden_shehere/redux/home/home_action.dart';
 import 'package:kendden_shehere/redux/productlist/product_model.dart';
 import 'package:kendden_shehere/redux/wishlist/wishlist_viewmodel.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/glistitem2.dart';
@@ -22,6 +23,8 @@ class GroceryWishListPage extends StatelessWidget {
           viewModel.onFetchWishList();
         },
         onDispose: (store) {
+          store.dispatch(ShowHomeWishAction(store));
+          store.dispatch(ShowHomeBasketAction(store));
           //store.state.wishItems.clear();
         },
         converter: (Store<AppState> store) => WishListViewModel.create(store),

@@ -60,6 +60,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne>
           this.viewModel = viewModel;
         },
         onDispose: (store) {
+          print("ON DISPOSE");
           // store.state.newProducts.clear();
         },
         converter: (Store<AppState> store) => ProductViewModel.create(store),
