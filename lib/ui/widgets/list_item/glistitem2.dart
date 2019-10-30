@@ -48,6 +48,7 @@ class GroceryListItemTwoState extends State<GroceryListItemTwo> {
           this.viewModel = viewModel;
         },
         onDispose: (store) {
+          viewModel.onHomeRefresh();
           //store.dispatch(ShowHomeBasketAction(store));
           // store.state.newProducts.clear();
         },
@@ -123,7 +124,6 @@ class GroceryListItemTwoState extends State<GroceryListItemTwo> {
                                                   "added") {
                                               } else if (onvalue['action'] ==
                                                   "removed") {
-                                                viewModel.onHomeRefresh();
                                                 Fluttertoast.showToast(
                                                     msg: "Product removed",
                                                     toastLength:
