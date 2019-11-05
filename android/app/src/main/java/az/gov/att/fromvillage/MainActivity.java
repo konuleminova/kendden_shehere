@@ -1,4 +1,4 @@
-package com.sinam.kendden_shehere;
+package az.gov.att.fromvillage;
 
 import android.app.ProgressDialog;
 import android.content.Intent;

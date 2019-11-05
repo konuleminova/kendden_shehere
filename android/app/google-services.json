@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "247606581062",
+    "firebase_url": "https://kendden-445be.firebaseio.com",
+    "project_id": "kendden-445be",
+    "storage_bucket": "kendden-445be.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:247606581062:android:5f182e6384f6fe8889f747",
+        "android_client_info": {
+          "package_name": "az.gov.att.fromvillage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "247606581062-g760ooe2hgib478ijm65nma09revscsa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxY4ypS9AFfPXRVKOVSGxXFyHcfBpp_JM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "247606581062-g760ooe2hgib478ijm65nma09revscsa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

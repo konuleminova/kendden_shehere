@@ -1,13 +1,14 @@
-package com.sinam.kendden_shehere;
+package az.gov.att.fromvillage;
 
+import android.app.Activity;
 import android.os.Bundle;
 
-import com.sinam.kendden_shehere.R;
+import az.gov.att.fromvillage.R;
 import com.sofit.onlinechatsdk.ChatView;
 
-import androidx.appcompat.app.AppCompatActivity;
+//import androidx.appcompat.app.AppCompatActivity;
 
-public class ChatActivity extends AppCompatActivity {
+public class ChatActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

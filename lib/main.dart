@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/connectivity/con_enum.dart';
@@ -34,7 +37,17 @@ import 'package:kendden_shehere/util/sharedpref_util.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  Crashlytics.instance.enableInDevMode = true;
+
+  // Pass all uncaught errors to Crashlytics.
+  FlutterError.onError = Crashlytics.instance.recordFlutterError;
+
+  runZoned<Future<void>>(() async {
+    runApp(MyApp());
+  }, onError: Crashlytics.instance.recordError);
+}
+
 final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 //final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
 //final GlobalKey<ScaffoldState> scaffoldRegisterKey =
@@ -120,8 +133,8 @@ class MyAppState extends State<MyApp> {
               "/fag": (BuildContext context) => FagPage(),
               "/contacts": (BuildContext context) => ContactsPage(),
               "/categories": (BuildContext context) => GroceryCategoriesPage(),
-              '/complaints':(BuildContext context) => ComplaintsPage(),
-              '/pin_code':(BuildContext context) => PinCodePage()
+              '/complaints': (BuildContext context) => ComplaintsPage(),
+              '/pin_code': (BuildContext context) => PinCodePage()
 
               // "/product_list": (BuildContext context) => ProductListPage()
             },
