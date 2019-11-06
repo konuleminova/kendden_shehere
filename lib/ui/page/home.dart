@@ -2,6 +2,7 @@ import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_crashlytics/flutter_crashlytics.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/connectivity/con_enum.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';

@@ -23,7 +23,8 @@ class _IndexPageState extends State<IndexPage> {
   @override
   void initState() {
     super.initState();
-
+   // final crash = List()[69];
+   // debugPrint(crash);
     SharedPrefUtil().getBool(SharedPrefUtil().isLoginKey).then((onValue) {
       isLogin=onValue;
       if (!onValue) {

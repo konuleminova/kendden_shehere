@@ -1,6 +1,5 @@
 import 'dart:async';
-
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/connectivity/con_enum.dart';
@@ -37,15 +36,43 @@ import 'package:kendden_shehere/util/sharedpref_util.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-void main() {
-  Crashlytics.instance.enableInDevMode = true;
+import 'package:flutter_crashlytics/flutter_crashlytics.dart';
 
-  // Pass all uncaught errors to Crashlytics.
-  FlutterError.onError = Crashlytics.instance.recordFlutterError;
+void main() async {
+  bool isInDebugMode = false;
+  profile(() {
+   // isInDebugMode = true;
+  });
 
-  runZoned<Future<void>>(() async {
+  FlutterError.onError = (FlutterErrorDetails details) {
+    if (isInDebugMode) {
+      // In development mode simply print to console.
+      FlutterError.dumpErrorToConsole(details);
+      Zone.current.handleUncaughtError(details.exception, details.stack);
+    } else {
+      // In production mode report to the application zone to report to
+      // Crashlytics.
+      Zone.current.handleUncaughtError(details.exception, details.stack);
+    }
+  };
+
+  bool optIn = true;
+  if (optIn) {
+    await FlutterCrashlytics().initialize();
+    FlutterCrashlytics().setUserInfo('test1', 'test@test.com', 'tester');
+  } else {
+    // In this case Crashlytics won't send any reports.
+    // Usually handling opt in/out is required by the Privacy Regulations
+  }
+
+  runZoned<Future<Null>>(() async {
     runApp(MyApp());
-  }, onError: Crashlytics.instance.recordError);
+  }, onError: (error, stackTrace) async {
+    // Whenever an error occurs, call the `reportCrash` function. This will send
+    // Dart errors to our dev console or Crashlytics depending on the environment.
+    debugPrint(error.toString());
+    await FlutterCrashlytics().reportCrash(error, stackTrace, forceCrash: true);
+  });
 }
 
 final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
@@ -68,7 +95,6 @@ class MyApp extends StatefulWidget {
 class MyAppState extends State<MyApp> {
   AppTranslationsDelegate _newLocaleDelegate;
   BuildContext context;
-
   Locale _locale;
 
   @override
