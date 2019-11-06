@@ -16,39 +16,69 @@ class DrawerWidget extends StatelessWidget {
         children: <Widget>[
           new Stack(
             children: <Widget>[
-              UserAccountsDrawerHeader(
-                accountName: new FutureBuilder(
-                  future: _getData(),
-                  builder: (BuildContext context, AsyncSnapshot snapshot) {
-                    if (snapshot.hasData) {
-                      return new Text(
-                        snapshot.data[1]['name'] +
-                            " " +
-                            snapshot.data[1]['surname'],
-                        style: new TextStyle(fontSize: 18),
-                      );
-                    } else {
-                      // default show loading while state is waiting
-                      return new Text(
+              new FutureBuilder(
+                future: _getData(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData) {
+                    final UriData data =
+                        Uri.parse(snapshot.data[1]['img']).data;
+                    //print(data.isBase64); // Should print true
+                    // print(data.contentAsBytes());
+                    // Uint8List bytes =System.Convert.FromBase64String(snapshot.data[1]['img']);
+                    // new Image.memory(data.contentAsBytes()),
+                    return UserAccountsDrawerHeader(
+                      accountName: snapshot.hasData
+                          ? new Text(
+                              snapshot.data[1]['name'] +
+                                  " " +
+                                  snapshot.data[1]['surname'],
+                              style: new TextStyle(fontSize: 18),
+                            )
+                          : new Text(
+                              name + " " + surname,
+                              style: new TextStyle(fontSize: 18),
+                            ),
+                      accountEmail: new Text(""),
+                      currentAccountPicture: CircleAvatar(
+                          minRadius: 60,
+                          backgroundColor: Colors.green.shade300,
+                          child: data.contentAsBytes() != null
+                              ? new Image.memory(data.contentAsBytes())
+                              : CircleAvatar(
+                                  radius: 50.0,
+                                  backgroundImage:
+                                      AssetImage('images/profile.png'),
+                                  backgroundColor: Colors.transparent,
+                                )),
+                      decoration: new BoxDecoration(color: Colors.lightGreen),
+                      onDetailsPressed: () {
+                        Navigator.pop(context);
+                        Navigator.pushNamed(context, "/profile");
+                      },
+                    );
+                  } else {
+                    // default show loading while state is waiting
+                    return UserAccountsDrawerHeader(
+                      accountName: new Text(
                         name + " " + surname,
                         style: new TextStyle(fontSize: 18),
-                      );
-                    }
-                  },
-                ),
-                accountEmail: new Text(""),
-                currentAccountPicture: CircleAvatar(
-                    minRadius: 60,
-                    backgroundColor: Colors.green.shade300,
-                    child: CircleAvatar(
-                      radius: 50.0,
-                      backgroundImage: AssetImage('images/profile.png'),
-                      backgroundColor: Colors.transparent,
-                    )),
-                decoration: new BoxDecoration(color: Colors.lightGreen),
-                onDetailsPressed: () {
-                  Navigator.pop(context);
-                  Navigator.pushNamed(context, "/profile");
+                      ),
+                      accountEmail: new Text(""),
+                      currentAccountPicture: CircleAvatar(
+                          minRadius: 60,
+                          backgroundColor: Colors.green.shade300,
+                          child: CircleAvatar(
+                            radius: 50.0,
+                            backgroundImage: AssetImage('images/profile.png'),
+                            backgroundColor: Colors.transparent,
+                          )),
+                      decoration: new BoxDecoration(color: Colors.lightGreen),
+                      onDetailsPressed: () {
+                        Navigator.pop(context);
+                        Navigator.pushNamed(context, "/profile");
+                      },
+                    );
+                  }
                 },
               ),
               Container(
@@ -147,7 +177,7 @@ class DrawerWidget extends StatelessWidget {
   }
 
   _getData() {
-    name =  SharedPrefUtil().name;
+    name = SharedPrefUtil().name;
     surname = SharedPrefUtil().surname;
     return Networks().userinfo();
   }

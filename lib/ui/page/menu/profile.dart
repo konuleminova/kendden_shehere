@@ -91,7 +91,7 @@ class ProfileState extends State<ProfilePage> {
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
                 final UriData data = Uri.parse(snapshot.data[1]['img']).data;
-                print(data.isBase64); // Should print true
+                //print(data.isBase64); // Should print true
                 // print(data.contentAsBytes());
                 // Uint8List bytes =System.Convert.FromBase64String(snapshot.data[1]['img']);
                 // new Image.memory(data.contentAsBytes()),
