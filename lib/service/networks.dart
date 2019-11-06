@@ -38,7 +38,7 @@ class Networks {
       }
     } catch (exception) {
       {
-        debugPrint(exception);
+       // debugPrint(exception);
         return null;
       }
     }
@@ -54,7 +54,7 @@ class Networks {
         return null;
       }
     } catch (exception) {
-      debugPrint(exception);
+      //debugPrint(exception);
     }
   }
 
@@ -74,7 +74,7 @@ class Networks {
         return null;
       }
     } catch (exception) {
-      debugPrint(exception);
+     // debugPrint(exception);
     }
   }
 
@@ -91,7 +91,7 @@ class Networks {
         return null;
       }
     } catch (exception) {
-      debugPrint(exception);
+      //debugPrint(exception);
     }
   }
 
@@ -106,7 +106,7 @@ class Networks {
         return null;
       }
     } catch (exception) {
-      debugPrint(exception);
+     // debugPrint(exception);
     }
   }
 
@@ -122,7 +122,7 @@ class Networks {
         return null;
       }
     } catch (exception) {
-      debugPrint(exception);
+      //debugPrint(exception);
     }
   }
 
@@ -139,7 +139,7 @@ class Networks {
         return null;
       }
     } catch (exception) {
-      debugPrint(exception);
+     // debugPrint(exception);
     }
   }
 
@@ -152,7 +152,7 @@ class Networks {
     if (response.statusCode == 200) {
       return RegisterModel.fromJson(json.decode(response.body));
     } else {
-      print('ELSE WORKS');
+     // print('ELSE WORKS');
       return null;
     }
   }
@@ -198,13 +198,13 @@ class Networks {
         return null;
       }
     } catch (exception) {
-      debugPrint(exception);
+      //debugPrint(exception);
     }
   }
 
   dynamic basket() async {
     try {
-      print("Basket");
+     // print("Basket");
 
       var id = await SharedPrefUtil().getString(SharedPrefUtil().uid);
       final response = await http.get(BASE_KS_URL + "basket" + "&uid=${id}");
@@ -232,7 +232,7 @@ class Networks {
         return null;
       }
     } catch (exception) {
-      debugPrint(exception);
+      //debugPrint(exception);
     }
   }
 
@@ -261,7 +261,7 @@ class Networks {
         return null;
       }
     } catch (exception) {
-      debugPrint(exception);
+      //debugPrint(exception);
     }
   }
 
@@ -277,7 +277,7 @@ class Networks {
         return null;
       }
     } catch (exception) {
-      debugPrint(exception);
+      //debugPrint(exception);
     }
   }
 
@@ -293,7 +293,7 @@ class Networks {
         return null;
       }
     } catch (exception) {
-      debugPrint(exception);
+     // debugPrint(exception);
     }
   }
 
@@ -315,7 +315,7 @@ class Networks {
         return null;
       }
     } catch (exception) {
-      debugPrint(exception);
+     // debugPrint(exception);
     }
   }
 
@@ -332,7 +332,7 @@ class Networks {
         return null;
       }
     } catch (exception) {
-      debugPrint(exception);
+      //debugPrint(exception);
     }
   }
 
@@ -349,7 +349,7 @@ class Networks {
         return null;
       }
     } catch (exception) {
-      debugPrint(exception);
+     // debugPrint(exception);
     }
   }
 
@@ -366,7 +366,7 @@ class Networks {
         return null;
       }
     } catch (exception) {
-      debugPrint(exception);
+     // debugPrint(exception);
     }
   }
 
@@ -383,7 +383,7 @@ class Networks {
         return null;
       }
     } catch (exception) {
-      debugPrint(exception);
+      //debugPrint(exception);
     }
   }
 
@@ -407,7 +407,7 @@ class Networks {
         return null;
       }
     } catch (exception) {
-      debugPrint(exception);
+     // debugPrint(exception);
     }
   }
 
@@ -425,7 +425,7 @@ class Networks {
         return null;
       }
     } catch (exception) {
-      debugPrint(exception);
+      //debugPrint(exception);
     }
   }
 
@@ -439,7 +439,7 @@ class Networks {
         return null;
       }
     } catch (exception) {
-      debugPrint(exception);
+      //debugPrint(exception);
     }
   }
 
@@ -455,7 +455,7 @@ class Networks {
         return null;
       }
     } catch (exception) {
-      debugPrint(exception);
+     // debugPrint(exception);
     }
   }
 
@@ -478,7 +478,7 @@ class Networks {
         return null;
       }
     } catch (exception) {
-      debugPrint(exception);
+      //debugPrint(exception);
     }
   }
 }
