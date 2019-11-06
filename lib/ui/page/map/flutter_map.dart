@@ -126,6 +126,9 @@ class _MapPage1State extends State<MapPage1> {
       _mapController.animateCamera(CameraUpdate.newCameraPosition(
           new CameraPosition(target: _lastMapPositon, zoom: 12.00)));
     }
+    print(points.length);
+    print(points2.length);
+    print(points3.length);
     if (pointInPolygon(points, lat, lng)) {
       if (price >= 20) {
         _deliveryPrice = "0";
@@ -169,6 +172,7 @@ class _MapPage1State extends State<MapPage1> {
   void _onCameraMove(CameraPosition position) {}
 
   setPolygon() {
+    points.clear();
     points.add(new LatLng(40.3716222, 49.8555191));
     points.add(new LatLng(40.3716876, 49.8568066));
     points.add(new LatLng(40.3715487, 49.8570962));
@@ -247,6 +251,7 @@ class _MapPage1State extends State<MapPage1> {
     points.add(new LatLng(40.3716222, 49.8555191));
 
     //
+    points2.clear();
     points2.add(new LatLng(40.3385315, 49.8338732));
     points2.add(new LatLng(40.3380542, 49.834199));
     points2.add(new LatLng(40.3382571, 49.8347267));
@@ -371,6 +376,8 @@ class _MapPage1State extends State<MapPage1> {
     points2.add(new LatLng(40.3385315, 49.8338732));
 
     ///
+    ///
+    points3.clear();
     points3.add(new LatLng(40.3739614, 49.8961811));
     points3.add(new LatLng(40.3647513, 49.9293135));
     points3.add(new LatLng(40.3562141, 49.945106));
