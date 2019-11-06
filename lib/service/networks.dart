@@ -38,6 +38,7 @@ class Networks {
       }
     } catch (exception) {
       {
+        debugPrint(exception);
         return null;
       }
     }
@@ -52,7 +53,9 @@ class Networks {
       } else {
         return null;
       }
-    } catch (exception) {}
+    } catch (exception) {
+      debugPrint(exception);
+    }
   }
 
   dynamic productsInCategory(
@@ -70,7 +73,9 @@ class Networks {
       } else {
         return null;
       }
-    } catch (exception) {}
+    } catch (exception) {
+      debugPrint(exception);
+    }
   }
 
   dynamic bannerImages() async {
@@ -85,7 +90,9 @@ class Networks {
       } else {
         return null;
       }
-    } catch (exception) {}
+    } catch (exception) {
+      debugPrint(exception);
+    }
   }
 
   dynamic wishList() async {
@@ -98,7 +105,9 @@ class Networks {
       } else {
         return null;
       }
-    } catch (exception) {}
+    } catch (exception) {
+      debugPrint(exception);
+    }
   }
 
   dynamic search(String lang, String query, String start) async {
@@ -112,7 +121,9 @@ class Networks {
       } else {
         return null;
       }
-    } catch (exception) {}
+    } catch (exception) {
+      debugPrint(exception);
+    }
   }
 
   dynamic qsearch(String lang, String query) async {
@@ -127,7 +138,9 @@ class Networks {
       } else {
         return null;
       }
-    } catch (exception) {}
+    } catch (exception) {
+      debugPrint(exception);
+    }
   }
 
   Future<RegisterModel> register(String lang, UserModel userModel) async {
@@ -184,7 +197,9 @@ class Networks {
       } else {
         return null;
       }
-    } catch (exception) {}
+    } catch (exception) {
+      debugPrint(exception);
+    }
   }
 
   dynamic basket() async {
@@ -216,7 +231,9 @@ class Networks {
       } else {
         return null;
       }
-    } catch (exception) {}
+    } catch (exception) {
+      debugPrint(exception);
+    }
   }
 
   dynamic fag(String lang) async {
@@ -243,7 +260,9 @@ class Networks {
       } else {
         return null;
       }
-    } catch (exception) {}
+    } catch (exception) {
+      debugPrint(exception);
+    }
   }
 
   dynamic aboutus(String lang) async {
@@ -257,7 +276,9 @@ class Networks {
       } else {
         return null;
       }
-    } catch (exception) {}
+    } catch (exception) {
+      debugPrint(exception);
+    }
   }
 
   dynamic contacts(String lang) async {
@@ -271,7 +292,9 @@ class Networks {
       } else {
         return null;
       }
-    } catch (exception) {}
+    } catch (exception) {
+      debugPrint(exception);
+    }
   }
 
   dynamic updateUser(BuildContext context, String inf, String data) async {
@@ -291,7 +314,9 @@ class Networks {
       } else {
         return null;
       }
-    } catch (exception) {}
+    } catch (exception) {
+      debugPrint(exception);
+    }
   }
 
   userinfo() async {
@@ -306,7 +331,9 @@ class Networks {
       } else {
         return null;
       }
-    } catch (exception) {}
+    } catch (exception) {
+      debugPrint(exception);
+    }
   }
 
   dynamic add_Remove_WishList(String id) async {
@@ -321,7 +348,9 @@ class Networks {
       } else {
         return null;
       }
-    } catch (exception) {}
+    } catch (exception) {
+      debugPrint(exception);
+    }
   }
 
   dynamic addToBasket(String id, String weight) async {
@@ -336,7 +365,9 @@ class Networks {
       } else {
         return null;
       }
-    } catch (exception) {}
+    } catch (exception) {
+      debugPrint(exception);
+    }
   }
 
   dynamic removeFromBasket(String id) async {
@@ -351,7 +382,9 @@ class Networks {
       } else {
         return null;
       }
-    } catch (exception) {}
+    } catch (exception) {
+      debugPrint(exception);
+    }
   }
 
   dynamic finishBasket(Checkout checkout) async {
@@ -373,7 +406,9 @@ class Networks {
       } else {
         return null;
       }
-    } catch (exception) {}
+    } catch (exception) {
+      debugPrint(exception);
+    }
   }
 
   dynamic upload(String photo) async {
@@ -389,7 +424,9 @@ class Networks {
       } else {
         return null;
       }
-    } catch (exception) {}
+    } catch (exception) {
+      debugPrint(exception);
+    }
   }
 
   dynamic showAllCollection() async {
@@ -401,7 +438,9 @@ class Networks {
       } else {
         return null;
       }
-    } catch (exception) {}
+    } catch (exception) {
+      debugPrint(exception);
+    }
   }
 
   dynamic complaints(String lang) async {
@@ -415,7 +454,9 @@ class Networks {
       } else {
         return null;
       }
-    } catch (exception) {}
+    } catch (exception) {
+      debugPrint(exception);
+    }
   }
 
   dynamic sendSms(mobile) async {
@@ -436,6 +477,8 @@ class Networks {
       } else {
         return null;
       }
-    } catch (exception) {}
+    } catch (exception) {
+      debugPrint(exception);
+    }
   }
 }
