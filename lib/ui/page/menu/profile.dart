@@ -91,10 +91,10 @@ class ProfileState extends State<ProfilePage> {
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
                 final UriData data = Uri.parse(snapshot.data[1]['img']).data;
-                print(data.isBase64);  // Should print true
-               // print(data.contentAsBytes());
+                print(data.isBase64); // Should print true
+                // print(data.contentAsBytes());
                 // Uint8List bytes =System.Convert.FromBase64String(snapshot.data[1]['img']);
-               // new Image.memory(data.contentAsBytes()),
+                // new Image.memory(data.contentAsBytes()),
                 return ListView(
                   children: <Widget>[
                     Container(
@@ -122,13 +122,23 @@ class ProfileState extends State<ProfilePage> {
                                   child: CircleAvatar(
                                       minRadius: 60,
                                       backgroundColor: Colors.green.shade300,
-                                      child: CircleAvatar(
-                                        radius: 50.0,
-                                        backgroundImage: imageFile == null
-                                            ? AssetImage('images/profile.png')
-                                            : new FileImage(imageFile),
-                                        backgroundColor: Colors.transparent,
-                                      )),
+                                      child: data.contentAsBytes() != null &&
+                                              imageFile == null
+                                          ? new Image.memory(
+                                              data.contentAsBytes(),
+                                            fit: BoxFit.cover,
+                                        width: 60,
+                                        height: 60,
+                                            )
+                                          : CircleAvatar(
+                                              radius: 50.0,
+                                              backgroundImage: imageFile == null
+                                                  ? AssetImage(
+                                                      'images/profile.png')
+                                                  : new FileImage(imageFile),
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                            )),
                                   behavior: HitTestBehavior.translucent,
                                   onTap: () {
                                     print("selected");
@@ -235,7 +245,6 @@ class ProfileState extends State<ProfilePage> {
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold),
                           ),
-
                         ],
                       ),
                     ),
