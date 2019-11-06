@@ -147,7 +147,7 @@ class _MapPage1State extends State<MapPage1> {
       _deliveryPrice = "-1";
       _deliveryAmount = AppTranslations.of(context).text("amount_4");
     }
-    SharedPrefUtil().setString(SharedPrefUtil().deliveryPrice, _deliveryPrice);
+    await SharedPrefUtil().setString(SharedPrefUtil().deliveryPrice, _deliveryPrice);
     return _deliveryAmount;
   }
 
