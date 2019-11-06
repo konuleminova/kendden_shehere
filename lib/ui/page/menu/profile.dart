@@ -122,13 +122,13 @@ class ProfileState extends State<ProfilePage> {
                                   child: CircleAvatar(
                                       minRadius: 60,
                                       backgroundColor: Colors.green.shade300,
-                                      child: data != null &&
-                                              imageFile == null
-                                          ? new Image.memory(
-                                              data.contentAsBytes(),
-                                            fit: BoxFit.cover,
-                                        width: 60,
-                                        height: 60,
+                                      child: data != null && imageFile == null
+                                          ? ClipOval(
+                                              child: new Image.memory(
+                                                  data.contentAsBytes(),
+                                                  width: 100,
+                                                  height: 100,
+                                                  fit: BoxFit.fill),
                                             )
                                           : CircleAvatar(
                                               radius: 50.0,
@@ -437,16 +437,16 @@ class ProfileState extends State<ProfilePage> {
                       width: double.infinity,
                       child: RaisedButton(
                         color: Colors.green,
-                        onPressed: ()async {
+                        onPressed: () async {
                           // Navigator.of(context).pushNamedAndRemoveUntil(
                           //  '/login', (Route<dynamic> route) => false);
-                         await SharedPrefUtil()
+                          await SharedPrefUtil()
                               .setBool(SharedPrefUtil().isLoginKey, false);
                           SharedPreferences.getInstance().then((onvalue) {
                             onvalue.clear();
                           });
-                           Navigator.pushReplacementNamed(context, "/login");
-                           // Navigator.of(context).popUntil(ModalRoute.withName('/login'));
+                          Navigator.pushReplacementNamed(context, "/login");
+                          // Navigator.of(context).popUntil(ModalRoute.withName('/login'));
                           // Navigator.pushNamed(context, "/");
                           //Navigator.pop<bool>(context, true);
                         },
