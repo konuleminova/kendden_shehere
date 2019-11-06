@@ -122,7 +122,7 @@ class ProfileState extends State<ProfilePage> {
                                   child: CircleAvatar(
                                       minRadius: 60,
                                       backgroundColor: Colors.green.shade300,
-                                      child: data.contentAsBytes() != null &&
+                                      child: data != null &&
                                               imageFile == null
                                           ? new Image.memory(
                                               data.contentAsBytes(),

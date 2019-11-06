@@ -42,7 +42,7 @@ class DrawerWidget extends StatelessWidget {
                       currentAccountPicture: CircleAvatar(
                           minRadius: 60,
                           backgroundColor: Colors.green.shade300,
-                          child: data.contentAsBytes() != null
+                          child: data!= null
                               ? new Image.memory(data.contentAsBytes())
                               : CircleAvatar(
                                   radius: 50.0,
