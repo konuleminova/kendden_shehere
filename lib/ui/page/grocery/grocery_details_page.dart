@@ -181,7 +181,10 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                               height: 5.0,
                             ),
                             GrocerySubtitle(
-                                text: product.counttype + " " + product.price+" AZN"),
+                                text: product.counttype +
+                                    " " +
+                                    product.price +
+                                    " AZN"),
                             new Container(
                               margin: EdgeInsets.all(6),
                               child: RatingStarWidget(5, 4, 22),
@@ -213,45 +216,48 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
     if (!product.isAdded) {
       return new GestureDetector(
         child: new Container(
-          width: MediaQuery.of(context).size.width * 0.45,
+          width: MediaQuery.of(context).size.width * 0.5,
           child: new Container(
             // padding: EdgeInsets.all(8),
             color: Colors.lightGreen,
             child: new Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                IconButton(
-                    icon: Icon(
-                      Icons.shopping_cart,
-                      color: Colors.white,
-                      size: 30,
-                    ),
-                    onPressed: () {
-                      Networks()
-                          .addToBasket(product.id, product.weight.toString())
-                          .then((onvalue) {
-                        print(onvalue);
-                        if (onvalue != null) {
-                          if (onvalue['action'] == "done") {
-                            viewModel.addShopItem(product);
-                            // viewModel.onFetchShopList();
-                            setState(() {
-                              product.isAdded = !product.isAdded;
-                              lenght++;
-                            });
-                            //viewModel.changeAddStatus(index, true, product.weight);
-                          }
+              Expanded(child:   IconButton(
+                  icon: Icon(
+                    Icons.shopping_cart,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                  onPressed: () {
+                    Networks()
+                        .addToBasket(product.id, product.weight.toString())
+                        .then((onvalue) {
+                      print(onvalue);
+                      if (onvalue != null) {
+                        if (onvalue['action'] == "done") {
+                          viewModel.addShopItem(product);
+                          // viewModel.onFetchShopList();
+                          setState(() {
+                            product.isAdded = !product.isAdded;
+                            lenght++;
+                          });
+                          //viewModel.changeAddStatus(index, true, product.weight);
                         }
-                      });
-                    }),
-                new Container(
-                  padding: EdgeInsets.only(right: 8.0),
-                  child: new Text(
-                 AppTranslations.of(context).text("add_to_cart"),
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
+                      }
+                    });
+                  }),flex: 1,),
+                Expanded(
+                  flex: 3,
+                  child: new Container(
+                    padding: EdgeInsets.only(right: 8.0),
+                    child: new Text(
+                      AppTranslations.of(context).text("add_to_cart"),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                 )
               ],
