@@ -260,33 +260,21 @@ class HomePage extends StatelessWidget {
                                                     itemBuilder:
                                                         (BuildContext context,
                                                             int index2) {
-                                                      return Container(
-                                                        height: height * 0.5,
-                                                        child: Column(
-                                                          children: <Widget>[
-                                                            Container(
-                                                                width: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .width *
-                                                                    0.5,
-                                                                height: height *
-                                                                    0.5,
-                                                                child: InkWell(
-                                                                    child: Container(
-                                                                        child: InkWell(
-                                                                  child:
-                                                                      GroceryListItemOne(
-                                                                    product: viewModel
-                                                                        .homeList
-                                                                        .homelist[
-                                                                            index]
-                                                                        .list[index2],
-                                                                  ),
-                                                                ))))
-                                                          ],
-                                                        ),
-                                                      );
+                                                      return  Container(
+                                                          width: MediaQuery.of(
+                                                              context)
+                                                              .size
+                                                              .width *
+                                                              0.5,
+                                                          height: height *
+                                                              0.5,
+                                                          child:  GroceryListItemOne(
+                                                            product: viewModel
+                                                                .homeList
+                                                                .homelist[
+                                                            index]
+                                                                .list[index2],
+                                                          ),);
                                                     }),
                                                 height: height * 0.5,
                                               )
