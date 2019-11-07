@@ -469,7 +469,7 @@ class RegisterPageState extends State<RegisterPage> {
             child: Container(
               height: 500,
               child: RaisedButton(
-                padding: EdgeInsets.symmetric(vertical: 16.0),
+                padding: EdgeInsets.symmetric(vertical: 16.0,horizontal: 16.0),
                 color: Colors.green[700],
                 onPressed: () {
                   passFocus.unfocus();
