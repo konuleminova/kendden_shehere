@@ -29,6 +29,7 @@ class HomePage extends StatelessWidget {
   bool fromCheckout;
   BuildContext context;
   Future _future;
+
   HomePage({this.fromCheckout});
 
   @override
@@ -40,7 +41,11 @@ class HomePage extends StatelessWidget {
     return WillPopScope(
         child: new StoreConnector(
             onInit: (store) {
+              _future = Networks().bannerImages();
+              //_future2 = Networks().userinfo();
               store.state.wishItems.clear();
+              store.state.shopItems.clear();
+              print("INITT");
               if (fromCheckout) {
                 print("FROM CHECKOUT");
                 Networks().basket().then((onValue) {
@@ -293,18 +298,20 @@ class HomePage extends StatelessWidget {
                                         alignment: Alignment.center,
                                         margin: EdgeInsets.only(top: 100),
                                       ),
-                                viewModel.homeList.homelist != null? Container(
-                                  alignment: Alignment.center,
-                                  color: Colors.lightGreen,
-                                  child: ListTile(
-                                    title: Text(
-                                      '© 2019 Agro Trade',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                ):SizedBox()
+                                viewModel.homeList.homelist != null
+                                    ? Container(
+                                        alignment: Alignment.center,
+                                        color: Colors.lightGreen,
+                                        child: ListTile(
+                                          title: Text(
+                                            '© 2019 Agro Trade',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      )
+                                    : SizedBox()
                               ])
                             ],
                           )),
@@ -330,7 +337,7 @@ class HomePage extends StatelessWidget {
 
   Future<Null> _refreshLocal() async {
     await Future.delayed(Duration(seconds: 1));
-    if(viewModel!=null){
+    if (viewModel != null) {
       viewModel.onFetchAllCollection();
     }
     return null;
