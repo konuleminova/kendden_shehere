@@ -499,7 +499,6 @@ class _MapPage1State extends State<MapPage1> {
 
   _getPermission() async {
     bool val = false;
-    print("STARTING LOCATION SERVICE");
     var location = Location();
     location.changeSettings(
         accuracy: LocationAccuracy.POWERSAVE,
@@ -507,22 +506,10 @@ class _MapPage1State extends State<MapPage1> {
         distanceFilter: 500);
     if (!await location.hasPermission()) {
       bool isa = await location.requestPermission();
-      print("ISAA" + isa.toString());
       val = isa;
     } else {
       val = true;
     }
-
-//    try {
-//      await location.onLocationChanged().listen((LocationData currentLocation) {
-//        print(currentLocation.latitude);
-//        print(currentLocation.longitude);
-//      // val='2';
-//      });
-//    } on Exception {
-//      location = null;
-//      val=null;
-//    }
     return val;
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/login/user_model.dart';
 import 'package:kendden_shehere/redux/register/register_viewmodel.dart';
@@ -93,7 +94,7 @@ class RegisterPageState extends State<RegisterPage> {
                   child: ListView(
                     children: <Widget>[
                       new Container(
-                        child: Text("Register",
+                        child: Text(AppTranslations.of(context).text('sign_up'),
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: Colors.white70,
@@ -112,7 +113,8 @@ class RegisterPageState extends State<RegisterPage> {
                               children: <Widget>[
                                 Text("Do you have an account?"),
                                 FlatButton(
-                                  child: Text("Sign in"),
+                                  child: Text(AppTranslations.of(context)
+                                      .text('login')),
                                   textColor: Colors.indigo,
                                   onPressed: () {
                                     Navigator.pop(context);
@@ -178,7 +180,8 @@ class RegisterPageState extends State<RegisterPage> {
                         style: TextStyle(color: Colors.blue),
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
-                            hintText: "Username",
+                            hintText:
+                                AppTranslations.of(context).text('username'),
                             hintStyle: TextStyle(color: Colors.blue.shade200),
                             border: InputBorder.none,
                             icon: Icon(
@@ -224,7 +227,7 @@ class RegisterPageState extends State<RegisterPage> {
                         style: TextStyle(color: Colors.blue),
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
-                            hintText: "Name",
+                            hintText: AppTranslations.of(context).text('name'),
                             hintStyle: TextStyle(color: Colors.blue.shade200),
                             border: InputBorder.none,
                             icon: Icon(
@@ -270,7 +273,8 @@ class RegisterPageState extends State<RegisterPage> {
                           FocusScope.of(context).requestFocus(mobileFocus);
                         },
                         decoration: InputDecoration(
-                            hintText: "Surname",
+                            hintText:
+                                AppTranslations.of(context).text('surname'),
                             hintStyle: TextStyle(color: Colors.blue.shade200),
                             border: InputBorder.none,
                             icon: Icon(
@@ -318,13 +322,16 @@ class RegisterPageState extends State<RegisterPage> {
                         keyboardType: TextInputType.phone,
                         maxLength: 9,
                         decoration: InputDecoration(
-                            hintText: "Phone Number",
+                            hintText:
+                                AppTranslations.of(context).text('mobile'),
                             counterText: "",
                             hintStyle: TextStyle(color: Colors.blue.shade200),
                             border: InputBorder.none,
                             icon: Text(
                               "+994",
-                              style: TextStyle(color: Colors.blue,fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.bold),
                             )),
                       )),
                   Container(
@@ -498,7 +505,7 @@ class RegisterPageState extends State<RegisterPage> {
                     borderRadius: BorderRadius.all(Radius.circular(40.0))),
                 child: !status
                     ? Text(
-                        "Sign Up",
+                        AppTranslations.of(context).text('sign_up'),
                         style: TextStyle(color: Colors.white70),
                       )
                     : Center(

@@ -105,7 +105,7 @@ class _BuildTotalWidgetAnimationState extends State<BuildTotalWidgetAnimation>
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text("Subtotal"),
+                      Text(AppTranslations.of(context).text('sub_total_price')),
                       Text(subtotal.toStringAsFixed(2) + " AZN"),
                     ],
                   ),
@@ -118,7 +118,7 @@ class _BuildTotalWidgetAnimationState extends State<BuildTotalWidgetAnimation>
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text("Total"),
+                      Text(AppTranslations.of(context).text('total_price')),
                       Text(subtotal.toStringAsFixed(2) + " AZN"),
                     ],
                   ),

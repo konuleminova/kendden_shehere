@@ -5,14 +5,6 @@ import 'package:html2md/html2md.dart' as html2md;
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:kendden_shehere/util/helper_class.dart';
 
-//class AboutUsPage extends StatefulWidget {
-//  @override
-//  State<StatefulWidget> createState() {
-//    // TODO: implement createState
-//    return AboutUsPageState();
-//  }
-//}
-
 class AboutUsPage extends StatelessWidget {
   String lang;
   Future future;
@@ -38,9 +30,7 @@ class AboutUsPage extends StatelessWidget {
           future: Networks().aboutus(lang),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
-              // ListInfo information = snapshot.data;
               if (snapshot.data != null) {
-                // String header = snapshot.data[0]['header'] ?? "";
                 String body = snapshot.data[1]['body'] ?? "";
                 String markdown = html2md.convert(body);
                 return SingleChildScrollView(

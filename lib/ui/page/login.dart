@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/login/user_model.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
@@ -27,8 +28,6 @@ class LoginState extends State<LoginPage> {
   double opacity;
   bool status = false;
   static final FacebookLogin facebookSignIn = new FacebookLogin();
-
-  String _message = 'Log in/out by pressing the buttons below.';
 
   Future<Null> _login() async {
     final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
@@ -128,7 +127,7 @@ class LoginState extends State<LoginPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text("Login",
+                      Text(AppTranslations.of(context).text('login'),
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: Colors.white70,
@@ -166,7 +165,8 @@ class LoginState extends State<LoginPage> {
                                 Icons.check_circle,
                                 color: Colors.black26,
                               ),
-                              hintText: "Username",
+                              hintText:
+                                  AppTranslations.of(context).text('username'),
 //                                errorText: !_validateUsername
 //                                    ? "Field can't be empty."
 //                                    : null,
@@ -266,7 +266,7 @@ class LoginState extends State<LoginPage> {
                           ),
                         ),
                       ),
-                      Text("Forgot your password?",
+                      Text(AppTranslations.of(context).text('forget_pass'),
                           style: TextStyle(color: Colors.white))
                     ],
                   ),
@@ -276,7 +276,7 @@ class LoginState extends State<LoginPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
-                      Text("Connect with"),
+                      Text(AppTranslations.of(context).text('connect_with')),
                       SizedBox(
                         height: 20.0,
                       ),
@@ -318,9 +318,11 @@ class LoginState extends State<LoginPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Text("Dont have an account?"),
+                          Text(
+                              AppTranslations.of(context).text('dont_account')),
                           FlatButton(
-                            child: Text("Sign up"),
+                            child: Text(
+                                AppTranslations.of(context).text('sign_up')),
                             textColor: Colors.indigo,
                             onPressed: () {
                               return Navigator.pushNamed(context, "/register");
@@ -361,7 +363,8 @@ class LoginState extends State<LoginPage> {
 
   _showProgress() {
     if (!status) {
-      return Text("Login", style: TextStyle(color: Colors.white70));
+      return Text(AppTranslations.of(context).text('login'),
+          style: TextStyle(color: Colors.white70));
     } else {
       return Center(
         child: CircularProgressIndicator(),

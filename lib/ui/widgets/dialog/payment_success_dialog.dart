@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kendden_shehere/localization/app_translations.dart';
 
 class PaymentSuccessDialog extends StatelessWidget {
   BuildContext context;
@@ -21,11 +22,11 @@ class PaymentSuccessDialog extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Text(
-                  "Thank You!",
+               AppTranslations.of(context).text('thank_you'),
                   style: TextStyle(color: Colors.green),
                 ),
                 Text(
-                  "Your transaction was successful",
+               AppTranslations.of(context).text('your_transaction'),
                   style: label,
                 ),
                 Divider(),

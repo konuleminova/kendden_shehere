@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/ui/page/menu/profile.dart';
 
 class ImagePickerDialog extends StatefulWidget {
@@ -46,7 +47,7 @@ class ImagePickerState extends State<ImagePickerDialog> {
                     ),
                     Flexible(
                       child: Text(
-                        "Profile Photo",
+                        AppTranslations.of(context).text('profile_photo'),
                         style: TextStyle(color: Colors.pink, fontSize: 18),
                       ),
                     ),
@@ -61,7 +62,7 @@ class ImagePickerState extends State<ImagePickerDialog> {
                     ListTile(
                       leading: new Icon(Icons.camera),
                       title: Text(
-                        "Camera",
+                        AppTranslations.of(context).text('camera'),
                         style: TextStyle(color: Colors.grey),
                       ),
                       onTap: () {
@@ -71,7 +72,7 @@ class ImagePickerState extends State<ImagePickerDialog> {
                     ListTile(
                       leading: Icon(Icons.image),
                       title: Text(
-                        "Gallery",
+                        AppTranslations.of(context).text('gallery'),
                         style: TextStyle(color: Colors.grey),
                       ),
                       onTap: () {
@@ -94,15 +95,6 @@ class ImagePickerState extends State<ImagePickerDialog> {
         //maxHeight: 50.0,
         //maxWidth: 50.0,
         );
-    /*if (cameraFile != null) {
-      Route route = MaterialPageRoute(
-          builder: (context) => ProfilePage(
-                file: cameraFile,
-              ));
-      Navigator.push(context, route);
-    }
-    */
-    print("You selected camera image : " + cameraFile.path);
     setState(() {
       widget.cameraFile = cameraFile;
       Navigator.pop(context);

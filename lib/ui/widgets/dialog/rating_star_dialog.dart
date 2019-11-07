@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/ui/widgets/rating_star.dart';
 
 class RatingStarDialog extends StatelessWidget {
@@ -19,11 +20,11 @@ class RatingStarDialog extends StatelessWidget {
                     Column(
                       children: <Widget>[
                         Text(
-                          "Thank You!",
+                          AppTranslations.of(context).text('thank_you'),
                           style: TextStyle(color: Colors.green),
                         ),
                         Text(
-                          "How do you rate our App?",
+                          AppTranslations.of(context).text('rate_app'),
                           style: label,
                         ),
                         Divider(),
@@ -33,7 +34,8 @@ class RatingStarDialog extends StatelessWidget {
                               keyboardType: TextInputType.multiline,
                               maxLines: 6,
                               decoration: InputDecoration(
-                                  hintText: "Write your message",
+                                  hintText: AppTranslations.of(context)
+                                      .text('review'),
                                   border: InputBorder.none),
                             ),
                           ),
@@ -55,11 +57,13 @@ class RatingStarDialog extends StatelessWidget {
                               ),
                               SizedBox(width: 10.0),
                               CircleAvatar(
-                                backgroundColor: Colors.green,
-                                child:  new IconButton(icon:new Icon(Icons.send),onPressed: (){
-                                  Navigator.pop(context);
-                                },)
-                              ),
+                                  backgroundColor: Colors.green,
+                                  child: new IconButton(
+                                    icon: new Icon(Icons.send),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                  )),
                             ],
                           ),
                           alignment: Alignment.centerRight,
@@ -68,9 +72,13 @@ class RatingStarDialog extends StatelessWidget {
                     ),
                     new Container(
                       alignment: Alignment.topRight,
-                      child: new IconButton(icon:new Icon(Icons.clear),onPressed: (){
-                        Navigator.pop(context);
-                      },alignment: Alignment.topRight,),
+                      child: new IconButton(
+                        icon: new Icon(Icons.clear),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        alignment: Alignment.topRight,
+                      ),
                     )
                   ],
                 )),

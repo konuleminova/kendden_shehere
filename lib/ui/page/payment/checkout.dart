@@ -68,7 +68,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
           new Container(
             margin: EdgeInsets.only(left: 16, bottom: 8),
             child: Text(
-              'Unvan',
+              AppTranslations.of(context).text('address'),
               style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
             ),
           ),
@@ -83,7 +83,8 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                             return Text(
                               snapshot.hasData && snapshot.data != ""
                                   ? snapshot.data
-                                  : "Please add new address",
+                                  : AppTranslations.of(context)
+                                      .text('new_address'),
                               style: TextStyle(color: Colors.grey),
                             );
                           }),
@@ -125,7 +126,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                           Flexible(
                             child: Container(
                               child: Text(
-                                "Delivery amount 4 AZN.When ordering from 20 AZN delivery is free. ",
+                                AppTranslations.of(context).text('amount_1'),
                               ),
                               width: 250,
                             ),
@@ -148,7 +149,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                           Flexible(
                             child: Container(
                               child: Text(
-                                "Delivery amount 4 AZN.",
+                                AppTranslations.of(context).text('amount_2'),
                               ),
                               width: 250,
                             ),
@@ -172,7 +173,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                           Flexible(
                             child: Container(
                               child: Text(
-                                "Delivery amount 7 AZN. ",
+                                AppTranslations.of(context).text('amount_3'),
                               ),
                               width: 250,
                             ),
@@ -196,7 +197,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                     if (onValue.isEmpty) {
                       _scaffoldKey.currentState.showSnackBar(new SnackBar(
                           content: Text(
-                            "Please fill all fields.",
+                            AppTranslations.of(context).text('please_fill'),
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           duration: const Duration(seconds: 1),
@@ -227,7 +228,8 @@ class CheckoutsPageState extends State<CheckoutsPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  Text("NEXT", style: TextStyle(color: Colors.white)),
+                  Text(AppTranslations.of(context).text('next'),
+                      style: TextStyle(color: Colors.white)),
                 ],
               ),
             ),
@@ -390,7 +392,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
               padding:
                   const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
               child: Text(
-                'Catdirilma vaxti',
+                AppTranslations.of(context).text('delivery_time'),
                 style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
               ),
             ),
@@ -467,7 +469,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
           _text = "";
         }
       } else if (choice == Constants.deliveryTimes[2]) {
-        _text = "Təcili sifarişlərə 2 AZN əlavə tətbiq olunur";
+        _text = AppTranslations.of(context).text('fast_delivery2');
       } else {
         _text = "";
       }

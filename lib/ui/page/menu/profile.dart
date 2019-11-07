@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
+import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/login/user_model.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/profile_edit_dialog.dart';
@@ -9,7 +10,6 @@ import 'package:kendden_shehere/util/sharedpref_util.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
-import 'dart:typed_data';
 
 class ProfilePage extends StatefulWidget {
   final image = 'assets/img/2.jpg';
@@ -26,15 +26,13 @@ enum SingingCharacter { lafayette, jefferson }
 class ProfileState extends State<ProfilePage> {
   File imageFile;
   UserModel userModel;
-
   List<DateTime> selectedMonthsDays;
   Iterable<DateTime> selectedWeeksDays;
   DateTime _selectedDate = new DateTime.now();
   String currentMonth;
   bool isExpanded = false;
   String displayMonth;
-
-  String gender = 'Female';
+  String gender;
 
   DateTime get selectedDate => _selectedDate;
 
@@ -55,34 +53,18 @@ class ProfileState extends State<ProfilePage> {
     if (selected != null) {
       setState(() {
         _selectedDate = selected;
-//        selectedWeeksDays =
-//            Utils.daysInRange(firstDayOfCurrentWeek, lastDayOfCurrentWeek)
-//                .toList();
-//        selectedMonthsDays = Utils.daysInMonth(selected);
-//        displayMonth = Utils.formatMonth(selected);
       });
-//      Networks().updateUser(
-//        context,
-//        'dob',
-//        _selectedDate.year.toString() +
-//            " /" +
-//            _selectedDate.month.toString() +
-//            " /" +
-//            _selectedDate.day.toString(),
-//      );
-      // updating selected date range based on selected week
-//      updateSelectedRange(firstDayOfCurrentWeek, lastDayOfCurrentWeek);
-//      _launchDateSelectionCallback(selected);
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    gender = AppTranslations.of(context).text('female');
     // TODO: implement build
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text("View Profile"),
+          title: Text(AppTranslations.of(context).text('view_profile')),
           backgroundColor: Colors.lightGreen,
           elevation: 0,
         ),
@@ -91,10 +73,6 @@ class ProfileState extends State<ProfilePage> {
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
                 final UriData data = Uri.parse(snapshot.data[1]['img']).data;
-                //print(data.isBase64); // Should print true
-                // print(data.contentAsBytes());
-                // Uint8List bytes =System.Convert.FromBase64String(snapshot.data[1]['img']);
-                // new Image.memory(data.contentAsBytes()),
                 return ListView(
                   children: <Widget>[
                     Container(
@@ -141,8 +119,6 @@ class ProfileState extends State<ProfilePage> {
                                             )),
                                   behavior: HitTestBehavior.translucent,
                                   onTap: () {
-                                    print("selected");
-                                    //imageSelectorCamera();
                                     showDialog(
                                         context: context,
                                         builder: (buildContext) {
@@ -174,7 +150,10 @@ class ProfileState extends State<ProfilePage> {
                                                           ),
                                                           Flexible(
                                                             child: Text(
-                                                              "Profile Photo",
+                                                              AppTranslations.of(
+                                                                      context)
+                                                                  .text(
+                                                                      'profile_photo'),
                                                               style: TextStyle(
                                                                   color: Colors
                                                                       .pink,
@@ -193,7 +172,10 @@ class ProfileState extends State<ProfilePage> {
                                                             leading: new Icon(
                                                                 Icons.camera),
                                                             title: Text(
-                                                              "Camera",
+                                                              AppTranslations.of(
+                                                                      context)
+                                                                  .text(
+                                                                      'camera'),
                                                               style: TextStyle(
                                                                   color: Colors
                                                                       .grey),
@@ -209,7 +191,10 @@ class ProfileState extends State<ProfilePage> {
                                                             leading: Icon(
                                                                 Icons.image),
                                                             title: Text(
-                                                              "Gallery",
+                                                              AppTranslations.of(
+                                                                      context)
+                                                                  .text(
+                                                                      'gallery'),
                                                               style: TextStyle(
                                                                   color: Colors
                                                                       .grey),
@@ -255,12 +240,10 @@ class ProfileState extends State<ProfilePage> {
                         ),
                         child: Column(
                           children: <Widget>[
-////                            ListTile(
-////                              title: Text("User information"),
-////                            ),
-//                            Divider(),
                             ListTile(
-                              title: Text("Name"),
+                              title: Text(
+                                AppTranslations.of(context).text('name'),
+                              ),
                               subtitle: Text(snapshot.data[1]['name']),
                               leading: Icon(Icons.verified_user),
                               onTap: () {
@@ -272,7 +255,9 @@ class ProfileState extends State<ProfilePage> {
                               },
                             ),
                             ListTile(
-                              title: Text("Surname"),
+                              title: Text(
+                                AppTranslations.of(context).text('surname'),
+                              ),
                               subtitle: Text(snapshot.data[1]['surname']),
                               leading: Icon(Icons.person),
                               onTap: () {
@@ -284,7 +269,9 @@ class ProfileState extends State<ProfilePage> {
                               },
                             ),
                             ListTile(
-                              title: Text("Mobile"),
+                              title: Text(
+                                AppTranslations.of(context).text('mobile'),
+                              ),
                               subtitle: Text(snapshot.data[1]['mobile']),
                               leading: Icon(Icons.phone),
                               onTap: () {
@@ -295,18 +282,6 @@ class ProfileState extends State<ProfilePage> {
                                     });
                               },
                             ),
-//                            ListTile(
-//                              title: Text("Email"),
-//                              leading: Icon(Icons.person_outline),
-//                              subtitle: Text(snapshot.data[1]['email']),
-//                              onTap: () {
-//                                showDialog(
-//                                    context: context,
-//                                    builder: (buildContext) {
-//                                      return ProfileEditDialog("email");
-//                                    });
-//                              },
-//                            ),
                             SizedBox(
                               height: 16.0,
                             ),
@@ -321,7 +296,9 @@ class ProfileState extends State<ProfilePage> {
                                           CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Container(
-                                          child: Text("Date of birth",
+                                          child: Text(
+                                              AppTranslations.of(context)
+                                                  .text('dob'),
                                               style: TextStyle(
                                                   color: Colors.grey)),
                                           margin: EdgeInsets.only(
@@ -451,7 +428,7 @@ class ProfileState extends State<ProfilePage> {
                           //Navigator.pop<bool>(context, true);
                         },
                         child: Text(
-                          "Sign Out",
+                          AppTranslations.of(context).text('sign_out'),
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
@@ -481,17 +458,6 @@ class ProfileState extends State<ProfilePage> {
     Navigator.pop(context);
     setState(() {});
   }
-
-//  _getUserInfo() async {
-//    userModel.name = await SharedPrefUtil().getString(SharedPrefUtil().name);
-//    userModel.surname =
-//        await SharedPrefUtil().getString(SharedPrefUtil().surname);
-//    userModel.username =
-//        await SharedPrefUtil().getString(SharedPrefUtil().username);
-//    userModel.mobile = await SharedPrefUtil().getString(SharedPrefUtil().mobile);
-//    return userModel;
-//  }
-
   void choiceAction(String choice) {
     setState(() {
       gender = choice;

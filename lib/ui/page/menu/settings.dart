@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/localization/application.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 
@@ -19,7 +20,7 @@ class SettingsState extends State<SettingsPage> {
     return new Scaffold(
         appBar: new AppBar(
           backgroundColor: Colors.lightGreen,
-          title: new Text("Settings"),
+          title: new Text(AppTranslations.of(context).text('settings')),
         ),
         body: new Container(
           width: double.infinity,
@@ -29,7 +30,7 @@ class SettingsState extends State<SettingsPage> {
               Positioned(
                 child: new Container(
                     child: new Text(
-                      "Select Language",
+                     AppTranslations.of(context).text('select_lang'),
                       style: TextStyle(fontSize: 20, color: Colors.green),
                     ),
                     margin: EdgeInsets.only(left: 16, right: 16, top: 16)),
@@ -59,7 +60,7 @@ class SettingsState extends State<SettingsPage> {
                         Navigator.pop(context);
                       },
                       child: Text(
-                        "Save",
+                        AppTranslations.of(context).text('save'),
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
@@ -77,7 +78,7 @@ class SettingsState extends State<SettingsPage> {
               child: Row(
                 children: <Widget>[
                   Text(
-                    "English",
+                    AppTranslations.of(context).text('english'),
                   ),
                 ],
               ),
@@ -87,7 +88,7 @@ class SettingsState extends State<SettingsPage> {
               child: Row(
                 children: <Widget>[
                   Text(
-                    "Russian",
+                    AppTranslations.of(context).text('russian'),
                   ),
                 ],
               ),
@@ -97,7 +98,7 @@ class SettingsState extends State<SettingsPage> {
               child: Row(
                 children: <Widget>[
                   Text(
-                    "Azerbaijani",
+                    AppTranslations.of(context).text('az'),
                   ),
                 ],
               ),

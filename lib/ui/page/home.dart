@@ -2,14 +2,12 @@ import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_crashlytics/flutter_crashlytics.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/connectivity/con_enum.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/home/home_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
-import 'package:kendden_shehere/ui/page/grocery/grocery_categories.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_shop_list.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/payment_error_dialog.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/payment_success_dialog.dart';
@@ -31,12 +29,7 @@ class HomePage extends StatelessWidget {
   bool fromCheckout;
   BuildContext context;
   Future _future;
-  Future _future2;
-  Store<AppState> _store;
-
   HomePage({this.fromCheckout});
-
-  // GlobalKey _scaffold = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -47,12 +40,7 @@ class HomePage extends StatelessWidget {
     return WillPopScope(
         child: new StoreConnector(
             onInit: (store) {
-              _store = store;
-              _future = Networks().bannerImages();
-              _future2 = Networks().userinfo();
               store.state.wishItems.clear();
-              store.state.shopItems.clear();
-              print("INITT");
               if (fromCheckout) {
                 print("FROM CHECKOUT");
                 Networks().basket().then((onValue) {
@@ -65,14 +53,14 @@ class HomePage extends StatelessWidget {
                             return PaymentSuccessDialog(context);
                           });
                     } else {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return PaymentErrorDialog(
-                                context,
-                                "Odeme heyate kecmedi.",
-                                'Xahiş edirik əməliyyatı yenidən təkrarlayasınız.');
-                          });
+//                      showDialog(
+//                          context: context,
+//                          builder: (BuildContext context) {
+//                            return PaymentErrorDialog(
+//                                context,
+//                                "Odeme heyate kecmedi.",
+//                                'Xahiş edirik əməliyyatı yenidən təkrarlayasınız.');
+//                          });
                     }
                   }
                 });
@@ -88,27 +76,6 @@ class HomePage extends StatelessWidget {
               store.state.homeList.homelist.clear();
               store.state.wishItems.clear();
               store.state.shopItems.clear();
-            },
-            onDidChange: (HomeViewModel viewModel) {
-              print("On did chnage");
-//             if(_store.state.homeList.homelist!=null){
-//               if(_store.state.homeList.homelist.length<=0){
-//                 print("Different");
-//                 viewModel.onFetchAllCollection();
-//               }
-//             }
-//              if(_store.state.wishItems!=null){
-//                if(_store.state.wishItems.length<=0){
-//                  print("Different");
-//                  viewModel.onFetchWishList();
-//                }
-//              }
-//              if(_store.state.shopItems!=null){
-//                if(_store.state.shopItems.length<=0){
-//                  print("Different");
-//                  viewModel.onFetchShopList();
-//                }
-//              }
             },
             converter: (Store<AppState> store) => HomeViewModel.create(store),
             builder: (BuildContext context, HomeViewModel viewModel) {
@@ -366,13 +333,6 @@ class HomePage extends StatelessWidget {
     if(viewModel!=null){
       viewModel.onFetchAllCollection();
     }
-//    Navigator.pushAndRemoveUntil(
-//        context,
-//        MaterialPageRoute(
-//            builder: (_) => HomePage(
-//                  fromCheckout: false,
-//                )),
-//        (Route<dynamic> route) => false);
     return null;
   }
 

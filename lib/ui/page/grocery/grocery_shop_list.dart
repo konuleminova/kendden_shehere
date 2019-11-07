@@ -19,7 +19,6 @@ class GroceryShopCartPage extends StatelessWidget {
     return new StoreConnector(
         onInitialBuild: (ShoppingCartViewModel viewModel) {
           this.viewModel = viewModel;
-          print("INIT BUILD");
           viewModel.onFetchShopList();
         },
         onDispose: (store){

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:html2md/html2md.dart' as html2md;
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -21,9 +22,7 @@ class DeliveryPage extends StatelessWidget {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Delivery",
-        ),
+        title: Text(AppTranslations.of(context).text("delivery_terms")),
         backgroundColor: Colors.lightGreen,
       ),
       body: new FutureBuilder(

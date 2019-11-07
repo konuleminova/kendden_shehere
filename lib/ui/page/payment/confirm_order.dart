@@ -73,7 +73,7 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
         return AlertDialog(
           title: new Text(AppTranslations.of(context).text("info")),
           content: new Text(
-              AppTranslations.of(context).text("saleof"),
+            AppTranslations.of(context).text("saleof"),
             style: TextStyle(color: Colors.red),
           ),
           actions: <Widget>[
@@ -164,7 +164,8 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
                           child: Column(
                             children: <Widget>[
                               ListTile(
-                                title: Text("Delivery Address"),
+                                title: Text(AppTranslations.of(context)
+                                    .text('address')),
                                 subtitle: Text(checkout.address),
                                 trailing: IconButton(
                                   icon: Icon(Icons.edit),
@@ -173,7 +174,8 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
                               ),
                               Divider(),
                               ListTile(
-                                title: Text("Mobile"),
+                                title: Text(
+                                    AppTranslations.of(context).text('mobile')),
                                 subtitle: Text(checkout.mobile),
                                 trailing: IconButton(
                                   color: Colors.green,
@@ -189,12 +191,14 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
                               ),
                               //  Divider(),
                               ListTile(
-                                title: Text("Username"),
+                                title: Text(AppTranslations.of(context)
+                                    .text('username')),
                                 subtitle: Text(checkout.username),
                               ),
                               Divider(),
                               ExpansionTile(
-                                title: Text("Time"),
+                                title: Text(AppTranslations.of(context)
+                                    .text('delivery_time')),
                                 children: <Widget>[
                                   ListTile(
                                     title: Text(checkout.dtime_selected_val),
@@ -202,7 +206,8 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
                                 ],
                               ),
                               ExpansionTile(
-                                title: Text("Payment Option"),
+                                title: Text(AppTranslations.of(context)
+                                    .text('payment_option')),
                                 children: <Widget>[
                                   ListTile(
                                     title: Text(checkout.dpayment_selected_val),
@@ -217,7 +222,8 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
                                   children: <Widget>[
                                     Expanded(
                                       child: ListTile(
-                                        title: Text("Subtotal Price"),
+                                        title: Text(AppTranslations.of(context)
+                                            .text('sub_total_price')),
                                         trailing: Text(
                                           checkout.price + " AZN",
                                           style: TextStyle(fontSize: 15),
@@ -226,7 +232,8 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
                                     ),
                                     Expanded(
                                       child: ListTile(
-                                        title: Text("Delivery Price"),
+                                        title: Text(AppTranslations.of(context)
+                                            .text('delivery_price')),
                                         trailing: Text(
                                           checkout.deliveryPrice + " AZN",
                                           style: TextStyle(fontSize: 15),
@@ -237,7 +244,8 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
                                         ? Expanded(
                                             child: ListTile(
                                               title: Text(
-                                                "Tecili catdirilma",
+                                                AppTranslations.of(context)
+                                                    .text('fast_delivery1'),
                                                 style: TextStyle(
                                                     color: Colors.red),
                                               ),
@@ -254,7 +262,7 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
                                     Expanded(
                                       child: ListTile(
                                         title: Text(
-                                          "Total Price",
+                                       AppTranslations.of(context).text('total_price'),
                                           style: TextStyle(
                                               color: Colors.green,
                                               fontWeight: FontWeight.bold),
@@ -282,7 +290,7 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
                                     // Find the Scaffold in the widget tree and use
                                     // it to show a SnackBar.
                                     Scaffold.of(context).showSnackBar(
-                                        snackBar("Please fill all fields."));
+                                        snackBar(AppTranslations.of(context).text('please_fill')));
                                   } else {
                                     if (alkaqol == "1") {
                                       _showDialog();
@@ -295,7 +303,7 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
                                   children: <Widget>[
-                                    Text("Confirm Order",
+                                    Text(AppTranslations.of(context).text('confirm_order'),
                                         style: TextStyle(color: Colors.white)),
                                   ],
                                 ),
@@ -312,7 +320,7 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
                                     return PaymentErrorDialog(
                                         context,
                                         "Catdirilma yoxdur!",
-                                        'Seçdiyiniz əraziyə hal hazırda çatdırılma yoxdur.');
+                                        AppTranslations.of(context).text('amount_4'));
                                   })),
                           builder:
                               (BuildContext context, AsyncSnapshot snapshot) {

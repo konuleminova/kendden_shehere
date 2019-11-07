@@ -29,15 +29,10 @@ Future<Null> displayPrediction(
   GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
 
   if (p != null) {
-    // get detail (lat/lng)
     PlacesDetailsResponse detail = await _places.getDetailsByPlaceId(p.placeId);
     print(detail.status);
     final lat = detail.result.geometry.location.lat;
     final lng = detail.result.geometry.location.lng;
-
-//    scaffold.showSnackBar(
-//      SnackBar(content: Text("${p.description} - $lat/$lng")),
-//    );
     if (p != null) {
       await SharedPrefUtil().setString(SharedPrefUtil().address, p.description);
     }
