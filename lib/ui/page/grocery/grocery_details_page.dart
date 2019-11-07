@@ -253,6 +253,7 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                     padding: EdgeInsets.only(right: 8.0),
                     child: new Text(
                       AppTranslations.of(context).text("add_to_cart"),
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,
