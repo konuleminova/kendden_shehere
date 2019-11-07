@@ -106,10 +106,11 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                               onTap: () {
                                 Navigator.push(
                                     context,
-                                    SlideLeftRoute(
-                                        page: GroceryShopCartPage(
-                                      fromCheckout: false,
-                                    )));
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            GroceryShopCartPage(
+                                              fromCheckout: false,
+                                            )));
                               },
                             ),
                             lenght != 0
