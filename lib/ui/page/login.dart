@@ -29,7 +29,7 @@ class LoginState extends State<LoginPage> {
   bool status = false;
   static final FacebookLogin facebookSignIn = new FacebookLogin();
 
-  Future<Null> _login() async {
+  Future<Null> facebookLogin() async {
     final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
 
     switch (result.status) {
@@ -42,7 +42,7 @@ class LoginState extends State<LoginPage> {
         print(profile);
         _showMessage('''
          Logged in!
-         
+
          Token: ${accessToken.token}
          User id: ${accessToken.userId}
          Expires: ${accessToken.expires}
@@ -294,7 +294,7 @@ class LoginState extends State<LoginPage> {
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(40)),
                                 ),
-                                onPressed: _login),
+                                onPressed: facebookLogin),
                           ),
                           SizedBox(
                             width: 10.0,

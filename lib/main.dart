@@ -36,43 +36,44 @@ import 'package:kendden_shehere/util/sharedpref_util.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'package:flutter_crashlytics/flutter_crashlytics.dart';
+//import 'package:flutter_crashlytics/flutter_crashlytics.dart';
 
 void main() async {
-  bool isInDebugMode = false;
-  profile(() {
-   // isInDebugMode = true;
-  });
-
-  FlutterError.onError = (FlutterErrorDetails details) {
-    if (isInDebugMode) {
-      // In development mode simply print to console.
-      FlutterError.dumpErrorToConsole(details);
-      Zone.current.handleUncaughtError(details.exception, details.stack);
-    } else {
-      // In production mode report to the application zone to report to
-      // Crashlytics.
-      Zone.current.handleUncaughtError(details.exception, details.stack);
-    }
-  };
-
-  bool optIn = true;
-  if (optIn) {
-    await FlutterCrashlytics().initialize();
-    FlutterCrashlytics().setUserInfo('test1', 'test@test.com', 'tester');
-  } else {
-    // In this case Crashlytics won't send any reports.
-    // Usually handling opt in/out is required by the Privacy Regulations
-  }
-
-  runZoned<Future<Null>>(() async {
-    runApp(MyApp());
-  }, onError: (error, stackTrace) async {
-    // Whenever an error occurs, call the `reportCrash` function. This will send
-    // Dart errors to our dev console or Crashlytics depending on the environment.
-    debugPrint(error.toString());
-    await FlutterCrashlytics().reportCrash(error, stackTrace, forceCrash: true);
-  });
+  runApp(MyApp());
+//  bool isInDebugMode = false;
+//  profile(() {
+//   // isInDebugMode = true;
+//  });
+//
+//  FlutterError.onError = (FlutterErrorDetails details) {
+//    if (isInDebugMode) {
+//      // In development mode simply print to console.
+//      FlutterError.dumpErrorToConsole(details);
+//      Zone.current.handleUncaughtError(details.exception, details.stack);
+//    } else {
+//      // In production mode report to the application zone to report to
+//      // Crashlytics.
+//      Zone.current.handleUncaughtError(details.exception, details.stack);
+//    }
+//  };
+//
+//  bool optIn = true;
+//  if (optIn) {
+//    await FlutterCrashlytics().initialize();
+//    FlutterCrashlytics().setUserInfo('test1', 'test@test.com', 'tester');
+//  } else {
+//    // In this case Crashlytics won't send any reports.
+//    // Usually handling opt in/out is required by the Privacy Regulations
+//  }
+//
+//  runZoned<Future<Null>>(() async {
+//    runApp(MyApp());
+//  }, onError: (error, stackTrace) async {
+//    // Whenever an error occurs, call the `reportCrash` function. This will send
+//    // Dart errors to our dev console or Crashlytics depending on the environment.
+//    debugPrint(error.toString());
+//    await FlutterCrashlytics().reportCrash(error, stackTrace, forceCrash: true);
+//  });
 }
 
 final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();

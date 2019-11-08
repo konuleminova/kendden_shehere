@@ -173,7 +173,7 @@ class HomePage extends StatelessWidget {
                                 // _buildCarousel(),
                                 new SizedBox(
                                   width: width,
-                                  height: 200,
+                                  height: height*0.28,
                                   child: new PageView(children: <Widget>[
                                     new FutureBuilder(
                                         future: _future,
