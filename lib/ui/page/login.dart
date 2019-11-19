@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/login/user_model.dart';
 import 'package:redux/redux.dart';
@@ -117,23 +118,57 @@ class LoginState extends State<LoginPage> {
             // key: scaffoldKey,
             body: SingleChildScrollView(
           child: Container(
-            decoration: new BoxDecoration(color: Colors.lightGreen),
+            decoration: new BoxDecoration(color: greyFixed),
             height: MediaQuery.of(context).size.height,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Container(
-                  height: 400,
+                  //height: 400,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text(AppTranslations.of(context).text('login'),
-                          textAlign: TextAlign.center,
+                      Container(
+                        child: Image.asset('images/ks/logo.png'),
+                      ),
+                      SizedBox(
+                        height: 16.0,
+                      ),
+                      Container(
+                        child: Text(
+                          "Welcome to Kendden Shehere",
                           style: TextStyle(
-                              color: Colors.white70,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 28.0)),
-                      new Container(
+                              color: greenFixed,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Container(
+                        child: Text(
+                          "Sign in to continue",
+                          style: TextStyle(color: blackFixed, fontSize: 16),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+              Container(
+                margin: EdgeInsets.all(16.0),
+                padding: EdgeInsets.only(left: 4.0),
+                color: Colors.white,
+                child: new Theme(
+                  data: new ThemeData(
+                    hintColor: Colors.green,
+                    primaryColor: Colors.green,
+                  ),
                         child: TextField(
                           onSubmitted: (value) {
                             //_controllerUsername.text=value;
@@ -156,89 +191,78 @@ class LoginState extends State<LoginPage> {
                           controller: _controllerUsername,
                           textInputAction: TextInputAction.next,
                           focusNode: userFocus,
-                          decoration: InputDecoration(
-                              prefixIcon: Icon(
-                                Icons.person,
-                                color: Colors.black26,
-                              ),
-                              suffixIcon: Icon(
-                                Icons.check_circle,
-                                color: Colors.black26,
-                              ),
-                              hintText:
-                                  AppTranslations.of(context).text('username'),
-//                                errorText: !_validateUsername
-//                                    ? "Field can't be empty."
-//                                    : null,
-                              hintStyle: TextStyle(color: Colors.black26),
-                              filled: true,
-                              fillColor: Colors.white,
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10.0)),
-                              ),
-                              contentPadding: EdgeInsets.symmetric(
-                                  horizontal: 20.0, vertical: 16.0)),
+                          decoration: new InputDecoration(
+                              hintText: "Enter your email",
+                              labelText: "EMAIL",
+                              hintStyle: TextStyle(color: greenFixed),
+                              labelStyle: new TextStyle(
+                                  color: const Color(0xFF424242)),
+                              border: new UnderlineInputBorder(
+                                  borderSide:
+                                  new BorderSide(color: greenFixed))),
                         ),
-                        margin: EdgeInsets.only(left: 20, top: 16, right: 20),
-                      ),
-                      new Container(
-                        margin: EdgeInsets.all(20),
-                        child: TextField(
-                          onSubmitted: (value) {
-                            //_controllerPass.text=value;
-                            passFocus.unfocus();
-                            userFocus.unfocus();
-                            if (_validateUsername && _validatePassword) {
-                              viewModel.buildLogin(_controllerUsername.text,
-                                  _controllerPass.text);
-                              setState(() {
-                                status = true;
-                              });
-                            }
-                          },
-                          onChanged: (value) {
-                            userFocus.unfocus();
-                            setState(() {
-                              _controllerPass.text.isEmpty
-                                  ? _validatePassword = false
-                                  : _validatePassword = true;
-                              if (_validateUsername && _validatePassword) {
-                                opacity = 1;
-                              } else {
-                                opacity = 0.5;
-                              }
-                            });
-                          },
-                          autofocus: false,
-                          obscureText: true,
-                          controller: _controllerPass,
-                          textInputAction: TextInputAction.done,
-                          focusNode: passFocus,
-                          decoration: InputDecoration(
-                              prefixIcon: Icon(
-                                Icons.lock,
-                                color: Colors.black26,
-                              ),
-                              hintText: "Password",
-//                                errorText: !_validateUsername
-//                                    ? "Field can't be empty."
-//                                    : null,
-                              hintStyle: TextStyle(
-                                color: Colors.black26,
-                              ),
-                              filled: true,
-                              fillColor: Colors.white,
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10.0)),
-                              ),
-                              contentPadding: EdgeInsets.symmetric(
-                                  horizontal: 20.0, vertical: 16.0)),
-                        ),
-                      ),
+                       // margin: EdgeInsets.only(left: 20, top: 16, right: 20),
+                      )),
+//                    Container(child:   Padding(
+//                      padding: const EdgeInsets.all(16.0),
+//                      child: TextField(
+//                        decoration: InputDecoration(
+//                          border: OutlineInputBorder(borderSide: BorderSide.none),
+//                          labelText: 'Username',
+//                        ),
+//                      ),
+//                    ),height: 56,color: Colors.white,),
+                      Container(
+                          margin: EdgeInsets.only(left: 16,right: 16),
+                          padding: EdgeInsets.only(left: 4.0),
+                          color: Colors.white,
+                          child: new Theme(
+                            data: new ThemeData(
+                              hintColor: Colors.green,
+                              primaryColor: Colors.green,
+                            ),
+                            child: new TextField(
+                              onSubmitted: (value) {
+                                //_controllerPass.text=value;
+                                passFocus.unfocus();
+                                userFocus.unfocus();
+                                if (_validateUsername && _validatePassword) {
+                                  viewModel.buildLogin(_controllerUsername.text,
+                                      _controllerPass.text);
+                                  setState(() {
+                                    status = true;
+                                  });
+                                }
+                              },
+                              onChanged: (value) {
+                                userFocus.unfocus();
+                                setState(() {
+                                  _controllerPass.text.isEmpty
+                                      ? _validatePassword = false
+                                      : _validatePassword = true;
+                                  if (_validateUsername && _validatePassword) {
+                                    opacity = 1;
+                                  } else {
+                                    opacity = 0.5;
+                                  }
+                                });
+                              },
+                              autofocus: false,
+                              obscureText: true,
+                              controller: _controllerPass,
+                              textInputAction: TextInputAction.done,
+                              focusNode: passFocus,
+                              decoration: new InputDecoration(
+                                  hintText: "Enter your password",
+                                  labelText: "PASSWORD",
+                                  hintStyle: TextStyle(color: greenFixed),
+                                  labelStyle: new TextStyle(
+                                      color: const Color(0xFF424242)),
+                                  border: new UnderlineInputBorder(
+                                      borderSide:
+                                      new BorderSide(color: greenFixed))),
+                            ),
+                          )),
                       Opacity(
                         opacity: opacity,
                         child: Container(
@@ -246,7 +270,7 @@ class LoginState extends State<LoginPage> {
                           padding: EdgeInsets.all(30.0),
                           child: RaisedButton(
                             padding: EdgeInsets.symmetric(vertical: 16.0),
-                            color: Colors.green[700],
+                            color: greenFixed,
                             onPressed: () {
                               passFocus.unfocus();
                               userFocus.unfocus();
@@ -261,77 +285,63 @@ class LoginState extends State<LoginPage> {
                             elevation: 7,
                             shape: RoundedRectangleBorder(
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(10.0))),
+                                    BorderRadius.all(Radius.circular(40.0))),
                             child: _showProgress(),
                           ),
                         ),
                       ),
-                      Text(AppTranslations.of(context).text('forget_pass'),
-                          style: TextStyle(color: Colors.white))
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Expanded(
+                                child: CircleAvatar(
+                                    backgroundColor: greyFixed,
+                                    child: Image.asset(
+                                      'images/ks/facebook.png',
+                                      fit: BoxFit.fill,
+                                    ))),
+                            Expanded(
+                                child: CircleAvatar(
+                                    backgroundColor: greyFixed,
+                                    child: Image.asset(
+                                      'images/ks/google.png',
+                                    ))),
+                            Text("OR"),
+                            Expanded(
+                                child: CircleAvatar(
+                                    backgroundColor: greyFixed,
+                                    child: Image.asset(
+                                        'images/ks/instagram.png'))),
+                          ],
+                        ),
+                        width: 180,
+                      ),
+                      SizedBox(
+                        height: 16.0,
+                      ),
                     ],
                   ),
                 ),
                 Align(
-                  alignment: AlignmentDirectional.bottomEnd,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text(AppTranslations.of(context).text('connect_with')),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          SizedBox(
-                            width: 20.0,
-                          ),
-                          Expanded(
-                            child: RaisedButton(
-                                child: Text("Facebook"),
-                                textColor: Colors.white,
-                                color: Colors.blue,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(40)),
-                                ),
-                                onPressed: facebookLogin),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Expanded(
-                            child: RaisedButton(
-                                child: Text("Instagram"),
-                                textColor: Colors.white,
-                                color: const Color(0xFFbc2a8d),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(40)),
-                                ),
-                                onPressed: instagram_login),
-                          ),
-                          SizedBox(
-                            width: 20.0,
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                              AppTranslations.of(context).text('dont_account')),
-                          FlatButton(
-                            child: Text(
-                                AppTranslations.of(context).text('sign_up')),
-                            textColor: Colors.indigo,
-                            onPressed: () {
-                              return Navigator.pushNamed(context, "/register");
-                            },
-                          )
-                        ],
-                      )
+                      Text('SIGN UP FOR AN ACCOUNT?'),
+//                          FlatButton(
+//                            child: Text(
+//                                AppTranslations.of(context).text('sign_up')),
+//                            textColor: Colors.indigo,
+//                            onPressed: () {
+//                              return Navigator.pushNamed(context, "/register");
+//                            },
+//                          )
                     ],
                   ),
+                  alignment: AlignmentDirectional.bottomEnd,
                 )
               ],
             ),
