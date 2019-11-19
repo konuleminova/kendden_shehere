@@ -376,7 +376,7 @@ class LoginState extends State<LoginPage> {
   _showProgress() {
     if (!status) {
       return Text(AppTranslations.of(context).text('login'),
-          style: TextStyle(color: Colors.white70));
+          style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold));
     } else {
       return Center(
         child: CircularProgressIndicator(),

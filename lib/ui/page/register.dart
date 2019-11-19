@@ -101,9 +101,7 @@ class RegisterPageState extends State<RegisterPage> {
               ),
               actions: <Widget>[
                 Container(
-                  margin: EdgeInsets.all(
-                    16.0
-                  ),
+                  margin: EdgeInsets.all(16.0),
                   child: Text(
                     "LOGIN",
                     style: TextStyle(color: greenFixed),
@@ -116,7 +114,7 @@ class RegisterPageState extends State<RegisterPage> {
               children: <Widget>[
                 Container(
                   color: greyFixed,
-                  child: ListView(
+                  child: Column(
                     children: <Widget>[
                       Container(
                         //height: 400,
@@ -145,6 +143,61 @@ class RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                       _buildLoginForm(),
+                      Opacity(
+                        opacity: opacity,
+                        child:Container(
+                          width: MediaQuery.of(context).size.width,height: 42,
+                          margin: EdgeInsets.all(16.0),
+                          padding: EdgeInsets.only(left: 16.0,right: 16.0),
+                          child: RaisedButton(
+//                            padding: EdgeInsets.symmetric(
+//                                vertical: 16.0, horizontal: 16.0),
+                            color:greenFixed,
+                            onPressed: () {
+                              passFocus.unfocus();
+                              userFocus.unfocus();
+                              pass2Focus.unfocus();
+                              nameFocus.unfocus();
+                              surnameFocus.unfocus();
+                              mobileFocus.unfocus();
+                              if (_validateUsername &&
+                                  _validatePassword &&
+                                  _validateMobile &&
+                                  _validateSurname &&
+                                  _validateName &&
+                                  _validatePass2) {
+                                UserModel userModel = new UserModel();
+                                userModel.name = _controllerName.text;
+                                userModel.surname = _controllerSurname.text;
+                                userModel.username = _controllerUsername.text;
+                                userModel.mobile = _controllerMobile.text;
+                                userModel.password = _controllerPass.text;
+                                userModel.password2 = _controllerPass2.text;
+                                viewModel.buildRegister(lang, userModel);
+
+                                setState(() {
+                                  status = true;
+                                });
+                              }
+
+                              // Networks().register("0", userModel);
+                            },
+                            elevation: 7,
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(40.0))),
+                            child: !status
+                                ? Text(
+                                    AppTranslations.of(context).text('sign_up'),
+                                    style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
+                                  )
+                                : Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                          ),
+                          //alignment: AlignmentDirectional.bottomCenter,
+                        ),
+                      ),
                     ],
                   ),
                 )
@@ -163,7 +216,7 @@ class RegisterPageState extends State<RegisterPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Container(
-                  margin: EdgeInsets.only(left: 16,right: 16,bottom: 8.0),
+                  margin: EdgeInsets.only(left: 16, right: 16, bottom: 8.0),
                   padding: EdgeInsets.only(left: 4.0),
                   color: Colors.white,
                   child: new Theme(
@@ -201,7 +254,8 @@ class RegisterPageState extends State<RegisterPage> {
                         textInputAction: TextInputAction.next,
                         decoration: new InputDecoration(
                             hintText: "Enter your username",
-                            labelText: AppTranslations.of(context).text('username'),
+                            labelText:
+                                AppTranslations.of(context).text('username'),
                             hintStyle: TextStyle(color: greenFixed),
                             labelStyle:
                                 new TextStyle(color: const Color(0xFF424242)),
@@ -209,319 +263,271 @@ class RegisterPageState extends State<RegisterPage> {
                                 borderSide: new BorderSide(color: greenFixed))),
                       ))),
               Container(
-                  margin: EdgeInsets.only(left: 16,right: 16,bottom: 8.0),
-                padding: EdgeInsets.only(left: 4.0),
-                color: Colors.white,
-                child: new Theme(
-                    data: new ThemeData(
-                      hintColor: Colors.green,
-                      primaryColor: Colors.green,
-                    ),
-                    child: TextField(
-                    focusNode: nameFocus,
-                    controller: _controllerName,
-                    onChanged: (value) {
-                      passFocus.unfocus();
-                      setState(() {
-                        _controllerUsername.text.trim().isEmpty
-                            ? _validateName = false
-                            : _validateName = true;
-                        if (_validateUsername &&
-                            _validatePassword &&
-                            _validateName &&
-                            _validateSurname &&
-                            _validateMobile &&
-                            _validatePass2) {
-                          opacity = 1;
-                        } else {
-                          opacity = 0.5;
-                        }
-                      });
-                    },
-                    onSubmitted: (value) {
-                      //_controllerUsername.text=value;
-                      nameFocus.unfocus();
-                      FocusScope.of(context).requestFocus(surnameFocus);
-                    },
-                      style: TextStyle(color: blackFixed),
-                    textInputAction: TextInputAction.next,
-                    decoration:new InputDecoration(
-                        hintText: "Enter your name",
-                        labelText: AppTranslations.of(context).text('name'),
-                        hintStyle: TextStyle(color: greenFixed),
-                        labelStyle:
-                        new TextStyle(color: const Color(0xFF424242)),
-                        border: new UnderlineInputBorder(
-                            borderSide: new BorderSide(color: greenFixed))),
-                  ))),
+                  margin: EdgeInsets.only(left: 16, right: 16, bottom: 8.0),
+                  padding: EdgeInsets.only(left: 4.0),
+                  color: Colors.white,
+                  child: new Theme(
+                      data: new ThemeData(
+                        hintColor: Colors.green,
+                        primaryColor: Colors.green,
+                      ),
+                      child: TextField(
+                        focusNode: nameFocus,
+                        controller: _controllerName,
+                        onChanged: (value) {
+                          passFocus.unfocus();
+                          setState(() {
+                            _controllerUsername.text.trim().isEmpty
+                                ? _validateName = false
+                                : _validateName = true;
+                            if (_validateUsername &&
+                                _validatePassword &&
+                                _validateName &&
+                                _validateSurname &&
+                                _validateMobile &&
+                                _validatePass2) {
+                              opacity = 1;
+                            } else {
+                              opacity = 0.5;
+                            }
+                          });
+                        },
+                        onSubmitted: (value) {
+                          //_controllerUsername.text=value;
+                          nameFocus.unfocus();
+                          FocusScope.of(context).requestFocus(surnameFocus);
+                        },
+                        style: TextStyle(color: blackFixed),
+                        textInputAction: TextInputAction.next,
+                        decoration: new InputDecoration(
+                            hintText: "Enter your name",
+                            labelText: AppTranslations.of(context).text('name'),
+                            hintStyle: TextStyle(color: greenFixed),
+                            labelStyle:
+                                new TextStyle(color: const Color(0xFF424242)),
+                            border: new UnderlineInputBorder(
+                                borderSide: new BorderSide(color: greenFixed))),
+                      ))),
               Container(
-                  margin: EdgeInsets.only(left: 16,right: 16,bottom: 8.0),
-                padding: EdgeInsets.only(left: 4.0),
-                color: Colors.white,
-                child: new Theme(
-                    data: new ThemeData(
-                      hintColor: Colors.green,
-                      primaryColor: Colors.green,
-                    ),
-                    child: TextField(
-                    focusNode: surnameFocus,
-                    controller: _controllerSurname,
-                      style: TextStyle(color: blackFixed),
-                    textInputAction: TextInputAction.next,
-                    onChanged: (value) {
-                      passFocus.unfocus();
-                      setState(() {
-                        _controllerUsername.text.trim().isEmpty
-                            ? _validateSurname = false
-                            : _validateSurname = true;
-                        if (_validateUsername &&
-                            _validatePassword &&
-                            _validateName &&
-                            _validateSurname &&
-                            _validateMobile &&
-                            _validatePass2) {
-                          opacity = 1;
-                        } else {
-                          opacity = 0.5;
-                        }
-                      });
-                    },
-                    onSubmitted: (value) {
-                      //_controllerUsername.text=value;
-                      surnameFocus.unfocus();
-                      FocusScope.of(context).requestFocus(mobileFocus);
-                    },
-                    decoration: new InputDecoration(
-                        hintText: "Enter your surname",
-                        labelText: AppTranslations.of(context).text('surname'),
-                        hintStyle: TextStyle(color: greenFixed),
-                        labelStyle:
-                        new TextStyle(color: const Color(0xFF424242)),
-                        border: new UnderlineInputBorder(
-                            borderSide: new BorderSide(color: greenFixed))),
-                  ))),
+                  margin: EdgeInsets.only(left: 16, right: 16, bottom: 8.0),
+                  padding: EdgeInsets.only(left: 4.0),
+                  color: Colors.white,
+                  child: new Theme(
+                      data: new ThemeData(
+                        hintColor: Colors.green,
+                        primaryColor: Colors.green,
+                      ),
+                      child: TextField(
+                        focusNode: surnameFocus,
+                        controller: _controllerSurname,
+                        style: TextStyle(color: blackFixed),
+                        textInputAction: TextInputAction.next,
+                        onChanged: (value) {
+                          passFocus.unfocus();
+                          setState(() {
+                            _controllerUsername.text.trim().isEmpty
+                                ? _validateSurname = false
+                                : _validateSurname = true;
+                            if (_validateUsername &&
+                                _validatePassword &&
+                                _validateName &&
+                                _validateSurname &&
+                                _validateMobile &&
+                                _validatePass2) {
+                              opacity = 1;
+                            } else {
+                              opacity = 0.5;
+                            }
+                          });
+                        },
+                        onSubmitted: (value) {
+                          //_controllerUsername.text=value;
+                          surnameFocus.unfocus();
+                          FocusScope.of(context).requestFocus(mobileFocus);
+                        },
+                        decoration: new InputDecoration(
+                            hintText: "Enter your surname",
+                            labelText:
+                                AppTranslations.of(context).text('surname'),
+                            hintStyle: TextStyle(color: greenFixed),
+                            labelStyle:
+                                new TextStyle(color: const Color(0xFF424242)),
+                            border: new UnderlineInputBorder(
+                                borderSide: new BorderSide(color: greenFixed))),
+                      ))),
               Container(
-                  margin: EdgeInsets.only(left: 16,right: 16,bottom: 8.0),
-                padding: EdgeInsets.only(left: 4.0),
-                color: Colors.white,
-                child: new Theme(
-                    data: new ThemeData(
-                      hintColor: Colors.green,
-                      primaryColor: Colors.green,
-                    ),
-                    child: TextField(
-                    focusNode: mobileFocus,
-                    controller: _controllerMobile,
-                      style: TextStyle(color: blackFixed),
-                    textInputAction: TextInputAction.next,
-                    onChanged: (value) {
-                      passFocus.unfocus();
-                      setState(() {
-                        _controllerUsername.text.trim().isEmpty
-                            ? _validateMobile = false
-                            : _validateMobile = true;
-                        if (_validateUsername &&
-                            _validatePassword &&
-                            _validateName &&
-                            _validateSurname &&
-                            _validateMobile &&
-                            _validatePass2) {
-                          opacity = 1;
-                        } else {
-                          opacity = 0.5;
-                        }
-                      });
-                    },
-                    onSubmitted: (value) {
-                      //_controllerUsername.text=value;
-                      mobileFocus.unfocus();
-                      FocusScope.of(context).requestFocus(passFocus);
-                    },
-                    keyboardType: TextInputType.phone,
-                    maxLength: 9,
-                    decoration: InputDecoration(
-                        hintText: AppTranslations.of(context).text('mobile'),
-                        counterText: "",
-                        hintStyle: TextStyle(color: Colors.blue.shade200),
-                        border: InputBorder.none,
-                        icon: Text(
-                          "+994",
-                          style: TextStyle(
-                              color: Colors.blue, fontWeight: FontWeight.bold),
-                        )),
-                  ))),
+                  margin: EdgeInsets.only(left: 16, right: 16, bottom: 8.0),
+                  padding: EdgeInsets.only(left: 4.0),
+                  color: Colors.white,
+                  child: new Theme(
+                      data: new ThemeData(
+                        hintColor: Colors.green,
+                        primaryColor: Colors.green,
+                      ),
+                      child: TextField(
+                        focusNode: mobileFocus,
+                        controller: _controllerMobile,
+                        style: TextStyle(color: blackFixed),
+                        textInputAction: TextInputAction.next,
+                        onChanged: (value) {
+                          passFocus.unfocus();
+                          setState(() {
+                            _controllerUsername.text.trim().isEmpty
+                                ? _validateMobile = false
+                                : _validateMobile = true;
+                            if (_validateUsername &&
+                                _validatePassword &&
+                                _validateName &&
+                                _validateSurname &&
+                                _validateMobile &&
+                                _validatePass2) {
+                              opacity = 1;
+                            } else {
+                              opacity = 0.5;
+                            }
+                          });
+                        },
+                        onSubmitted: (value) {
+                          //_controllerUsername.text=value;
+                          mobileFocus.unfocus();
+                          FocusScope.of(context).requestFocus(passFocus);
+                        },
+                        keyboardType: TextInputType.phone,
+                        maxLength: 9,
+                        decoration: InputDecoration(
+                            hintText:
+                                AppTranslations.of(context).text('mobile'),
+                            counterText: "",
+                            hintStyle: TextStyle(color: Colors.blue.shade200),
+                            border: InputBorder.none,
+                            icon: Text(
+                              "+994",
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.bold),
+                            )),
+                      ))),
               Container(
-                  margin: EdgeInsets.only(left: 16,right: 16,bottom: 8.0),
-                padding: EdgeInsets.only(left: 4.0),
-                color: Colors.white,
-                child: new Theme(
-                    data: new ThemeData(
-                      hintColor: Colors.green,
-                      primaryColor: Colors.green,
-                    ),
-                    child: TextField(
-                    focusNode: passFocus,
-                    controller: _controllerPass,
-                      style: TextStyle(color: blackFixed),
-                    textInputAction: TextInputAction.next,
-                    onChanged: (value) {
-                      //  passFocus.unfocus();
-                      setState(() {
-                        _controllerUsername.text.trim().isEmpty
-                            ? _validatePassword = false
-                            : _validatePassword = true;
-                        if (_validateUsername &&
-                            _validatePassword &&
-                            _validateName &&
-                            _validateSurname &&
-                            _validateMobile &&
-                            _validatePass2) {
-                          opacity = 1;
-                        } else {
-                          opacity = 0.5;
-                        }
-                      });
-                    },
-                    onSubmitted: (value) {
-                      //_controllerUsername.text=value;
-                      passFocus.unfocus();
-                      FocusScope.of(context).requestFocus(pass2Focus);
-                    },
-                    obscureText: true,
-                    decoration: new InputDecoration(
-                        hintText: "Enter your password",
-                        labelText: "Password",
-                        hintStyle: TextStyle(color: greenFixed),
-                        labelStyle:
-                        new TextStyle(color: const Color(0xFF424242)),
-                        border: new UnderlineInputBorder(
-                            borderSide: new BorderSide(color: greenFixed))),
-                  ))),
+                  margin: EdgeInsets.only(left: 16, right: 16, bottom: 8.0),
+                  padding: EdgeInsets.only(left: 4.0),
+                  color: Colors.white,
+                  child: new Theme(
+                      data: new ThemeData(
+                        hintColor: Colors.green,
+                        primaryColor: Colors.green,
+                      ),
+                      child: TextField(
+                        focusNode: passFocus,
+                        controller: _controllerPass,
+                        style: TextStyle(color: blackFixed),
+                        textInputAction: TextInputAction.next,
+                        onChanged: (value) {
+                          //  passFocus.unfocus();
+                          setState(() {
+                            _controllerUsername.text.trim().isEmpty
+                                ? _validatePassword = false
+                                : _validatePassword = true;
+                            if (_validateUsername &&
+                                _validatePassword &&
+                                _validateName &&
+                                _validateSurname &&
+                                _validateMobile &&
+                                _validatePass2) {
+                              opacity = 1;
+                            } else {
+                              opacity = 0.5;
+                            }
+                          });
+                        },
+                        onSubmitted: (value) {
+                          //_controllerUsername.text=value;
+                          passFocus.unfocus();
+                          FocusScope.of(context).requestFocus(pass2Focus);
+                        },
+                        obscureText: true,
+                        decoration: new InputDecoration(
+                            hintText: "Enter your password",
+                            labelText: "Password",
+                            hintStyle: TextStyle(color: greenFixed),
+                            labelStyle:
+                                new TextStyle(color: const Color(0xFF424242)),
+                            border: new UnderlineInputBorder(
+                                borderSide: new BorderSide(color: greenFixed))),
+                      ))),
               Container(
-                margin: EdgeInsets.only(left: 16,right: 16),
-                padding: EdgeInsets.only(left: 4.0),
-                color: Colors.white,
-                child: new Theme(
-                    data: new ThemeData(
-                      hintColor: Colors.green,
-                      primaryColor: Colors.green,
-                    ),
-                    child: TextField(
-                    controller: _controllerPass2,
-                    focusNode: pass2Focus,
-                      style: TextStyle(color: blackFixed),
-                    textInputAction: TextInputAction.done,
-                    onSubmitted: (onvalue) {
-                      passFocus.unfocus();
-                      userFocus.unfocus();
-                      pass2Focus.unfocus();
-                      nameFocus.unfocus();
-                      surnameFocus.unfocus();
-                      mobileFocus.unfocus();
-                      if (_validateUsername &&
-                          _validatePassword &&
-                          _validateMobile &&
-                          _validateSurname &&
-                          _validateName &&
-                          _validatePass2) {
-                        UserModel userModel = new UserModel();
-                        userModel.name = _controllerName.text;
-                        userModel.surname = _controllerSurname.text;
-                        userModel.mobile = _controllerMobile.text;
-                        userModel.username = _controllerUsername.text;
-                        userModel.password = _controllerPass.text;
-                        userModel.password2 = _controllerPass2.text;
-                        viewModel.buildRegister(lang, userModel);
+                  margin: EdgeInsets.only(left: 16, right: 16),
+                  padding: EdgeInsets.only(left: 4.0),
+                  color: Colors.white,
+                  child: new Theme(
+                      data: new ThemeData(
+                        hintColor: Colors.green,
+                        primaryColor: Colors.green,
+                      ),
+                      child: TextField(
+                        controller: _controllerPass2,
+                        focusNode: pass2Focus,
+                        style: TextStyle(color: blackFixed),
+                        textInputAction: TextInputAction.done,
+                        onSubmitted: (onvalue) {
+                          passFocus.unfocus();
+                          userFocus.unfocus();
+                          pass2Focus.unfocus();
+                          nameFocus.unfocus();
+                          surnameFocus.unfocus();
+                          mobileFocus.unfocus();
+                          if (_validateUsername &&
+                              _validatePassword &&
+                              _validateMobile &&
+                              _validateSurname &&
+                              _validateName &&
+                              _validatePass2) {
+                            UserModel userModel = new UserModel();
+                            userModel.name = _controllerName.text;
+                            userModel.surname = _controllerSurname.text;
+                            userModel.mobile = _controllerMobile.text;
+                            userModel.username = _controllerUsername.text;
+                            userModel.password = _controllerPass.text;
+                            userModel.password2 = _controllerPass2.text;
+                            viewModel.buildRegister(lang, userModel);
 
-                        setState(() {
-                          status = true;
-                        });
-                      }
-                    },
-                    onChanged: (value) {
-                      // passFocus.unfocus();
-                      setState(() {
-                        _controllerUsername.text.trim().isEmpty
-                            ? _validatePass2 = false
-                            : _validatePass2 = true;
-                        if (_validateUsername &&
-                            _validatePassword &&
-                            _validateName &&
-                            _validateSurname &&
-                            _validateMobile &&
-                            _validatePass2) {
-                          opacity = 1;
-                        } else {
-                          opacity = 0.5;
-                        }
-                      });
-                    },
-                    obscureText: true,
-                    decoration:new InputDecoration(
-                        hintText: "Confirm your password",
-                        labelText: "Repeat Password",
-                        hintStyle: TextStyle(color: greenFixed),
-                        labelStyle:
-                        new TextStyle(color: const Color(0xFF424242)),
-                        border: new UnderlineInputBorder(
-                            borderSide: new BorderSide(color: greenFixed))),
-                  ))),
+                            setState(() {
+                              status = true;
+                            });
+                          }
+                        },
+                        onChanged: (value) {
+                          // passFocus.unfocus();
+                          setState(() {
+                            _controllerUsername.text.trim().isEmpty
+                                ? _validatePass2 = false
+                                : _validatePass2 = true;
+                            if (_validateUsername &&
+                                _validatePassword &&
+                                _validateName &&
+                                _validateSurname &&
+                                _validateMobile &&
+                                _validatePass2) {
+                              opacity = 1;
+                            } else {
+                              opacity = 0.5;
+                            }
+                          });
+                        },
+                        obscureText: true,
+                        decoration: new InputDecoration(
+                            hintText: "Confirm your password",
+                            labelText: "Repeat Password",
+                            hintStyle: TextStyle(color: greenFixed),
+                            labelStyle:
+                                new TextStyle(color: const Color(0xFF424242)),
+                            border: new UnderlineInputBorder(
+                                borderSide: new BorderSide(color: greenFixed))),
+                      ))),
               SizedBox(
                 height: 10.0,
               ),
             ],
           ),
-          Opacity(
-            opacity: opacity,
-            child: Container(
-              height: 500,
-              child: RaisedButton(
-                padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-                color: Colors.green[700],
-                onPressed: () {
-                  passFocus.unfocus();
-                  userFocus.unfocus();
-                  pass2Focus.unfocus();
-                  nameFocus.unfocus();
-                  surnameFocus.unfocus();
-                  mobileFocus.unfocus();
-                  if (_validateUsername &&
-                      _validatePassword &&
-                      _validateMobile &&
-                      _validateSurname &&
-                      _validateName &&
-                      _validatePass2) {
-                    UserModel userModel = new UserModel();
-                    userModel.name = _controllerName.text;
-                    userModel.surname = _controllerSurname.text;
-                    userModel.username = _controllerUsername.text;
-                    userModel.mobile = _controllerMobile.text;
-                    userModel.password = _controllerPass.text;
-                    userModel.password2 = _controllerPass2.text;
-                    viewModel.buildRegister(lang, userModel);
-
-                    setState(() {
-                      status = true;
-                    });
-                  }
-
-                  // Networks().register("0", userModel);
-                },
-                elevation: 11,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(40.0))),
-                child: !status
-                    ? Text(
-                        AppTranslations.of(context).text('sign_up'),
-                        style: TextStyle(color: Colors.white70),
-                      )
-                    : Center(
-                        child: CircularProgressIndicator(),
-                      ),
-              ),
-              alignment: AlignmentDirectional.bottomCenter,
-            ),
-          )
         ],
       ),
     );
