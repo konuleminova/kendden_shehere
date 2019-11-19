@@ -84,5 +84,7 @@
                     </dict>
                 </array>
             </dict>
+            <key>FacebookAutoLogAppEventsEnabled</key>
+            <false/>
 </dict>
 </plist>

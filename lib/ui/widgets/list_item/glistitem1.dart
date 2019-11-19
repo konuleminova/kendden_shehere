@@ -54,7 +54,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne>
     } else if (langCode == "ru") {
       title = product.name_ru.trim();
     }
-    int weight = product.weight;
+  //  int weight = product.weight;
     // TODO: implement build
     return StoreConnector(
         onInitialBuild: (ProductViewModel viewModel) {
