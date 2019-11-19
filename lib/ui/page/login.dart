@@ -326,11 +326,11 @@ class LoginState extends State<LoginPage> {
                     ],
                   ),
                 ),
-                Align(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text('SIGN UP FOR AN ACCOUNT?'),
+               GestureDetector(child:  Align(
+                 child: Row(
+                   mainAxisAlignment: MainAxisAlignment.center,
+                   children: <Widget>[
+                     Text('SIGN UP FOR AN ACCOUNT?'),
 //                          FlatButton(
 //                            child: Text(
 //                                AppTranslations.of(context).text('sign_up')),
@@ -339,10 +339,12 @@ class LoginState extends State<LoginPage> {
 //                              return Navigator.pushNamed(context, "/register");
 //                            },
 //                          )
-                    ],
-                  ),
-                  alignment: AlignmentDirectional.bottomEnd,
-                )
+                   ],
+                 ),
+                 alignment: AlignmentDirectional.bottomEnd,
+               ),onTap: (){
+                 Navigator.pushNamed(context, '/register');
+               },)
               ],
             ),
           ),
