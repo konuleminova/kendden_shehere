@@ -398,12 +398,13 @@ class RegisterPageState extends State<RegisterPage> {
                             hintText:
                                 AppTranslations.of(context).text('mobile'),
                             counterText: "",
-                            hintStyle: TextStyle(color: Colors.blue.shade200),
+                            hintStyle: TextStyle(color: greenFixed),
                             border: InputBorder.none,
+                            labelText: "Phone Number",
                             icon: Text(
                               "+994",
                               style: TextStyle(
-                                  color: Colors.blue,
+                                  color: blackFixed,
                                   fontWeight: FontWeight.bold),
                             )),
                       ))),
