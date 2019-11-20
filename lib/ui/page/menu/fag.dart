@@ -17,7 +17,6 @@ class FagPage extends StatefulWidget {
 
 class FAGState extends State<FagPage> {
   double width;
-  List<bool> expanded = new List();
   String lang;
 
   @override
@@ -52,11 +51,6 @@ class FAGState extends State<FagPage> {
                   if (snapshot.hasData) {
                     ListInfo information = snapshot.data;
                     if (snapshot.data != null) {
-                      //  String text = snapshot.data;
-                      // List<String>  splits =text.split("\n");
-                      for (int i = 0; i < information.info.length; i++) {
-                        expanded.add(false);
-                      }
                       return ListView.builder(
                           itemCount: information.info.length,
                           itemBuilder: (BuildContext context, int index) {
@@ -98,52 +92,4 @@ class FAGState extends State<FagPage> {
           ),
         ));
   }
-
-//
-//  Future<String> getFileData(String path) async {
-//    return await rootBundle.loadString(path);
-//  }
-
-  _buildFagQuestionItem(
-          String text, String subtitle, bool expande, int index) =>
-      new Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          GestureDetector(
-            child: Container(
-              child: new Text(
-                text,
-                style: TextStyle(
-                    color: Colors.green,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
-              ),
-              margin: EdgeInsets.only(bottom: 5, top: 5),
-            ),
-            onTap: () {
-              setState(() {
-                expande = !expande;
-                expanded[index] = expande;
-              });
-            },
-          ),
-          expande
-              ? (new Container(
-                  margin: EdgeInsets.only(top: 8, bottom: 8),
-                  padding: EdgeInsets.all(12),
-                  width: width,
-                  child: new MarkdownBody(
-                    data: subtitle,
-                  ),
-                  decoration: BoxDecoration(
-                      borderRadius: new BorderRadius.circular(5),
-                      border: new Border.all(color: Colors.grey[400])),
-                ))
-              : new SizedBox(
-                  height: 0,
-                  width: 0,
-                )
-        ],
-      );
 }
