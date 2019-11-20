@@ -114,7 +114,7 @@ class RegisterPageState extends State<RegisterPage> {
               children: <Widget>[
                 Container(
                   color: greyFixed,
-                  child: Column(
+                  child: ListView(
                     children: <Widget>[
                       Container(
                         //height: 400,
