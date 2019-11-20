@@ -39,14 +39,13 @@ class FAGState extends State<FagPage> {
 
     // TODO: implement build
     return new Scaffold(
-      backgroundColor: greyFixed,
+        backgroundColor: greyFixed,
         appBar: new AppBar(
             title: Text(AppTranslations.of(context).text("fag")),
             backgroundColor: greenFixed),
         body: Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(16.0),
           child: new Container(
-            margin: EdgeInsets.all(16),
             child: new FutureBuilder(
                 future: Networks().fag(lang),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -61,11 +60,32 @@ class FAGState extends State<FagPage> {
                       return ListView.builder(
                           itemCount: information.info.length,
                           itemBuilder: (BuildContext context, int index) {
-                            return _buildFagQuestionItem(
-                                html2md.convert(information.info[index].q),
-                                html2md.convert(information.info[index].a),
-                                expanded[index],
-                                index);
+                            return Card(
+                                elevation: 3,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(4)),
+                                child: ExpansionTile(
+                                  trailing: SizedBox(),
+                                  title: Text(
+                                    html2md.convert(information.info[index].q),
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: EdgeInsets.all(16.0),
+                                      child: Text(
+                                        html2md
+                                            .convert(information.info[index].a),
+                                        style: TextStyle(color: blackFixed),
+                                      ),
+                                    )
+                                  ],
+                                ));
+//                            return _buildFagQuestionItem(
+//                                html2md.convert(information.info[index].q),
+//                                html2md.convert(information.info[index].a),
+//                                expanded[index],
+//                                index);
                           });
                     }
                   } else if (snapshot.connectionState ==
