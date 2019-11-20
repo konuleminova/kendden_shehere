@@ -254,6 +254,7 @@ class RegisterPageState extends State<RegisterPage> {
                         textInputAction: TextInputAction.next,
                         decoration: new InputDecoration(
                             hintText: "Enter your username",
+                            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: greenFixed)),
                             labelText:
                                 AppTranslations.of(context).text('username'),
                             hintStyle: TextStyle(color: greenFixed),
@@ -301,6 +302,7 @@ class RegisterPageState extends State<RegisterPage> {
                         textInputAction: TextInputAction.next,
                         decoration: new InputDecoration(
                             hintText: "Enter your name",
+                            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: greenFixed)),
                             labelText: AppTranslations.of(context).text('name'),
                             hintStyle: TextStyle(color: greenFixed),
                             labelStyle:
@@ -347,6 +349,7 @@ class RegisterPageState extends State<RegisterPage> {
                         },
                         decoration: new InputDecoration(
                             hintText: "Enter your surname",
+                            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: greenFixed)),
                             labelText:
                                 AppTranslations.of(context).text('surname'),
                             hintStyle: TextStyle(color: greenFixed),
@@ -402,6 +405,7 @@ class RegisterPageState extends State<RegisterPage> {
                             border:  new UnderlineInputBorder(
                                 borderSide: new BorderSide(color: greenFixed)),
                             labelText: "Phone Number",
+                            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: greenFixed)),
                             icon: Text(
                               "+994",
                               style: TextStyle(
@@ -449,6 +453,7 @@ class RegisterPageState extends State<RegisterPage> {
                         obscureText: true,
                         decoration: new InputDecoration(
                             hintText: "Enter your password",
+                            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: greenFixed)),
                             labelText: "Password",
                             hintStyle: TextStyle(color: greenFixed),
                             labelStyle:
@@ -519,6 +524,7 @@ class RegisterPageState extends State<RegisterPage> {
                         decoration: new InputDecoration(
                             hintText: "Confirm your password",
                             labelText: "Repeat Password",
+                            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: greenFixed)),
                             hintStyle: TextStyle(color: greenFixed),
                             labelStyle:
                                 new TextStyle(color: const Color(0xFF424242)),

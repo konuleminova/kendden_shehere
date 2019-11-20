@@ -192,8 +192,9 @@ class LoginState extends State<LoginPage> {
                           textInputAction: TextInputAction.next,
                           focusNode: userFocus,
                           decoration: new InputDecoration(
-                              hintText: "Enter your email",
-                              labelText: "EMAIL",
+                            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: greenFixed)),
+                              hintText: "Enter your username",
+                              labelText: "Username",
                               hintStyle: TextStyle(color: greenFixed),
                               labelStyle: new TextStyle(
                                   color: const Color(0xFF424242)),
@@ -253,6 +254,7 @@ class LoginState extends State<LoginPage> {
                               textInputAction: TextInputAction.done,
                               focusNode: passFocus,
                               decoration: new InputDecoration(
+                                  enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: greenFixed)),
                                   hintText: "Enter your password",
                                   labelText: "PASSWORD",
                                   hintStyle: TextStyle(color: greenFixed),
