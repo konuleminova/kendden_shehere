@@ -6,9 +6,10 @@ import 'package:kendden_shehere/ui/page/grocery/grocery_categories.dart';
 import 'package:kendden_shehere/ui/page/menu/profile.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 
-class DrawerWidget extends StatelessWidget {
+class DrawerWidget extends StatelessWidget{
   String name;
   String surname;
+  bool isExpanded = false;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class DrawerWidget extends StatelessWidget {
     return new Drawer(
         child: Container(
       color: greenFixed,
-      child: Column(
+      child: ListView(
         children: <Widget>[
           new Stack(
             children: <Widget>[
@@ -95,38 +96,62 @@ class DrawerWidget extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-          ListTile(
-            contentPadding: EdgeInsets.only(left: 30.0),
-            title: Text(
-              AppTranslations.of(context).text("delivery_terms"),
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            ),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, "/delivery_terms");
-            },
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 30.0, right: 30.0),
-            child: Divider(
-              color: Colors.white,
-            ),
-          ),
-          ListTile(
-            contentPadding: EdgeInsets.only(left: 30.0),
-            title: Text(AppTranslations.of(context).text("fag"),
-                style: TextStyle(color: Colors.white, fontSize: 20)),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, "/fag");
-            },
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 30.0, right: 30.0),
-            child: Divider(
-              color: Colors.white,
-            ),
-          ),
+          Theme(
+              child: ExpansionTile(
+                onExpansionChanged: (isExpanded) {
+                  this.isExpanded = isExpanded;
+                },
+                backgroundColor: greenFixed,
+                trailing: SizedBox(),
+                title: ListTile(
+                    contentPadding: EdgeInsets.only(left: 12.0),
+                    title: Text("Support",
+                        style: TextStyle(color: Colors.white, fontSize: 20)),
+                    onTap: null),
+                children: <Widget>[
+                  ListTile(
+                    contentPadding: EdgeInsets.only(left: 50.0),
+                    title: Text(
+                      AppTranslations.of(context).text("delivery_terms"),
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.pushNamed(context, "/delivery_terms");
+                    },
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 50.0, right: 30.0),
+                    child: Divider(
+                      color: Colors.white,
+                    ),
+                  ),
+                  ListTile(
+                    contentPadding: EdgeInsets.only(left: 50.0),
+                    title: Text(AppTranslations.of(context).text("fag"),
+                        style: TextStyle(color: Colors.white, fontSize: 20)),
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.pushNamed(context, "/fag");
+                    },
+                  ),
+//                  Padding(
+//                    padding: EdgeInsets.only(left: 50.0, right: 30.0),
+//                    child: Divider(
+//                      color: Colors.white,
+//                    ),
+                  //),
+                ],
+              ),
+              data: Theme.of(context).copyWith(dividerColor: greenFixed)),
+          isExpanded
+              ? SizedBox()
+              : Padding(
+                  padding: EdgeInsets.only(left: 30.0, right: 30.0),
+                  child: Divider(
+                    color: Colors.white,
+                  ),
+                ),
           ListTile(
             contentPadding: EdgeInsets.only(left: 30.0),
             title: Text(
