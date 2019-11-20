@@ -65,8 +65,9 @@ class ProfileState extends State<ProfilePage> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text(AppTranslations.of(context).text('view_profile')),
-          backgroundColor: Colors.lightGreen,
+          backgroundColor: greenFixed,
           elevation: 0,
+          actions: <Widget>[Image.asset('images/ks/writing.png')],
         ),
         body: FutureBuilder(
             future: Networks().userinfo(),
@@ -77,159 +78,150 @@ class ProfileState extends State<ProfilePage> {
                   children: <Widget>[
                     Container(
                       height: 200,
-                      decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                              begin: Alignment.centerLeft,
-                              end: Alignment.centerRight,
-                              stops: [
-                            0.5,
-                            0.9
-                          ],
-                              colors: [
-                            Colors.lightGreen,
-                            Colors.lightGreen.shade300
-                          ])),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                      child: Stack(
                         children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          Column(
                             children: <Widget>[
-                              GestureDetector(
-                                  child: CircleAvatar(
-                                      minRadius: 60,
-                                      backgroundColor: Colors.green.shade300,
-                                      child: data != null && imageFile == null
-                                          ? ClipOval(
-                                              child: new Image.memory(
-                                                  data.contentAsBytes(),
-                                                  width: 100,
-                                                  height: 100,
-                                                  fit: BoxFit.fill),
-                                            )
-                                          : CircleAvatar(
-                                              radius: 50.0,
-                                              backgroundImage: imageFile == null
-                                                  ? AssetImage(
-                                                      'images/profile.png')
-                                                  : new FileImage(imageFile),
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                            )),
-                                  behavior: HitTestBehavior.translucent,
-                                  onTap: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (buildContext) {
-                                          return Center(
-                                            child: Dialog(
-                                              elevation: 0,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              child: Container(
-                                                padding: EdgeInsets.only(
-                                                    right: 12.0, left: 12),
-                                                height: 190,
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                ),
-                                                child: Row(
-                                                  children: <Widget>[
-                                                    Expanded(
-                                                      child: Column(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceEvenly,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
-                                                        children: <Widget>[
-                                                          SizedBox(
-                                                            height: 10.0,
-                                                          ),
-                                                          Flexible(
-                                                            child: Text(
-                                                              AppTranslations.of(
-                                                                      context)
-                                                                  .text(
-                                                                      'profile_photo'),
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .pink,
-                                                                  fontSize: 18),
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            height: 10.0,
-                                                          ),
-                                                          Divider(
-                                                            color: Colors.blue,
-                                                          ),
-
-                                                          //SizedBox(height: 5.0),
-                                                          ListTile(
-                                                            leading: new Icon(
-                                                                Icons.camera),
-                                                            title: Text(
-                                                              AppTranslations.of(
-                                                                      context)
-                                                                  .text(
-                                                                      'camera'),
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .grey),
-                                                            ),
-                                                            onTap: () {
-                                                              imageSelector(
-                                                                  context,
-                                                                  ImageSource
-                                                                      .camera);
-                                                            },
-                                                          ),
-                                                          ListTile(
-                                                            leading: Icon(
-                                                                Icons.image),
-                                                            title: Text(
-                                                              AppTranslations.of(
-                                                                      context)
-                                                                  .text(
-                                                                      'gallery'),
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .grey),
-                                                            ),
-                                                            onTap: () {
-                                                              imageSelector(
-                                                                  context,
-                                                                  ImageSource
-                                                                      .gallery);
-                                                            },
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          );
-                                        });
-                                  })
+                              Expanded(
+                                  child: Container(
+                                color: greenFixed,
+                              )),
+                              Expanded(
+                                child: Container(),
+                              )
                             ],
                           ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            snapshot.data[1]['name'] +
-                                " " +
-                                snapshot.data[1]['surname'],
-                            style: TextStyle(
-                                fontSize: 22.0,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
+                          Align(
+                            alignment: Alignment.center,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: <Widget>[
+                                GestureDetector(
+                                    child: CircleAvatar(
+                                        minRadius: 50,
+                                        backgroundColor: greenFixed,
+                                        child: data != null && imageFile == null
+                                            ? ClipOval(
+                                                child: new Image.memory(
+                                                    data.contentAsBytes(),
+                                                    width: 100,
+                                                    height: 100,
+                                                    fit: BoxFit.fill),
+                                              )
+                                            : CircleAvatar(
+                                                radius: 50.0,
+                                                backgroundImage: imageFile ==
+                                                        null
+                                                    ? AssetImage(
+                                                        'images/ks/profile.png')
+                                                    : new FileImage(imageFile),
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                              )),
+                                    behavior: HitTestBehavior.translucent,
+                                    onTap: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (buildContext) {
+                                            return Center(
+                                              child: Dialog(
+                                                elevation: 0,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                child: Container(
+                                                  padding: EdgeInsets.only(
+                                                      right: 12.0, left: 12),
+                                                  height: 190,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                  ),
+                                                  child: Row(
+                                                    children: <Widget>[
+                                                      Expanded(
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceEvenly,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          children: <Widget>[
+                                                            SizedBox(
+                                                              height: 10.0,
+                                                            ),
+                                                            Flexible(
+                                                              child: Text(
+                                                                AppTranslations.of(
+                                                                        context)
+                                                                    .text(
+                                                                        'profile_photo'),
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .pink,
+                                                                    fontSize:
+                                                                        18),
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                              height: 10.0,
+                                                            ),
+                                                            Divider(
+                                                              color:
+                                                                  Colors.blue,
+                                                            ),
+
+                                                            //SizedBox(height: 5.0),
+                                                            ListTile(
+                                                              leading: new Icon(
+                                                                  Icons.camera),
+                                                              title: Text(
+                                                                AppTranslations.of(
+                                                                        context)
+                                                                    .text(
+                                                                        'camera'),
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .grey),
+                                                              ),
+                                                              onTap: () {
+                                                                imageSelector(
+                                                                    context,
+                                                                    ImageSource
+                                                                        .camera);
+                                                              },
+                                                            ),
+                                                            ListTile(
+                                                              leading: Icon(
+                                                                  Icons.image),
+                                                              title: Text(
+                                                                AppTranslations.of(
+                                                                        context)
+                                                                    .text(
+                                                                        'gallery'),
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .grey),
+                                                              ),
+                                                              onTap: () {
+                                                                imageSelector(
+                                                                    context,
+                                                                    ImageSource
+                                                                        .gallery);
+                                                              },
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          });
+                                    })
+                              ],
+                            ),
+                          )
                         ],
                       ),
                     ),
@@ -458,6 +450,7 @@ class ProfileState extends State<ProfilePage> {
     Navigator.pop(context);
     setState(() {});
   }
+
   void choiceAction(String choice) {
     setState(() {
       gender = choice;
