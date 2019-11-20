@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:html2md/html2md.dart' as html2md;
@@ -21,33 +22,41 @@ class ContactsPage extends StatelessWidget {
 
     // TODO: implement build
     return Scaffold(
+      backgroundColor: greyFixed,
       appBar: AppBar(
         title: Text(AppTranslations.of(context).text("contact_us")),
-        backgroundColor: Colors.lightGreen,
+        backgroundColor: greenFixed,
       ),
-      body: new FutureBuilder(
-          future: Networks().contacts(lang),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.hasData) {
-              // ListInfo information = snapshot.data;
-              if (snapshot.data != null) {
-                String header = snapshot.data['header'] ?? "";
-                String body = snapshot.data['body'] ?? "";
-                String markdown = html2md.convert(body);
-                return SingleChildScrollView(
-                  child: new Container(
-                      margin: EdgeInsets.all(16),
-                      child: new MarkdownBody(
-                        data: markdown,
-                      )),
-                );
-              }
-            } else if (snapshot.connectionState == ConnectionState.waiting) {
-              return loading();
-            } else {
-              return Container();
-            }
-          }),
+      body: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Card(
+              elevation: 10,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4)),
+              child: new FutureBuilder(
+                  future: Networks().contacts(lang),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if (snapshot.hasData) {
+                      // ListInfo information = snapshot.data;
+                      if (snapshot.data != null) {
+                        String header = snapshot.data['header'] ?? "";
+                        String body = snapshot.data['body'] ?? "";
+                        String markdown = html2md.convert(body);
+                        return SingleChildScrollView(
+                          child: new Container(
+                              margin: EdgeInsets.all(16),
+                              child: new MarkdownBody(
+                                data: markdown,
+                              )),
+                        );
+                      }
+                    } else if (snapshot.connectionState ==
+                        ConnectionState.waiting) {
+                      return loading();
+                    } else {
+                      return Container();
+                    }
+                  }))),
     );
   }
 }
