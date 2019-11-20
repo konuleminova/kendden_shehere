@@ -90,9 +90,31 @@ class GroceryWishListPage extends StatelessWidget {
                     style: TextStyle(
                         color: blackFixed, fontWeight: FontWeight.bold),
                   ),
-                  subtitle: Text('Explore more and shorlist some items',textAlign: TextAlign.center,),
+                  subtitle: Text(
+                    'Explore more and shorlist some items',
+                    textAlign: TextAlign.center,
+                  ),
                 )
               ],
+            ),
+            Align(
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(30.0),
+                child: RaisedButton(
+                    padding: EdgeInsets.symmetric(vertical: 16.0),
+                    color: greenFixed,
+                    disabledColor: greenFixed,
+                    onPressed: null,
+                    elevation: 8,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(40.0))),
+                    child: Text(
+                      'START SHOPPING',
+                      style: TextStyle(color: Colors.white),
+                    )),
+              ),
+              alignment: AlignmentDirectional(0, 0.5),
             )
           ],
         ),
