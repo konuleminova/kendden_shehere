@@ -33,6 +33,7 @@ class ProfileState extends State<ProfilePage> {
   bool isExpanded = false;
   String displayMonth;
   String gender;
+  TextEditingController _controller = new TextEditingController();
 
   DateTime get selectedDate => _selectedDate;
 
@@ -40,6 +41,7 @@ class ProfileState extends State<ProfilePage> {
   void initState() {
     super.initState();
     userModel = new UserModel();
+    _controller.text = "Konul";
   }
 
   Future<Null> selectDateFromPicker() async {
@@ -62,7 +64,7 @@ class ProfileState extends State<ProfilePage> {
     gender = AppTranslations.of(context).text('female');
     // TODO: implement build
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: greyFixed,
         appBar: AppBar(
           title: Text(AppTranslations.of(context).text('view_profile')),
           backgroundColor: greenFixed,
@@ -98,7 +100,7 @@ class ProfileState extends State<ProfilePage> {
                               children: <Widget>[
                                 GestureDetector(
                                     child: CircleAvatar(
-                                      radius: 60,
+                                        radius: 60,
                                         backgroundColor: Colors.transparent,
                                         child: data != null && imageFile == null
                                             ? ClipOval(
@@ -113,7 +115,8 @@ class ProfileState extends State<ProfilePage> {
                                                 backgroundImage: imageFile ==
                                                         null
                                                     ? AssetImage(
-                                                        'images/ks/profile.png',)
+                                                        'images/ks/profile.png',
+                                                      )
                                                     : new FileImage(imageFile),
                                                 backgroundColor:
                                                     Colors.transparent,
@@ -227,204 +230,224 @@ class ProfileState extends State<ProfilePage> {
                     ),
                     Container(
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: greyFixed,
                           borderRadius: BorderRadius.circular(5.0),
                         ),
                         child: Column(
                           children: <Widget>[
-                            ListTile(
-                              title: Text(
-                                AppTranslations.of(context).text('name'),
-                              ),
-                              subtitle: Text(snapshot.data[1]['name']),
-                              leading: Icon(Icons.verified_user),
-                              onTap: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (buildContext) {
-                                      return ProfileEditDialog("name");
-                                    });
-                              },
-                            ),
-                            ListTile(
-                              title: Text(
-                                AppTranslations.of(context).text('surname'),
-                              ),
-                              subtitle: Text(snapshot.data[1]['surname']),
-                              leading: Icon(Icons.person),
-                              onTap: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (buildContext) {
-                                      return ProfileEditDialog("surname");
-                                    });
-                              },
-                            ),
-                            ListTile(
-                              title: Text(
-                                AppTranslations.of(context).text('mobile'),
-                              ),
-                              subtitle: Text(snapshot.data[1]['mobile']),
-                              leading: Icon(Icons.phone),
-                              onTap: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (buildContext) {
-                                      return ProfileEditDialog("mobile");
-                                    });
-                              },
-                            ),
-                            SizedBox(
-                              height: 16.0,
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Expanded(
-                                    flex: 2,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Container(
-                                          child: Text(
-                                              AppTranslations.of(context)
-                                                  .text('dob'),
-                                              style: TextStyle(
-                                                  color: Colors.grey)),
-                                          margin: EdgeInsets.only(
-                                              left: 20, bottom: 8.0),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(left: 20),
-                                          height: 40,
-                                          child: Row(
-                                            children: <Widget>[
-                                              Text(gender),
-                                              PopupMenuButton<String>(
-                                                onSelected: choiceAction,
-                                                icon:
-                                                    Icon(Icons.arrow_drop_down),
-                                                itemBuilder:
-                                                    (BuildContext context) {
-                                                  return Constants.gender
-                                                      .map((String choice) {
-                                                    return PopupMenuItem<
-                                                        String>(
-                                                      value: choice,
-                                                      child: Text(choice),
-                                                    );
-                                                  }).toList();
-                                                },
-                                              )
-                                            ],
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                          ),
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: Colors.grey[400])),
-                                        )
-                                      ],
+//                            ListTile(
+//                              title: Text(
+//                                AppTranslations.of(context).text('name'),
+//                              ),
+//                              subtitle: Text(snapshot.data[1]['name']),
+//                              leading: Icon(Icons.verified_user),
+//                              onTap: () {
+//                                showDialog(
+//                                    context: context,
+//                                    builder: (buildContext) {
+//                                      return ProfileEditDialog("name");
+//                                    });
+//                              },
+//                            ),
+                            Card(
+                                margin: EdgeInsets.only(
+                                    left: 16, right: 16, bottom: 16),
+                                elevation: 2,
+                                //  padding: EdgeInsets.only(left: 4.0),
+                                color: Colors.white,
+                                child: new Theme(
+                                    data: new ThemeData(
+                                      hintColor: Colors.green,
+                                      primaryColor: Colors.green,
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.only(left: 8.0),
+                                      child: TextField(
+                                        controller: _controller,
+                                        decoration: new InputDecoration(
+                                            enabledBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: greenFixed)),
+                                            hintText: "Enter your name",
+                                            labelText:
+                                                AppTranslations.of(context)
+                                                    .text('name'),
+                                            hintStyle:
+                                                TextStyle(color: greenFixed),
+                                            labelStyle: new TextStyle(
+                                                color: const Color(0xFF424242)),
+                                            border: new UnderlineInputBorder(
+                                                borderSide: new BorderSide(
+                                                    color: greenFixed))),
+                                      ),
+                                    )
+                                    // margin: EdgeInsets.only(left: 20, top: 16, right: 20),
                                     )),
-                                SizedBox(
-                                  width: 16.0,
-                                ),
-                                Expanded(
-                                    flex: 3,
-                                    child: Align(
-                                        alignment: Alignment.centerRight,
-                                        child: GestureDetector(
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              Container(
-                                                child: Text(
-                                                  "Gender",
-                                                  style: TextStyle(
-                                                      color: Colors.grey),
-                                                ),
-                                                margin: EdgeInsets.only(
-                                                    left: 16, bottom: 8.0),
-                                              ),
-                                              Container(
-                                                height: 40,
-                                                margin:
-                                                    EdgeInsets.only(right: 16),
-                                                alignment: Alignment.center,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceAround,
-                                                  children: <Widget>[
-                                                    SizedBox(
-                                                      width: 8.0,
-                                                    ),
-                                                    Text(
-                                                      _selectedDate.year
-                                                              .toString() +
-                                                          " /" +
-                                                          _selectedDate.month
-                                                              .toString() +
-                                                          " /" +
-                                                          _selectedDate.day
-                                                              .toString(),
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 16),
-                                                    ),
-                                                    Icon(Icons.arrow_drop_down)
-                                                  ],
-                                                ),
-                                                decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                        color:
-                                                            Colors.grey[400])),
-                                              ),
-                                            ],
-                                          ),
-                                          onTap: () {
-                                            selectDateFromPicker();
-                                          },
-                                        )))
-                              ],
-                            ),
+                            Card(
+                                margin: EdgeInsets.only(
+                                    left: 16, right: 16, bottom: 16),
+                                elevation: 2,
+                                //  padding: EdgeInsets.only(left: 4.0),
+                                color: Colors.white,
+                                child: new Theme(
+                                    data: new ThemeData(
+                                      hintColor: Colors.green,
+                                      primaryColor: Colors.green,
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.only(left: 8.0),
+                                      child: TextField(
+                                        controller: _controller,
+                                        decoration: new InputDecoration(
+                                            enabledBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: greenFixed)),
+                                            hintText: "Enter your surname",
+                                            labelText:
+                                                AppTranslations.of(context)
+                                                    .text('surname'),
+                                            hintStyle:
+                                                TextStyle(color: greenFixed),
+                                            labelStyle: new TextStyle(
+                                                color: const Color(0xFF424242)),
+                                            border: new UnderlineInputBorder(
+                                                borderSide: new BorderSide(
+                                                    color: greenFixed))),
+                                      ),
+                                    )
+                                    // margin: EdgeInsets.only(left: 20, top: 16, right: 20),
+                                    )),
+                            Card(
+                                margin: EdgeInsets.only(
+                                    left: 16, right: 16, bottom: 16),
+                                elevation: 2,
+                                //  padding: EdgeInsets.only(left: 4.0),
+                                color: Colors.white,
+                                child: new Theme(
+                                    data: new ThemeData(
+                                      hintColor: Colors.green,
+                                      primaryColor: Colors.green,
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.only(left: 8.0),
+                                      child: TextField(
+                                        controller: _controller,
+                                        decoration: new InputDecoration(
+                                            enabledBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: greenFixed)),
+                                            hintText: "Enter your birthday",
+                                            labelText:
+                                                AppTranslations.of(context)
+                                                    .text('dob'),
+                                            hintStyle:
+                                                TextStyle(color: greenFixed),
+                                            labelStyle: new TextStyle(
+                                                color: const Color(0xFF424242)),
+                                            border: new UnderlineInputBorder(
+                                                borderSide: new BorderSide(
+                                                    color: greenFixed))),
+                                      ),
+                                    )
+                                    // margin: EdgeInsets.only(left: 20, top: 16, right: 20),
+                                    )),
+                            Card(
+                                margin: EdgeInsets.only(
+                                    left: 16, right: 16, bottom: 16),
+                                elevation: 2,
+                                //  padding: EdgeInsets.only(left: 4.0),
+                                color: Colors.white,
+                                child: new Theme(
+                                    data: new ThemeData(
+                                      hintColor: Colors.green,
+                                      primaryColor: Colors.green,
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.only(left: 8.0),
+                                      child: TextField(
+                                        controller: _controller,
+                                        decoration: new InputDecoration(
+                                            icon: Text(
+                                              "+994",
+                                              style: TextStyle(
+                                                  color: blackFixed,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            enabledBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: greenFixed)),
+                                            hintText: "Enter your phone number",
+                                            labelText:
+                                                AppTranslations.of(context)
+                                                    .text('mobile'),
+                                            hintStyle:
+                                                TextStyle(color: greenFixed),
+                                            labelStyle: new TextStyle(
+                                                color: const Color(0xFF424242)),
+                                            border: new UnderlineInputBorder(
+                                                borderSide: new BorderSide(
+                                                    color: greenFixed))),
+                                      ),
+                                    )
+                                    // margin: EdgeInsets.only(left: 20, top: 16, right: 20),
+                                    )),
+                            Card(
+                                margin: EdgeInsets.only(
+                                    left: 16, right: 16, bottom: 12),
+                                elevation: 2,
+                                //  padding: EdgeInsets.only(left: 4.0),
+                                color: Colors.white,
+                                child: new Theme(
+                                    data: new ThemeData(
+                                      hintColor: Colors.green,
+                                      primaryColor: Colors.green,
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.only(left: 8.0),
+                                      child: TextField(
+                                        controller: _controller,
+                                        decoration: new InputDecoration(
+                                            enabledBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: greenFixed)),
+                                            hintText: "Enter your address",
+                                            labelText:
+                                                AppTranslations.of(context)
+                                                    .text('address'),
+                                            hintStyle:
+                                                TextStyle(color: greenFixed),
+                                            labelStyle: new TextStyle(
+                                                color: const Color(0xFF424242)),
+                                            border: new UnderlineInputBorder(
+                                                borderSide: new BorderSide(
+                                                    color: greenFixed))),
+                                      ),
+                                    )
+                                    // margin: EdgeInsets.only(left: 20, top: 16, right: 20),
+                                    )),
                           ],
                         )),
-                    SizedBox(
-                      height: 16,
-                    ),
                     Container(
-                      color: Colors.white,
-                      padding: EdgeInsets.all(16),
-                      width: double.infinity,
-                      child: RaisedButton(
-                        color: Colors.green,
-                        onPressed: () async {
-                          // Navigator.of(context).pushNamedAndRemoveUntil(
-                          //  '/login', (Route<dynamic> route) => false);
-                          await SharedPrefUtil()
-                              .setBool(SharedPrefUtil().isLoginKey, false);
-                          SharedPreferences.getInstance().then((onvalue) {
-                            onvalue.clear();
-                          });
-                          Navigator.pushReplacementNamed(context, "/login");
-                          // Navigator.of(context).popUntil(ModalRoute.withName('/login'));
-                          // Navigator.pushNamed(context, "/");
-                          //Navigator.pop<bool>(context, true);
-                        },
-                        child: Text(
-                          AppTranslations.of(context).text('sign_out'),
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    )
+                        width: double.infinity,
+                        child: ListTile(
+                          title: Text(
+                            AppTranslations.of(context).text('sign_out'),
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          onTap: () async {
+                            // Navigator.of(context).pushNamedAndRemoveUntil(
+                            //  '/login', (Route<dynamic> route) => false);
+                            await SharedPrefUtil()
+                                .setBool(SharedPrefUtil().isLoginKey, false);
+                            SharedPreferences.getInstance().then((onvalue) {
+                              onvalue.clear();
+                            });
+                            Navigator.pushReplacementNamed(context, "/login");
+                            // Navigator.of(context).popUntil(ModalRoute.withName('/login'));
+                            // Navigator.pushNamed(context, "/");
+                            //Navigator.pop<bool>(context, true);
+                          },
+                        ))
                   ],
                 );
               } else {
@@ -457,3 +480,122 @@ class ProfileState extends State<ProfilePage> {
     });
   }
 }
+
+//                            Row(
+//                              children: <Widget>[
+//                                Expanded(
+//                                    flex: 2,
+//                                    child: Column(
+//                                      mainAxisAlignment:
+//                                          MainAxisAlignment.start,
+//                                      crossAxisAlignment:
+//                                          CrossAxisAlignment.start,
+//                                      children: <Widget>[
+//                                        Container(
+//                                          child: Text(
+//                                              AppTranslations.of(context)
+//                                                  .text('dob'),
+//                                              style: TextStyle(
+//                                                  color: Colors.grey)),
+//                                          margin: EdgeInsets.only(
+//                                              left: 20, bottom: 8.0),
+//                                        ),
+//                                        Container(
+//                                          margin: EdgeInsets.only(left: 20),
+//                                          height: 40,
+//                                          child: Row(
+//                                            children: <Widget>[
+//                                              Text(gender),
+//                                              PopupMenuButton<String>(
+//                                                onSelected: choiceAction,
+//                                                icon:
+//                                                    Icon(Icons.arrow_drop_down),
+//                                                itemBuilder:
+//                                                    (BuildContext context) {
+//                                                  return Constants.gender
+//                                                      .map((String choice) {
+//                                                    return PopupMenuItem<
+//                                                        String>(
+//                                                      value: choice,
+//                                                      child: Text(choice),
+//                                                    );
+//                                                  }).toList();
+//                                                },
+//                                              )
+//                                            ],
+//                                            mainAxisAlignment:
+//                                                MainAxisAlignment.center,
+//                                          ),
+//                                          decoration: BoxDecoration(
+//                                              border: Border.all(
+//                                                  color: Colors.grey[400])),
+//                                        )
+//                                      ],
+//                                    )),
+//                                SizedBox(
+//                                  width: 16.0,
+//                                ),
+//                                Expanded(
+//                                    flex: 3,
+//                                    child: Align(
+//                                        alignment: Alignment.centerRight,
+//                                        child: GestureDetector(
+//                                          child: Column(
+//                                            mainAxisAlignment:
+//                                                MainAxisAlignment.start,
+//                                            crossAxisAlignment:
+//                                                CrossAxisAlignment.start,
+//                                            children: <Widget>[
+//                                              Container(
+//                                                child: Text(
+//                                                  "Gender",
+//                                                  style: TextStyle(
+//                                                      color: Colors.grey),
+//                                                ),
+//                                                margin: EdgeInsets.only(
+//                                                    left: 16, bottom: 8.0),
+//                                              ),
+//                                              Container(
+//                                                height: 40,
+//                                                margin:
+//                                                    EdgeInsets.only(right: 16),
+//                                                alignment: Alignment.center,
+//                                                child: Row(
+//                                                  mainAxisAlignment:
+//                                                      MainAxisAlignment
+//                                                          .spaceAround,
+//                                                  children: <Widget>[
+//                                                    SizedBox(
+//                                                      width: 8.0,
+//                                                    ),
+//                                                    Text(
+//                                                      _selectedDate.year
+//                                                              .toString() +
+//                                                          " /" +
+//                                                          _selectedDate.month
+//                                                              .toString() +
+//                                                          " /" +
+//                                                          _selectedDate.day
+//                                                              .toString(),
+//                                                      textAlign:
+//                                                          TextAlign.center,
+//                                                      style: TextStyle(
+//                                                          color: Colors.black,
+//                                                          fontSize: 16),
+//                                                    ),
+//                                                    Icon(Icons.arrow_drop_down)
+//                                                  ],
+//                                                ),
+//                                                decoration: BoxDecoration(
+//                                                    border: Border.all(
+//                                                        color:
+//                                                            Colors.grey[400])),
+//                                              ),
+//                                            ],
+//                                          ),
+//                                          onTap: () {
+//                                            selectDateFromPicker();
+//                                          },
+//                                        )))
+//                              ],
+//                            ),
