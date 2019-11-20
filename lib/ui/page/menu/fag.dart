@@ -39,48 +39,44 @@ class FAGState extends State<FagPage> {
 
     // TODO: implement build
     return new Scaffold(
+      backgroundColor: greyFixed,
         appBar: new AppBar(
-          title: Text(AppTranslations.of(context).text("fag")),
-          backgroundColor: greenFixed
-        ),
+            title: Text(AppTranslations.of(context).text("fag")),
+            backgroundColor: greenFixed),
         body: Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Card(
-              elevation: 10,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(4)),
-              child: new Container(
-                margin: EdgeInsets.all(16),
-                child: new FutureBuilder(
-                    future: Networks().fag(lang),
-                    builder: (BuildContext context, AsyncSnapshot snapshot) {
-                      if (snapshot.hasData) {
-                        ListInfo information = snapshot.data;
-                        if (snapshot.data != null) {
-                          //  String text = snapshot.data;
-                          // List<String>  splits =text.split("\n");
-                          for (int i = 0; i < information.info.length; i++) {
-                            expanded.add(false);
-                          }
-                          return ListView.builder(
-                              itemCount: information.info.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return _buildFagQuestionItem(
-                                    html2md.convert(information.info[index].q),
-                                    html2md.convert(information.info[index].a),
-                                    expanded[index],
-                                    index);
-                              });
-                        }
-                      } else if (snapshot.connectionState ==
-                          ConnectionState.waiting) {
-                        return loading();
-                      } else {
-                        return Container();
+          padding: EdgeInsets.all(8.0),
+          child: new Container(
+            margin: EdgeInsets.all(16),
+            child: new FutureBuilder(
+                future: Networks().fag(lang),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData) {
+                    ListInfo information = snapshot.data;
+                    if (snapshot.data != null) {
+                      //  String text = snapshot.data;
+                      // List<String>  splits =text.split("\n");
+                      for (int i = 0; i < information.info.length; i++) {
+                        expanded.add(false);
                       }
-                    }),
-              ),
-            )));
+                      return ListView.builder(
+                          itemCount: information.info.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return _buildFagQuestionItem(
+                                html2md.convert(information.info[index].q),
+                                html2md.convert(information.info[index].a),
+                                expanded[index],
+                                index);
+                          });
+                    }
+                  } else if (snapshot.connectionState ==
+                      ConnectionState.waiting) {
+                    return loading();
+                  } else {
+                    return Container();
+                  }
+                }),
+          ),
+        ));
   }
 
 //
