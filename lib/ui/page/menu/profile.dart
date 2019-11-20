@@ -98,8 +98,8 @@ class ProfileState extends State<ProfilePage> {
                               children: <Widget>[
                                 GestureDetector(
                                     child: CircleAvatar(
-                                        minRadius: 50,
-                                        backgroundColor: greenFixed,
+                                      radius: 60,
+                                        backgroundColor: Colors.transparent,
                                         child: data != null && imageFile == null
                                             ? ClipOval(
                                                 child: new Image.memory(
@@ -109,11 +109,11 @@ class ProfileState extends State<ProfilePage> {
                                                     fit: BoxFit.fill),
                                               )
                                             : CircleAvatar(
-                                                radius: 50.0,
+                                                radius: 55.0,
                                                 backgroundImage: imageFile ==
                                                         null
                                                     ? AssetImage(
-                                                        'images/ks/profile.png')
+                                                        'images/ks/profile.png',)
                                                     : new FileImage(imageFile),
                                                 backgroundColor:
                                                     Colors.transparent,
