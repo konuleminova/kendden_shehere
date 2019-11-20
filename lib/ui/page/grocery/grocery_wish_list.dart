@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/home/home_action.dart';
 import 'package:kendden_shehere/redux/productlist/product_model.dart';
@@ -32,12 +33,15 @@ class GroceryWishListPage extends StatelessWidget {
           this.viewModel = viewModel;
           return new Scaffold(
               appBar: new AppBar(
-                backgroundColor: Colors.lightGreen,
+                backgroundColor: greenFixed,
                 title: Text(AppTranslations.of(context).text("wish_list")),
               ),
               body: Column(
                 children: <Widget>[
-                  Expanded(child: _shopBody()),
+                  Expanded(
+                      child: viewModel.wishItems.length > 0
+                          ? _shopBody()
+                          : _emptyWishList()),
                   SizedBox(
                     height: 10.0,
                   ),
@@ -68,6 +72,29 @@ class GroceryWishListPage extends StatelessWidget {
           children: viewModel.wishItems
               .map((Product wishItem) => _buildWishListItem(wishItem))
               .toList(),
+        ),
+      );
+
+  _emptyWishList() => Container(
+        child: Stack(
+          children: <Widget>[
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Image.asset('images/ks/heart.png'),
+                ListTile(
+                  title: Text(
+                    'Your Wishlist is empty!',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: blackFixed, fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Text('Explore more and shorlist some items',textAlign: TextAlign.center,),
+                )
+              ],
+            )
+          ],
         ),
       );
 }
