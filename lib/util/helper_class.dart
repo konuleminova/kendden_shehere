@@ -37,34 +37,19 @@ snackBar(content) => SnackBar(
     );
 
 Widget noInternetConnection() => Container(
-      child: Column(
-        children: <Widget>[
-          IconButton(icon: Icon(Icons.signal_wifi_off,size: 30,),onPressed: null,),
-          Text(
-            "Slow or no internet connection.",
-            style: TextStyle(color: Colors.grey, fontSize: 20),
-          ),
-          SizedBox(
-            height: 8,
-          ),
-          Text(
-            "Please check your internet settings",
-            style: TextStyle(color: Colors.grey, fontSize: 18),
-          ),
-          SizedBox(
-            height: 16,
-          ),
-          RaisedButton(
-            child: Text(
-              "Try Again",
+        child: Stack(
+      alignment: Alignment.center,
+      children: <Widget>[
+        Image.asset('images/ks/sorry.png'),
+        Align(
+            alignment: Alignment.bottomCenter,
+            child:Container(width: 200,height:50,child:  Text(
+              "There Is no Internet connectIon. Please Try again",
               style: TextStyle(color: Colors.white),
-            ),
-            onPressed: null,
-            disabledColor: Colors.teal,
-          )
-        ],
-      ),
-    );
+              textAlign: TextAlign.center,
+            ),alignment: Alignment.bottomCenter,))
+      ],
+    ));
 
 Widget loading() => Center(
       child: new CircularProgressIndicator(),
