@@ -100,16 +100,13 @@ class HomePage extends StatelessWidget {
                     title: new Text(AppTranslations.of(context)
                         .text("title_select_language")),
                     actions: <Widget>[
-                      new IconButton(
-                        icon: Icon(
-                          Icons.search,
-                          color: Colors.white,
-                        ),
-                        onPressed: () {
-                          showSearch(
-                              context: context, delegate: SearchWidget());
-                        },
+                      GestureDetector(
+                        child: Image.asset('images/ks/chat.png'),
+                        onTap: () {
+                          _getNewActivity();
+                        }
                       ),
+                      SizedBox(width: 4,)
                     ],
                   ),
                   floatingActionButton: new FloatingActionButton(
