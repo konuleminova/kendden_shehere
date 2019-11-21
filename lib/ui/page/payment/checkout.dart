@@ -56,7 +56,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
     return new Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        backgroundColor: Colors.lightGreen,
+        backgroundColor: greenFixed,
         title: Text(AppTranslations.of(context).text("checkout")),
         centerTitle: true,
       ),
