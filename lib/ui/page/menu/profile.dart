@@ -33,8 +33,11 @@ class ProfileState extends State<ProfilePage> {
   bool isExpanded = false;
   String displayMonth;
   String gender;
-  TextEditingController _controller = new TextEditingController();
-
+  TextEditingController _controllerName = new TextEditingController();
+  TextEditingController _controllerSurname = new TextEditingController();
+  TextEditingController _controllerDob = new TextEditingController();
+  TextEditingController _controllerMobile = new TextEditingController();
+  TextEditingController _controllerAddress = new TextEditingController();
   DateTime get selectedDate => _selectedDate;
   bool _enabled = false;
 
@@ -42,7 +45,6 @@ class ProfileState extends State<ProfilePage> {
   void initState() {
     super.initState();
     userModel = new UserModel();
-    _controller.text = "Konul";
   }
 
   Future<Null> selectDateFromPicker() async {
@@ -88,6 +90,12 @@ class ProfileState extends State<ProfilePage> {
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
                 final UriData data = Uri.parse(snapshot.data[1]['img']).data;
+                _controllerName.text=snapshot.data[1]['name'];
+                _controllerSurname.text=snapshot.data[1]['surname'];
+                _controllerDob.text=snapshot.data[1]['dob'];
+                String mobile=snapshot.data[1]['mobile'];
+                _controllerMobile.text=mobile.substring(4);
+                _controllerAddress.text=snapshot.data[1]['adress'];
                 return ListView(
                   children: <Widget>[
                     Container(
@@ -287,7 +295,7 @@ class ProfileState extends State<ProfilePage> {
                                       padding: EdgeInsets.only(left: 8.0),
                                       child: TextField(
                                         enabled: _enabled,
-                                        controller: _controller,
+                                        controller: _controllerName,
                                         decoration: new InputDecoration(
                                             enabledBorder: UnderlineInputBorder(
                                                 borderSide: BorderSide(
@@ -321,7 +329,7 @@ class ProfileState extends State<ProfilePage> {
                                     child: Padding(
                                       padding: EdgeInsets.only(left: 8.0),
                                       child: TextField(
-                                        controller: _controller,
+                                        controller: _controllerSurname,
                                         enabled: _enabled,
                                         decoration: new InputDecoration(
                                             enabledBorder: UnderlineInputBorder(
@@ -356,7 +364,7 @@ class ProfileState extends State<ProfilePage> {
                                     child: Padding(
                                       padding: EdgeInsets.only(left: 8.0),
                                       child: TextField(
-                                        controller: _controller,
+                                        controller: _controllerDob,
                                         enabled: _enabled,
                                         decoration: new InputDecoration(
                                           suffixIcon: _enabled?Image.asset('images/ks/calendar.png'):SizedBox(),
@@ -392,7 +400,7 @@ class ProfileState extends State<ProfilePage> {
                                     child: Padding(
                                       padding: EdgeInsets.only(left: 8.0),
                                       child: TextField(
-                                        controller: _controller,
+                                        controller: _controllerMobile,
                                         enabled: _enabled,
                                         decoration: new InputDecoration(
                                             icon: Text(
@@ -433,7 +441,7 @@ class ProfileState extends State<ProfilePage> {
                                     child: Padding(
                                       padding: EdgeInsets.only(left: 8.0),
                                       child: TextField(
-                                        controller: _controller,
+                                        controller: _controllerAddress,
                                         enabled: _enabled,
                                         decoration: new InputDecoration(
                                             enabledBorder: UnderlineInputBorder(
