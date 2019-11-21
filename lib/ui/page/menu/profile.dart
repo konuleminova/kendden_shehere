@@ -38,13 +38,17 @@ class ProfileState extends State<ProfilePage> {
   TextEditingController _controllerDob = new TextEditingController();
   TextEditingController _controllerMobile = new TextEditingController();
   TextEditingController _controllerAddress = new TextEditingController();
+
   DateTime get selectedDate => _selectedDate;
   bool _enabled = false;
+  Future _future;
 
   @override
   void initState() {
     super.initState();
+
     userModel = new UserModel();
+   _future= Networks().userinfo();
   }
 
   Future<Null> selectDateFromPicker() async {
@@ -57,6 +61,13 @@ class ProfileState extends State<ProfilePage> {
 
     if (selected != null) {
       setState(() {
+        print(_selectedDate);
+
+        _controllerDob.text = _selectedDate.year.toString() +
+            " /" +
+            _selectedDate.month.toString() +
+            " /" +
+            _selectedDate.day.toString();
         _selectedDate = selected;
       });
     }
@@ -86,16 +97,18 @@ class ProfileState extends State<ProfilePage> {
           ],
         ),
         body: FutureBuilder(
-            future: Networks().userinfo(),
+            future: _future,
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
                 final UriData data = Uri.parse(snapshot.data[1]['img']).data;
-                _controllerName.text=snapshot.data[1]['name'];
-                _controllerSurname.text=snapshot.data[1]['surname'];
-                _controllerDob.text=snapshot.data[1]['dob'];
-                String mobile=snapshot.data[1]['mobile'];
-                _controllerMobile.text=mobile.substring(4);
-                _controllerAddress.text=snapshot.data[1]['adress'];
+                _controllerName.text = snapshot.data[1]['name'];
+                _controllerSurname.text = snapshot.data[1]['surname'];
+           if(!_enabled){
+             _controllerDob.text = snapshot.data[1]['dob'];
+           }
+                String mobile = snapshot.data[1]['mobile'];
+                _controllerMobile.text = mobile.substring(4);
+                _controllerAddress.text = snapshot.data[1]['adress'];
                 return ListView(
                   children: <Widget>[
                     Container(
@@ -145,11 +158,15 @@ class ProfileState extends State<ProfilePage> {
                                                     backgroundColor:
                                                         Colors.transparent,
                                                   ),
-                                           _enabled? Align(
-                                             child: Image.asset(
-                                               'images/ks/upload.png',fit: BoxFit.cover,),
-                                             alignment: Alignment.center,
-                                           ):SizedBox()
+                                            _enabled
+                                                ? Align(
+                                                    child: Image.asset(
+                                                      'images/ks/upload.png',
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                    alignment: Alignment.center,
+                                                  )
+                                                : SizedBox()
                                           ],
                                         )),
                                     behavior: HitTestBehavior.translucent,
@@ -365,9 +382,20 @@ class ProfileState extends State<ProfilePage> {
                                       padding: EdgeInsets.only(left: 8.0),
                                       child: TextField(
                                         controller: _controllerDob,
-                                        enabled: false,
+                                        enabled: _enabled,
                                         decoration: new InputDecoration(
-                                          suffixIcon: _enabled?Image.asset('images/ks/calendar.png'):SizedBox(),
+                                            suffixIcon: _enabled
+                                                ? GestureDetector(
+                                                    child: Image(
+                                                      image: AssetImage(
+                                                          'images/ks/calendar.png'),
+                                                    ),
+                                                    onTap: () {
+                                                      print("Calendar");
+                                                      selectDateFromPicker();
+                                                    },
+                                                  )
+                                                : SizedBox(),
                                             enabledBorder: UnderlineInputBorder(
                                                 borderSide: BorderSide(
                                                     color: greenFixed)),
@@ -464,46 +492,52 @@ class ProfileState extends State<ProfilePage> {
                                     )),
                           ],
                         )),
-                    !_enabled?Container(
-                        width: double.infinity,
-                        child: ListTile(
-                          title: Text(
-                            AppTranslations.of(context).text('sign_out'),
-                            style: TextStyle(fontSize: 18),
-                          ),
-                          onTap: () async {
-                            // Navigator.of(context).pushNamedAndRemoveUntil(
-                            //  '/login', (Route<dynamic> route) => false);
-                            await SharedPrefUtil()
-                                .setBool(SharedPrefUtil().isLoginKey, false);
-                            SharedPreferences.getInstance().then((onvalue) {
-                              onvalue.clear();
-                            });
-                            Navigator.pushReplacementNamed(context, "/login");
-                            // Navigator.of(context).popUntil(ModalRoute.withName('/login'));
-                            // Navigator.pushNamed(context, "/");
-                            //Navigator.pop<bool>(context, true);
-                          },
-                        )):SizedBox(),
-                    _enabled?Align(
-                      child: Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.all(30.0),
-                        child: RaisedButton(
-                            padding: EdgeInsets.symmetric(vertical: 16.0),
-                            color: greenFixed,
-                            disabledColor: greenFixed,
-                            onPressed: null,
-                            elevation: 8,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(40.0))),
-                            child: Text(
-                              AppTranslations.of(context).text('save'),
-                              style: TextStyle(color: Colors.white),
-                            )),
-                      ),
-                      alignment: AlignmentDirectional(0, 0.5),
-                    ):SizedBox()
+                    !_enabled
+                        ? Container(
+                            width: double.infinity,
+                            child: ListTile(
+                              title: Text(
+                                AppTranslations.of(context).text('sign_out'),
+                                style: TextStyle(fontSize: 18),
+                              ),
+                              onTap: () async {
+                                // Navigator.of(context).pushNamedAndRemoveUntil(
+                                //  '/login', (Route<dynamic> route) => false);
+                                await SharedPrefUtil().setBool(
+                                    SharedPrefUtil().isLoginKey, false);
+                                SharedPreferences.getInstance().then((onvalue) {
+                                  onvalue.clear();
+                                });
+                                Navigator.pushReplacementNamed(
+                                    context, "/login");
+                                // Navigator.of(context).popUntil(ModalRoute.withName('/login'));
+                                // Navigator.pushNamed(context, "/");
+                                //Navigator.pop<bool>(context, true);
+                              },
+                            ))
+                        : SizedBox(),
+                    _enabled
+                        ? Align(
+                            child: Container(
+                              width: double.infinity,
+                              padding: EdgeInsets.all(30.0),
+                              child: RaisedButton(
+                                  padding: EdgeInsets.symmetric(vertical: 16.0),
+                                  color: greenFixed,
+                                  disabledColor: greenFixed,
+                                  onPressed: null,
+                                  elevation: 8,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(40.0))),
+                                  child: Text(
+                                    AppTranslations.of(context).text('save'),
+                                    style: TextStyle(color: Colors.white),
+                                  )),
+                            ),
+                            alignment: AlignmentDirectional(0, 0.5),
+                          )
+                        : SizedBox()
                   ],
                 );
               } else {
