@@ -48,7 +48,7 @@ class ProfileState extends State<ProfilePage> {
     super.initState();
 
     userModel = new UserModel();
-   _future= Networks().userinfo();
+    _future = Networks().userinfo();
   }
 
   Future<Null> selectDateFromPicker() async {
@@ -62,13 +62,13 @@ class ProfileState extends State<ProfilePage> {
     if (selected != null) {
       setState(() {
         print(_selectedDate);
-
+        _selectedDate = selected;
         _controllerDob.text = _selectedDate.year.toString() +
             " /" +
             _selectedDate.month.toString() +
             " /" +
             _selectedDate.day.toString();
-        _selectedDate = selected;
+
       });
     }
   }
@@ -103,9 +103,9 @@ class ProfileState extends State<ProfilePage> {
                 final UriData data = Uri.parse(snapshot.data[1]['img']).data;
                 _controllerName.text = snapshot.data[1]['name'];
                 _controllerSurname.text = snapshot.data[1]['surname'];
-           if(!_enabled){
-             _controllerDob.text = snapshot.data[1]['dob'];
-           }
+                if (!_enabled) {
+                  _controllerDob.text = snapshot.data[1]['dob'];
+                }
                 String mobile = snapshot.data[1]['mobile'];
                 _controllerMobile.text = mobile.substring(4);
                 _controllerAddress.text = snapshot.data[1]['adress'];
