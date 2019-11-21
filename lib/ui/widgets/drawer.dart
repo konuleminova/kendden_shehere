@@ -3,6 +3,7 @@ import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_categories.dart';
+import 'package:kendden_shehere/ui/page/grocery/grocery_shop_list.dart';
 import 'package:kendden_shehere/ui/page/menu/profile.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 
@@ -83,7 +84,13 @@ class DrawerWidget extends StatelessWidget{
             contentPadding: EdgeInsets.only(left: 30.0),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushNamed(context, "/order_history");
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          GroceryShopCartPage(
+                            fromCheckout: false,
+                          )));
             },
             title: Text(
               "My Cart",
