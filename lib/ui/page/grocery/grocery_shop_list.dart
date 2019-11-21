@@ -44,11 +44,15 @@ class GroceryShopCartPage extends StatelessWidget {
                   title:
                       new Text(AppTranslations.of(context).text('shop_list')),
                   bottom: TabBar(
+                    indicatorColor: Colors.white,
+                    indicatorSize: TabBarIndicatorSize.label,
+                    labelStyle: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
                     tabs: <Widget>[
                       Tab(
                         text: "Current Order",
+
                       ),
-                      Text(AppTranslations.of(context).text('order_history'))
+                      Tab(text:AppTranslations.of(context).text('order_history'),)
                     ],
                   ),
                 ),
