@@ -10,7 +10,6 @@ import 'package:kendden_shehere/util/sharedpref_util.dart';
 import 'package:redux/redux.dart';
 
 class BuildTotalWidgetAnimation extends StatefulWidget {
-
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -37,13 +36,12 @@ class _BuildTotalWidgetAnimationState extends State<BuildTotalWidgetAnimation>
 
   @override
   Widget build(BuildContext context) {
-  return  new StoreConnector(
+    return new StoreConnector(
         onInitialBuild: (ShoppingCartViewModel viewModel) {
           this.viewModel = viewModel;
-
         },
         onDispose: (store) {
-         // store.state.shopItems.clear();
+          // store.state.shopItems.clear();
         },
         converter: (Store<AppState> store) =>
             ShoppingCartViewModel.create(store),
@@ -85,18 +83,17 @@ class _BuildTotalWidgetAnimationState extends State<BuildTotalWidgetAnimation>
     SharedPrefUtil()
         .setString(SharedPrefUtil().price, subtotal.toStringAsFixed(2));
     return (controller.status == AnimationStatus.dismissed)
-        ? ClipOval(
-            clipper: OvalTopBorderClipper(),
+        ? Card(
+      color: Colors.white,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(40),
+                    topRight: Radius.circular(40))),
             child: Container(
               height: 180,
               decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                        blurRadius: 25.0,
-                        color: Colors.black,
-                        spreadRadius: 100.0),
-                  ],
                   color: Colors.white,
+                  borderRadius: BorderRadius.circular(40),
                   border: Border.all(color: Colors.grey[100])),
               padding: EdgeInsets.only(
                   left: 20.0, right: 20.0, top: 40.0, bottom: 8.0),
@@ -133,13 +130,15 @@ class _BuildTotalWidgetAnimationState extends State<BuildTotalWidgetAnimation>
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
-                        Text(AppTranslations.of(context).text("checkout"), style: TextStyle(color: Colors.white)),
+                        Text(AppTranslations.of(context).text("checkout"),
+                            style: TextStyle(color: Colors.white)),
                       ],
                     ),
                   )
                 ],
               ),
             ),
+            elevation: 12,
           )
         : Container();
   }

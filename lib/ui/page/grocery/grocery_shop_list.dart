@@ -38,6 +38,7 @@ class GroceryShopCartPage extends StatelessWidget {
           return DefaultTabController(
             length: 2,
             child: new Scaffold(
+              backgroundColor: greyFixed,
                 appBar: new AppBar(
                   backgroundColor: greenFixed,
                   title:
