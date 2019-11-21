@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/connectivity/con_enum.dart';
+import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/home/home_viewmodel.dart';
@@ -86,14 +87,16 @@ class HomePage extends StatelessWidget {
             builder: (BuildContext context, HomeViewModel viewModel) {
               return new Scaffold(
                   //key: _scaffold,
+                  backgroundColor: greyFixed,
                   appBar: new AppBar(
-                    backgroundColor: Colors.lightGreen,
+                    backgroundColor: greenFixed,
                     leading: Builder(
-                      builder: (context) => IconButton(
-                        icon: new Icon(Icons.menu),
-                        onPressed: () => Scaffold.of(context).openDrawer(),
+                      builder: (context) => GestureDetector(
+                        child: Image.asset('images/ks/menu.png'),
+                        onTap: () => Scaffold.of(context).openDrawer(),
                       ),
                     ),
+                    centerTitle: true,
                     title: new Text(AppTranslations.of(context)
                         .text("title_select_language")),
                     actions: <Widget>[
@@ -107,61 +110,61 @@ class HomePage extends StatelessWidget {
                               context: context, delegate: SearchWidget());
                         },
                       ),
-                      new Stack(
-                        children: <Widget>[
-                          InkWell(
-                            child: new IconButton(
-                                icon: Icon(
-                                  Icons.shopping_cart,
-                                  color: Colors.white,
-                                ),
-                                onPressed: null),
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          GroceryShopCartPage(
-                                            fromCheckout: false,
-                                          )));
-                            },
-                          ),
-                          viewModel.shopItems.length != 0
-                              ? new Positioned(
-                                  right: 11,
-                                  top: 11,
-                                  child: new Container(
-                                    padding: EdgeInsets.all(2),
-                                    decoration: new BoxDecoration(
-                                      color: Colors.red,
-                                      borderRadius: BorderRadius.circular(6),
-                                    ),
-                                    constraints: BoxConstraints(
-                                      minWidth: 14,
-                                      minHeight: 14,
-                                    ),
-                                    child: Text(
-                                      viewModel.shopItems.length.toString(),
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 8,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                )
-                              : new Container()
-                        ],
-                      ),
                     ],
                   ),
                   floatingActionButton: new FloatingActionButton(
-                    backgroundColor: Colors.lightGreen,
+                    backgroundColor: greenFixed,
                     onPressed: () {
                       _getNewActivity();
                       // Navigator.pushNamed(context, "/online_chat");
                     },
-                    child: new Icon(Icons.chat),
+                    child: new Stack(
+                      alignment: Alignment.center,
+                      children: <Widget>[
+                        InkWell(
+                          child: new IconButton(
+                              icon: Icon(
+                                Icons.shopping_cart,
+                                color: Colors.white,
+                              ),
+                              onPressed: null),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        GroceryShopCartPage(
+                                          fromCheckout: false,
+                                        )));
+                          },
+                        ),
+                        viewModel.shopItems.length != 0
+                            ? new Positioned(
+                                right: 11,
+                                top: 11,
+                                child: new Container(
+                                  padding: EdgeInsets.all(2),
+                                  decoration: new BoxDecoration(
+                                    color: Colors.red,
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                  constraints: BoxConstraints(
+                                    minWidth: 14,
+                                    minHeight: 14,
+                                  ),
+                                  child: Text(
+                                    viewModel.shopItems.length.toString(),
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 8,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              )
+                            : new Container()
+                      ],
+                    ),
                   ),
                   drawer: DrawerWidget(),
                   body: connectionStatus != ConnectivityStatus.Offline
@@ -173,7 +176,7 @@ class HomePage extends StatelessWidget {
                                 // _buildCarousel(),
                                 new SizedBox(
                                   width: width,
-                                  height: height*0.28,
+                                  height: height * 0.28,
                                   child: new PageView(children: <Widget>[
                                     new FutureBuilder(
                                         future: _future,
@@ -260,21 +263,21 @@ class HomePage extends StatelessWidget {
                                                     itemBuilder:
                                                         (BuildContext context,
                                                             int index2) {
-                                                      return  Container(
-                                                          width: MediaQuery.of(
-                                                              context)
-                                                              .size
-                                                              .width *
-                                                              0.5,
-                                                          height: height *
-                                                              0.5,
-                                                          child:  GroceryListItemOne(
-                                                            product: viewModel
-                                                                .homeList
-                                                                .homelist[
-                                                            index]
-                                                                .list[index2],
-                                                          ),);
+                                                      return Container(
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
+                                                            0.5,
+                                                        height: height * 0.5,
+                                                        child:
+                                                            GroceryListItemOne(
+                                                          product: viewModel
+                                                              .homeList
+                                                              .homelist[index]
+                                                              .list[index2],
+                                                        ),
+                                                      );
                                                     }),
                                                 height: height * 0.5,
                                               )
