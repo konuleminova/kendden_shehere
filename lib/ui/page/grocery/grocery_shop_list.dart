@@ -8,10 +8,14 @@ import 'package:kendden_shehere/ui/widgets/dialog/payment_success_dialog.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/shoplist/shop_viewmodel.dart';
+
+import 'order_history.dart';
+
 class GroceryShopCartPage extends StatelessWidget {
   bool fromCheckout;
   ShoppingCartViewModel viewModel;
   BuildContext context;
+
   GroceryShopCartPage({this.fromCheckout}); //  @override
   @override
   Widget build(BuildContext context) {
@@ -22,7 +26,7 @@ class GroceryShopCartPage extends StatelessWidget {
           this.viewModel = viewModel;
           viewModel.onFetchShopList();
         },
-        onDispose: (store){
+        onDispose: (store) {
           store.dispatch(ShowHomeWishAction(store));
           store.dispatch(ShowHomeBasketAction(store));
           //store.state.shopItems.clear();
@@ -31,28 +35,44 @@ class GroceryShopCartPage extends StatelessWidget {
             ShoppingCartViewModel.create(store),
         builder: (BuildContext context, ShoppingCartViewModel viewModel) {
           this.viewModel = viewModel;
-          return new Scaffold(
-              appBar: new AppBar(
-                backgroundColor: greenFixed,
-                title: new Text(AppTranslations.of(context).text('shop_list')),
-              ),
-              body: fromCheckout
-                  ? Container(
-                child: FutureBuilder(
-                    future: Future.delayed(
-                        Duration.zero,
-                            () => showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return PaymentSuccessDialog(context);
-                            })),
-                    builder: (BuildContext context,
-                        AsyncSnapshot snapshot) {
-                      return Container();
-                    }),
-              )
-                  : BuildTotalWidgetAnimation());
+          return DefaultTabController(
+            length: 2,
+            child: new Scaffold(
+                appBar: new AppBar(
+                  backgroundColor: greenFixed,
+                  title:
+                      new Text(AppTranslations.of(context).text('shop_list')),
+                  bottom: TabBar(
+                    tabs: <Widget>[
+                      Tab(
+                        text: "Current Order",
+                      ),
+                      Text(AppTranslations.of(context).text('order_history'))
+                    ],
+                  ),
+                ),
+                body: TabBarView(
+                  children: <Widget>[
+                    fromCheckout
+                        ? Container(
+                            child: FutureBuilder(
+                                future: Future.delayed(
+                                    Duration.zero,
+                                    () => showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return PaymentSuccessDialog(context);
+                                        })),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot snapshot) {
+                                  return Container();
+                                }),
+                          )
+                        : BuildTotalWidgetAnimation(),
+                    OrderHistoryPage()
+                  ],
+                )),
+          );
         });
   }
 }
-
