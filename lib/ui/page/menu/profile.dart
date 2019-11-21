@@ -430,6 +430,7 @@ class ProfileState extends State<ProfilePage> {
                                       child: TextField(
                                         controller: _controllerMobile,
                                         enabled: _enabled,
+                                        keyboardType: TextInputType.number,
                                         decoration: new InputDecoration(
                                             icon: Text(
                                               "+994",
