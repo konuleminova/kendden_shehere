@@ -307,6 +307,7 @@ class ProfileState extends State<ProfilePage> {
                                     data: new ThemeData(
                                       hintColor: Colors.green,
                                       primaryColor: Colors.green,
+                                      disabledColor: greenFixed,
                                     ),
                                     child: Padding(
                                       padding: EdgeInsets.only(left: 8.0),
@@ -342,6 +343,7 @@ class ProfileState extends State<ProfilePage> {
                                     data: new ThemeData(
                                       hintColor: Colors.green,
                                       primaryColor: Colors.green,
+                                      disabledColor: greenFixed,
                                     ),
                                     child: Padding(
                                       padding: EdgeInsets.only(left: 8.0),
@@ -377,6 +379,7 @@ class ProfileState extends State<ProfilePage> {
                                     data: new ThemeData(
                                       hintColor: Colors.green,
                                       primaryColor: Colors.green,
+                                      disabledColor: greenFixed,
                                     ),
                                     child: Padding(
                                       padding: EdgeInsets.only(left: 8.0),
@@ -424,6 +427,7 @@ class ProfileState extends State<ProfilePage> {
                                     data: new ThemeData(
                                       hintColor: Colors.green,
                                       primaryColor: Colors.green,
+                                      disabledColor: greenFixed,
                                     ),
                                     child: Padding(
                                       padding: EdgeInsets.only(left: 8.0),
@@ -466,6 +470,7 @@ class ProfileState extends State<ProfilePage> {
                                     data: new ThemeData(
                                       hintColor: Colors.green,
                                       primaryColor: Colors.green,
+                                      disabledColor: greenFixed,
                                     ),
                                     child: Padding(
                                       padding: EdgeInsets.only(left: 8.0),
