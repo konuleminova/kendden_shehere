@@ -36,6 +36,7 @@ class ProfileState extends State<ProfilePage> {
   TextEditingController _controller = new TextEditingController();
 
   DateTime get selectedDate => _selectedDate;
+  bool _enabled = false;
 
   @override
   void initState() {
@@ -69,7 +70,18 @@ class ProfileState extends State<ProfilePage> {
           title: Text(AppTranslations.of(context).text('view_profile')),
           backgroundColor: greenFixed,
           elevation: 0,
-          actions: <Widget>[Image.asset('images/ks/writing.png')],
+          actions: <Widget>[
+            GestureDetector(
+              child: Image.asset(
+                'images/ks/writing.png',
+              ),
+              onTap: () {
+                setState(() {
+                  _enabled = true;
+                });
+              },
+            )
+          ],
         ),
         body: FutureBuilder(
             future: Networks().userinfo(),
@@ -102,25 +114,36 @@ class ProfileState extends State<ProfilePage> {
                                     child: CircleAvatar(
                                         radius: 60,
                                         backgroundColor: Colors.transparent,
-                                        child: data != null && imageFile == null
-                                            ? ClipOval(
-                                                child: new Image.memory(
-                                                    data.contentAsBytes(),
-                                                    width: 100,
-                                                    height: 100,
-                                                    fit: BoxFit.fill),
-                                              )
-                                            : CircleAvatar(
-                                                radius: 55.0,
-                                                backgroundImage: imageFile ==
-                                                        null
-                                                    ? AssetImage(
-                                                        'images/ks/profile.png',
-                                                      )
-                                                    : new FileImage(imageFile),
-                                                backgroundColor:
-                                                    Colors.transparent,
-                                              )),
+                                        child: Stack(
+                                          alignment: Alignment.center,
+                                          children: <Widget>[
+                                            data != null && imageFile == null
+                                                ? ClipOval(
+                                                    child: new Image.memory(
+                                                        data.contentAsBytes(),
+                                                        width: 100,
+                                                        height: 100,
+                                                        fit: BoxFit.fill),
+                                                  )
+                                                : CircleAvatar(
+                                                    radius: 55.0,
+                                                    backgroundImage:
+                                                        imageFile == null
+                                                            ? AssetImage(
+                                                                'images/ks/profile.png',
+                                                              )
+                                                            : new FileImage(
+                                                                imageFile),
+                                                    backgroundColor:
+                                                        Colors.transparent,
+                                                  ),
+                                           _enabled? Align(
+                                             child: Image.asset(
+                                               'images/ks/upload.png',fit: BoxFit.cover,),
+                                             alignment: Alignment.center,
+                                           ):SizedBox()
+                                          ],
+                                        )),
                                     behavior: HitTestBehavior.translucent,
                                     onTap: () {
                                       showDialog(
@@ -263,6 +286,7 @@ class ProfileState extends State<ProfilePage> {
                                     child: Padding(
                                       padding: EdgeInsets.only(left: 8.0),
                                       child: TextField(
+                                        enabled: _enabled,
                                         controller: _controller,
                                         decoration: new InputDecoration(
                                             enabledBorder: UnderlineInputBorder(
@@ -298,6 +322,7 @@ class ProfileState extends State<ProfilePage> {
                                       padding: EdgeInsets.only(left: 8.0),
                                       child: TextField(
                                         controller: _controller,
+                                        enabled: _enabled,
                                         decoration: new InputDecoration(
                                             enabledBorder: UnderlineInputBorder(
                                                 borderSide: BorderSide(
@@ -332,7 +357,9 @@ class ProfileState extends State<ProfilePage> {
                                       padding: EdgeInsets.only(left: 8.0),
                                       child: TextField(
                                         controller: _controller,
+                                        enabled: _enabled,
                                         decoration: new InputDecoration(
+                                          suffixIcon: _enabled?Image.asset('images/ks/calendar.png'):SizedBox(),
                                             enabledBorder: UnderlineInputBorder(
                                                 borderSide: BorderSide(
                                                     color: greenFixed)),
@@ -366,6 +393,7 @@ class ProfileState extends State<ProfilePage> {
                                       padding: EdgeInsets.only(left: 8.0),
                                       child: TextField(
                                         controller: _controller,
+                                        enabled: _enabled,
                                         decoration: new InputDecoration(
                                             icon: Text(
                                               "+994",
@@ -406,6 +434,7 @@ class ProfileState extends State<ProfilePage> {
                                       padding: EdgeInsets.only(left: 8.0),
                                       child: TextField(
                                         controller: _controller,
+                                        enabled: _enabled,
                                         decoration: new InputDecoration(
                                             enabledBorder: UnderlineInputBorder(
                                                 borderSide: BorderSide(
@@ -427,7 +456,7 @@ class ProfileState extends State<ProfilePage> {
                                     )),
                           ],
                         )),
-                    Container(
+                    !_enabled?Container(
                         width: double.infinity,
                         child: ListTile(
                           title: Text(
@@ -447,7 +476,26 @@ class ProfileState extends State<ProfilePage> {
                             // Navigator.pushNamed(context, "/");
                             //Navigator.pop<bool>(context, true);
                           },
-                        ))
+                        )):SizedBox(),
+                    _enabled?Align(
+                      child: Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all(30.0),
+                        child: RaisedButton(
+                            padding: EdgeInsets.symmetric(vertical: 16.0),
+                            color: greenFixed,
+                            disabledColor: greenFixed,
+                            onPressed: null,
+                            elevation: 8,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(40.0))),
+                            child: Text(
+                              AppTranslations.of(context).text('save'),
+                              style: TextStyle(color: Colors.white),
+                            )),
+                      ),
+                      alignment: AlignmentDirectional(0, 0.5),
+                    ):SizedBox()
                   ],
                 );
               } else {
