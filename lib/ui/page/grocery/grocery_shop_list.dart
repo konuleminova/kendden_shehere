@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/home/home_action.dart';
 import 'package:kendden_shehere/ui/widgets/animation_shop_cart.dart';
@@ -32,7 +33,7 @@ class GroceryShopCartPage extends StatelessWidget {
           this.viewModel = viewModel;
           return new Scaffold(
               appBar: new AppBar(
-                backgroundColor: Colors.lightGreen,
+                backgroundColor: greenFixed,
                 title: new Text(AppTranslations.of(context).text('shop_list')),
               ),
               body: fromCheckout
