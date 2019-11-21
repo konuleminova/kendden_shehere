@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/productlist/product_model.dart';
@@ -84,56 +85,67 @@ class _BuildTotalWidgetAnimationState extends State<BuildTotalWidgetAnimation>
         .setString(SharedPrefUtil().price, subtotal.toStringAsFixed(2));
     return (controller.status == AnimationStatus.dismissed)
         ? Card(
-      color: Colors.white,
+            color: Colors.white,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(40),
-                    topRight: Radius.circular(40))),
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30))),
             child: Container(
-              height: 180,
+              height: 130,
               decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(40),
+                  borderRadius: BorderRadius.circular(30),
                   border: Border.all(color: Colors.grey[100])),
               padding: EdgeInsets.only(
                   left: 20.0, right: 20.0, top: 40.0, bottom: 8.0),
-              child: Column(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(AppTranslations.of(context).text('sub_total_price')),
-                      Text(subtotal.toStringAsFixed(2) + " AZN"),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(AppTranslations.of(context).text('total_price')),
-                      Text(subtotal.toStringAsFixed(2) + " AZN"),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  RaisedButton(
-                    color: Colors.green,
-                    onPressed: () {
-                      Navigator.pushNamed(context, "/checkout");
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Text(AppTranslations.of(context).text("checkout"),
-                            style: TextStyle(color: Colors.white)),
-                      ],
-                    ),
+                  Expanded(
+                      flex: 4,
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Column(
+                          children: <Widget>[
+                            Text(
+                              AppTranslations.of(context).text('total_price'),
+                              style: TextStyle(fontSize: 18, color: blackFixed,fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 12,
+                            ),
+                            Text(
+                              subtotal.toStringAsFixed(2) + " AZN",
+                              style: TextStyle(color: greenFixed,fontSize: 16,fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      )),
+                  Expanded(
+                    flex: 3,
+                    child: GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, "/checkout");
+                        },
+                        child: Container(
+                          height: 35,
+                          alignment: Alignment.center,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              Text(AppTranslations.of(context).text("checkout"),
+                                  style: TextStyle(color: Colors.white)),
+                              Icon(
+                                Icons.arrow_forward,
+                                color: Colors.white,
+                              )
+                            ],
+                          ),
+                          decoration: BoxDecoration(
+                              color: greenFixed,
+                              borderRadius: BorderRadius.circular(30)),
+                        )),
                   )
                 ],
               ),
