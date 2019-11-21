@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/productlist/product_model.dart';
 import 'package:kendden_shehere/redux/productlist/product_viewmodel.dart';
@@ -87,10 +88,15 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
                                           CrossAxisAlignment.start,
                                       children: <Widget>[
                                         new GroceryTitle(text: title),
-                                        new GrocerySubtitle(
-                                            text: product.price + " AZN"),
-                                        new GrocerySubtitle(
-                                            text: product.counttype),
+                                        SizedBox(
+                                          height: 8,
+                                        ),
+                                        new Text(
+                                          product.price + " AZN",
+                                          style: TextStyle(
+                                            color: greenFixed,
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -113,13 +119,15 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.end,
                                       children: <Widget>[
-                                        IconButton(
-                                          icon: Icon(
-                                            Icons.delete_outline,
-                                            color: Colors.green[400],
-                                            size: 25,
+                                        GestureDetector(
+                                          child: Container(
+                                            child: Image.asset(
+                                                'images/ks/remove.png'),
+                                         decoration: BoxDecoration(color: greenFixed),
+                                            padding: EdgeInsets.all(4.0),
+
                                           ),
-                                          onPressed: () {
+                                          onTap: () {
                                             Networks()
                                                 .removeFromBasket(product.id)
                                                 .then((onvalue) {
@@ -184,41 +192,39 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
     } else {
       return new Container(
         height: 40,
-        // padding: EdgeInsets.all(4),
-        // margin: EdgeInsets.only(top: 8, bottom: 8),
-        decoration: new BoxDecoration(
-            borderRadius: BorderRadius.circular(4),
-            color: Colors.grey[100],
-            border: Border.all(color: Colors.grey)),
         alignment: Alignment.topRight,
         child: new Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Expanded(
-                child: Container(
-              child: IconButton(
-                icon: new Icon(Icons.remove),
-                iconSize: 20,
-                onPressed: () {
-                  setState(() {
-                    // product.isAdded = !product.isAdded;
-                    if (product.weight > 1) {
-                      product.weight--;
-                    }
-                  });
-                  Networks()
-                      .addToBasket(product.id, weight.toString())
-                      .then((onvalue) {
-                    if (onvalue != null) {
-                      if (onvalue['action'] == "done") {
-                        store.dispatch(ShowBasketAction(store));
-                        //viewModel.changeAddStatus(index, true, weight);
+                child: CircleAvatar(
+              child: Container(
+                child: GestureDetector(
+                  child: new Icon(Icons.remove),
+                  // iconSize: 20,
+                  onTap: () {
+                    setState(() {
+                      // product.isAdded = !product.isAdded;
+                      if (product.weight > 1) {
+                        product.weight--;
                       }
-                    }
-                  });
-                },
+                    });
+                    Networks()
+                        .addToBasket(product.id, weight.toString())
+                        .then((onvalue) {
+                      if (onvalue != null) {
+                        if (onvalue['action'] == "done") {
+                          store.dispatch(ShowBasketAction(store));
+                          //viewModel.changeAddStatus(index, true, weight);
+                        }
+                      }
+                    });
+                  },
+                ),
+                alignment: Alignment.center,
               ),
+              backgroundColor: greenFixed,
             )),
             SizedBox(
               width: 10,
@@ -233,12 +239,16 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
                 ),
               ),
             )),
+            SizedBox(
+              width: 4,
+            ),
             Expanded(
-                child: Container(
-              child: IconButton(
-                icon: new Icon(Icons.add),
-                iconSize: 20,
-                onPressed: () {
+                child: CircleAvatar(
+              child: Container(
+                  child: GestureDetector(
+                child: new Icon(Icons.add),
+                //iconSize: 20,
+                onTap: () {
                   weight++;
                   setState(() {
                     product.weight++;
@@ -256,7 +266,8 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
                   });
                   //Networks().addToBasket(product.id, amount.toString());
                 },
-              ),
+              )),
+              backgroundColor: greenFixed,
             )),
             SizedBox(
               width: 8,
