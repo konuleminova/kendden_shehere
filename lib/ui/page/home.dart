@@ -90,6 +90,7 @@ class HomePage extends StatelessWidget {
                   backgroundColor: greyFixed,
                   appBar: new AppBar(
                     backgroundColor: greenFixed,
+                    elevation: 0,
                     leading: Builder(
                       builder: (context) => GestureDetector(
                         child: Image.asset('images/ks/menu.png'),
@@ -101,12 +102,13 @@ class HomePage extends StatelessWidget {
                         .text("title_select_language")),
                     actions: <Widget>[
                       GestureDetector(
-                        child: Image.asset('images/ks/chat.png'),
-                        onTap: () {
-                          _getNewActivity();
-                        }
-                      ),
-                      SizedBox(width: 4,)
+                          child: Image.asset('images/ks/chat.png'),
+                          onTap: () {
+                            _getNewActivity();
+                          }),
+                      SizedBox(
+                        width: 4,
+                      )
                     ],
                   ),
                   floatingActionButton: new FloatingActionButton(
@@ -170,136 +172,46 @@ class HomePage extends StatelessWidget {
                               child: Stack(
                             children: <Widget>[
                               new Wrap(children: <Widget>[
-                                // _buildCarousel(),
-                                new SizedBox(
-                                  width: width,
-                                  height: height * 0.28,
-                                  child: new PageView(children: <Widget>[
-                                    new FutureBuilder(
-                                        future: _future,
-                                        builder: (BuildContext context,
-                                            AsyncSnapshot snapshot) {
-                                          if (snapshot.hasData) {
-                                            photos = snapshot.data;
-                                            List<Widget> imagesWidget =
-                                                new List();
-                                            for (int i = 0;
-                                                i < photos.length;
-                                                i++) {
-                                              imagesWidget.add(new Container(
-                                                width: width,
-                                                child: new Image(
-                                                  image: NetworkImage(
-                                                    photos[i],
-                                                  ),
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ));
-                                            }
-                                            return Carousel(
-                                              images: imagesWidget,
-                                              dotSize: 4.0,
-                                              dotSpacing: 15.0,
-                                              dotColor: Colors.lightGreenAccent,
-                                              indicatorBgPadding: 5.0,
-                                              dotBgColor: Colors.transparent,
-                                              borderRadius: true,
-                                            );
-                                          } else {
-                                            return Center(
-                                              child:
-                                                  new CircularProgressIndicator(),
-                                            );
-                                          }
-                                        })
-                                  ]),
-                                ),
-
-                                viewModel.homeList.homelist != null
-                                    ? ListView.builder(
-                                        shrinkWrap: true,
-                                        physics: ClampingScrollPhysics(),
-                                        itemCount:
-                                            viewModel.homeList.homelist.length,
-                                        itemBuilder: (
-                                          BuildContext context,
-                                          int index,
-                                        ) {
-                                          String langCode =
-                                              Localizations.localeOf(context)
-                                                  .languageCode;
-                                          if (langCode == "tr") {
-                                            title = viewModel.homeList
-                                                .homelist[index].name_az
-                                                .trim();
-                                          } else if (langCode == "en") {
-                                            title = viewModel.homeList
-                                                .homelist[index].name_en
-                                                .trim();
-                                          } else if (langCode == "ru") {
-                                            title = viewModel.homeList
-                                                .homelist[index].name_ru
-                                                .trim();
-                                          }
-                                          return Container(
-                                              child: Column(
-                                            children: <Widget>[
-                                              _titleContainer(title),
-                                              Container(
-                                                child: ListView.builder(
-                                                    physics:
-                                                        ClampingScrollPhysics(),
-                                                    shrinkWrap: true,
-                                                    scrollDirection:
-                                                        Axis.horizontal,
-                                                    itemCount: viewModel
-                                                        .homeList
-                                                        .homelist[index]
-                                                        .list
-                                                        .length,
-                                                    itemBuilder:
-                                                        (BuildContext context,
-                                                            int index2) {
-                                                      return Container(
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width *
-                                                            0.5,
-                                                        height: height * 0.5,
-                                                        child:
-                                                            GroceryListItemOne(
-                                                          product: viewModel
-                                                              .homeList
-                                                              .homelist[index]
-                                                              .list[index2],
-                                                        ),
-                                                      );
-                                                    }),
-                                                height: height * 0.5,
-                                              )
-                                            ],
-                                          ));
-                                        })
-                                    : Container(
-                                        child: CircularProgressIndicator(),
-                                        alignment: Alignment.center,
-                                        margin: EdgeInsets.only(top: 100),
-                                      ),
-                                viewModel.homeList.homelist != null
-                                    ? Container(
-                                        alignment: Alignment.center,
-                                        color: Colors.lightGreen,
-                                        child: ListTile(
-                                          title: Text(
-                                            '© 2019 Agro Trade',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold),
-                                          ),
+                                Container(
+                                    height: 160,
+                                    child: Stack(
+                                      // alignment: Alignment.center,
+                                      children: <Widget>[
+                                        Column(
+                                          children: <Widget>[
+                                            Expanded(
+                                              child: Container(
+                                                color: greenFixed,
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Container(
+                                                color: greyFixed,
+                                              ),
+                                            )
+                                          ],
                                         ),
-                                      )
-                                    : SizedBox()
+                                       Container(
+                                          alignment: Alignment.center,
+                                          margin: EdgeInsets.only(left: 20,right: 20),
+                                          child: Card(
+                                            color: Colors.white,
+                                            elevation: 8,
+                                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+                                            child: ListTile(
+                                              title: Text('What are you looking for?',style: TextStyle(color: Colors.grey),),
+                                              leading: IconButton(
+                                                icon: Icon(Icons.search),
+                                                onPressed: null,
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    )),
+                                _buildCarousel(),
+                                _buildBody(viewModel),
+                                _footer(viewModel)
                               ])
                             ],
                           )),
@@ -368,4 +280,105 @@ class HomePage extends StatelessWidget {
       print(e.message);
     }
   }
+
+  _buildCarousel() => new SizedBox(
+        width: width,
+        height: height * 0.28,
+        child: new PageView(children: <Widget>[
+          new FutureBuilder(
+              future: _future,
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                if (snapshot.hasData) {
+                  photos = snapshot.data;
+                  List<Widget> imagesWidget = new List();
+                  for (int i = 0; i < photos.length; i++) {
+                    imagesWidget.add(new Container(
+                      width: width,
+                      child: new Image(
+                        image: NetworkImage(
+                          photos[i],
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                    ));
+                  }
+                  return Carousel(
+                    images: imagesWidget,
+                    dotSize: 4.0,
+                    dotSpacing: 15.0,
+                    dotColor: Colors.lightGreenAccent,
+                    indicatorBgPadding: 5.0,
+                    dotBgColor: Colors.transparent,
+                    borderRadius: true,
+                  );
+                } else {
+                  return Center(
+                    child: new CircularProgressIndicator(),
+                  );
+                }
+              })
+        ]),
+      );
+
+  _buildBody(HomeViewModel viewModel) => viewModel.homeList.homelist != null
+      ? ListView.builder(
+          shrinkWrap: true,
+          physics: ClampingScrollPhysics(),
+          itemCount: viewModel.homeList.homelist.length,
+          itemBuilder: (
+            BuildContext context,
+            int index,
+          ) {
+            String langCode = Localizations.localeOf(context).languageCode;
+            if (langCode == "tr") {
+              title = viewModel.homeList.homelist[index].name_az.trim();
+            } else if (langCode == "en") {
+              title = viewModel.homeList.homelist[index].name_en.trim();
+            } else if (langCode == "ru") {
+              title = viewModel.homeList.homelist[index].name_ru.trim();
+            }
+            return Container(
+                child: Column(
+              children: <Widget>[
+                _titleContainer(title),
+                Container(
+                  child: ListView.builder(
+                      physics: ClampingScrollPhysics(),
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: viewModel.homeList.homelist[index].list.length,
+                      itemBuilder: (BuildContext context, int index2) {
+                        return Container(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          height: height * 0.5,
+                          child: GroceryListItemOne(
+                            product:
+                                viewModel.homeList.homelist[index].list[index2],
+                          ),
+                        );
+                      }),
+                  height: height * 0.5,
+                )
+              ],
+            ));
+          })
+      : Container(
+          child: CircularProgressIndicator(),
+          alignment: Alignment.center,
+          margin: EdgeInsets.only(top: 100),
+        );
+
+  _footer(HomeViewModel viewModel) => viewModel.homeList.homelist != null
+      ? Container(
+          alignment: Alignment.center,
+          color: greenFixed,
+          child: ListTile(
+            title: Text(
+              '© 2019 Agro Trade',
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
+          ),
+        )
+      : SizedBox();
 }
