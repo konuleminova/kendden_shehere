@@ -91,7 +91,7 @@ class _BuildTotalWidgetAnimationState extends State<BuildTotalWidgetAnimation>
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30))),
             child: Container(
-              height: 130,
+              height: 120,
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(30),
@@ -157,7 +157,7 @@ class _BuildTotalWidgetAnimationState extends State<BuildTotalWidgetAnimation>
 
   Widget _shopBody(ShoppingCartViewModel viewModel) => new Container(
       margin: EdgeInsets.only(bottom: 10, top: 16, left: 10, right: 12),
-      padding: EdgeInsets.only(bottom: 140),
+      padding: EdgeInsets.only(bottom: 100),
       child: NotificationListener(
         child: new ListView(
           shrinkWrap: true,
