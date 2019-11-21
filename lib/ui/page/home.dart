@@ -114,9 +114,14 @@ class HomePage extends StatelessWidget {
                   ),
                   floatingActionButton: new FloatingActionButton(
                     backgroundColor: greenFixed,
-                    onPressed: () {
-                      _getNewActivity();
-                      // Navigator.pushNamed(context, "/online_chat");
+                    onPressed: (){
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  GroceryShopCartPage(
+                                    fromCheckout: false,
+                                  )));
                     },
                     child: new Stack(
                       alignment: Alignment.center,
@@ -128,15 +133,7 @@ class HomePage extends StatelessWidget {
                                 color: Colors.white,
                               ),
                               onPressed: null),
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        GroceryShopCartPage(
-                                          fromCheckout: false,
-                                        )));
-                          },
+                          onTap: null
                         ),
                         viewModel.shopItems.length != 0
                             ? new Positioned(
