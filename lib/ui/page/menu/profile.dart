@@ -365,7 +365,7 @@ class ProfileState extends State<ProfilePage> {
                                       padding: EdgeInsets.only(left: 8.0),
                                       child: TextField(
                                         controller: _controllerDob,
-                                        enabled: _enabled,
+                                        enabled: false,
                                         decoration: new InputDecoration(
                                           suffixIcon: _enabled?Image.asset('images/ks/calendar.png'):SizedBox(),
                                             enabledBorder: UnderlineInputBorder(
