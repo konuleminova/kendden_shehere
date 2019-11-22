@@ -259,7 +259,7 @@ class HomePage extends StatelessWidget {
                                                 children: <Widget>[
                                                   Expanded(
                                                     child: Image.asset(
-                                                        'images/ks/logo.png'),
+                                                        'images/ks/ct2.png'),
                                                     flex: 2,
                                                   ),
                                                   SizedBox(height: 8,),
