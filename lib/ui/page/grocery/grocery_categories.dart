@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/redux/categories/category_item.dart';
 import 'package:kendden_shehere/redux/categories/list_categories.dart';
 import 'package:kendden_shehere/service/networks.dart';
@@ -32,7 +33,7 @@ class GroceryCategoriesState extends State<GroceryCategoriesPage> {
     return new Scaffold(
             appBar: new AppBar(
               title: new Text(widget.title.trim()),
-              backgroundColor: Colors.lightGreen,
+              backgroundColor: greenFixed,
             ),
             body:categories.length > 0
                 ?  new ListView.builder(
