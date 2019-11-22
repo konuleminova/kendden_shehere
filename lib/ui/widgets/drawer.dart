@@ -142,12 +142,40 @@ class DrawerWidget extends StatelessWidget{
                       Navigator.pushNamed(context, "/fag");
                     },
                   ),
-//                  Padding(
-//                    padding: EdgeInsets.only(left: 50.0, right: 30.0),
-//                    child: Divider(
-//                      color: Colors.white,
-//                    ),
-                  //),
+                  Padding(
+                    padding: EdgeInsets.only(left: 50.0, right: 30.0),
+                    child: Divider(
+                      color: Colors.white,
+                    ),
+                  ),
+                  ListTile(
+                    contentPadding: EdgeInsets.only(left: 50.0),
+                    title: Text(
+                      AppTranslations.of(context).text("contact_us"),
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.pushNamed(context, "/contacts");
+                    },
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 50.0, right: 30.0),
+                    child: Divider(
+                      color: Colors.white,
+                    ),
+                  ),
+                  ListTile(
+                    contentPadding: EdgeInsets.only(left: 50.0),
+                    title: Text(
+                      AppTranslations.of(context).text("complaints"),
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.pushNamed(context, "/complaints");
+                    },
+                  ),
                 ],
               ),
               data: Theme.of(context).copyWith(dividerColor: greenFixed)),
@@ -168,40 +196,6 @@ class DrawerWidget extends StatelessWidget{
             onTap: () {
               Navigator.pop(context);
               Navigator.pushNamed(context, "/about_us");
-            },
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 30.0, right: 30.0),
-            child: Divider(
-              color: Colors.white,
-            ),
-          ),
-          ListTile(
-            contentPadding: EdgeInsets.only(left: 30.0),
-            title: Text(
-              AppTranslations.of(context).text("contact_us"),
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            ),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, "/contacts");
-            },
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 30.0, right: 30.0),
-            child: Divider(
-              color: Colors.white,
-            ),
-          ),
-          ListTile(
-            contentPadding: EdgeInsets.only(left: 30.0),
-            title: Text(
-              AppTranslations.of(context).text("complaints"),
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            ),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, "/complaints");
             },
           ),
           Padding(
