@@ -278,97 +278,45 @@ class GroceryListItemOneState extends State<GroceryListItemOne>
                   Networks()
                       .addToBasket(product.id, product.weight.toString())
                       .then((onvalue) {
-                    print(onvalue);
                     if (onvalue != null) {
                       if (onvalue['action'] == "done") {
                         viewModel.addShopItem(product);
                         // viewModel.onFetchShopList();
-                        setState(() {
-                          product.isAdded = !product.isAdded;
-                        });
                         //viewModel.changeAddStatus(index, true, product.weight);
                       }
                     }
                   });
+                  setState(() {
+                    product.isAdded = !product.isAdded;
+                  });
                 }),
           ),),
-      secondChild: new Container(
-        height: 35,
-        decoration: new BoxDecoration(
-            borderRadius: BorderRadius.circular(2),
-            color: Colors.white,
-            border: Border.all(color: Colors.grey)),
-        alignment: Alignment.topRight,
-        child: new Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            new IconButton(
-              icon: new Icon(Icons.remove),
-              iconSize: 20,
-              onPressed: () {
-                weight--;
-                if (weight < 1) {
-                  weight = 1;
-                  Networks().removeFromBasket(product.id).then((onvalue) {
-                    print("REMOVE");
-                    if (onvalue != null) {
-                      if (onvalue['action'] == "done") {
-                        viewModel.removeShopItem(product);
-                        setState(() {
-                          product.isAdded = !product.isAdded;
-                          product.weight = weight;
-                        });
-                        //viewModel.changeAddStatus(index, false, weight);
-                      }
-                    }
-                  });
-                } else {
-                  Networks()
-                      .addToBasket(product.id, weight.toString())
-                      .then((onvalue) {
-                    if (onvalue != null) {
-                      if (onvalue['action'] == "done") {
-                        setState(() {
-                          // product.isAdded = !product.isAdded;
-                          product.weight--;
-                        });
-                        //viewModel.changeAddStatus(index, true, weight);
-                      }
-                    }
-                  });
-                }
-              },
-            ),
-            new Text(
-              product.weight.toString(),
-              style: new TextStyle(fontSize: 18),
-            ),
-            new IconButton(
-              iconSize: 20,
-              padding: EdgeInsets.all(4),
-              icon: new Icon(Icons.add),
-              onPressed: () {
-                weight++;
-                setState(() {
-                  product.weight++;
-                });
-                Networks()
-                    .addToBasket(product.id, weight.toString())
+      secondChild: Container(
+        alignment: Alignment.bottomRight,
+        child: CircleAvatar(
+          backgroundColor: const Color(0xFF0B4D17),
+          child: GestureDetector(
+              child: Image.asset(
+                'images/ks/basket2.png',
+                width: 24,
+                height: 24,
+              ),
+              onTap: () {
+                Networks().removeFromBasket(product.id)
                     .then((onvalue) {
                   if (onvalue != null) {
                     if (onvalue['action'] == "done") {
-                      //  viewModel.changeAddStatus(index, true, weight);
-                      //viewModel.onFetchShopList();
+                      viewModel.removeShopItem(product);
+                      // viewModel.onFetchShopList();
+                      //viewModel.changeAddStatus(index, true, product.weight);
                     }
                   }
                 });
-                //Networks().addToBasket(product.id, amount.toString());
-              },
-            ),
-          ],
-        ),
-      ),
+                setState(() {
+                  product.isAdded = !product.isAdded;
+                });
+              }),
+        ),),
       crossFadeState: !product.isAdded
           ? CrossFadeState.showFirst
           : CrossFadeState.showSecond,
