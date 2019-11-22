@@ -58,67 +58,65 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
         builder: (BuildContext context, ProductViewModel viewModel) {
           return product != null
               ? Card(
-                  margin: EdgeInsets.all(12),
-                  child: Material(
-                      // borderRadius: BorderRadius.circular(20.0),
-                      elevation: 4.0,
-                      child: new Container(
-                          height: 120,
-                          color: Colors.white,
-                          //  decoration: BoxDecoration( borderRadius: BorderRadius.circular(20.0),),
-                          child: Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: ListTile(
-                                  leading: Container(
-                                    child: FadeInImage.assetNetwork(
-                                      image: image,
-                                      placeholder: "images/noimage.png",
-                                      fit: BoxFit.cover,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.2,
-                                    ),
-                                  ),
-                                  title: Container(
-                                    height: 110.0,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        new GroceryTitle(text: title),
-                                        SizedBox(
-                                          height: 8,
-                                        ),
-                                        new Text(
-                                          product.price + " AZN",
-                                          style: TextStyle(
-                                            color: greenFixed,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  onTap: () {
-                                    Route route = MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            GroceryDetailsPage(product));
-                                    Navigator.push(context, route);
-                                  },
+                  margin: EdgeInsets.all(8),
+                  elevation: 4,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                  child:  new Container(
+                      height: 120,
+                        decoration: BoxDecoration( borderRadius: BorderRadius.circular(8.0), color: Colors.white,),
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: ListTile(
+                              leading: Container(
+                                child: FadeInImage.assetNetwork(
+                                  image: image,
+                                  placeholder: "images/noimage.png",
+                                  fit: BoxFit.cover,
+                                  width: MediaQuery.of(context).size.width *
+                                      0.2,
                                 ),
-                                flex: 7,
                               ),
-                              Expanded(
-                                  flex: 3,
-                                  child: Container(
-                                    margin: EdgeInsets.only(right: 16),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: <Widget>[
+                              title: Container(
+                                height: 110.0,
+                                child: Column(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.center,
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    new GroceryTitle(text: title),
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                    new Text(
+                                      product.price + " AZN",
+                                      style: TextStyle(
+                                        color: greenFixed,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              onTap: () {
+                                Route route = MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        GroceryDetailsPage(product));
+                                Navigator.push(context, route);
+                              },
+                            ),
+                            flex: 7,
+                          ),
+                          Expanded(
+                              flex: 3,
+                              child: Container(
+                                margin: EdgeInsets.only(right: 16),
+                                child: Column(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceAround,
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.end,
+                                  children: <Widget>[
 //                                        GestureDetector(
 //                                          child: Container(
 //                                            child: Image.asset(
@@ -142,13 +140,13 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
 //                                            });
 //                                          },
 //                                        ),
-                                        _updateContainer()
-                                      ],
-                                    ),
-                                    height: MediaQuery.of(context).size.height,
-                                  ))
-                            ],
-                          ))),
+                                    _updateContainer()
+                                  ],
+                                ),
+                                height: MediaQuery.of(context).size.height,
+                              ))
+                        ],
+                      ))
                 )
               : SizedBox();
         });
