@@ -8,6 +8,8 @@ import 'package:kendden_shehere/connectivity/con_enum.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
+import 'package:kendden_shehere/redux/categories/category_item.dart';
+import 'package:kendden_shehere/redux/categories/list_categories.dart';
 import 'package:kendden_shehere/redux/home/home_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_shop_list.dart';
@@ -31,6 +33,8 @@ class HomePage extends StatelessWidget {
   bool fromCheckout;
   BuildContext context;
   Future _future;
+  List<Category> categories = new List();
+  List<Category> tempCategories = new List();
 
   HomePage({this.fromCheckout});
 
@@ -72,6 +76,17 @@ class HomePage extends StatelessWidget {
                   }
                 });
               }
+              categories.clear();
+              getCategories().then((onValue) {
+                if (onValue != null) {
+                  for (int i = 0; i < onValue.length; i++) {
+                    if (onValue[i].parent == '0') {
+                        categories.add(onValue[i]);
+                    }
+                  }
+                  tempCategories.addAll(onValue);
+                }
+              });
             },
             onInitialBuild: (HomeViewModel viewModel) {
               this.viewModel = viewModel;
@@ -234,9 +249,18 @@ class HomePage extends StatelessWidget {
                                       padding: EdgeInsets.all(6.0),
                                       scrollDirection: Axis.horizontal,
                                       shrinkWrap: true,
-                                      itemCount: 10,
+                                      itemCount: categories.length,
                                       itemBuilder:
                                           (BuildContext context, int index) {
+                                            String title;
+                                            String langCode = Localizations.localeOf(context).languageCode;
+                                            if (langCode == "tr") {
+                                              title = categories[index].name_az.trim();
+                                            } else if (langCode == "en") {
+                                              title = categories[index].name_en.trim();
+                                            } else if (langCode == "ru") {
+                                              title = categories[index].name_ru.trim();
+                                            }
                                         return Card(
                                           elevation: 4,
                                           margin: EdgeInsets.all(8),
@@ -273,7 +297,7 @@ class HomePage extends StatelessWidget {
                                                         Expanded(
                                                           flex: 3,
                                                           child: Text(
-                                                              "Meat &Meat products",
+                                                            title,
                                                           style: TextStyle(fontSize: 13),),
                                                         ),
                                                         Expanded(
@@ -486,4 +510,13 @@ class HomePage extends StatelessWidget {
           ),
         )
       : SizedBox();
+
+  Future<List<Category>> getCategories() async {
+    ListCategories categories = await Networks().listCategories();
+    if (categories != null) {
+      return categories.categories;
+    } else {
+      return null;
+    }
+  }
 }
