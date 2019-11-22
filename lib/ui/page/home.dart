@@ -140,12 +140,11 @@ class HomePage extends StatelessWidget {
                                 right: 6,
                                 top: 6,
                                 child: new Container(
-                                  padding: EdgeInsets.only(left: 7,right: 7),
+                                  padding: EdgeInsets.only(left: 7, right: 7),
                                   decoration: new BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(6),
-                                    border: Border.all(color: greenFixed)
-                                  ),
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(6),
+                                      border: Border.all(color: greenFixed)),
                                   constraints: BoxConstraints(
                                     minWidth: 14,
                                     minHeight: 14,
@@ -229,8 +228,8 @@ class HomePage extends StatelessWidget {
                                         )
                                       ],
                                     )),
-                                Container(
-                                  height: 140,
+                                AspectRatio(
+                                  aspectRatio: 8 / 3,
                                   child: ListView.builder(
                                       padding: EdgeInsets.all(6.0),
                                       scrollDirection: Axis.horizontal,
@@ -240,12 +239,16 @@ class HomePage extends StatelessWidget {
                                           (BuildContext context, int index) {
                                         return Card(
                                           elevation: 4,
+                                          margin: EdgeInsets.all(8),
                                           shape: RoundedRectangleBorder(
                                               borderRadius:
-                                                  BorderRadius.circular(4)),
+                                                  BorderRadius.circular(10)),
                                           color: Colors.white,
                                           child: Container(
-                                            color: Colors.white,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                color: Colors.white),
                                             width: 120,
                                           ),
                                         );
@@ -331,7 +334,7 @@ class HomePage extends StatelessWidget {
 
   static const platform = const MethodChannel("kendden_shehere/chat_activity");
 
-   static getNewActivity() async {
+  static getNewActivity() async {
     try {
       await platform.invokeMethod('startNewActivity');
     } on PlatformException catch (e) {
@@ -394,38 +397,38 @@ class HomePage extends StatelessWidget {
               title = viewModel.homeList.homelist[index].name_ru.trim();
             }
             return Container(
-              margin: EdgeInsets.all(8.0),
+                margin: EdgeInsets.all(8.0),
                 child: Column(
-              children: <Widget>[
-                _titleContainer(title),
-                AspectRatio(
-                  child: Container(
-                    child: ListView.builder(
-                        physics: ClampingScrollPhysics(),
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount:
-                            viewModel.homeList.homelist[index].list.length,
-                        itemBuilder: (BuildContext context, int index2) {
-                          return Card(
-                            margin: EdgeInsets.all(8),
-                            elevation: 4,
-                            child: Container(
-                              width: width * 0.42,
-                              child: GroceryListItemOne(
-                                product: viewModel
-                                    .homeList.homelist[index].list[index2],
-                              ),
-                            ),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15)),
-                          );
-                        }),
-                  ),
-                  aspectRatio: 9 / 6,
-                )
-              ],
-            ));
+                  children: <Widget>[
+                    _titleContainer(title),
+                    AspectRatio(
+                      child: Container(
+                        child: ListView.builder(
+                            physics: ClampingScrollPhysics(),
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemCount:
+                                viewModel.homeList.homelist[index].list.length,
+                            itemBuilder: (BuildContext context, int index2) {
+                              return Card(
+                                margin: EdgeInsets.all(8),
+                                elevation: 4,
+                                child: Container(
+                                  width: width * 0.42,
+                                  child: GroceryListItemOne(
+                                    product: viewModel
+                                        .homeList.homelist[index].list[index2],
+                                  ),
+                                ),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15)),
+                              );
+                            }),
+                      ),
+                      aspectRatio: 9 / 6,
+                    )
+                  ],
+                ));
           })
       : Container(
           child: CircularProgressIndicator(),
