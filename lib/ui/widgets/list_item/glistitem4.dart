@@ -29,7 +29,7 @@ class GroceryListItemFourState extends State<GroceryListItemFour> {
     // TODO: implement build
     return Card(
         margin: EdgeInsets.all(12),
-        elevation: 4,
+        elevation: 6,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: new Container(
             height: MediaQuery.of(context).size.height * 0.3,
@@ -62,7 +62,41 @@ class GroceryListItemFourState extends State<GroceryListItemFour> {
                   ),
                 )),
                 Expanded(
-                  child: Container(),
+                  child: Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.only(bottom: 16,left: 16,right: 16),
+                    child: Column(
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(orderItem.list.productsInCategory[0].name_en),
+                            Text(orderItem.list.productsInCategory[0].weight.toString()+" piece"),
+                          ],
+                        ),
+                        Divider(color: greenFixed,),
+                        SizedBox(height: 8,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(orderItem.list.productsInCategory[0].name_en),
+                            Text(orderItem.list.productsInCategory[0].weight.toString()+" piece"),
+                          ],
+                        ),
+                        Divider(color: greenFixed,),
+                        SizedBox(height: 8,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(orderItem.list.productsInCategory[0].name_en),
+                            Text(orderItem.list.productsInCategory[0].weight.toString()+" piece"),
+                          ],
+                        ),
+                        Divider(color: greenFixed,),
+
+                      ],
+                    ),
+                  ),
                   flex: 2,
                 ),
                 Expanded(
@@ -87,7 +121,9 @@ class GroceryListItemFourState extends State<GroceryListItemFour> {
                         "Üzeyir Hajibeyov str., 84",
                         style: TextStyle(color: Colors.white),
                       ),
-                      SizedBox(width: 16,),
+                      SizedBox(
+                        width: 16,
+                      ),
                       Expanded(
                           child: Container(
                         alignment: AlignmentDirectional.centerEnd,
@@ -104,7 +140,9 @@ class GroceryListItemFourState extends State<GroceryListItemFour> {
                             ),
                             Text(
                               orderItem.bprice + " AZN",
-                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),
