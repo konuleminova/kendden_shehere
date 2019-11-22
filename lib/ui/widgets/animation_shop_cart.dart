@@ -88,13 +88,13 @@ class _BuildTotalWidgetAnimationState extends State<BuildTotalWidgetAnimation>
             color: Colors.white,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(25),
-                    topRight: Radius.circular(25))),
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30))),
             child: Container(
               height: 120,
               decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(25),
+                  borderRadius: BorderRadius.circular(30),
                   border: Border.all(color: Colors.grey[100])),
               padding: EdgeInsets.only(
                   left: 20.0, right: 20.0, top: 40.0, bottom: 8.0),
