@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/orderhistory/orderhistrory_model.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_shop_list.dart';
@@ -28,75 +29,90 @@ class GroceryListItemFourState extends State<GroceryListItemFour> {
     // TODO: implement build
     return Card(
         margin: EdgeInsets.all(12),
-        child: Material(
-            borderRadius: BorderRadius.circular(20.0),
-            elevation: 3.0,
-            child: new Container(
-              decoration: new BoxDecoration(
-                  color: Colors.white,
-                  border: new Border.all(width: 0.5, color: Colors.lightGreen)),
-              child: ListTile(
-                  onTap: () {
-                    // Navigator.pushNamed(context, "/order_shop_list");
-                    Route route = MaterialPageRoute(
-                        builder: (BuildContext context) => OrderShopListPage(
-                              products: orderItem.list.productsInCategory,
-                            ));
-                    Navigator.push(context, route);
-                  },
-                  leading: Column(
+        elevation: 4,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        child: new Container(
+            height: MediaQuery.of(context).size.height * 0.3,
+            //margin: EdgeInsets.only(top: 8),
+            decoration: new BoxDecoration(
+                color: Colors.white, borderRadius: BorderRadius.circular(10)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Expanded(
+                    child: Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Expanded(
-                        child: new GroceryTitle(text: orderItem.id),
-                      ),
-                      Expanded(
-                        child: IconButton(
-                          icon: Icon(Icons.restore),
-                          onPressed: () {
-                           Navigator.push(context,  MaterialPageRoute(
-                               builder: (BuildContext context) =>
-                                   GroceryShopCartPage(
-                                     fromCheckout: false,
-                                   )));
-                          },
+                        child: new Text(
+                          "Order #" + orderItem.id,
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: greenFixed,
+                              fontWeight: FontWeight.bold),
                         ),
-                      )
+                      ),
+                      new Text(
+                        orderItem.dtsubmit,
+                        style: TextStyle(color: Colors.black, fontSize: 12),
+                      ),
                     ],
                   ),
-                  title: Container(
-                    height: 100,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        orderItem.payment_status.isNotEmpty
-                            ? Text(
-                                orderItem.payment_status == "OFFLINE"
-                                    ? AppTranslations.of(context)
-                                        .text("on_delivery")
-                                    : AppTranslations.of(context)
-                                        .text("online_payment"),
-                                style: TextStyle(color: Colors.grey),
-                              )
-                            : SizedBox(),
-                        new GrocerySubtitle(text: orderItem.dtsubmit),
-                      ],
-                    ),
+                )),
+                Expanded(
+                  child: Container(),
+                  flex: 2,
+                ),
+                Expanded(
+                    child: Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(10),
+                          bottomRight: Radius.circular(10)),
+                      color: greenFixed),
+                  child: Row(
+                    children: <Widget>[
+                      Icon(
+                        Icons.location_on,
+                        color: Colors.white,
+                      ),
+                      SizedBox(
+                        width: 4,
+                      ),
+                      Text(
+                        "Üzeyir Hajibeyov str., 84",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      SizedBox(width: 16,),
+                      Expanded(
+                          child: Container(
+                        alignment: AlignmentDirectional.centerEnd,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              "Total",
+                              textAlign: TextAlign.end,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            SizedBox(
+                              width: 4,
+                            ),
+                            Text(
+                              orderItem.bprice + " AZN",
+                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ))
+                    ],
                   ),
-                  trailing: new Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisSize: MainAxisSize.max,
-                      children: <Widget>[
-                        new GroceryTitle(text: orderItem.bprice + " AZN"),
-                        // new RatingStarWidget(5, 0, 20),
-                        _statusWidget(orderItem.status),
-
-                        //new GrocerySubtitle(text: amount.toString()+" kq"),
-                      ],
-                    ),
-                  )),
+                ))
+              ],
             )));
   }
 
