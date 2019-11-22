@@ -245,12 +245,49 @@ class HomePage extends StatelessWidget {
                                                   BorderRadius.circular(10)),
                                           color: Colors.white,
                                           child: Container(
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                color: Colors.white),
-                                            width: 120,
-                                          ),
+                                              padding: EdgeInsets.all(10),
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  color: Colors.white),
+                                              width: width * 0.28,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: <Widget>[
+                                                  Expanded(
+                                                    child: Image.asset(
+                                                        'images/ks/logo.png'),
+                                                    flex: 2,
+                                                  ),
+                                                  SizedBox(height: 8,),
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: <Widget>[
+                                                        Expanded(
+                                                          flex: 3,
+                                                          child: Text(
+                                                              "Meat &Meat products",
+                                                          style: TextStyle(fontSize: 13),),
+                                                        ),
+                                                        Expanded(
+                                                          child: IconButton(
+                                                            onPressed: null,
+                                                            icon: Icon(Icons
+                                                                .arrow_forward,color: blackFixed,size: 19,),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  )
+                                                ],
+                                              )),
                                         );
                                       }),
                                 ),
