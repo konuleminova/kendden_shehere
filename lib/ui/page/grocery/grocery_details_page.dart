@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/productlist/product_model.dart';
@@ -7,6 +8,7 @@ import 'package:kendden_shehere/redux/productlist/product_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/animation/slide_left.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_big_image.dart';
+import 'package:kendden_shehere/ui/page/home.dart';
 import 'package:kendden_shehere/ui/widgets/rating_star.dart';
 import 'package:kendden_shehere/ui/widgets/gtile_title.dart';
 import 'package:share/share.dart';
@@ -78,71 +80,127 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
               ? Scaffold(
                   appBar: new AppBar(
                       title: new Text(title),
-                      backgroundColor: Colors.lightGreen,
+                      backgroundColor: greenFixed,
                       actions: <Widget>[
-                        InkWell(
-                          child: IconButton(
-                            icon: Icon(
-                              Icons.share,
-                              color: Colors.white,
-                            ),
-                            onPressed: () {
-                              final RenderBox box = context.findRenderObject();
-                              Share.share(img,
-                                  sharePositionOrigin:
-                                      box.localToGlobal(Offset.zero) &
-                                          box.size);
-                            },
-                          ),
-                        ),
-                        new Stack(
-                          children: <Widget>[
-                            InkWell(
-                              child: new IconButton(
-                                  icon: Icon(
-                                    Icons.shopping_cart,
-                                    color: Colors.white,
-                                  ),
-                                  onPressed: null),
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            GroceryShopCartPage(
-                                              fromCheckout: false,
-                                            )));
-                              },
-                            ),
-                            lenght != 0
-                                ? new Positioned(
-                                    right: 11,
-                                    top: 11,
-                                    child: new Container(
-                                      padding: EdgeInsets.all(2),
-                                      decoration: new BoxDecoration(
-                                        color: Colors.red,
-                                        borderRadius: BorderRadius.circular(6),
-                                      ),
-                                      constraints: BoxConstraints(
-                                        minWidth: 14,
-                                        minHeight: 14,
-                                      ),
-                                      child: Text(
-                                        lenght.toString(),
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 8,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  )
-                                : new Container()
-                          ],
-                        ),
+//                        InkWell(
+//                          child: IconButton(
+//                            icon: Icon(
+//                              Icons.share,
+//                              color: Colors.white,
+//                            ),
+//                            onPressed: () {
+//                              final RenderBox box = context.findRenderObject();
+//                              Share.share(img,
+//                                  sharePositionOrigin:
+//                                      box.localToGlobal(Offset.zero) &
+//                                          box.size);
+//                            },
+//                          ),
+//                        ),
+                        GestureDetector(
+                            child: Image.asset('images/ks/chat.png'),
+                            onTap: () {
+                              HomePage.getNewActivity();
+                            }),
+//                        new Stack(
+//                          children: <Widget>[
+//                            InkWell(
+//                              child: new IconButton(
+//                                  icon: Icon(
+//                                    Icons.shopping_cart,
+//                                    color: Colors.white,
+//                                  ),
+//                                  onPressed: null),
+//                              onTap: () {
+//                                Navigator.push(
+//                                    context,
+//                                    MaterialPageRoute(
+//                                        builder: (BuildContext context) =>
+//                                            GroceryShopCartPage(
+//                                              fromCheckout: false,
+//                                            )));
+//                              },
+//                            ),
+//                            lenght != 0
+//                                ? new Positioned(
+//                                    right: 11,
+//                                    top: 11,
+//                                    child: new Container(
+//                                      padding: EdgeInsets.all(2),
+//                                      decoration: new BoxDecoration(
+//                                        color: Colors.red,
+//                                        borderRadius: BorderRadius.circular(6),
+//                                      ),
+//                                      constraints: BoxConstraints(
+//                                        minWidth: 14,
+//                                        minHeight: 14,
+//                                      ),
+//                                      child: Text(
+//                                        lenght.toString(),
+//                                        style: TextStyle(
+//                                          color: Colors.white,
+//                                          fontSize: 8,
+//                                        ),
+//                                        textAlign: TextAlign.center,
+//                                      ),
+//                                    ),
+//                                  )
+//                                : new Container()
+//                          ],
+//                        ),
                       ]),
-                  body: _buildPageContent(context))
+                  body: _buildPageContent(context),
+                  floatingActionButton: new FloatingActionButton(
+                    backgroundColor: greenFixed,
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  GroceryShopCartPage(
+                                    fromCheckout: false,
+                                  )));
+                    },
+                    child: new Stack(
+                      alignment: Alignment.center,
+                      children: <Widget>[
+                        InkWell(
+                            child: new IconButton(
+                                icon: Icon(
+                                  Icons.shopping_cart,
+                                  color: Colors.white,
+                                ),
+                                onPressed: null),
+                            onTap: null),
+                        viewModel.shopItems.length != 0
+                            ? new Positioned(
+                                right: 11,
+                                top: 11,
+                                child: new Container(
+                                  padding: EdgeInsets.all(2),
+                                  decoration: new BoxDecoration(
+                                    color: Colors.red,
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                  constraints: BoxConstraints(
+                                    minWidth: 14,
+                                    minHeight: 14,
+                                  ),
+                                  child: Text(
+                                    viewModel.shopItems.length.toString(),
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 8,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              )
+                            : new Container()
+                      ],
+                    ),
+                  ),
+                )
               : SizedBox();
         });
   }
@@ -176,35 +234,44 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                             SizedBox(
                               height: 10.0,
                             ),
-                            GroceryTitle(text: title),
+                            Text(title,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 18.0,
+                                )),
                             SizedBox(
-                              height: 5.0,
+                              height: 8.0,
                             ),
-                            GrocerySubtitle(
-                                text: product.counttype +
-                                    " " +
-                                    product.price +
-                                    " AZN"),
+                            Container(
+                                padding: EdgeInsets.only(right: 8),
+                                child: GrocerySubtitle(text: description)),
+                            SizedBox(
+                              height: 16.0,
+                            ),
+                            Text(
+                              product.counttype + " " + product.price + " AZN",
+                              style: TextStyle(color: greenFixed, fontSize: 18),
+                            ),
+                            SizedBox(
+                              height: 4,
+                            ),
                             new Container(
-                              margin: EdgeInsets.all(6),
-                              child: RatingStarWidget(5, 4, 22),
+                              // margin: EdgeInsets.all(6),
+                              child: RatingStarWidget(5, 4, 32),
                             ),
                           ],
                         ),
                         margin: EdgeInsets.only(left: 20, top: 8),
                       )),
-                  Expanded(
-                    child: new Container(
-                      child: addedWidget(),
-                      margin: EdgeInsets.only(right: 20, top: 30, left: 20),
-                    ),
-                    flex: 1,
-                  ),
+//                  Expanded(
+//                    child: new Container(
+//                      child: addedWidget(),
+//                      margin: EdgeInsets.only(right: 20, top: 30, left: 20),
+//                    ),
+//                    flex: 1,
+//                  ),
                 ],
               ),
-              Container(
-                  padding: EdgeInsets.all(20.0),
-                  child: GrocerySubtitle(text: description)),
             ],
           ),
         ),
@@ -223,30 +290,33 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
             child: new Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-              Expanded(child:   IconButton(
-                  icon: Icon(
-                    Icons.shopping_cart,
-                    color: Colors.white,
-                    size: 30,
-                  ),
-                  onPressed: () {
-                    Networks()
-                        .addToBasket(product.id, product.weight.toString())
-                        .then((onvalue) {
-                      print(onvalue);
-                      if (onvalue != null) {
-                        if (onvalue['action'] == "done") {
-                          viewModel.addShopItem(product);
-                          // viewModel.onFetchShopList();
-                          setState(() {
-                            product.isAdded = !product.isAdded;
-                            lenght++;
-                          });
-                          //viewModel.changeAddStatus(index, true, product.weight);
-                        }
-                      }
-                    });
-                  }),flex: 1,),
+                Expanded(
+                  child: IconButton(
+                      icon: Icon(
+                        Icons.shopping_cart,
+                        color: Colors.white,
+                        size: 30,
+                      ),
+                      onPressed: () {
+                        Networks()
+                            .addToBasket(product.id, product.weight.toString())
+                            .then((onvalue) {
+                          print(onvalue);
+                          if (onvalue != null) {
+                            if (onvalue['action'] == "done") {
+                              viewModel.addShopItem(product);
+                              // viewModel.onFetchShopList();
+                              setState(() {
+                                product.isAdded = !product.isAdded;
+                                lenght++;
+                              });
+                              //viewModel.changeAddStatus(index, true, product.weight);
+                            }
+                          }
+                        });
+                      }),
+                  flex: 1,
+                ),
                 Expanded(
                   flex: 3,
                   child: new Container(
@@ -390,8 +460,8 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                     tag: product.id,
                   ))),
               Positioned(
-                  bottom: 8.0,
-                  right: 8.0,
+                  top: 8.0,
+                  right: 12.0,
                   child: Container(
                     child: IconButton(
                       icon: Icon(
@@ -399,7 +469,7 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                             ? Icons.favorite
                             : Icons.favorite_border,
                         color: Colors.pink[400],
-                        size: 36,
+                        size: 40,
                       ),
                       onPressed: () {
                         Networks()

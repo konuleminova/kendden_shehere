@@ -105,7 +105,7 @@ class HomePage extends StatelessWidget {
                       GestureDetector(
                           child: Image.asset('images/ks/chat.png'),
                           onTap: () {
-                            _getNewActivity();
+                            getNewActivity();
                           }),
                       SizedBox(
                         width: 4,
@@ -329,7 +329,7 @@ class HomePage extends StatelessWidget {
 
   static const platform = const MethodChannel("kendden_shehere/chat_activity");
 
-  _getNewActivity() async {
+   static getNewActivity() async {
     try {
       await platform.invokeMethod('startNewActivity');
     } on PlatformException catch (e) {
