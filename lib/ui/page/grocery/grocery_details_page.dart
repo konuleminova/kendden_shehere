@@ -245,7 +245,7 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                               height: 8.0,
                             ),
                             Container(
-                                padding: EdgeInsets.only(right: 8),
+                                padding: EdgeInsets.only(right: 16),
                                 child: GrocerySubtitle(text: description)),
                             SizedBox(
                               height: 16.0,
