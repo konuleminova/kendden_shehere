@@ -87,7 +87,7 @@ class HomePage extends StatelessWidget {
             converter: (Store<AppState> store) => HomeViewModel.create(store),
             builder: (BuildContext context, HomeViewModel viewModel) {
               return new Scaffold(
-                //key: _scaffold,
+                  //key: _scaffold,
                   backgroundColor: greyFixed,
                   appBar: new AppBar(
                     backgroundColor: greenFixed,
@@ -114,7 +114,7 @@ class HomePage extends StatelessWidget {
                   ),
                   floatingActionButton: new FloatingActionButton(
                     backgroundColor: greenFixed,
-                    onPressed: (){
+                    onPressed: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -127,38 +127,37 @@ class HomePage extends StatelessWidget {
                       alignment: Alignment.center,
                       children: <Widget>[
                         InkWell(
-                          child: new IconButton(
-                              icon: Icon(
-                                Icons.shopping_cart,
-                                color: Colors.white,
-                              ),
-                              onPressed: null),
-                          onTap: null
-                        ),
+                            child: new IconButton(
+                                icon: Icon(
+                                  Icons.shopping_cart,
+                                  color: Colors.white,
+                                ),
+                                onPressed: null),
+                            onTap: null),
                         viewModel.shopItems.length != 0
                             ? new Positioned(
-                          right: 11,
-                          top: 11,
-                          child: new Container(
-                            padding: EdgeInsets.all(2),
-                            decoration: new BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            constraints: BoxConstraints(
-                              minWidth: 14,
-                              minHeight: 14,
-                            ),
-                            child: Text(
-                              viewModel.shopItems.length.toString(),
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 8,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        )
+                                right: 11,
+                                top: 11,
+                                child: new Container(
+                                  padding: EdgeInsets.all(2),
+                                  decoration: new BoxDecoration(
+                                    color: Colors.red,
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                  constraints: BoxConstraints(
+                                    minWidth: 14,
+                                    minHeight: 14,
+                                  ),
+                                  child: Text(
+                                    viewModel.shopItems.length.toString(),
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 8,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              )
                             : new Container()
                       ],
                     ),
@@ -166,8 +165,8 @@ class HomePage extends StatelessWidget {
                   drawer: DrawerWidget(),
                   body: connectionStatus != ConnectivityStatus.Offline
                       ? RefreshIndicator(
-                      child: SingleChildScrollView(
-                          child: Stack(
+                          child: SingleChildScrollView(
+                              child: Stack(
                             children: <Widget>[
                               new Wrap(children: <Widget>[
                                 Container(
@@ -185,7 +184,7 @@ class HomePage extends StatelessWidget {
                                             Expanded(
                                               child: Container(
                                                 alignment:
-                                                Alignment.bottomCenter,
+                                                    Alignment.bottomCenter,
                                                 color: greyFixed,
                                                 child: ListTile(
                                                   title: Text(
@@ -194,7 +193,7 @@ class HomePage extends StatelessWidget {
                                                     style: TextStyle(
                                                         color: blackFixed,
                                                         fontWeight:
-                                                        FontWeight.bold,
+                                                            FontWeight.bold,
                                                         fontSize: 18),
                                                   ),
                                                   trailing: Text("Show More"),
@@ -212,7 +211,7 @@ class HomePage extends StatelessWidget {
                                             elevation: 8,
                                             shape: RoundedRectangleBorder(
                                                 borderRadius:
-                                                BorderRadius.circular(4)),
+                                                    BorderRadius.circular(4)),
                                             child: ListTile(
                                               title: Text(
                                                 'What are you looking for?',
@@ -228,20 +227,28 @@ class HomePage extends StatelessWidget {
                                         )
                                       ],
                                     )),
-                                Container(height: 140,child:   ListView.builder(
-                                    padding: EdgeInsets.all(6.0),
-                                    scrollDirection: Axis.horizontal,
-                                    shrinkWrap: true,
-
-                                    itemCount:10,itemBuilder:
-                                    (BuildContext context, int index) {
-                                  return Card(
-                                    elevation: 4,
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-                                    color: Colors.white,
-                                    child: Container(color: Colors.white,width: 120,),
-                                  );
-                                }),),
+                                Container(
+                                  height: 140,
+                                  child: ListView.builder(
+                                      padding: EdgeInsets.all(6.0),
+                                      scrollDirection: Axis.horizontal,
+                                      shrinkWrap: true,
+                                      itemCount: 10,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return Card(
+                                          elevation: 4,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(4)),
+                                          color: Colors.white,
+                                          child: Container(
+                                            color: Colors.white,
+                                            width: 120,
+                                          ),
+                                        );
+                                      }),
+                                ),
                                 ListTile(
                                   title: Text(
                                     'Campaigns',
@@ -252,25 +259,28 @@ class HomePage extends StatelessWidget {
                                   ),
                                   trailing: Text("Show More"),
                                 ),
-                                Padding(padding: EdgeInsets.all(16.0),child:    _buildCarousel(),),
+                                Padding(
+                                  padding: EdgeInsets.all(16.0),
+                                  child: _buildCarousel(),
+                                ),
                                 _buildBody(viewModel),
                                 _footer(viewModel)
                               ])
                             ],
                           )),
-                      onRefresh: _refreshLocal)
+                          onRefresh: _refreshLocal)
                       : RefreshIndicator(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Center(
-                          child: noInternetConnection(),
-                        ),
-                      ],
-                    ),
-                    onRefresh: _refreshLocal,
-                  ));
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Center(
+                                child: noInternetConnection(),
+                              ),
+                            ],
+                          ),
+                          onRefresh: _refreshLocal,
+                        ));
             }),
         onWillPop: () {
           SystemNavigator.pop();
@@ -287,23 +297,26 @@ class HomePage extends StatelessWidget {
   }
 
   _titleContainer(String title) => new Container(
-    padding: EdgeInsets.all(10),
-    margin: EdgeInsets.only(top: 10),
-    height: 60,
-    color: Colors.grey[200],
-    child: new Stack(
-      children: <Widget>[
-        new Container(
-          child: new Text(
-            title,
-            textAlign: TextAlign.left,
-            style: new TextStyle(fontSize: 20, color: Colors.green),
-          ),
-          alignment: AlignmentDirectional.centerStart,
+        padding: EdgeInsets.all(10),
+        margin: EdgeInsets.only(top: 10, left: 8),
+        height: 60,
+        color: Colors.grey[200],
+        child: new Stack(
+          children: <Widget>[
+            new Container(
+              child: new Text(
+                title,
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                    color: blackFixed,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18),
+              ),
+              alignment: AlignmentDirectional.centerStart,
+            ),
+          ],
         ),
-      ],
-    ),
-  );
+      );
 
   List<T> map<T>(List list, Function handler) {
     List<T> result = [];
@@ -325,96 +338,110 @@ class HomePage extends StatelessWidget {
   }
 
   _buildCarousel() => new SizedBox(
-    width: width,
-    height: height * 0.22,
-    child: new PageView(children: <Widget>[
-      new FutureBuilder(
-          future: _future,
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.hasData) {
-              photos = snapshot.data;
-              List<Widget> imagesWidget = new List();
-              for (int i = 0; i < photos.length; i++) {
-                imagesWidget.add(Card(child: new Container(
-                  width: width*0.6,
-                  child: new Image(
-                    image: NetworkImage(
-                      photos[i],
-                    ),
-                    fit: BoxFit.cover,
-                  ),
-                ),elevation: 4,));
-              }
-              return ListView(children: imagesWidget,scrollDirection: Axis.horizontal,);
-            } else {
-              return Center(
-                child: new CircularProgressIndicator(),
-              );
-            }
-          })
-    ]),
-  );
+        width: width,
+        height: height * 0.22,
+        child: new PageView(children: <Widget>[
+          new FutureBuilder(
+              future: _future,
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                if (snapshot.hasData) {
+                  photos = snapshot.data;
+                  List<Widget> imagesWidget = new List();
+                  for (int i = 0; i < photos.length; i++) {
+                    imagesWidget.add(Card(
+                      child: new Container(
+                        width: width * 0.6,
+                        child: new Image(
+                          image: NetworkImage(
+                            photos[i],
+                          ),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      elevation: 4,
+                    ));
+                  }
+                  return ListView(
+                    children: imagesWidget,
+                    scrollDirection: Axis.horizontal,
+                  );
+                } else {
+                  return Center(
+                    child: new CircularProgressIndicator(),
+                  );
+                }
+              })
+        ]),
+      );
 
   _buildBody(HomeViewModel viewModel) => viewModel.homeList.homelist != null
       ? ListView.builder(
-      shrinkWrap: true,
-      physics: ClampingScrollPhysics(),
-      itemCount: viewModel.homeList.homelist.length,
-      itemBuilder: (
-          BuildContext context,
-          int index,
+          shrinkWrap: true,
+          physics: ClampingScrollPhysics(),
+          itemCount: viewModel.homeList.homelist.length,
+          itemBuilder: (
+            BuildContext context,
+            int index,
           ) {
-        String langCode = Localizations.localeOf(context).languageCode;
-        if (langCode == "tr") {
-          title = viewModel.homeList.homelist[index].name_az.trim();
-        } else if (langCode == "en") {
-          title = viewModel.homeList.homelist[index].name_en.trim();
-        } else if (langCode == "ru") {
-          title = viewModel.homeList.homelist[index].name_ru.trim();
-        }
-        return Container(
-            child: Column(
+            String langCode = Localizations.localeOf(context).languageCode;
+            if (langCode == "tr") {
+              title = viewModel.homeList.homelist[index].name_az.trim();
+            } else if (langCode == "en") {
+              title = viewModel.homeList.homelist[index].name_en.trim();
+            } else if (langCode == "ru") {
+              title = viewModel.homeList.homelist[index].name_ru.trim();
+            }
+            return Container(
+              margin: EdgeInsets.all(8.0),
+                child: Column(
               children: <Widget>[
                 _titleContainer(title),
-                Container(
-                  child: ListView.builder(
-                      physics: ClampingScrollPhysics(),
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemCount: viewModel.homeList.homelist[index].list.length,
-                      itemBuilder: (BuildContext context, int index2) {
-                        return Container(
-                          width: MediaQuery.of(context).size.width * 0.5,
-                          height: height * 0.5,
-                          child: GroceryListItemOne(
-                            product:
-                            viewModel.homeList.homelist[index].list[index2],
-                          ),
-                        );
-                      }),
-                  height: height * 0.5,
+                AspectRatio(
+                  child: Container(
+                    child: ListView.builder(
+                        physics: ClampingScrollPhysics(),
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount:
+                            viewModel.homeList.homelist[index].list.length,
+                        itemBuilder: (BuildContext context, int index2) {
+                          return Card(
+                            margin: EdgeInsets.all(8),
+                            elevation: 4,
+                            child: Container(
+                              width: width * 0.42,
+                              child: GroceryListItemOne(
+                                product: viewModel
+                                    .homeList.homelist[index].list[index2],
+                              ),
+                            ),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15)),
+                          );
+                        }),
+                  ),
+                  aspectRatio: 9 / 6,
                 )
               ],
             ));
-      })
+          })
       : Container(
-    child: CircularProgressIndicator(),
-    alignment: Alignment.center,
-    margin: EdgeInsets.only(top: 100),
-  );
+          child: CircularProgressIndicator(),
+          alignment: Alignment.center,
+          margin: EdgeInsets.only(top: 100),
+        );
 
   _footer(HomeViewModel viewModel) => viewModel.homeList.homelist != null
       ? Container(
-    alignment: Alignment.center,
-    color: greenFixed,
-    child: ListTile(
-      title: Text(
-        '© 2019 Agro Trade',
-        style:
-        TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-      ),
-    ),
-  )
+          alignment: Alignment.center,
+          color: greenFixed,
+          child: ListTile(
+            title: Text(
+              '© 2019 Agro Trade',
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
+          ),
+        )
       : SizedBox();
 }
-

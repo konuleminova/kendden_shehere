@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/productlist/product_model.dart';
 import 'package:kendden_shehere/redux/productlist/product_viewmodel.dart';
@@ -54,7 +55,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne>
     } else if (langCode == "ru") {
       title = product.name_ru.trim();
     }
-  //  int weight = product.weight;
+    //  int weight = product.weight;
     // TODO: implement build
     return StoreConnector(
         onInitialBuild: (ProductViewModel viewModel) {
@@ -69,114 +70,190 @@ class GroceryListItemOneState extends State<GroceryListItemOne>
           return product != null
               ? Container(
                   decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                          color: !product.isAdded
-                              ? Colors.grey[300]
-                              : Colors.green[300]),
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(5.0),
-                          topRight: Radius.circular(5.0)),
-                      boxShadow: [
-                        BoxShadow(
-                            blurRadius: 10.0,
-                            color: Colors.grey.shade200,
-                            spreadRadius: 2.0)
-                      ]),
-                  margin: EdgeInsets.all(4.0),
+                    color: Colors.white,
+//                    border: Border.all(
+//                        color: !product.isAdded
+//                            ? Colors.transparent
+//                            : Colors.green[300]),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  margin: EdgeInsets.all(2.0),
                   padding: EdgeInsets.all(12.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
-                      Expanded(flex:4,child: GestureDetector(
-                        child: Container(
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            new Row(
+                              children: <Widget>[
+                                new RatingStarWidget(1, 1, 16),
+                                new Container(
+                                  child: Text("4.2"),
+                                ),
+                              ],
+                            ),
+                            IconButton(
+                              icon: Icon(
+                                  product.isLiked
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
+                                  color: Colors.pink[400],
+                                  size: 30),
+                              onPressed: () {
+                                setState(() {
+                                  if (!product.isLiked) {
+                                    product.isLiked = true;
+                                    // animationController.forward();
+                                  } else {
+                                    product.isLiked = false;
+                                    // animationController.reverse();
+                                  }
+                                });
+                                Networks()
+                                    .add_Remove_WishList(product.id)
+                                    .then((onvalue) {
+                                  if (onvalue != null) {
+                                    if (onvalue['action'] == "added") {
+                                      // this.viewModel.changeLikeStatus(index, true);
+                                      viewModel.addWishItem(product);
+                                    } else if (onvalue['action'] == "removed") {
+                                      // this.viewModel.changeLikeStatus(index, false);
+                                      viewModel.removeWishItem(product);
+                                    }
+                                    print(onvalue);
+                                  }
+                                });
+                              },
+                            )
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        flex: 3,
+                        child: GestureDetector(
+                          child: Container(
+                            //color: Colors.green,
+                            margin: EdgeInsets.only(bottom: 8,top: 8),
+                            alignment: Alignment.center,
                             child: FadeInImage.assetNetwork(
                               image: "https://kenddenshehere.az/images/pr/th/" +
                                   product.code +
                                   ".jpg",
                               placeholder: "images/noimage.png",
                               fit: BoxFit.cover,
-                              height: 150,
+                              // height: 150,
                             ),
-                            height: 150,
-                            padding: EdgeInsets.only(
-                                left: 10, right: 10, top: 10, bottom: 4)),
-                        onTap: () {
-                          //   Navigator.pushNamed(context, "/product_detail");
-                          Route route = MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  GroceryDetailsPage(product));
-                          Navigator.push(context, route);
-                        },
-                      ),),
-                  // Expanded(flex:1,child:    ),
-
-                      Expanded(
-                        child: new Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            new GroceryTitle(text: title),
-                            new Container(
-                                height: 20,
-                                child: new Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    new Row(
-                                      children: <Widget>[
-                                        new RatingStarWidget(1, 1, 16),
-                                        new Container(
-                                          child: Text("4.2"),
-                                        ),
-                                      ],
-                                    ),
-                                    IconButton(
-                                      icon: Icon(
-                                          product.isLiked
-                                              ? Icons.favorite
-                                              : Icons.favorite_border,
-                                          color: Colors.pink[400],
-                                          size: 30),
-                                      onPressed: () {
-                                        setState(() {
-                                          if (!product.isLiked) {
-                                            product.isLiked = true;
-                                            // animationController.forward();
-                                          } else {
-                                            product.isLiked = false;
-                                            // animationController.reverse();
-                                          }
-                                        });
-                                        Networks()
-                                            .add_Remove_WishList(product.id)
-                                            .then((onvalue) {
-                                          if (onvalue != null) {
-                                            if (onvalue['action'] == "added") {
-                                              // this.viewModel.changeLikeStatus(index, true);
-                                              viewModel.addWishItem(product);
-                                            } else if (onvalue['action'] ==
-                                                "removed") {
-                                              // this.viewModel.changeLikeStatus(index, false);
-                                              viewModel.removeWishItem(product);
-                                            }
-                                            print(onvalue);
-                                          }
-                                        });
-                                      },
-                                    )
-                                  ],
-                                )),
-                            new GrocerySubtitle(text: product.counttype),
-                            new GrocerySubtitle(text: product.price + " AZN"),
-                          ],
+                            // height: 150,
+//                              padding: EdgeInsets.only(
+//                                  left: 10, right: 10, top: 10, bottom: 4)
+                          ),
+                          onTap: () {
+                            //   Navigator.pushNamed(context, "/product_detail");
+                            Route route = MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    GroceryDetailsPage(product));
+                            Navigator.push(context, route);
+                          },
                         ),
-                        flex: 3,
                       ),
                       Expanded(
-                        child: addedWidget(),
-                      )
+                        flex: 2,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+                            Expanded(
+                              flex: 4,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  new GroceryTitle(text: title),
+                                  // new GrocerySubtitle(text: product.counttype),
+                                  new GrocerySubtitle(
+                                      text: product.price + " AZN"),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              flex: 3,
+                              child: addedWidget(),
+                            )
+                          ],
+                        ),
+                      ),
+                      // Expanded(flex:1,child:    ),
+
+//                      Expanded(
+//                        child: new Column(
+//                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                          crossAxisAlignment: CrossAxisAlignment.start,
+//                          children: <Widget>[
+//                            new GroceryTitle(text: title),
+//                            new Container(
+//                                height: 20,
+//                                child: new Row(
+//                                  mainAxisAlignment:
+//                                      MainAxisAlignment.spaceBetween,
+//                                  crossAxisAlignment: CrossAxisAlignment.center,
+//                                  children: <Widget>[
+//                                    new Row(
+//                                      children: <Widget>[
+//                                        new RatingStarWidget(1, 1, 16),
+//                                        new Container(
+//                                          child: Text("4.2"),
+//                                        ),
+//                                      ],
+//                                    ),
+//                                    IconButton(
+//                                      icon: Icon(
+//                                          product.isLiked
+//                                              ? Icons.favorite
+//                                              : Icons.favorite_border,
+//                                          color: Colors.pink[400],
+//                                          size: 30),
+//                                      onPressed: () {
+//                                        setState(() {
+//                                          if (!product.isLiked) {
+//                                            product.isLiked = true;
+//                                            // animationController.forward();
+//                                          } else {
+//                                            product.isLiked = false;
+//                                            // animationController.reverse();
+//                                          }
+//                                        });
+//                                        Networks()
+//                                            .add_Remove_WishList(product.id)
+//                                            .then((onvalue) {
+//                                          if (onvalue != null) {
+//                                            if (onvalue['action'] == "added") {
+//                                              // this.viewModel.changeLikeStatus(index, true);
+//                                              viewModel.addWishItem(product);
+//                                            } else if (onvalue['action'] ==
+//                                                "removed") {
+//                                              // this.viewModel.changeLikeStatus(index, false);
+//                                              viewModel.removeWishItem(product);
+//                                            }
+//                                            print(onvalue);
+//                                          }
+//                                        });
+//                                      },
+//                                    )
+//                                  ],
+//                                )),
+//                            new GrocerySubtitle(text: product.counttype),
+//                            new GrocerySubtitle(text: product.price + " AZN"),
+//                          ],
+//                        ),
+//                        flex: 3,
+//                      ),
+//                      Expanded(
+//                        child: addedWidget(),
+//                      )
                     ],
                   ),
                 )
@@ -189,29 +266,32 @@ class GroceryListItemOneState extends State<GroceryListItemOne>
     return AnimatedCrossFade(
       firstChild: Container(
           alignment: Alignment.bottomRight,
-          child: IconButton(
-              icon: Icon(
-                Icons.shopping_cart,
-                color: Colors.green,
-                size: 30,
-              ),
-              onPressed: () {
-                Networks()
-                    .addToBasket(product.id, product.weight.toString())
-                    .then((onvalue) {
-                  print(onvalue);
-                  if (onvalue != null) {
-                    if (onvalue['action'] == "done") {
-                      viewModel.addShopItem(product);
-                      // viewModel.onFetchShopList();
-                      setState(() {
-                        product.isAdded = !product.isAdded;
-                      });
-                      //viewModel.changeAddStatus(index, true, product.weight);
+          child: CircleAvatar(
+            backgroundColor: greenFixed,
+            child: GestureDetector(
+                child: Image.asset(
+                  'images/ks/basket.png',
+                  width: 24,
+                  height: 24,
+                ),
+                onTap: () {
+                  Networks()
+                      .addToBasket(product.id, product.weight.toString())
+                      .then((onvalue) {
+                    print(onvalue);
+                    if (onvalue != null) {
+                      if (onvalue['action'] == "done") {
+                        viewModel.addShopItem(product);
+                        // viewModel.onFetchShopList();
+                        setState(() {
+                          product.isAdded = !product.isAdded;
+                        });
+                        //viewModel.changeAddStatus(index, true, product.weight);
+                      }
                     }
-                  }
-                });
-              })),
+                  });
+                }),
+          ),),
       secondChild: new Container(
         height: 35,
         decoration: new BoxDecoration(
