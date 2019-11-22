@@ -12,6 +12,9 @@ import 'package:kendden_shehere/redux/categories/category_item.dart';
 import 'package:kendden_shehere/redux/categories/list_categories.dart';
 import 'package:kendden_shehere/redux/home/home_viewmodel.dart';
 import 'package:kendden_shehere/service/networks.dart';
+import 'package:kendden_shehere/ui/animation/scale.dart';
+import 'package:kendden_shehere/ui/animation/size.dart';
+import 'package:kendden_shehere/ui/animation/slide.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_shop_list.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/payment_error_dialog.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/payment_success_dialog.dart';
@@ -22,6 +25,9 @@ import 'package:kendden_shehere/util/helper_class.dart';
 import 'package:provider/provider.dart';
 import 'package:redux/redux.dart';
 import 'package:async/async.dart';
+
+import 'grocery/grocery_categories.dart';
+import 'grocery/grocery_list.dart';
 
 class HomePage extends StatelessWidget {
   double height = 0;
@@ -81,7 +87,7 @@ class HomePage extends StatelessWidget {
                 if (onValue != null) {
                   for (int i = 0; i < onValue.length; i++) {
                     if (onValue[i].parent == '0') {
-                        categories.add(onValue[i]);
+                      categories.add(onValue[i]);
                     }
                   }
                   tempCategories.addAll(onValue);
@@ -203,17 +209,30 @@ class HomePage extends StatelessWidget {
                                                     Alignment.bottomCenter,
                                                 color: greyFixed,
                                                 child: ListTile(
-                                                  title: Text(
-                                                    AppTranslations.of(context)
-                                                        .text('categories'),
-                                                    style: TextStyle(
-                                                        color: blackFixed,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 18),
-                                                  ),
-                                                  trailing: Text("Show More"),
-                                                ),
+                                                    title: Text(
+                                                      AppTranslations.of(
+                                                              context)
+                                                          .text('categories'),
+                                                      style: TextStyle(
+                                                          color: blackFixed,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 18),
+                                                    ),
+                                                    trailing: GestureDetector(
+                                                      child: Text("Show More"),
+                                                      onTap: () {
+                                                        Navigator.push(
+                                                            context,
+                                                            ScaleRoute(
+                                                                page: new GroceryCategoriesPage(
+                                                                    id: "0",
+                                                                    title: AppTranslations.of(
+                                                                            context)
+                                                                        .text(
+                                                                            "categories"))));
+                                                      },
+                                                    )),
                                               ),
                                             )
                                           ],
@@ -252,79 +271,133 @@ class HomePage extends StatelessWidget {
                                       itemCount: categories.length,
                                       itemBuilder:
                                           (BuildContext context, int index) {
-                                            String title;
-                                            String langCode = Localizations.localeOf(context).languageCode;
-                                            if (langCode == "tr") {
-                                              title = categories[index].name_az.trim();
-                                            } else if (langCode == "en") {
-                                              title = categories[index].name_en.trim();
-                                            } else if (langCode == "ru") {
-                                              title = categories[index].name_ru.trim();
-                                            }
-                                        return Card(
-                                          elevation: 4,
-                                          margin: EdgeInsets.all(8),
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10)),
-                                          color: Colors.white,
-                                          child: Container(
-                                              padding: EdgeInsets.all(10),
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  color: Colors.white),
-                                              width: width * 0.28,
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: <Widget>[
-                                                  Expanded(
-                                                    child: Image.asset(
-                                                        'images/ks/ct2.png'),
-                                                    flex: 2,
-                                                  ),
-                                                  SizedBox(height: 8,),
-                                                  Expanded(
-                                                    flex: 1,
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: <Widget>[
-                                                        Expanded(
-                                                          flex: 3,
-                                                          child: Text(
-                                                            title,
-                                                          style: TextStyle(fontSize: 13),),
-                                                        ),
-                                                        Expanded(
-                                                          child: IconButton(
-                                                            onPressed: null,
-                                                            icon: Icon(Icons
-                                                                .arrow_forward,color: blackFixed,size: 19,),
-                                                          ),
-                                                        )
-                                                      ],
+                                        String title;
+                                        String langCode =
+                                            Localizations.localeOf(context)
+                                                .languageCode;
+                                        if (langCode == "tr") {
+                                          title =
+                                              categories[index].name_az.trim();
+                                        } else if (langCode == "en") {
+                                          title =
+                                              categories[index].name_en.trim();
+                                        } else if (langCode == "ru") {
+                                          title =
+                                              categories[index].name_ru.trim();
+                                        }
+                                        return GestureDetector(
+                                          child: Card(
+                                            elevation: 4,
+                                            margin: EdgeInsets.all(8),
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
+                                            color: Colors.white,
+                                            child: Container(
+                                                padding: EdgeInsets.all(10),
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    color: Colors.white),
+                                                width: width * 0.28,
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: <Widget>[
+                                                    Expanded(
+                                                      child: Image.asset(
+                                                          'images/ks/ct2.png'),
+                                                      flex: 2,
                                                     ),
-                                                  )
-                                                ],
-                                              )),
+                                                    SizedBox(
+                                                      height: 8,
+                                                    ),
+                                                    Expanded(
+                                                      flex: 1,
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: <Widget>[
+                                                          Expanded(
+                                                            flex: 3,
+                                                            child: Text(
+                                                              title,
+                                                              style: TextStyle(
+                                                                  fontSize: 13),
+                                                            ),
+                                                          ),
+                                                          Expanded(
+                                                            child: IconButton(
+                                                              onPressed: null,
+                                                              icon: Icon(
+                                                                Icons
+                                                                    .arrow_forward,
+                                                                color:
+                                                                    blackFixed,
+                                                                size: 19,
+                                                              ),
+                                                            ),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    )
+                                                  ],
+                                                )),
+                                          ),
+                                          onTap: () {
+                                            bool isCategory = false;
+                                            for (int i = 0;
+                                                i < tempCategories.length;
+                                                i++) {
+                                              if (categories[index].id ==
+                                                  tempCategories[i].parent) {
+                                                isCategory = true;
+                                                break;
+                                              } else {
+                                                isCategory = false;
+                                              }
+                                            }
+                                            if (isCategory) {
+                                              Navigator.push(
+                                                  context,
+                                                  SizeRoute(
+                                                      page:
+                                                          new GroceryCategoriesPage(
+                                                              id: categories[
+                                                                      index]
+                                                                  .id,
+                                                              title: title)));
+                                            } else {
+                                              Navigator.push(
+                                                  context,
+                                                  SizeRoute(
+                                                      page: GroceryListPage(
+                                                    title: title,
+                                                    id: categories[index].id,
+                                                    order: '0',
+                                                  )));
+                                            }
+                                          },
                                         );
                                       }),
                                 ),
                                 ListTile(
-                                  title: Text(
-                                    'Campaigns',
-                                    style: TextStyle(
-                                        color: blackFixed,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18),
-                                  ),
-                                  trailing: Text("Show More"),
-                                ),
+                                    title: Text(
+                                      'Campaigns',
+                                      style: TextStyle(
+                                          color: blackFixed,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18),
+                                    ),
+                                    trailing: GestureDetector(
+                                      child: Text("Show More"),
+                                      onTap: () {},
+                                    )),
                                 Padding(
                                   padding: EdgeInsets.all(16.0),
                                   child: _buildCarousel(),
