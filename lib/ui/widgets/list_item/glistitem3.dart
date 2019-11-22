@@ -119,29 +119,29 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.end,
                                       children: <Widget>[
-                                        GestureDetector(
-                                          child: Container(
-                                            child: Image.asset(
-                                                'images/ks/remove.png'),
-                                         decoration: BoxDecoration(color: greenFixed),
-                                            padding: EdgeInsets.all(4.0),
-
-                                          ),
-                                          onTap: () {
-                                            Networks()
-                                                .removeFromBasket(product.id)
-                                                .then((onvalue) {
-                                              if (onvalue != null) {
-                                                if (onvalue['action'] ==
-                                                    "done") {
-                                                  viewModel
-                                                      .removeShopItem(product);
-                                                  //viewModel.onHomeRefresh();
-                                                }
-                                              }
-                                            });
-                                          },
-                                        ),
+//                                        GestureDetector(
+//                                          child: Container(
+//                                            child: Image.asset(
+//                                                'images/ks/remove.png'),
+//                                         decoration: BoxDecoration(color: greenFixed),
+//                                            padding: EdgeInsets.all(4.0),
+//
+//                                          ),
+//                                          onTap: () {
+//                                            Networks()
+//                                                .removeFromBasket(product.id)
+//                                                .then((onvalue) {
+//                                              if (onvalue != null) {
+//                                                if (onvalue['action'] ==
+//                                                    "done") {
+//                                                  viewModel
+//                                                      .removeShopItem(product);
+//                                                  //viewModel.onHomeRefresh();
+//                                                }
+//                                              }
+//                                            });
+//                                          },
+//                                        ),
                                         _updateContainer()
                                       ],
                                     ),
@@ -167,8 +167,8 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
                   Icons.shopping_cart,
                   color: Colors.white,
                 ),
-                height: 20,
-                width: 20,
+                height: 30,
+                width: 30,
               ),
             ),
           ),

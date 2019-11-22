@@ -41,6 +41,7 @@ class GroceryShopCartPage extends StatelessWidget {
               backgroundColor: greyFixed,
                 appBar: new AppBar(
                   backgroundColor: greenFixed,
+                  actions: <Widget>[Image.asset('images/ks/remove.png')],
                   title:
                       new Text(AppTranslations.of(context).text('shop_list')),
                   bottom: TabBar(
