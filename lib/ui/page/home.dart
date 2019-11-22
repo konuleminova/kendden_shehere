@@ -131,18 +131,20 @@ class HomePage extends StatelessWidget {
                                 icon: Icon(
                                   Icons.shopping_cart,
                                   color: Colors.white,
+                                  size: 30,
                                 ),
                                 onPressed: null),
                             onTap: null),
                         viewModel.shopItems.length != 0
                             ? new Positioned(
-                                right: 11,
-                                top: 11,
+                                right: 6,
+                                top: 6,
                                 child: new Container(
-                                  padding: EdgeInsets.all(2),
+                                  padding: EdgeInsets.only(left: 7,right: 7),
                                   decoration: new BoxDecoration(
-                                    color: Colors.red,
+                                    color: Colors.white,
                                     borderRadius: BorderRadius.circular(6),
+                                    border: Border.all(color: greenFixed)
                                   ),
                                   constraints: BoxConstraints(
                                     minWidth: 14,
@@ -151,7 +153,7 @@ class HomePage extends StatelessWidget {
                                   child: Text(
                                     viewModel.shopItems.length.toString(),
                                     style: TextStyle(
-                                      color: Colors.white,
+                                      color: Colors.red,
                                       fontSize: 8,
                                     ),
                                     textAlign: TextAlign.center,

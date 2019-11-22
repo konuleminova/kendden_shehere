@@ -169,33 +169,35 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                                 icon: Icon(
                                   Icons.shopping_cart,
                                   color: Colors.white,
+                                  size: 30,
                                 ),
                                 onPressed: null),
                             onTap: null),
                         viewModel.shopItems.length != 0
                             ? new Positioned(
-                                right: 11,
-                                top: 11,
-                                child: new Container(
-                                  padding: EdgeInsets.all(2),
-                                  decoration: new BoxDecoration(
-                                    color: Colors.red,
-                                    borderRadius: BorderRadius.circular(6),
-                                  ),
-                                  constraints: BoxConstraints(
-                                    minWidth: 14,
-                                    minHeight: 14,
-                                  ),
-                                  child: Text(
-                                    viewModel.shopItems.length.toString(),
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 8,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              )
+                          right: 6,
+                          top: 6,
+                          child: new Container(
+                            padding: EdgeInsets.only(left: 7,right: 7),
+                            decoration: new BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(6),
+                                border: Border.all(color: greenFixed)
+                            ),
+                            constraints: BoxConstraints(
+                              minWidth: 14,
+                              minHeight: 14,
+                            ),
+                            child: Text(
+                              viewModel.shopItems.length.toString(),
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontSize: 8,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        )
                             : new Container()
                       ],
                     ),
