@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
+import 'package:kendden_shehere/util/helper_class.dart';
 
 class PaymentSuccessDialog extends StatelessWidget {
   BuildContext context;
@@ -13,48 +14,31 @@ class PaymentSuccessDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: SizedBox(
-        height: 300,
-        child: Dialog(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Text(
-               AppTranslations.of(context).text('thank_you'),
-                  style: TextStyle(color: Colors.green),
-                ),
-                Text(
-               AppTranslations.of(context).text('your_transaction'),
-                  style: label,
-                ),
-                Divider(),
-                CircleAvatar(
-                  radius: 30,
-                  backgroundColor: Colors.grey,
-                  child: Icon(
-                    Icons.done_outline,
-                    color: Colors.white,
-                  ),
-                ),
-                RaisedButton(
-                  color: Colors.green,
-                  onPressed: () {
-                   Navigator.pop(this.context);
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      Text("OK", style: TextStyle(color: Colors.white)),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
+        child: Container(
+      height: 300,
+      color: Colors.transparent,
+      child: Dialog(
+        backgroundColor: Colors.transparent,
+        child:
+        Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
+            Image.asset('images/ks/happy.png'),
+//            Align(
+//                alignment: Alignment.bottomCenter,
+//                child: Container(
+//                  width: 150,
+//                  height: 50,
+//                  child: Text(
+//                    AppTranslations.of(context).text('your_transaction'),
+//                    style: TextStyle(color: Colors.white,),
+//                    textAlign: TextAlign.center,
+//                  ),
+//                  alignment: Alignment.bottomCenter,
+//                ))
+          ],
+        )
       ),
-    );
+    ));
   }
 }

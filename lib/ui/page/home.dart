@@ -84,7 +84,9 @@ class HomePage extends StatelessWidget {
                       showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return PaymentSuccessDialog(context);
+                            return Material(
+                                type: MaterialType.transparency,
+                                child: PaymentSuccessDialog(context));
                           });
                     } else {
 //                      showDialog(
@@ -491,7 +493,9 @@ class HomePage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               Center(
-                                child: noData(  "There Is no Internet connectIon. Please Try again",),
+                                child: noData(
+                                  "There Is no Internet connectIon. Please Try again",
+                                ),
                               ),
                             ],
                           ),

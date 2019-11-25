@@ -44,11 +44,11 @@ Widget noData(String text) => Container(
         Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              width: 200,
+              width: 150,
               height: 50,
               child: Text(
                 text,
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white,),
                 textAlign: TextAlign.center,
               ),
               alignment: Alignment.bottomCenter,
