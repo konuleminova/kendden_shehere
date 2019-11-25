@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:google_maps_webservice/places.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:flutter/material.dart';
+import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 
@@ -51,7 +52,7 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
   Widget build(BuildContext context) {
     final appBar = AppBar(
       title: AppBarPlacesAutoCompleteTextField(),
-      backgroundColor: Colors.lightGreen,
+      backgroundColor:greenFixed,
       leading: IconButton(
         icon: Icon(Icons.clear),
         onPressed: () {
