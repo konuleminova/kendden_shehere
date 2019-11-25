@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/home/home_action.dart';
+import 'package:kendden_shehere/redux/productlist/product_viewmodel.dart';
 import 'package:kendden_shehere/ui/widgets/animation_shop_cart.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/payment_success_dialog.dart';
 import 'package:redux/redux.dart';
@@ -41,7 +42,8 @@ class GroceryShopCartPage extends StatelessWidget {
               backgroundColor: greyFixed,
                 appBar: new AppBar(
                   backgroundColor: greenFixed,
-                  actions: <Widget>[Image.asset('images/ks/remove.png')],
+                  actions: <Widget>[GestureDetector(child: Image.asset('images/ks/remove.png'),onTap: (){
+                  },)],
                   title:
                       new Text(AppTranslations.of(context).text('shop_list')),
                   bottom: TabBar(

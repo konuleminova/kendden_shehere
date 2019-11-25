@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/productlist/product_model.dart';
@@ -60,10 +61,14 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
               ? Card(
                   margin: EdgeInsets.all(8),
                   elevation: 4,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                  child:  new Container(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8)),
+                  child: new Container(
                       height: 120,
-                        decoration: BoxDecoration( borderRadius: BorderRadius.circular(8.0), color: Colors.white,),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.0),
+                        color: Colors.white,
+                      ),
                       child: Row(
                         children: <Widget>[
                           Expanded(
@@ -73,17 +78,15 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
                                   image: image,
                                   placeholder: "images/noimage.png",
                                   fit: BoxFit.cover,
-                                  width: MediaQuery.of(context).size.width *
-                                      0.2,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.2,
                                 ),
                               ),
                               title: Container(
                                 height: 110.0,
                                 child: Column(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.center,
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     new GroceryTitle(text: title),
                                     SizedBox(
@@ -113,9 +116,8 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
                                 margin: EdgeInsets.only(right: 16),
                                 child: Column(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceAround,
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.end,
+                                      MainAxisAlignment.spaceAround,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
                                   children: <Widget>[
 //                                        GestureDetector(
 //                                          child: Container(
@@ -140,14 +142,48 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
 //                                            });
 //                                          },
 //                                        ),
+                                    GestureDetector(
+                                      child: Card(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(30)),
+                                          elevation: 8,
+                                          child: Padding(
+                                            padding: EdgeInsets.all(2),
+                                            child: Icon(
+                                              Icons.clear,
+                                              color: greenFixed,
+                                              size: 22,
+                                            ),
+                                          )),
+                                      onTap: () {
+                                        viewModel.removeShopItem(product);
+                                        Networks()
+                                            .removeFromBasket(product.id)
+                                            .then((onvalue) {
+                                          if (onvalue != null) {
+                                            if (onvalue['action'] == "done") {
+                                              Fluttertoast.showToast(
+                                                  msg: "Product removed",
+                                                  toastLength:
+                                                      Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.CENTER,
+                                                  timeInSecForIos: 1,
+                                                  backgroundColor: Colors.green,
+                                                  textColor: Colors.white,
+                                                  fontSize: 16.0);
+                                            }
+                                          }
+                                        });
+                                      },
+                                    ),
                                     _updateContainer()
                                   ],
                                 ),
                                 height: MediaQuery.of(context).size.height,
                               ))
                         ],
-                      ))
-                )
+                      )))
               : SizedBox();
         });
   }

@@ -21,7 +21,7 @@ class ProductViewModel {
       this.removeWishItem,
       this.shopItems,
       this.isLoading,
-      this.onHomeRefresh});
+      this.onHomeRefresh,});
 
   factory ProductViewModel.create(Store<AppState> store) {
     _addShopItem(Product product) {
@@ -45,6 +45,7 @@ class ProductViewModel {
       store.dispatch(ShowHomeBasketAction(store));
     }
 
+
     return ProductViewModel(
         addShopItem: _addShopItem,
         removeShopItem: _removeShopItem,
@@ -52,6 +53,6 @@ class ProductViewModel {
         removeWishItem: _removeWishItem,
         shopItems: store.state.shopItems,
         isLoading: store.state.isLoading,
-        onHomeRefresh: _onHomeRefresh);
+        onHomeRefresh: _onHomeRefresh,);
   }
 }
