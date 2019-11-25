@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/localization/application.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
@@ -19,7 +20,7 @@ class SettingsState extends State<SettingsPage> {
     // TODO: implement build
     return new Scaffold(
         appBar: new AppBar(
-          backgroundColor: Colors.lightGreen,
+          backgroundColor: greenFixed,
           title: new Text(AppTranslations.of(context).text('settings')),
         ),
         body: new Container(
