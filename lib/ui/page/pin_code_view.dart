@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/redux/login/thunk_login.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/home.dart';
@@ -21,18 +22,19 @@ class PinCodePageState extends State<PinCodePage> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.lightGreen,
+      backgroundColor: greenFixed,
       body: PinCode(
-        backgroundColor: Colors.lightGreen,
+        backgroundColor: greenFixed,
         title: Text(
-          "Lock Screen",
+          "Verify Account",
           style: TextStyle(
               color: Colors.white, fontSize: 25.0, fontWeight: FontWeight.bold),
         ),
 
         subTitle: Text(
-          "Enter the pin code",
-          style: TextStyle(color: Colors.white),
+          "Please send verification code we sent to your phone number",
+          style: TextStyle(color: Colors.white,fontSize: 18,),
+          textAlign: TextAlign.center,
         ),
         codeLength: 6,
         // you may skip correctPin and plugin will give you pin as
