@@ -24,18 +24,20 @@ class PaymentSuccessDialog extends StatelessWidget {
           alignment: Alignment.center,
           children: <Widget>[
             Image.asset('images/ks/happy.png'),
-//            Align(
-//                alignment: Alignment.bottomCenter,
-//                child: Container(
-//                  width: 150,
-//                  height: 50,
-//                  child: Text(
-//                    AppTranslations.of(context).text('your_transaction'),
-//                    style: TextStyle(color: Colors.white,),
-//                    textAlign: TextAlign.center,
-//                  ),
-//                  alignment: Alignment.bottomCenter,
-//                ))
+            Align(
+                alignment: Alignment.topRight,
+                child: Container(
+                  width: 150,
+                  height: 50,
+                  child: IconButton(
+                  icon: Icon(Icons.clear),
+                    color: Colors.white,
+                    onPressed: (){
+                    Navigator.pop(context);
+                    },
+                  ),
+                  alignment: Alignment.bottomCenter,
+                ))
           ],
         )
       ),
