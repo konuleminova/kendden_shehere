@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/checkout/checkout.dart';
 import 'package:kendden_shehere/service/networks.dart';
@@ -151,7 +152,7 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
         key: _scaffoldKey,
         backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: Colors.lightGreen,
+          backgroundColor: greenFixed,
           title: Text("Confirm Order"),
         ),
         body: Container(
@@ -262,7 +263,8 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
                                     Expanded(
                                       child: ListTile(
                                         title: Text(
-                                       AppTranslations.of(context).text('total_price'),
+                                          AppTranslations.of(context)
+                                              .text('total_price'),
                                           style: TextStyle(
                                               color: Colors.green,
                                               fontWeight: FontWeight.bold),
@@ -283,31 +285,69 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
                               SizedBox(
                                 height: 16,
                               ),
-                              RaisedButton(
-                                color: Colors.green,
-                                onPressed: () {
-                                  if (checkout.mobile.isEmpty) {
-                                    // Find the Scaffold in the widget tree and use
-                                    // it to show a SnackBar.
-                                    Scaffold.of(context).showSnackBar(
-                                        snackBar(AppTranslations.of(context).text('please_fill')));
-                                  } else {
-                                    if (alkaqol == "1") {
-                                      _showDialog();
-                                    } else {
-                                      _finishBAsket();
-                                    }
-                                  }
-                                },
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
-                                    Text(AppTranslations.of(context).text('confirm_order'),
-                                        style: TextStyle(color: Colors.white)),
-                                  ],
-                                ),
-                              )
+                              Align(
+                                  child: Container(
+                                      width: double.infinity,
+                                      padding: EdgeInsets.all(30.0),
+                                      child: RaisedButton(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 16.0),
+                                          color: greenFixed,
+                                          disabledColor: greenFixed,
+                                          elevation: 8,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(40.0))),
+                                          child: Text(
+                                            AppTranslations.of(context)
+                                                .text('confirm_order'),
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                          onPressed: () {
+                                            if (checkout.mobile.isEmpty) {
+                                              // Find the Scaffold in the widget tree and use
+                                              // it to show a SnackBar.
+                                              Scaffold.of(context).showSnackBar(
+                                                  snackBar(AppTranslations.of(
+                                                          context)
+                                                      .text('please_fill')));
+                                            } else {
+                                              if (alkaqol == "1") {
+                                                _showDialog();
+                                              } else {
+                                                _finishBAsket();
+                                              }
+                                            }
+                                          }))),
+//                              RaisedButton(
+//                                color: Colors.green,
+//                                onPressed: () {
+//                                  if (checkout.mobile.isEmpty) {
+//                                    // Find the Scaffold in the widget tree and use
+//                                    // it to show a SnackBar.
+//                                    Scaffold.of(context).showSnackBar(snackBar(
+//                                        AppTranslations.of(context)
+//                                            .text('please_fill')));
+//                                  } else {
+//                                    if (alkaqol == "1") {
+//                                      _showDialog();
+//                                    } else {
+//                                      _finishBAsket();
+//                                    }
+//                                  }
+//                                },
+//                                child: Row(
+//                                  mainAxisAlignment:
+//                                      MainAxisAlignment.spaceAround,
+//                                  children: <Widget>[
+//                                    Text(
+//                                        AppTranslations.of(context)
+//                                            .text('confirm_order'),
+//                                        style: TextStyle(color: Colors.white)),
+//                                  ],
+//                                ),
+//                              )
                             ],
                           ),
                         )
@@ -320,7 +360,8 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
                                     return PaymentErrorDialog(
                                         context,
                                         "Catdirilma yoxdur!",
-                                        AppTranslations.of(context).text('amount_4'));
+                                        AppTranslations.of(context)
+                                            .text('amount_4'));
                                   })),
                           builder:
                               (BuildContext context, AsyncSnapshot snapshot) {

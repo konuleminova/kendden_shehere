@@ -194,46 +194,6 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                   padding: EdgeInsets.symmetric(vertical: 16.0),
                   color: greenFixed,
                   disabledColor: greenFixed,
-                  onPressed: () {
-                    if (checkout.dtime_selected_val !=
-                        Constants.deliveryTimes[3]) {
-                      SharedPrefUtil()
-                          .getString(SharedPrefUtil().address)
-                          .then((onValue) {
-                        if (onValue.isEmpty) {
-                          _scaffoldKey.currentState.showSnackBar(new SnackBar(
-                              content: Text(
-                                AppTranslations.of(context).text('please_fill'),
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              duration: const Duration(seconds: 1),
-                              action: SnackBarAction(
-                                label: 'Ok',
-                                onPressed: () {
-                                  _scaffoldKey.currentState
-                                      .hideCurrentSnackBar();
-                                  // Some code to undo the change.
-                                },
-                              ),
-                              backgroundColor: Colors.red));
-                        } else {
-                          Route route = MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  ConfirmOrderPage(
-                                    checkout: checkout,
-                                  ));
-                          Navigator.push(context, route);
-                        }
-                      });
-                    } else {
-                      Route route = MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              ConfirmOrderPage(
-                                checkout: checkout,
-                              ));
-                      Navigator.push(context, route);
-                    }
-                  },
                   elevation: 8,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(
@@ -241,7 +201,47 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                   child: Text(
                     AppTranslations.of(context).text('next'),
                     style: TextStyle(color: Colors.white),
-                  )),
+                  ),
+                onPressed: () {
+                  if (checkout.dtime_selected_val !=
+                      Constants.deliveryTimes[3]) {
+                    SharedPrefUtil()
+                        .getString(SharedPrefUtil().address)
+                        .then((onValue) {
+                      if (onValue.isEmpty) {
+                        _scaffoldKey.currentState.showSnackBar(new SnackBar(
+                            content: Text(
+                              AppTranslations.of(context).text('please_fill'),
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            duration: const Duration(seconds: 1),
+                            action: SnackBarAction(
+                              label: 'Ok',
+                              onPressed: () {
+                                _scaffoldKey.currentState
+                                    .hideCurrentSnackBar();
+                                // Some code to undo the change.
+                              },
+                            ),
+                            backgroundColor: Colors.red));
+                      } else {
+                        Route route = MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                ConfirmOrderPage(
+                                  checkout: checkout,
+                                ));
+                        Navigator.push(context, route);
+                      }
+                    });
+                  } else {
+                    Route route = MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            ConfirmOrderPage(
+                              checkout: checkout,
+                            ));
+                    Navigator.push(context, route);
+                  }
+                },),
             ),
             alignment: AlignmentDirectional(0, 0.5),
           )
