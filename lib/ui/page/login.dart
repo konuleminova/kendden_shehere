@@ -316,12 +316,18 @@ class LoginState extends State<LoginPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Expanded(
+                              child: GestureDetector(
                                 child: CircleAvatar(
                                     backgroundColor: greyFixed,
                                     child: Image.asset(
                                       'images/ks/facebook.png',
                                       fit: BoxFit.fill,
-                                    ))),
+                                    )),
+                                onTap: () {
+                                  facebookLogin();
+                                },
+                              ),
+                            ),
                             Expanded(
                                 child: CircleAvatar(
                                     backgroundColor: greyFixed,
@@ -330,10 +336,12 @@ class LoginState extends State<LoginPage> {
                                     ))),
                             Text("OR"),
                             Expanded(
-                                child: CircleAvatar(
+                                child:GestureDetector(child:  CircleAvatar(
                                     backgroundColor: greyFixed,
                                     child: Image.asset(
-                                        'images/ks/instagram.png'))),
+                                        'images/ks/instagram.png')),onTap: (){
+                                  instagram_login();
+                                },)),
                           ],
                         ),
                         width: 180,
