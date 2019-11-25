@@ -138,7 +138,7 @@ class MyAppState extends State<MyApp> {
               const Locale("tr", ""),
             ],
             debugShowCheckedModeBanner: false,
-            home:PinCodePage(),
+            home:IndexPage(),
             routes: <String, WidgetBuilder>{
               "/index": (BuildContext context) => IndexPage(),
               "/login": (BuildContext context) => LoginPage(),

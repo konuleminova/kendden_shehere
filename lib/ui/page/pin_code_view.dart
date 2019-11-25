@@ -23,6 +23,7 @@ class PinCodePageState extends State<PinCodePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: greenFixed,
+      appBar: AppBar(backgroundColor: greenFixed,elevation: 0,),
       body: PinCode(
         backgroundColor: greenFixed,
         title: Text(
