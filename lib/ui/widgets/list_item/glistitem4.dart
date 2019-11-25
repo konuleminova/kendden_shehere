@@ -32,7 +32,7 @@ class GroceryListItemFourState extends State<GroceryListItemFour> {
         elevation: 6,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: new Container(
-            height: MediaQuery.of(context).size.height * 0.3,
+            height: MediaQuery.of(context).size.height * 0.35,
             //margin: EdgeInsets.only(top: 8),
             decoration: new BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(10)),
@@ -64,7 +64,7 @@ class GroceryListItemFourState extends State<GroceryListItemFour> {
                 Expanded(
                   child: Container(
                     alignment: Alignment.center,
-                    padding: EdgeInsets.only(bottom: 16,left: 16,right: 16),
+                    padding: EdgeInsets.only(bottom: 0,left: 16,right: 16),
                     child: Column(
                       children: <Widget>[
                         Row(
@@ -75,7 +75,7 @@ class GroceryListItemFourState extends State<GroceryListItemFour> {
                           ],
                         ),
                         Divider(color: greenFixed,),
-                        SizedBox(height: 8,),
+                        SizedBox(height: 4,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
@@ -84,7 +84,7 @@ class GroceryListItemFourState extends State<GroceryListItemFour> {
                           ],
                         ),
                         Divider(color: greenFixed,),
-                        SizedBox(height: 8,),
+                        SizedBox(height: 4,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
