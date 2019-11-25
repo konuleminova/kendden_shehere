@@ -139,17 +139,22 @@ class GroceryListPage extends StatelessWidget {
                                             new SliverChildBuilderDelegate(
                                                 (BuildContext context,
                                                     int index) {
-                                          return  Card(
+                                          return Card(
                                             margin: EdgeInsets.all(8),
                                             elevation: 4,
                                             child: Container(
-                                              width: MediaQuery.of(context).size.width * 0.42,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.42,
                                               child: GroceryListItemOne(
-                                                product: viewModel.productList[index],
+                                                product: viewModel
+                                                    .productList[index],
                                               ),
                                             ),
                                             shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(15)),
+                                                borderRadius:
+                                                    BorderRadius.circular(15)),
                                           );
                                         },
                                                 childCount: viewModel
@@ -169,9 +174,15 @@ class GroceryListPage extends StatelessWidget {
                                   )
                           ],
                         )
-                      : Center(
-                          child: Text(
-                              AppTranslations.of(context).text("no_product"))))
+                      :Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Center(
+                    child: noData(AppTranslations.of(context).text("no_product"))
+                  ),
+                ],
+              ))
                   : loading());
         });
   }

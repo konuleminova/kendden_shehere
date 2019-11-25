@@ -36,18 +36,23 @@ snackBar(content) => SnackBar(
       ),
     );
 
-Widget noInternetConnection() => Container(
+Widget noData(String text) => Container(
         child: Stack(
       alignment: Alignment.center,
       children: <Widget>[
         Image.asset('images/ks/sorry.png'),
         Align(
             alignment: Alignment.bottomCenter,
-            child:Container(width: 200,height:50,child:  Text(
-              "There Is no Internet connectIon. Please Try again",
-              style: TextStyle(color: Colors.white),
-              textAlign: TextAlign.center,
-            ),alignment: Alignment.bottomCenter,))
+            child: Container(
+              width: 200,
+              height: 50,
+              child: Text(
+                text,
+                style: TextStyle(color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+              alignment: Alignment.bottomCenter,
+            ))
       ],
     ));
 

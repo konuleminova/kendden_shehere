@@ -491,7 +491,7 @@ class HomePage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               Center(
-                                child: noInternetConnection(),
+                                child: noData(  "There Is no Internet connectIon. Please Try again",),
                               ),
                             ],
                           ),
