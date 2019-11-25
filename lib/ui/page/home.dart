@@ -38,8 +38,8 @@ class HomePage extends StatelessWidget {
   HomeViewModel viewModel;
   bool fromCheckout;
   BuildContext context;
-  Future _future;
-  List<Category> categories = new List();
+  Future _future,_future2;
+  List<Category> categorie = new List();
   List<Category> tempCategories = new List();
 
   HomePage({this.fromCheckout});
@@ -53,7 +53,8 @@ class HomePage extends StatelessWidget {
     return WillPopScope(
         child: new StoreConnector(
             onInit: (store) {
-              _future = Networks().bannerImages();
+              //_future = Networks().bannerImages();
+             // _future2 = Networks().listCategories();
               //_future2 = Networks().userinfo();
               store.state.wishItems.clear();
               store.state.shopItems.clear();
@@ -82,17 +83,17 @@ class HomePage extends StatelessWidget {
                   }
                 });
               }
-              categories.clear();
-              getCategories().then((onValue) {
-                if (onValue != null) {
-                  for (int i = 0; i < onValue.length; i++) {
-                    if (onValue[i].parent == '0') {
-                      categories.add(onValue[i]);
-                    }
-                  }
-                  tempCategories.addAll(onValue);
-                }
-              });
+//              categories.clear();
+//              getCategories().then((onValue) {
+//                if (onValue != null) {
+//                  for (int i = 0; i < onValue.length; i++) {
+//                    if (onValue[i].parent == '0') {
+//                      categories.add(onValue[i]);
+//                    }
+//                  }
+//                  tempCategories.addAll(onValue);
+//                }
+//              });
             },
             onInitialBuild: (HomeViewModel viewModel) {
               this.viewModel = viewModel;
@@ -237,157 +238,207 @@ class HomePage extends StatelessWidget {
                                             )
                                           ],
                                         ),
-                                      GestureDetector(child:   Container(
-                                        alignment: Alignment.center,
-                                        margin: EdgeInsets.only(
-                                            left: 20, right: 20),
-                                        child: Card(
-                                          color: Colors.white,
-                                          elevation: 8,
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                              BorderRadius.circular(4)),
-                                          child: ListTile(
-                                            title: Text(
-                                              'What are you looking for?',
-                                              style: TextStyle(
-                                                  color: Colors.grey),
-                                            ),
-                                            leading: IconButton(
-                                              icon: Icon(Icons.search),
-                                              onPressed: null,
+                                        GestureDetector(
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            margin: EdgeInsets.only(
+                                                left: 20, right: 20),
+                                            child: Card(
+                                              color: Colors.white,
+                                              elevation: 8,
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(4)),
+                                              child: ListTile(
+                                                title: Text(
+                                                  'What are you looking for?',
+                                                  style: TextStyle(
+                                                      color: Colors.grey),
+                                                ),
+                                                leading: IconButton(
+                                                  icon: Icon(Icons.search),
+                                                  onPressed: null,
+                                                ),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ),onTap: (){
-                                        showSearch(context: context, delegate: SearchWidget());
-                                      },)
+                                          onTap: () {
+                                            showSearch(
+                                                context: context,
+                                                delegate: SearchWidget());
+                                          },
+                                        )
                                       ],
                                     )),
                                 AspectRatio(
-                                  aspectRatio: 8 / 3,
-                                  child: ListView.builder(
-                                      padding: EdgeInsets.all(6.0),
-                                      scrollDirection: Axis.horizontal,
-                                      shrinkWrap: true,
-                                      itemCount: categories.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        String title;
-                                        String langCode =
-                                            Localizations.localeOf(context)
-                                                .languageCode;
-                                        if (langCode == "tr") {
-                                          title =
-                                              categories[index].name_az.trim();
-                                        } else if (langCode == "en") {
-                                          title =
-                                              categories[index].name_en.trim();
-                                        } else if (langCode == "ru") {
-                                          title =
-                                              categories[index].name_ru.trim();
-                                        }
-                                        return GestureDetector(
-                                          child: Card(
-                                            elevation: 4,
-                                            margin: EdgeInsets.all(8),
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10)),
-                                            color: Colors.white,
-                                            child: Container(
-                                                padding: EdgeInsets.all(10),
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    color: Colors.white),
-                                                width: width * 0.28,
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: <Widget>[
-                                                    Expanded(
-                                                      child: Image.asset(
-                                                          'images/ks/ct2.png'),
-                                                      flex: 2,
-                                                    ),
-                                                    SizedBox(
-                                                      height: 8,
-                                                    ),
-                                                    Expanded(
-                                                      flex: 1,
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: <Widget>[
-                                                          Expanded(
-                                                            flex: 3,
-                                                            child: Text(
-                                                              title,
-                                                              style: TextStyle(
-                                                                  fontSize: 13),
-                                                            ),
-                                                          ),
-                                                          Expanded(
-                                                            child: IconButton(
-                                                              onPressed: null,
-                                                              icon: Icon(
-                                                                Icons
-                                                                    .arrow_forward,
-                                                                color:
-                                                                    blackFixed,
-                                                                size: 19,
-                                                              ),
-                                                            ),
-                                                          )
-                                                        ],
-                                                      ),
-                                                    )
-                                                  ],
-                                                )),
-                                          ),
-                                          onTap: () {
-                                            bool isCategory = false;
-                                            for (int i = 0;
-                                                i < tempCategories.length;
-                                                i++) {
-                                              if (categories[index].id ==
-                                                  tempCategories[i].parent) {
-                                                isCategory = true;
-                                                break;
-                                              } else {
-                                                isCategory = false;
+                                    aspectRatio: 8 / 3,
+                                    child: FutureBuilder(
+                                      future: Networks().listCategories(),
+                                      builder: (BuildContext context,
+                                          AsyncSnapshot snapshot) {
+                                        if (snapshot.hasData) {
+                                          categorie.clear();
+                                          ListCategories categories=snapshot.data;
+                                          if (categories!= null) {
+                                            for (int i = 0; i < categories.categories.length; i++) {
+                                              if (categories.categories[i].parent == '0') {
+                                               categorie.add(categories.categories[i]);
                                               }
                                             }
-                                            if (isCategory) {
-                                              Navigator.push(
-                                                  context,
-                                                  SizeRoute(
-                                                      page:
-                                                          new GroceryCategoriesPage(
-                                                              id: categories[
-                                                                      index]
-                                                                  .id,
-                                                              title: title)));
-                                            } else {
-                                              Navigator.push(
-                                                  context,
-                                                  SizeRoute(
-                                                      page: GroceryListPage(
-                                                    title: title,
-                                                    id: categories[index].id,
-                                                    order: '0',
-                                                  )));
-                                            }
-                                          },
-                                        );
-                                      }),
-                                ),
+                                            tempCategories.addAll(categories.categories);
+                                          }
+
+                                          return ListView.builder(
+                                              padding: EdgeInsets.all(6.0),
+                                              scrollDirection: Axis.horizontal,
+                                              shrinkWrap: true,
+                                              itemCount: categorie.length,
+                                              itemBuilder:
+                                                  (BuildContext context,
+                                                      int index) {
+                                                String title;
+                                                String langCode =
+                                                    Localizations.localeOf(
+                                                            context)
+                                                        .languageCode;
+                                                if (langCode == "tr") {
+                                                  title = categorie[index]
+                                                      .name_az
+                                                      .trim();
+                                                } else if (langCode == "en") {
+                                                  title = categorie[index]
+                                                      .name_en
+                                                      .trim();
+                                                } else if (langCode == "ru") {
+                                                  title = categorie[index]
+                                                      .name_ru
+                                                      .trim();
+                                                }
+                                                return GestureDetector(
+                                                  child: Card(
+                                                    elevation: 4,
+                                                    margin: EdgeInsets.all(8),
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10)),
+                                                    color: Colors.white,
+                                                    child: Container(
+                                                        padding:
+                                                            EdgeInsets.all(10),
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10),
+                                                            color:
+                                                                Colors.white),
+                                                        width: width * 0.28,
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: <Widget>[
+                                                            Expanded(
+                                                              child: Image.asset(
+                                                                  'images/ks/ct2.png'),
+                                                              flex: 2,
+                                                            ),
+                                                            SizedBox(
+                                                              height: 8,
+                                                            ),
+                                                            Expanded(
+                                                              flex: 1,
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: <
+                                                                    Widget>[
+                                                                  Expanded(
+                                                                    flex: 3,
+                                                                    child: Text(
+                                                                      title,
+                                                                      style: TextStyle(
+                                                                          fontSize:
+                                                                              13),
+                                                                    ),
+                                                                  ),
+                                                                  Expanded(
+                                                                    child:
+                                                                        IconButton(
+                                                                      onPressed:
+                                                                          null,
+                                                                      icon:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .arrow_forward,
+                                                                        color:
+                                                                            blackFixed,
+                                                                        size:
+                                                                            19,
+                                                                      ),
+                                                                    ),
+                                                                  )
+                                                                ],
+                                                              ),
+                                                            )
+                                                          ],
+                                                        )),
+                                                  ),
+                                                  onTap: () {
+                                                    bool isCategory = false;
+                                                    for (int i = 0;
+                                                        i <
+                                                            tempCategories
+                                                                .length;
+                                                        i++) {
+                                                      if (categorie[index]
+                                                              .id ==
+                                                          tempCategories[i]
+                                                              .parent) {
+                                                        isCategory = true;
+                                                        break;
+                                                      } else {
+                                                        isCategory = false;
+                                                      }
+                                                    }
+                                                    if (isCategory) {
+                                                      Navigator.push(
+                                                          context,
+                                                          SizeRoute(
+                                                              page: new GroceryCategoriesPage(
+                                                                  id: categorie[
+                                                                          index]
+                                                                      .id,
+                                                                  title:
+                                                                      title)));
+                                                    } else {
+                                                      Navigator.push(
+                                                          context,
+                                                          SizeRoute(
+                                                              page:
+                                                                  GroceryListPage(
+                                                            title: title,
+                                                            id: categorie[
+                                                                    index]
+                                                                .id,
+                                                            order: '0',
+                                                          )));
+                                                    }
+                                                  },
+                                                );
+                                              });
+                                        } else {
+                                          return Container();
+                                        }
+                                      },
+                                    )),
                                 ListTile(
                                     title: Text(
                                       'Campaigns',
@@ -483,7 +534,7 @@ class HomePage extends StatelessWidget {
         height: height * 0.22,
         child: new PageView(children: <Widget>[
           new FutureBuilder(
-              future: _future,
+              future: Networks().bannerImages(),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {
                   photos = snapshot.data;
