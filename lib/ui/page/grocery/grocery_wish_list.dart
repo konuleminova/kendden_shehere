@@ -5,6 +5,7 @@ import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/home/home_action.dart';
 import 'package:kendden_shehere/redux/productlist/product_model.dart';
 import 'package:kendden_shehere/redux/wishlist/wishlist_viewmodel.dart';
+import 'package:kendden_shehere/ui/widgets/list_item/glistitem1.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/glistitem2.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/glistitem3.dart';
 import 'package:redux/redux.dart';
@@ -40,7 +41,7 @@ class GroceryWishListPage extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                       child: viewModel.wishItems.length > 0
-                          ? _shopBody()
+                          ? _buildWishListItem(viewModel.wishItems[0])
                           : _emptyWishList()),
                   SizedBox(
                     height: 10.0,
@@ -61,19 +62,53 @@ class GroceryWishListPage extends StatelessWidget {
     }
     return new Stack(
       children: <Widget>[
-        GroceryListItemTwo(wishItem),
+        new CustomScrollView(
+         // controller: _scrollController,
+          slivers: <Widget>[
+            SliverPadding(
+                padding: const EdgeInsets.all(8),
+                sliver: new SliverGrid(
+                    gridDelegate:
+                    SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisSpacing: 1,
+                        mainAxisSpacing: 1,
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.62),
+                    delegate:
+                    new SliverChildBuilderDelegate(
+                            (BuildContext context,
+                            int index) {
+                          return  Card(
+                            margin: EdgeInsets.all(8),
+                            elevation: 4,
+                            child: Container(
+                              width: MediaQuery.of(context).size.width * 0.42,
+                              child: GroceryListItemOne(
+                                product: viewModel.wishItems[index],
+                              ),
+                            ),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15)),
+                          );
+                        },
+                        childCount: viewModel
+                            .wishItems.length)))
+          ],
+          // controller: _scrollController,
+        ),
       ],
     );
   }
 
-  Widget _shopBody() => new Container(
-        margin: EdgeInsets.only(bottom: 16, top: 16, left: 10, right: 12),
-        child: new ListView(
-          children: viewModel.wishItems
-              .map((Product wishItem) => _buildWishListItem(wishItem))
-              .toList(),
-        ),
-      );
+//  Widget _shopBody() => new Container(
+//        margin: EdgeInsets.only(bottom: 16, top: 16, left: 10, right: 12),
+//        child: new CustomScrollView(
+//          //shrinkWrap: true,
+//         silvers: viewModel.wishItems
+//              .map((Product wishItem) => _buildWishListItem(wishItem))
+//              .toList(),
+//        ),
+//      );
 
   _emptyWishList() => Container(
         child: Stack(
