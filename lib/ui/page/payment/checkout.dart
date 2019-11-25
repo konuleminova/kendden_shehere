@@ -242,144 +242,77 @@ class CheckoutsPageState extends State<CheckoutsPage> {
 
   Widget _getAccountTypeSection() {
     return Container(
-      margin: EdgeInsets.all(16.0),
-      child: Card(
-        margin: EdgeInsets.all(0.0),
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(11.0))),
-        child: Container(
-          height: 60.0,
-          child: Row(
-            children: <Widget>[
-              Expanded(
-                child: GestureDetector(
-                  onTapUp: (tapDetail) {
-                    selectedIndex = 0;
+      height: 60.0,
+      margin: EdgeInsets.all(16),
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: GestureDetector(
+              onTapUp: (tapDetail) {
+                selectedIndex = 0;
 
-                    setState(() {
-                      checkout.dpayment_selected_val = "online";
-                    });
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        // new
-                        // Where the linear gradient begins and ends
-                        begin: Alignment.topRight, // new
-                        end: Alignment.bottomLeft, // new
-                        // Add one stop for each color.
-                        // Stops should increase
-                        // from 0 to 1
-                        stops: [0.0, 0.5],
-                        colors: selectedIndex == 0
-                            ? [
-                                // Colors are easy thanks to Flutter's
-                                // Colors class.
-                                Color(0xFF47E497),
-                                Color(0xFF47E0D6)
-                              ]
-                            : [Colors.white, Colors.white],
+                setState(() {
+                  checkout.dpayment_selected_val = "online";
+                });
+              },
+              child: Container(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 8.0, horizontal: 12.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      GestureDetector(
+                        child: selectedIndex == 1
+                            ? Image.asset('images/ks/radio2.png')
+                            : Image.asset('images/ks/radio1.png'),
+                        onTap: null,
                       ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8.0, horizontal: 12.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(
-                            Icons.credit_card,
-                            color: selectedIndex == 0
-                                ? Colors.white
-                                : Color(0xFF939192),
-                          ),
-                          Expanded(
-                            child: Column(
-                              children: <Widget>[
-                                Text(
-                                  'Online\nOdenish',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: selectedIndex == 0
-                                          ? Colors.white
-                                          : Color(0xFF939192)),
-                                )
-                              ],
-                            ),
-                          )
-                        ],
+                      GestureDetector(
+                        child: Image.asset('images/ks/credit_card.png'),
+                        onTap: null,
                       ),
-                    ),
+                    ],
                   ),
                 ),
               ),
-              Expanded(
-                child: GestureDetector(
-                  onTapUp: (tapDetail) {
-                    selectedIndex = 1;
+            ),
+          ),
+          Expanded(
+            child: GestureDetector(
+              onTapUp: (tapDetail) {
+                selectedIndex = 1;
 
-                    setState(() {
-                      checkout.dpayment_selected_val = "offline";
-                    });
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        // new
-                        // Where the linear gradient begins and ends
-                        begin: Alignment.topRight, // new
-                        end: Alignment.bottomLeft, // new
-                        // Add one stop for each color.
-                        // Stops should increase
-                        // from 0 to 1
-                        stops: [0.0, 0.5],
-                        colors: selectedIndex == 1
-                            ? [
-                                // Colors are easy thanks to Flutter's
-                                // Colors class.
-                                Color(0xFF47E497),
-                                Color(0xFF47E0D6)
-                              ]
-                            : [Colors.white, Colors.white],
+                setState(() {
+                  checkout.dpayment_selected_val = "offline";
+                });
+              },
+              child: Container(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 8.0, horizontal: 12.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      GestureDetector(
+                        child: selectedIndex == 1
+                            ? Image.asset('images/ks/radio1.png')
+                            : Image.asset('images/ks/radio2.png'),
+                        onTap: null,
                       ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8.0, horizontal: 12.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(
-                            Icons.account_balance_wallet,
-                            color: selectedIndex == 1
-                                ? Colors.white
-                                : Color(0xFF939192),
-                          ),
-                          Expanded(
-                            child: Column(
-                              children: <Widget>[
-                                Text(
-                                  'Yerinde\nOdenish',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: selectedIndex == 1
-                                          ? Colors.white
-                                          : Color(0xFF939192)),
-                                )
-                              ],
-                            ),
-                          )
-                        ],
+                      GestureDetector(
+                        child: Image.asset('images/ks/wallet.png'),
+                        onTap: null,
                       ),
-                    ),
+                    ],
                   ),
                 ),
-              )
-            ],
-          ),
-        ),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
