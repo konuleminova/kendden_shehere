@@ -42,6 +42,7 @@ class ProfileEditDialog extends StatelessWidget {
                           margin: EdgeInsets.only(left: 16, right: 16),
                           child: new TextField(
                             controller: _textController,
+                            keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                               labelText: text,
                             ),
