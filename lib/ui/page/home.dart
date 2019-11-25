@@ -30,6 +30,22 @@ import 'grocery/grocery_categories.dart';
 import 'grocery/grocery_list.dart';
 
 class HomePage extends StatelessWidget {
+  List<String> imagesCategory = [
+    'images/ks/ct1.png',
+    'images/ks/ct2.png',
+    'images/ks/ct3.png',
+    'images/ks/ct4.png',
+    'images/ks/ct5.png',
+    'images/ks/ct6.png',
+    'images/ks/ct7.png',
+    'images/ks/ct8.png',
+    'images/ks/ct9.png',
+    'images/ks/ct10.png',
+    'images/ks/ct11.png',
+    'images/ks/ct12.png',
+    'images/ks/ct14.png',
+    'images/ks/ct13.png',
+  ];
   double height = 0;
   double width = 0;
   List<String> photos = new List();
@@ -38,7 +54,7 @@ class HomePage extends StatelessWidget {
   HomeViewModel viewModel;
   bool fromCheckout;
   BuildContext context;
-  Future _future,_future2;
+  Future _future, _future2;
   List<Category> categorie = new List();
   List<Category> tempCategories = new List();
 
@@ -54,7 +70,7 @@ class HomePage extends StatelessWidget {
         child: new StoreConnector(
             onInit: (store) {
               //_future = Networks().bannerImages();
-             // _future2 = Networks().listCategories();
+              // _future2 = Networks().listCategories();
               //_future2 = Networks().userinfo();
               store.state.wishItems.clear();
               store.state.shopItems.clear();
@@ -278,14 +294,23 @@ class HomePage extends StatelessWidget {
                                           AsyncSnapshot snapshot) {
                                         if (snapshot.hasData) {
                                           categorie.clear();
-                                          ListCategories categories=snapshot.data;
-                                          if (categories!= null) {
-                                            for (int i = 0; i < categories.categories.length; i++) {
-                                              if (categories.categories[i].parent == '0') {
-                                               categorie.add(categories.categories[i]);
+                                          ListCategories categories =
+                                              snapshot.data;
+                                          if (categories != null) {
+                                            for (int i = 0;
+                                                i <
+                                                    categories
+                                                        .categories.length;
+                                                i++) {
+                                              if (categories
+                                                      .categories[i].parent ==
+                                                  '0') {
+                                                categorie.add(
+                                                    categories.categories[i]);
                                               }
                                             }
-                                            tempCategories.addAll(categories.categories);
+                                            tempCategories
+                                                .addAll(categories.categories);
                                           }
 
                                           return ListView.builder(
@@ -346,7 +371,8 @@ class HomePage extends StatelessWidget {
                                                           children: <Widget>[
                                                             Expanded(
                                                               child: Image.asset(
-                                                                  'images/ks/ct2.png'),
+                                                                  imagesCategory[
+                                                                      index]),
                                                               flex: 2,
                                                             ),
                                                             SizedBox(
@@ -398,8 +424,7 @@ class HomePage extends StatelessWidget {
                                                             tempCategories
                                                                 .length;
                                                         i++) {
-                                                      if (categorie[index]
-                                                              .id ==
+                                                      if (categorie[index].id ==
                                                           tempCategories[i]
                                                               .parent) {
                                                         isCategory = true;
@@ -425,8 +450,7 @@ class HomePage extends StatelessWidget {
                                                               page:
                                                                   GroceryListPage(
                                                             title: title,
-                                                            id: categorie[
-                                                                    index]
+                                                            id: categorie[index]
                                                                 .id,
                                                             order: '0',
                                                           )));
