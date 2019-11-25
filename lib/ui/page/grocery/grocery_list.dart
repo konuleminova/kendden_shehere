@@ -59,7 +59,7 @@ class GroceryListPage extends StatelessWidget {
           return new Scaffold(
               appBar: new AppBar(
                 title: new Text(title),
-                backgroundColor: Colors.lightGreen,
+                backgroundColor: greenFixed,
                 actions: <Widget>[
                   PopupMenuButton<String>(
                     onSelected: choiceAction,
@@ -134,23 +134,23 @@ class GroceryListPage extends StatelessWidget {
                                                 crossAxisSpacing: 1,
                                                 mainAxisSpacing: 1,
                                                 crossAxisCount: 2,
-                                                childAspectRatio: 0.5),
+                                                childAspectRatio: 0.62),
                                         delegate:
                                             new SliverChildBuilderDelegate(
                                                 (BuildContext context,
                                                     int index) {
-                                          return Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.6,
-                                              height: 370,
-                                              child: InkWell(
-                                                child: GroceryListItemOne(
-                                                  product: viewModel
-                                                      .productList[index],
-                                                ),
-                                              ));
+                                          return  Card(
+                                            margin: EdgeInsets.all(8),
+                                            elevation: 4,
+                                            child: Container(
+                                              width: MediaQuery.of(context).size.width * 0.42,
+                                              child: GroceryListItemOne(
+                                                product: viewModel.productList[index],
+                                              ),
+                                            ),
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(15)),
+                                          );
                                         },
                                                 childCount: viewModel
                                                     .productList.length)))
