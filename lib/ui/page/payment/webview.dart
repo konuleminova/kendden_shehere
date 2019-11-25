@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/ui/page/home.dart';
 import 'package:kendden_shehere/util/helper_class.dart';
@@ -31,7 +32,7 @@ class WebViewPage extends StatelessWidget {
     return new WebviewScaffold(
         url: url,
         appBar: new AppBar(
-          backgroundColor: Colors.lightGreen,
+          backgroundColor: greenFixed,
           title: Text(AppTranslations.of(context).text('payment')),
         ),
         withZoom: true,
