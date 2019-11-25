@@ -44,7 +44,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
     open = new DateTime(now.year, now.month, now.day, open.hour, open.minute);
     close = dateFormat.parse("19:30");
     close =
-        new DateTime(now.year, now.month, now.day, close.hour, close.minute);
+    new DateTime(now.year, now.month, now.day, close.hour, close.minute);
     if (now.isAfter(open)) {
       _text = "Odenishiniz sabah yerine yetirelecek";
     }
@@ -74,169 +74,232 @@ class CheckoutsPageState extends State<CheckoutsPage> {
           ),
           checkout.dtime_selected_val != Constants.deliveryTimes[3]
               ? Container(
-                  child: Card(
-                    child: ListTile(
-                      title: FutureBuilder(
-                          future: _getAddress(),
-                          builder:
-                              (BuildContext context, AsyncSnapshot snapshot) {
-                            return Text(
-                              snapshot.hasData && snapshot.data != ""
-                                  ? snapshot.data
-                                  : AppTranslations.of(context)
-                                      .text('new_address'),
-                              style: TextStyle(color: Colors.grey),
-                            );
-                          }),
-                      trailing:
-                          IconButton(icon: Icon(Icons.edit), onPressed: null),
-                      onTap: () {
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context) =>
-                                Dialog(child: CustomSearchScaffold()));
-                      },
-                    ),
-                    elevation: 2,
-                  ),
-                  margin: EdgeInsets.only(left: 12, right: 12, bottom: 8))
-              : SizedBox(
-                  height: 10,
+              child: Card(
+                child: ListTile(
+                  title: FutureBuilder(
+                      future: _getAddress(),
+                      builder:
+                          (BuildContext context, AsyncSnapshot snapshot) {
+                        return Text(
+                          snapshot.hasData && snapshot.data != ""
+                              ? snapshot.data
+                              : AppTranslations.of(context)
+                              .text('new_address'),
+                          style: TextStyle(color: Colors.grey),
+                        );
+                      }),
+                  trailing:
+                  IconButton(icon: Icon(Icons.edit), onPressed: null),
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) =>
+                            Dialog(child: CustomSearchScaffold()));
+                  },
                 ),
+                elevation: 2,
+              ),
+              margin: EdgeInsets.only(left: 12, right: 12, bottom: 8))
+              : SizedBox(
+            height: 10,
+          ),
           checkout.dtime_selected_val != Constants.deliveryTimes[3]
               ? Container(
-                  margin: EdgeInsets.only(left: 12, right: 12, bottom: 16),
-                  child: Column(
-                    children: <Widget>[
-                      _getGoogleMap(),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Container(
-                            width: 20,
-                            height: 20,
-                            color: const Color(0xFFFDB2B4),
-                          ),
-                          SizedBox(
-                            width: 5.0,
-                          ),
-                          Flexible(
-                            child: Container(
-                              child: Text(
-                                AppTranslations.of(context).text('amount_1'),
-                              ),
-                              width: 250,
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 3.0,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Container(
-                              width: 20,
-                              height: 20,
-                              color: const Color(0xFFAAD47D)),
-                          SizedBox(
-                            width: 5.0,
-                          ),
-                          Flexible(
-                            child: Container(
-                              child: Text(
-                                AppTranslations.of(context).text('amount_2'),
-                              ),
-                              width: 250,
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 3.0,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Container(
-                            width: 20,
-                            height: 20,
-                            color: const Color(0xFFF8D986),
-                          ),
-                          SizedBox(
-                            width: 5.0,
-                          ),
-                          Flexible(
-                            child: Container(
-                              child: Text(
-                                AppTranslations.of(context).text('amount_3'),
-                              ),
-                              width: 250,
-                            ),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                )
-              : SizedBox(
-                  height: 10,
+            margin: EdgeInsets.only(left: 12, right: 12, bottom: 16),
+            child: Column(
+              children: <Widget>[
+                _getGoogleMap(),
+                SizedBox(
+                  height: 8,
                 ),
-          new Container(
-            child: RaisedButton(
-              color: Colors.green,
-              onPressed: () {
-                if (checkout.dtime_selected_val != Constants.deliveryTimes[3]) {
-                  SharedPrefUtil()
-                      .getString(SharedPrefUtil().address)
-                      .then((onValue) {
-                    if (onValue.isEmpty) {
-                      _scaffoldKey.currentState.showSnackBar(new SnackBar(
-                          content: Text(
-                            AppTranslations.of(context).text('please_fill'),
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          duration: const Duration(seconds: 1),
-                          action: SnackBarAction(
-                            label: 'Ok',
-                            onPressed: () {
-                              _scaffoldKey.currentState.hideCurrentSnackBar();
-                              // Some code to undo the change.
-                            },
-                          ),
-                          backgroundColor: Colors.red));
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Container(
+                      width: 20,
+                      height: 20,
+                      color: const Color(0xFFFDB2B4),
+                    ),
+                    SizedBox(
+                      width: 5.0,
+                    ),
+                    Flexible(
+                      child: Container(
+                        child: Text(
+                          AppTranslations.of(context).text('amount_1'),
+                        ),
+                        width: 250,
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 3.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Container(
+                        width: 20,
+                        height: 20,
+                        color: const Color(0xFFAAD47D)),
+                    SizedBox(
+                      width: 5.0,
+                    ),
+                    Flexible(
+                      child: Container(
+                        child: Text(
+                          AppTranslations.of(context).text('amount_2'),
+                        ),
+                        width: 250,
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 3.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Container(
+                      width: 20,
+                      height: 20,
+                      color: const Color(0xFFF8D986),
+                    ),
+                    SizedBox(
+                      width: 5.0,
+                    ),
+                    Flexible(
+                      child: Container(
+                        child: Text(
+                          AppTranslations.of(context).text('amount_3'),
+                        ),
+                        width: 250,
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
+          )
+              : SizedBox(
+            height: 10,
+          ),
+          Align(
+            child: Container(
+              width: double.infinity,
+              padding: EdgeInsets.all(30.0),
+              child: RaisedButton(
+                  padding: EdgeInsets.symmetric(vertical: 16.0),
+                  color: greenFixed,
+                  disabledColor: greenFixed,
+                  onPressed: () {
+                    if (checkout.dtime_selected_val !=
+                        Constants.deliveryTimes[3]) {
+                      SharedPrefUtil()
+                          .getString(SharedPrefUtil().address)
+                          .then((onValue) {
+                        if (onValue.isEmpty) {
+                          _scaffoldKey.currentState.showSnackBar(new SnackBar(
+                              content: Text(
+                                AppTranslations.of(context).text('please_fill'),
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              duration: const Duration(seconds: 1),
+                              action: SnackBarAction(
+                                label: 'Ok',
+                                onPressed: () {
+                                  _scaffoldKey.currentState
+                                      .hideCurrentSnackBar();
+                                  // Some code to undo the change.
+                                },
+                              ),
+                              backgroundColor: Colors.red));
+                        } else {
+                          Route route = MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  ConfirmOrderPage(
+                                    checkout: checkout,
+                                  ));
+                          Navigator.push(context, route);
+                        }
+                      });
                     } else {
                       Route route = MaterialPageRoute(
-                          builder: (BuildContext context) => ConfirmOrderPage(
+                          builder: (BuildContext context) =>
+                              ConfirmOrderPage(
                                 checkout: checkout,
                               ));
                       Navigator.push(context, route);
                     }
-                  });
-                } else {
-                  Route route = MaterialPageRoute(
-                      builder: (BuildContext context) => ConfirmOrderPage(
-                            checkout: checkout,
-                          ));
-                  Navigator.push(context, route);
-                }
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  Text(AppTranslations.of(context).text('next'),
-                      style: TextStyle(color: Colors.white)),
-                ],
-              ),
+                  },
+                  elevation: 8,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(40.0))),
+                  child: Text(
+                    AppTranslations.of(context).text('next'),
+                    style: TextStyle(color: Colors.white),
+                  )),
             ),
-            margin: EdgeInsets.only(left: 16, right: 16, bottom: 8),
+            alignment: AlignmentDirectional(0, 0.5),
           )
-        ],
-      ),
+//          new Container(
+//            child: RaisedButton(
+//              color: Colors.green,
+//              onPressed: () {
+//                if (checkout.dtime_selected_val != Constants.deliveryTimes[3]) {
+//                  SharedPrefUtil()
+//                      .getString(SharedPrefUtil().address)
+//                      .then((onValue) {
+//                    if (onValue.isEmpty) {
+//                      _scaffoldKey.currentState.showSnackBar(new SnackBar(
+//                          content: Text(
+//                            AppTranslations.of(context).text('please_fill'),
+//                            style: TextStyle(fontWeight: FontWeight.bold),
+//                          ),
+//                          duration: const Duration(seconds: 1),
+//                          action: SnackBarAction(
+//                            label: 'Ok',
+//                            onPressed: () {
+//                              _scaffoldKey.currentState.hideCurrentSnackBar();
+//                              // Some code to undo the change.
+//                            },
+//                          ),
+//                          backgroundColor: Colors.red));
+//                    } else {
+//                      Route route = MaterialPageRoute(
+//                          builder: (BuildContext context) =>
+//                              ConfirmOrderPage(
+//                                checkout: checkout,
+//                              ));
+//                      Navigator.push(context, route);
+//                    }
+//                  });
+//                } else {
+//                  Route route = MaterialPageRoute(
+//                      builder: (BuildContext context) =>
+//                          ConfirmOrderPage(
+//                            checkout: checkout,
+//                          ));
+//                  Navigator.push(context, route);
+//                }
+//              },
+//              child: Row(
+//                mainAxisAlignment: MainAxisAlignment.spaceAround,
+//                children: <Widget>[
+//                  Text(AppTranslations.of(context).text('next'),
+//                      style: TextStyle(color: Colors.white)),
+//                ],
+//              ),
+//            ),
+//            margin: EdgeInsets.only(left: 16, right: 16, bottom: 8),
+//          )
+        ]
+        ,
+      )
+      ,
     );
   }
 
@@ -317,13 +380,14 @@ class CheckoutsPageState extends State<CheckoutsPage> {
     );
   }
 
-  _getDropDown() => Container(
+  _getDropDown() =>
+      Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Padding(
               padding:
-                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+              const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
               child: Text(
                 AppTranslations.of(context).text('delivery_time'),
                 style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
@@ -352,7 +416,10 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                           child: new Container(
                               height: 50,
                               padding: EdgeInsets.only(top: 1, bottom: 1),
-                              width: MediaQuery.of(context).size.width * 0.5,
+                              width: MediaQuery
+                                  .of(context)
+                                  .size
+                                  .width * 0.5,
                               child: ListTile(
                                 title: Text(
                                   choice,
@@ -409,9 +476,10 @@ class CheckoutsPageState extends State<CheckoutsPage> {
     });
   }
 
-  _getGoogleMap() => checkout.dtime_selected_val != "Magazadan gotur"
-      ? MapPage1()
-      : SizedBox();
+  _getGoogleMap() =>
+      checkout.dtime_selected_val != "Magazadan gotur"
+          ? MapPage1()
+          : SizedBox();
 
   _getAddress() async {
     return await SharedPrefUtil().getString(SharedPrefUtil().address);
