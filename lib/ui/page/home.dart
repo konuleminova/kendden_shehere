@@ -237,29 +237,31 @@ class HomePage extends StatelessWidget {
                                             )
                                           ],
                                         ),
-                                        Container(
-                                          alignment: Alignment.center,
-                                          margin: EdgeInsets.only(
-                                              left: 20, right: 20),
-                                          child: Card(
-                                            color: Colors.white,
-                                            elevation: 8,
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(4)),
-                                            child: ListTile(
-                                              title: Text(
-                                                'What are you looking for?',
-                                                style: TextStyle(
-                                                    color: Colors.grey),
-                                              ),
-                                              leading: IconButton(
-                                                icon: Icon(Icons.search),
-                                                onPressed: null,
-                                              ),
+                                      GestureDetector(child:   Container(
+                                        alignment: Alignment.center,
+                                        margin: EdgeInsets.only(
+                                            left: 20, right: 20),
+                                        child: Card(
+                                          color: Colors.white,
+                                          elevation: 8,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(4)),
+                                          child: ListTile(
+                                            title: Text(
+                                              'What are you looking for?',
+                                              style: TextStyle(
+                                                  color: Colors.grey),
+                                            ),
+                                            leading: IconButton(
+                                              icon: Icon(Icons.search),
+                                              onPressed: null,
                                             ),
                                           ),
-                                        )
+                                        ),
+                                      ),onTap: (){
+                                        showSearch(context: context, delegate: SearchWidget());
+                                      },)
                                       ],
                                     )),
                                 AspectRatio(
