@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/productlist/product_model.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/rating_star_dialog.dart';
@@ -20,7 +21,7 @@ class OrderShopListPage extends StatelessWidget {
     // TODO: implement build
     return new Scaffold(
       appBar: new AppBar(
-        backgroundColor: Colors.lightGreen,
+        backgroundColor: greenFixed,
         title: new Text(AppTranslations.of(context).text("order_history")),
       ),
       body: Column(
