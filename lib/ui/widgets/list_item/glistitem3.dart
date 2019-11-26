@@ -60,7 +60,7 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
         builder: (BuildContext context, ProductViewModel viewModel) {
           return product != null
               ? Card(
-                 // margin: EdgeInsets.all(8),
+                  margin: EdgeInsets.all(8),
                   elevation: 4,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8)),
