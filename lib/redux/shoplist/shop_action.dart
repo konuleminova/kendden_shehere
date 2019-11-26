@@ -16,3 +16,7 @@ class FetchShopListAction {
   List<Product> data;
   FetchShopListAction({this.data});
 }
+class DeleteShopListAction{
+  bool delete;
+  DeleteShopListAction({this.delete});
+}

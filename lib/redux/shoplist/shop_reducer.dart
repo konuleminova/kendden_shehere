@@ -4,9 +4,8 @@ import 'package:kendden_shehere/redux/shoplist/shop_action.dart';
 
 Reducer<List<Product>> shopReducer = combineReducers<List<Product>>([
   new TypedReducer<List<Product>, AddShopItemAction>(addShopItemReducer),
-  new TypedReducer<List<Product>,FetchShopListAction>(fetchShopListAction),
+  new TypedReducer<List<Product>, FetchShopListAction>(fetchShopListAction),
   new TypedReducer<List<Product>, RemoveShopItemAction>(removeShopItemReducer),
-
 ]);
 
 List<Product> removeShopItemReducer(
@@ -14,11 +13,19 @@ List<Product> removeShopItemReducer(
   return shopItems..remove(action.removeShopItem);
 }
 
-List<Product> addShopItemReducer(List<Product> state, AddShopItemAction action) {
+List<Product> addShopItemReducer(
+    List<Product> state, AddShopItemAction action) {
   return List.from(state)..add(action.product);
 }
 
 List<Product> fetchShopListAction(
     List<Product> state, FetchShopListAction action) {
   return action.data;
+}
+
+Reducer<bool> deleteReducer = combineReducers<bool>(
+    [new TypedReducer<bool, DeleteShopListAction>(deleteShopList)]);
+
+bool deleteShopList(bool state, action) {
+  return action.delete;
 }

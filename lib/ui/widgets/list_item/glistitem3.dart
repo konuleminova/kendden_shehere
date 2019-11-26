@@ -144,7 +144,7 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
 //                                          },
 //                                        ),
                                   Row(children: <Widget>[],),
-                                    !viewModel.isDelete
+                                    viewModel.isDelete
                                         ? GestureDetector(
                                             child: Card(
                                               margin: EdgeInsets.all(8),

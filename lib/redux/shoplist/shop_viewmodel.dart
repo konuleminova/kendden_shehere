@@ -26,7 +26,7 @@ class ShoppingCartViewModel {
     }
 
     _isDelete(bool delete) {
-      store.state.isDelete = true;
+      store.dispatch(DeleteShopListAction(delete: true));
     }
 
     return ShoppingCartViewModel(
