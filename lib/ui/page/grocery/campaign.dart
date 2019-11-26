@@ -18,6 +18,8 @@ class CampaignsPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: greenFixed,
+          title: Text('CAMPAIGN'),
+          centerTitle: true,
           actions: <Widget>[
             GestureDetector(
                 child: Image.asset('images/ks/chat.png'),
