@@ -36,39 +36,38 @@ class GroceryListItemFiveState extends State<GroceryListItemFive> {
     // TODO: implement build
     return GestureDetector(
       child: Card(
-          margin: EdgeInsets.all(12),
-          child: Material(
-              borderRadius: BorderRadius.circular(20.0),
-              elevation: 3.0,
-              child: new Container(
-                decoration: new BoxDecoration(
-                    color: Colors.white,
-                    border:
-                        new Border.all(width: 0.5, color: Colors.lightGreen)),
-                child: ListTile(
-                    leading: Container(
-                        height: 80.0,
-                        width: 100,
-                        child: Image.network(
-                          image,
-                          //height: 80.0,
-                        )),
-                    title: Container(
-                      height: 110.0,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          new GroceryTitle(text: title),
-                          //new GrocerySubtitle(text: product.counttype),
-                          new GroceryTitle(text: product.price+" AZN"),
-                          // new RatingStarWidget(5, 0, 20),
-                          _statusWidget(),
-                        ],
-                      ),
-                    ),
-                  ),
-              ))),
+        margin: EdgeInsets.only(left: 12,right: 12,bottom: 8,top: 6),
+          color: Colors.white,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          elevation: 4.0,
+          child: new Container(
+            decoration: new BoxDecoration(
+              //  color: Colors.white,
+                borderRadius: BorderRadius.circular(8)),
+            child: ListTile(
+              leading: Container(
+                  height: 80.0,
+                  width: 100,
+                  child: Image.network(
+                    image,
+                    //height: 80.0,
+                  )),
+              title: Container(
+                height: 110.0,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    new GroceryTitle(text: title),
+                    //new GrocerySubtitle(text: product.counttype),
+                    new GroceryTitle(text: product.price+" AZN"),
+                    // new RatingStarWidget(5, 0, 20),
+                    _statusWidget(),
+                  ],
+                ),
+              ),
+            ),
+          )),
       onTap: () {
         Route route = MaterialPageRoute(
             builder: (BuildContext context) => GroceryDetailsPage(product));
