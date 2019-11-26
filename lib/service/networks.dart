@@ -2,7 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
+import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/redux/checkout/checkout.dart';
 import 'package:kendden_shehere/redux/categories/list_categories.dart';
 import 'package:kendden_shehere/redux/home/home_list.dart';
@@ -307,9 +310,18 @@ class Networks {
           "&data=${data}");
       if (response.statusCode == 200) {
         var a = json.decode(response.body);
+
        // Navigator.pop(context);
         SharedPrefUtil().setString(inf, data);
         print(response.body);
+        Fluttertoast.showToast(
+            msg: a['message'],
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIos: 1,
+            backgroundColor: greenFixed,
+            textColor: Colors.white,
+            fontSize: 16.0);
         return a;
       } else {
         return null;
