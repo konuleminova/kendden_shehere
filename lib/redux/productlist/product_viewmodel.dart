@@ -13,6 +13,7 @@ class ProductViewModel {
   List<Product> shopItems;
   bool isLoading;
   Function onHomeRefresh;
+  bool isDelete;
 
   ProductViewModel(
       {this.addShopItem,
@@ -21,7 +22,8 @@ class ProductViewModel {
       this.removeWishItem,
       this.shopItems,
       this.isLoading,
-      this.onHomeRefresh,});
+      this.onHomeRefresh,
+      this.isDelete});
 
   factory ProductViewModel.create(Store<AppState> store) {
     _addShopItem(Product product) {
@@ -45,7 +47,6 @@ class ProductViewModel {
       store.dispatch(ShowHomeBasketAction(store));
     }
 
-
     return ProductViewModel(
         addShopItem: _addShopItem,
         removeShopItem: _removeShopItem,
@@ -53,6 +54,7 @@ class ProductViewModel {
         removeWishItem: _removeWishItem,
         shopItems: store.state.shopItems,
         isLoading: store.state.isLoading,
-        onHomeRefresh: _onHomeRefresh,);
+        onHomeRefresh: _onHomeRefresh,
+        isDelete: store.state.isDelete);
   }
 }

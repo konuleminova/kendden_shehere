@@ -9,8 +9,9 @@ class AppState {
   List<Product> newProducts;
   HomeList homeList;
   List<String> photos;
-  bool isScrolling=false;
-  bool isLoading=false;
+  bool isScrolling = false;
+  bool isLoading = false;
+  bool isDelete;
 
   AppState.initialState()
       : user_info = UserModel(),
@@ -18,10 +19,21 @@ class AppState {
         wishItems = new List<Product>(),
         homeList = new HomeList(),
         newProducts = new List<Product>(),
-        photos=new List<String>(),isScrolling=false,isLoading=false;
+        photos = new List<String>(),
+        isScrolling = false,
+        isLoading = false,
+        isDelete = false;
 
   AppState(
-      {this.user_info, this.shopItems, this.wishItems, this.newProducts, this.homeList, this.photos,this.isScrolling,this.isLoading});
+      {this.user_info,
+      this.shopItems,
+      this.wishItems,
+      this.newProducts,
+      this.homeList,
+      this.photos,
+      this.isScrolling,
+      this.isLoading,
+      this.isDelete});
 
   @override
   String toString() {

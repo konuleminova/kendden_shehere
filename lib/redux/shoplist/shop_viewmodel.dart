@@ -8,9 +8,13 @@ class ShoppingCartViewModel {
   Function(Product shopItem) removeShopItem;
   List<Product> shopItems;
   Function() onFetchShopList;
+  Function(bool isDelete) isDelete;
 
   ShoppingCartViewModel(
-      {this.removeShopItem, this.shopItems, this.onFetchShopList});
+      {this.removeShopItem,
+      this.shopItems,
+      this.onFetchShopList,
+      this.isDelete});
 
   factory ShoppingCartViewModel.create(Store<AppState> store) {
     _removeShopItem(Product product) {
@@ -21,9 +25,14 @@ class ShoppingCartViewModel {
       store.dispatch(shopListThunkAction());
     }
 
+    _isDelete(bool delete) {
+      store.state.isDelete = true;
+    }
+
     return ShoppingCartViewModel(
         removeShopItem: _removeShopItem,
         shopItems: store.state.shopItems,
-        onFetchShopList: _onFetchShopList);
+        onFetchShopList: _onFetchShopList,
+        isDelete: _isDelete);
   }
 }

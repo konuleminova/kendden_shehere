@@ -54,6 +54,7 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
         },
         onDispose: (store) {
           // store.state.newProducts.clear();
+          // store.state.isDelete=false;
         },
         converter: (Store<AppState> store) => ProductViewModel.create(store),
         builder: (BuildContext context, ProductViewModel viewModel) {
@@ -142,41 +143,47 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
 //                                            });
 //                                          },
 //                                        ),
-                                    GestureDetector(
-                                      child: Card(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30)),
-                                          elevation: 8,
-                                          child: Padding(
-                                            padding: EdgeInsets.all(2),
-                                            child: Icon(
-                                              Icons.clear,
-                                              color: greenFixed,
-                                              size: 22,
-                                            ),
-                                          )),
-                                      onTap: () {
-                                        viewModel.removeShopItem(product);
-                                        Networks()
-                                            .removeFromBasket(product.id)
-                                            .then((onvalue) {
-                                          if (onvalue != null) {
-                                            if (onvalue['action'] == "done") {
-                                              Fluttertoast.showToast(
-                                                  msg: "Product removed",
-                                                  toastLength:
-                                                      Toast.LENGTH_SHORT,
-                                                  gravity: ToastGravity.CENTER,
-                                                  timeInSecForIos: 1,
-                                                  backgroundColor: Colors.green,
-                                                  textColor: Colors.white,
-                                                  fontSize: 16.0);
-                                            }
-                                          }
-                                        });
-                                      },
-                                    ),
+                                   viewModel.isDelete
+                                        ? GestureDetector(
+                                            child: Card(
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30)),
+                                                elevation: 8,
+                                                child: Padding(
+                                                  padding: EdgeInsets.all(2),
+                                                  child: Icon(
+                                                    Icons.clear,
+                                                    color: greenFixed,
+                                                    size: 22,
+                                                  ),
+                                                )),
+                                            onTap: () {
+                                              viewModel.removeShopItem(product);
+                                              Networks()
+                                                  .removeFromBasket(product.id)
+                                                  .then((onvalue) {
+                                                if (onvalue != null) {
+                                                  if (onvalue['action'] ==
+                                                      "done") {
+                                                    Fluttertoast.showToast(
+                                                        msg: "Product removed",
+                                                        toastLength:
+                                                            Toast.LENGTH_SHORT,
+                                                        gravity:
+                                                            ToastGravity.CENTER,
+                                                        timeInSecForIos: 1,
+                                                        backgroundColor:
+                                                            Colors.green,
+                                                        textColor: Colors.white,
+                                                        fontSize: 16.0);
+                                                  }
+                                                }
+                                              });
+                                            },
+                                          )
+                                        : SizedBox(),
                                     _updateContainer()
                                   ],
                                 ),

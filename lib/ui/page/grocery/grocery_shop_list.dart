@@ -16,6 +16,7 @@ class GroceryShopCartPage extends StatelessWidget {
   bool fromCheckout;
   ShoppingCartViewModel viewModel;
   BuildContext context;
+  Store<AppState> store;
 
   GroceryShopCartPage({this.fromCheckout}); //  @override
   @override
@@ -23,6 +24,10 @@ class GroceryShopCartPage extends StatelessWidget {
     this.context = context;
     // TODO: implement build
     return new StoreConnector(
+      onInit: (store){
+        this.store=store;
+
+      },
         onInitialBuild: (ShoppingCartViewModel viewModel) {
           this.viewModel = viewModel;
           viewModel.onFetchShopList();
@@ -43,6 +48,9 @@ class GroceryShopCartPage extends StatelessWidget {
                 appBar: new AppBar(
                   backgroundColor: greenFixed,
                   actions: <Widget>[GestureDetector(child: Image.asset('images/ks/remove.png'),onTap: (){
+                   // store.state.isLoading=true;
+                    viewModel.isDelete(true);
+
                   },)],
                   title:
                       new Text(AppTranslations.of(context).text('shop_list')),
