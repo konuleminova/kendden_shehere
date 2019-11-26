@@ -26,6 +26,7 @@ import 'package:provider/provider.dart';
 import 'package:redux/redux.dart';
 import 'package:async/async.dart';
 
+import 'grocery/category_parent.dart';
 import 'grocery/grocery_categories.dart';
 import 'grocery/grocery_list.dart';
 
@@ -244,12 +245,17 @@ class HomePage extends StatelessWidget {
                                                         Navigator.push(
                                                             context,
                                                             ScaleRoute(
-                                                                page: new GroceryCategoriesPage(
-                                                                    id: "0",
-                                                                    title: AppTranslations.of(
-                                                                            context)
-                                                                        .text(
-                                                                            "categories"))));
+                                                                page:
+                                                                    CategoryParentPage()));
+//                                                        Navigator.push(
+//                                                            context,
+//                                                            ScaleRoute(
+//                                                                page: new GroceryCategoriesPage(
+//                                                                    id: "0",
+//                                                                    title: AppTranslations.of(
+//                                                                            context)
+//                                                                        .text(
+//                                                                            "categories"))));
                                                       },
                                                     )),
                                               ),
