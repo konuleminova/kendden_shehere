@@ -50,7 +50,7 @@ class HomePage extends StatelessWidget {
   ];
   double height = 0;
   double width = 0;
-  List<String> photos = new List();
+  List<String> bannerPhotos = new List();
   String title;
   AsyncMemoizer memoizer = new AsyncMemoizer();
   HomeViewModel viewModel;
@@ -575,15 +575,15 @@ class HomePage extends StatelessWidget {
               future: Networks().bannerImages(),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {
-                  photos = snapshot.data;
+                  bannerPhotos = snapshot.data;
                   List<Widget> imagesWidget = new List();
-                  for (int i = 0; i < photos.length - 1; i++) {
+                  for (int i = 0; i < bannerPhotos.length - 1; i++) {
                     imagesWidget.add(Card(
                       child: new Container(
                         width: width * 0.6,
                         child: new Image(
                           image: NetworkImage(
-                            photos[i + 1],
+                            bannerPhotos[i + 1],
                           ),
                           fit: BoxFit.cover,
                         ),

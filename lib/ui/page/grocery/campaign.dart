@@ -3,8 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/home.dart';
+import 'package:kendden_shehere/util/helper_class.dart';
 
 class CampaignsPage extends StatelessWidget {
+  //List<String> photos;
+
+  //CampaignsPage({this.photos});
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -27,27 +32,64 @@ class CampaignsPage extends StatelessWidget {
             child: FutureBuilder(
                 future: Networks().bannerImages(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  return GridView.count(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 2,
-                      childAspectRatio: 5 / 4,
-                      children:
-                          List<Widget>.generate(snapshot.data.length, (index) {
-                        return GridTile(
-                            child: GestureDetector(
-                          child: Card(
-                            elevation: 4,
-                            margin: EdgeInsets.all(8),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                            color: Colors.white,
-                            child: Container(
-                              margin: EdgeInsets.all(16),
+                  if (snapshot.hasData) {
+                    return GridView.count(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 2,
+                        mainAxisSpacing: 2,
+                        childAspectRatio: 5 / 4,
+                        children: List<Widget>.generate(
+                            snapshot.data.length - 1, (index) {
+                          return GridTile(
+                              child: GestureDetector(
+                            child: Card(
+                              elevation: 4,
+                              margin: EdgeInsets.all(6),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(6)),
+                              color: Colors.white,
+                              child: Container(
+                                child: Column(
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: Image(
+                                        image: NetworkImage(
+                                          snapshot.data[index + 1],
+                                        ),
+                                        fit: BoxFit.cover,
+                                      ),
+                                      flex: 3,
+                                    ),
+                                    SizedBox(
+                                      height: 4,
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text(
+                                            'Hədiyyə Kartımız sahiblərini gözləyir',
+                                            style: TextStyle(fontSize: 10),
+                                          ),
+                                          Text(
+                                            "Daha ətraflı...",
+                                            style: TextStyle(fontSize: 8),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
-                          ),
-                          onTap: null,
-                        ));
-                      }));
+                            onTap: null,
+                          ));
+                        }));
+                  } else {
+                    return loading();
+                  }
                 })));
   }
 }
