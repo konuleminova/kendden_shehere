@@ -140,7 +140,9 @@ class GroceryWishListPage extends StatelessWidget {
                     padding: EdgeInsets.symmetric(vertical: 16.0),
                     color: greenFixed,
                     disabledColor: greenFixed,
-                    onPressed: null,
+                    onPressed: (){
+                      Navigator.pop(context);
+                    },
                     elevation: 8,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(40.0))),
