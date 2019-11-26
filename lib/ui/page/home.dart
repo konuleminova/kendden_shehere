@@ -26,6 +26,7 @@ import 'package:provider/provider.dart';
 import 'package:redux/redux.dart';
 import 'package:async/async.dart';
 
+import 'grocery/campaign.dart';
 import 'grocery/category_parent.dart';
 import 'grocery/grocery_categories.dart';
 import 'grocery/grocery_list.dart';
@@ -482,7 +483,8 @@ class HomePage extends StatelessWidget {
                                     trailing: GestureDetector(
                                       child: Text("Show More"),
                                       onTap: () {
-
+                                        Navigator.push(context,
+                                            ScaleRoute(page: CampaignsPage()));
                                       },
                                     )),
                                 Padding(
@@ -575,13 +577,13 @@ class HomePage extends StatelessWidget {
                 if (snapshot.hasData) {
                   photos = snapshot.data;
                   List<Widget> imagesWidget = new List();
-                  for (int i = 0; i < photos.length-1; i++) {
+                  for (int i = 0; i < photos.length - 1; i++) {
                     imagesWidget.add(Card(
                       child: new Container(
                         width: width * 0.6,
                         child: new Image(
                           image: NetworkImage(
-                            photos[i+1],
+                            photos[i + 1],
                           ),
                           fit: BoxFit.cover,
                         ),
