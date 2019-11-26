@@ -481,7 +481,9 @@ class HomePage extends StatelessWidget {
                                     ),
                                     trailing: GestureDetector(
                                       child: Text("Show More"),
-                                      onTap: () {},
+                                      onTap: () {
+
+                                      },
                                     )),
                                 Padding(
                                   padding: EdgeInsets.all(16.0),
@@ -573,13 +575,13 @@ class HomePage extends StatelessWidget {
                 if (snapshot.hasData) {
                   photos = snapshot.data;
                   List<Widget> imagesWidget = new List();
-                  for (int i = 0; i < photos.length; i++) {
+                  for (int i = 0; i < photos.length-1; i++) {
                     imagesWidget.add(Card(
                       child: new Container(
                         width: width * 0.6,
                         child: new Image(
                           image: NetworkImage(
-                            photos[i],
+                            photos[i+1],
                           ),
                           fit: BoxFit.cover,
                         ),
