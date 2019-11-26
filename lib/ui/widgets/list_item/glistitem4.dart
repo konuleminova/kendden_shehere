@@ -66,8 +66,7 @@ class GroceryListItemFourState extends State<GroceryListItemFour> {
                   Expanded(
                     child: Container(
                         alignment: Alignment.center,
-                        padding:
-                            EdgeInsets.only( left: 16, right: 16),
+                        padding: EdgeInsets.only(left: 16, right: 16),
                         child: ListView.builder(
                             physics: NeverScrollableScrollPhysics(),
                             itemCount: orderItem.list.productsInCategory.length,
