@@ -44,50 +44,50 @@ class OrderHistoryState extends State<OrderHistoryPage> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             order = snapshot.data;
-            List<OrderHistoryModel> orderList = new List();
-            if (to == "To" && from == "From") {
-              orderList.addAll(snapshot.data.orderList);
-            } else if (to != "To" && from == "From") {
-              orderList.clear();
-              for (int i = 0; i < order.orderList.length; i++) {
-                DateTime dateTime = DateTime.parse(order.orderList[i].dtsubmit);
-                if (_selectedDateTo.isAfter(dateTime)) {
-                  orderList.add(order.orderList[i]);
-                } else {
-                  //orderList.clear();
-                }
-              }
-            } else if (from != "From" && to == "To") {
-              orderList.clear();
-              for (int i = 0; i < order.orderList.length; i++) {
-                DateTime dateTime = DateTime.parse(order.orderList[i].dtsubmit);
-                if (_selectedDateFrom.isBefore(dateTime)) {
-                  orderList.add(order.orderList[i]);
-                } else {
-                  //orderList.clear();
-                }
-              }
-            } else {
-              orderList.clear();
-              for (int i = 0; i < order.orderList.length; i++) {
-                DateTime dateTime = DateTime.parse(order.orderList[i].dtsubmit);
-                if (_selectedDateFrom.isBefore(dateTime) &&
-                    _selectedDateTo.isAfter(dateTime)) {
-                  orderList.add(order.orderList[i]);
-                } else {
-                  //orderList.clear();
-                }
-              }
-            }
+//            List<OrderHistoryModel> orderList = new List();
+//            if (to == "To" && from == "From") {
+//              orderList.addAll(snapshot.data.orderList);
+//            } else if (to != "To" && from == "From") {
+//              orderList.clear();
+//              for (int i = 0; i < order.orderList.length; i++) {
+//                DateTime dateTime = DateTime.parse(order.orderList[i].dtsubmit);
+//                if (_selectedDateTo.isAfter(dateTime)) {
+//                  orderList.add(order.orderList[i]);
+//                } else {
+//                  //orderList.clear();
+//                }
+//              }
+//            } else if (from != "From" && to == "To") {
+//              orderList.clear();
+//              for (int i = 0; i < order.orderList.length; i++) {
+//                DateTime dateTime = DateTime.parse(order.orderList[i].dtsubmit);
+//                if (_selectedDateFrom.isBefore(dateTime)) {
+//                  orderList.add(order.orderList[i]);
+//                } else {
+//                  //orderList.clear();
+//                }
+//              }
+//            } else {
+//              orderList.clear();
+//              for (int i = 0; i < order.orderList.length; i++) {
+//                DateTime dateTime = DateTime.parse(order.orderList[i].dtsubmit);
+//                if (_selectedDateFrom.isBefore(dateTime) &&
+//                    _selectedDateTo.isAfter(dateTime)) {
+//                  orderList.add(order.orderList[i]);
+//                } else {
+//                  //orderList.clear();
+//                }
+//              }
+//            }
 
             return new Container(
                 margin:
                     EdgeInsets.only(bottom: 16, top: 16, left: 10, right: 12),
                 child: ListView.builder(
-                    itemCount: orderList.length,
+                    itemCount: order.orderList.length,
                     itemBuilder: (BuildContext context, int index) {
                       return GroceryListItemFour(
-                          orderList.reversed.toList()[index]);
+                          order.orderList.reversed.toList()[index]);
                     }));
           } else if (snapshot.connectionState == ConnectionState.waiting) {
             return loading();
