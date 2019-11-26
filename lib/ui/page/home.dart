@@ -488,7 +488,7 @@ class HomePage extends StatelessWidget {
                                       },
                                     )),
                                 Padding(
-                                  padding: EdgeInsets.all(16.0),
+                                  padding: EdgeInsets.all(8.0),
                                   child: _buildCarousel(),
                                 ),
                                 _buildBody(viewModel),
@@ -569,7 +569,7 @@ class HomePage extends StatelessWidget {
 
   _buildCarousel() => new SizedBox(
         width: width,
-        height: height * 0.22,
+        height: height * 0.23,
         child: new PageView(children: <Widget>[
           new FutureBuilder(
               future: Networks().bannerImages(),
@@ -579,16 +579,18 @@ class HomePage extends StatelessWidget {
                   List<Widget> imagesWidget = new List();
                   for (int i = 0; i < bannerPhotos.length - 1; i++) {
                     imagesWidget.add(Card(
+                      margin: EdgeInsets.all(8),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
                       child: new Container(
                         width: width * 0.6,
-                        child: new Image(
+                        child:ClipRRect(child:  new Image(
                           image: NetworkImage(
                             bannerPhotos[i + 1],
                           ),
-                          fit: BoxFit.cover,
-                        ),
+                          fit: BoxFit.cover
+                        ),borderRadius: BorderRadius.circular(10),)
                       ),
-                      elevation: 4,
+                      elevation: 3,
                     ));
                   }
                   return ListView(
