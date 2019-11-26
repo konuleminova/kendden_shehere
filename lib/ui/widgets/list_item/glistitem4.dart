@@ -27,131 +27,160 @@ class GroceryListItemFourState extends State<GroceryListItemFour> {
     orderItem = widget.orderItem;
 
     // TODO: implement build
-    return Card(
-        margin: EdgeInsets.all(12),
-        elevation: 6,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        child: new Container(
-            height: MediaQuery.of(context).size.height * 0.35,
-            //margin: EdgeInsets.only(top: 8),
-            decoration: new BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(10)),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Expanded(
-                    child: Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Expanded(
-                        child: new Text(
-                          "Order #" + orderItem.id,
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: greenFixed,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      new Text(
-                        orderItem.dtsubmit,
-                        style: TextStyle(color: Colors.black, fontSize: 12),
-                      ),
-                    ],
-                  ),
-                )),
-                Expanded(
-                  child: Container(
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.only(bottom: 0,left: 16,right: 16),
-                    child: Column(
+    return GestureDetector(
+      child: Card(
+          margin: EdgeInsets.all(12),
+          elevation: 6,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          child: new Container(
+              height: MediaQuery.of(context).size.height * 0.35,
+              //margin: EdgeInsets.only(top: 8),
+              decoration: new BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(10)),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Expanded(
+                      child: Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text(orderItem.list.productsInCategory[0].name_en),
-                            Text(orderItem.list.productsInCategory[0].weight.toString()+" piece"),
-                          ],
+                        Expanded(
+                          child: new Text(
+                            "Order #" + orderItem.id,
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: greenFixed,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
-                        Divider(color: greenFixed,),
-                        SizedBox(height: 4,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text(orderItem.list.productsInCategory[0].name_en),
-                            Text(orderItem.list.productsInCategory[0].weight.toString()+" piece"),
-                          ],
+                        new Text(
+                          orderItem.dtsubmit,
+                          style: TextStyle(color: Colors.black, fontSize: 12),
                         ),
-                        Divider(color: greenFixed,),
-                        SizedBox(height: 4,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text(orderItem.list.productsInCategory[0].name_en),
-                            Text(orderItem.list.productsInCategory[0].weight.toString()+" piece"),
-                          ],
-                        ),
-                        Divider(color: greenFixed,),
-
                       ],
                     ),
-                  ),
-                  flex: 2,
-                ),
-                Expanded(
+                  )),
+                  Expanded(
                     child: Container(
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(10),
-                          bottomRight: Radius.circular(10)),
-                      color: greenFixed),
-                  child: Row(
-                    children: <Widget>[
-                      Icon(
-                        Icons.location_on,
-                        color: Colors.white,
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.only(bottom: 0, left: 16, right: 16),
+                      child: Column(
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(
+                                  orderItem.list.productsInCategory[0].name_en),
+                              Text(orderItem.list.productsInCategory[0].weight
+                                      .toString() +
+                                  " piece"),
+                            ],
+                          ),
+                          Divider(
+                            color: greenFixed,
+                          ),
+                          SizedBox(
+                            height: 4,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(
+                                  orderItem.list.productsInCategory[0].name_en),
+                              Text(orderItem.list.productsInCategory[0].weight
+                                      .toString() +
+                                  " piece"),
+                            ],
+                          ),
+                          Divider(
+                            color: greenFixed,
+                          ),
+                          SizedBox(
+                            height: 4,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(
+                                  orderItem.list.productsInCategory[0].name_en),
+                              Text(orderItem.list.productsInCategory[0].weight
+                                      .toString() +
+                                  " piece"),
+                            ],
+                          ),
+                          Divider(
+                            color: greenFixed,
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                        width: 4,
-                      ),
-                      Text(
-                        "Üzeyir Hajibeyov str., 84",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      SizedBox(
-                        width: 16,
-                      ),
-                      Expanded(
-                          child: Container(
-                        alignment: AlignmentDirectional.centerEnd,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text(
-                              "Total",
-                              textAlign: TextAlign.end,
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            SizedBox(
-                              width: 4,
-                            ),
-                            Text(
-                              orderItem.bprice + " AZN",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                      ))
-                    ],
+                    ),
+                    flex: 2,
                   ),
-                ))
-              ],
-            )));
+                  Expanded(
+                      child: Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(10),
+                            bottomRight: Radius.circular(10)),
+                        color: greenFixed),
+                    child: Row(
+                      children: <Widget>[
+                        Icon(
+                          Icons.location_on,
+                          color: Colors.white,
+                        ),
+                        SizedBox(
+                          width: 4,
+                        ),
+                        Text(
+                          "Üzeyir Hajibeyov str., 84",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        SizedBox(
+                          width: 16,
+                        ),
+                        Expanded(
+                            child: Container(
+                          alignment: AlignmentDirectional.centerEnd,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(
+                                "Total",
+                                textAlign: TextAlign.end,
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                orderItem.bprice + " AZN",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ))
+                      ],
+                    ),
+                  ))
+                ],
+              ))),
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (_) => OrderShopListPage(
+                      products: orderItem.list.productsInCategory,
+                    )));
+      },
+    );
   }
 
   _statusWidget(String string) {
