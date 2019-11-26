@@ -143,7 +143,7 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
 //                                            });
 //                                          },
 //                                        ),
-                                   viewModel.isDelete
+                                    viewModel.isDelete
                                         ? GestureDetector(
                                             child: Card(
                                                 shape: RoundedRectangleBorder(
@@ -197,125 +197,90 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
 
   _updateContainer() {
     int weight = product.weight;
-    if (!product.isAdded) {
-      return new GestureDetector(
-          child: new Container(
-            child: new Container(
-              padding: EdgeInsets.all(8),
-              color: Colors.lightGreen,
-              child: new SizedBox(
-                child: new Icon(
-                  Icons.shopping_cart,
-                  color: Colors.white,
-                ),
-                height: 30,
-                width: 30,
-              ),
-            ),
-          ),
-          onTap: () {
-            Networks()
-                .addToBasket(product.id, product.weight.toString())
-                .then((onvalue) {
-              print(onvalue);
-              if (onvalue != null) {
-                if (onvalue['action'] == "done") {
-                  viewModel.addShopItem(product);
-                  // viewModel.onFetchShopList();
-                  setState(() {
-                    product.isAdded = !product.isAdded;
-                  });
-                  //viewModel.changeAddStatus(index, true, product.weight);
-                }
-              }
-            });
-          });
-    } else {
-      return new Container(
-        height: 40,
-        alignment: Alignment.topRight,
-        child: new Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Expanded(
-                child: CircleAvatar(
-              child: Container(
-                child: GestureDetector(
-                  child: new Icon(Icons.remove),
-                  // iconSize: 20,
-                  onTap: () {
-                    setState(() {
-                      // product.isAdded = !product.isAdded;
-                      if (product.weight > 1) {
-                        product.weight--;
-                      }
-                    });
-                    Networks()
-                        .addToBasket(product.id, weight.toString())
-                        .then((onvalue) {
-                      if (onvalue != null) {
-                        if (onvalue['action'] == "done") {
-                          store.dispatch(ShowBasketAction(store));
-                          //viewModel.changeAddStatus(index, true, weight);
-                        }
-                      }
-                    });
-                  },
-                ),
-                alignment: Alignment.center,
-              ),
-              backgroundColor: greenFixed,
-            )),
-            SizedBox(
-              width: 10,
-            ),
-            Expanded(
-                child: Container(
-              child: new Text(
-                product.weight.toString(),
-                textAlign: TextAlign.center,
-                style: new TextStyle(
-                  fontSize: 16,
-                ),
-              ),
-            )),
-            SizedBox(
-              width: 4,
-            ),
-            Expanded(
-                child: CircleAvatar(
-              child: Container(
-                  child: GestureDetector(
-                child: new Icon(Icons.add),
-                //iconSize: 20,
+    return new Container(
+      height: 40,
+      alignment: Alignment.topRight,
+      child: new Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Expanded(
+              child: CircleAvatar(
+            child: Container(
+              child: GestureDetector(
+                child: new Icon(Icons.remove),
+                // iconSize: 20,
                 onTap: () {
-                  weight++;
                   setState(() {
-                    product.weight++;
+                    // product.isAdded = !product.isAdded;
+                    if (product.weight > 1) {
+                      product.weight--;
+                    }
                   });
                   Networks()
                       .addToBasket(product.id, weight.toString())
                       .then((onvalue) {
                     if (onvalue != null) {
                       if (onvalue['action'] == "done") {
-                        //  viewModel.changeAddStatus(index, true, weight);
-                        //viewModel.onFetchShopList();
                         store.dispatch(ShowBasketAction(store));
+                        //viewModel.changeAddStatus(index, true, weight);
                       }
                     }
                   });
-                  //Networks().addToBasket(product.id, amount.toString());
                 },
-              )),
-              backgroundColor: greenFixed,
+              ),
+              alignment: Alignment.center,
+            ),
+            backgroundColor: greenFixed,
+          )),
+          SizedBox(
+            width: 10,
+          ),
+          Expanded(
+              child: Container(
+            child: new Text(
+              product.weight.toString(),
+              textAlign: TextAlign.center,
+              style: new TextStyle(
+                fontSize: 16,
+              ),
+            ),
+          )),
+          SizedBox(
+            width: 4,
+          ),
+          Expanded(
+              child: CircleAvatar(
+            child: Container(
+                child: GestureDetector(
+              child: new Icon(Icons.add),
+              //iconSize: 20,
+              onTap: () {
+                weight++;
+                setState(() {
+                  product.weight++;
+                });
+                Networks()
+                    .addToBasket(product.id, weight.toString())
+                    .then((onvalue) {
+                  if (onvalue != null) {
+                    if (onvalue['action'] == "done") {
+                      //  viewModel.changeAddStatus(index, true, weight);
+                      //viewModel.onFetchShopList();
+                      store.dispatch(ShowBasketAction(store));
+                    }
+                  }
+                });
+                //Networks().addToBasket(product.id, amount.toString());
+              },
             )),
-            SizedBox(
-              width: 8,
-            )
-          ],
-        ),
-      );
-    }
+            backgroundColor: greenFixed,
+          )),
+          SizedBox(
+            width: 8,
+          )
+        ],
+      ),
+    );
   }
 }
