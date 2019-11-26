@@ -307,7 +307,7 @@ class Networks {
           "&data=${data}");
       if (response.statusCode == 200) {
         var a = json.decode(response.body);
-        Navigator.pop(context);
+       // Navigator.pop(context);
         SharedPrefUtil().setString(inf, data);
         print(response.body);
         return a;

@@ -38,6 +38,10 @@ class ProfileState extends State<ProfilePage> {
   TextEditingController _controllerDob = new TextEditingController();
   TextEditingController _controllerMobile = new TextEditingController();
   TextEditingController _controllerAddress = new TextEditingController();
+  bool nameChanged = false;
+  bool surnameChanged = false;
+  bool dobChanged = false;
+  bool mobileChanged = false;
 
   DateTime get selectedDate => _selectedDate;
   bool _enabled = false;
@@ -68,7 +72,6 @@ class ProfileState extends State<ProfilePage> {
             _selectedDate.month.toString() +
             " /" +
             _selectedDate.day.toString();
-
       });
     }
   }
@@ -312,6 +315,9 @@ class ProfileState extends State<ProfilePage> {
                                     child: Padding(
                                       padding: EdgeInsets.only(left: 8.0),
                                       child: TextField(
+                                        onChanged: (d) {
+                                          nameChanged = true;
+                                        },
                                         enabled: _enabled,
                                         controller: _controllerName,
                                         decoration: new InputDecoration(
@@ -349,6 +355,9 @@ class ProfileState extends State<ProfilePage> {
                                       padding: EdgeInsets.only(left: 8.0),
                                       child: TextField(
                                         controller: _controllerSurname,
+                                        onChanged: (d) {
+                                          surnameChanged = true;
+                                        },
                                         enabled: _enabled,
                                         decoration: new InputDecoration(
                                             enabledBorder: UnderlineInputBorder(
@@ -386,6 +395,9 @@ class ProfileState extends State<ProfilePage> {
                                       child: TextField(
                                         controller: _controllerDob,
                                         enabled: _enabled,
+                                        onChanged:  (d) {
+                                          dobChanged = true;
+                                        },
                                         decoration: new InputDecoration(
                                             suffixIcon: _enabled
                                                 ? GestureDetector(
@@ -434,6 +446,9 @@ class ProfileState extends State<ProfilePage> {
                                       child: TextField(
                                         controller: _controllerMobile,
                                         enabled: _enabled,
+                                        onChanged:  (d) {
+                                          mobileChanged = true;
+                                        },
                                         keyboardType: TextInputType.number,
                                         decoration: new InputDecoration(
                                             icon: Text(
@@ -531,7 +546,24 @@ class ProfileState extends State<ProfilePage> {
                                   padding: EdgeInsets.symmetric(vertical: 16.0),
                                   color: greenFixed,
                                   disabledColor: greenFixed,
-                                  onPressed: null,
+                                  onPressed: () {
+                                    if (nameChanged) {
+                                      Networks().updateUser(context, 'name',
+                                          _controllerName.text);
+                                    }
+                                    if (surnameChanged) {
+                                      Networks().updateUser(context, 'surname',
+                                          _controllerSurname.text);
+                                    }
+                                    if (dobChanged) {
+                                      Networks().updateUser(
+                                          context, 'dob', _controllerDob.text);
+                                    }
+                                    if (mobileChanged) {
+                                      Networks().updateUser(context, 'mobile',
+                                          _controllerMobile.text);
+                                    }
+                                  },
                                   elevation: 8,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.all(
