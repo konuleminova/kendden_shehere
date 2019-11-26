@@ -20,6 +20,7 @@ class OrderShopListPage extends StatelessWidget {
     this.context=context;
     // TODO: implement build
     return new Scaffold(
+      backgroundColor: greyFixed,
       appBar: new AppBar(
         backgroundColor: greenFixed,
         title: new Text(AppTranslations.of(context).text("order_history")),
