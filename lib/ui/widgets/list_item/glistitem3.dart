@@ -60,7 +60,7 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
         builder: (BuildContext context, ProductViewModel viewModel) {
           return product != null
               ? Card(
-                  margin: EdgeInsets.all(8),
+                 // margin: EdgeInsets.all(8),
                   elevation: 4,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8)),
@@ -112,9 +112,9 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
                             flex: 7,
                           ),
                           Expanded(
-                              flex: 3,
+                              flex: 4,
                               child: Container(
-                                margin: EdgeInsets.only(right: 16),
+                                margin: EdgeInsets.only(bottom: 8,right: 4),
                                 child: Column(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
@@ -143,9 +143,11 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
 //                                            });
 //                                          },
 //                                        ),
-                                    viewModel.isDelete
+                                  Row(children: <Widget>[],),
+                                    !viewModel.isDelete
                                         ? GestureDetector(
                                             child: Card(
+                                              margin: EdgeInsets.all(8),
                                                 shape: RoundedRectangleBorder(
                                                     borderRadius:
                                                         BorderRadius.circular(
@@ -198,46 +200,55 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
   _updateContainer() {
     int weight = product.weight;
     return new Container(
-      height: 40,
-      alignment: Alignment.topRight,
+      height: 70,
+      alignment: AlignmentDirectional.centerEnd,
       child: new Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          Expanded(
-              child: CircleAvatar(
-            child: Container(
-              child: GestureDetector(
-                child: new Icon(Icons.remove),
-                // iconSize: 20,
-                onTap: () {
-                  setState(() {
-                    // product.isAdded = !product.isAdded;
-                    if (product.weight > 1) {
-                      product.weight--;
-                    }
-                  });
-                  Networks()
-                      .addToBasket(product.id, weight.toString())
-                      .then((onvalue) {
-                    if (onvalue != null) {
-                      if (onvalue['action'] == "done") {
-                        store.dispatch(ShowBasketAction(store));
-                        //viewModel.changeAddStatus(index, true, weight);
-                      }
-                    }
-                  });
-                },
-              ),
-              alignment: Alignment.center,
-            ),
-            backgroundColor: greenFixed,
-          )),
-          SizedBox(
-            width: 10,
-          ),
-          Expanded(
+          GestureDetector(
+            child: Card(
+              shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(60)),
+              elevation: 4,
               child: Container(
+                // color: greenFixed,
+                width: 32,
+                height: 32,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(60), color: greenFixed),
+//                radius: 20,
+//                backgroundColor: greenFixed,
+                //decoration: BoxDecoration(borderRadius: BorderRadius.circular(60)),
+                child: new Icon(
+                  Icons.remove,
+                  color: Colors.white,
+                ),
+                // height: 50,
+                //  width: 50,
+              ),
+            ),
+            onTap: () {
+              setState(() {
+                // product.isAdded = !product.isAdded;
+                if (product.weight > 1) {
+                  product.weight--;
+                }
+              });
+              Networks()
+                  .addToBasket(product.id, weight.toString())
+                  .then((onvalue) {
+                if (onvalue != null) {
+                  if (onvalue['action'] == "done") {
+                    store.dispatch(ShowBasketAction(store));
+                    //viewModel.changeAddStatus(index, true, weight);
+                  }
+                }
+              });
+            },
+          ),
+          SizedBox(
+            width: 6,
+          ),
+          Container(
             child: new Text(
               product.weight.toString(),
               textAlign: TextAlign.center,
@@ -245,39 +256,53 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
                 fontSize: 16,
               ),
             ),
-          )),
-          SizedBox(
-            width: 4,
           ),
-          Expanded(
-              child: CircleAvatar(
-            child: Container(
-                child: GestureDetector(
-              child: new Icon(Icons.add),
-              //iconSize: 20,
-              onTap: () {
-                weight++;
-                setState(() {
-                  product.weight++;
-                });
-                Networks()
-                    .addToBasket(product.id, weight.toString())
-                    .then((onvalue) {
-                  if (onvalue != null) {
-                    if (onvalue['action'] == "done") {
-                      //  viewModel.changeAddStatus(index, true, weight);
-                      //viewModel.onFetchShopList();
-                      store.dispatch(ShowBasketAction(store));
-                    }
-                  }
-                });
-                //Networks().addToBasket(product.id, amount.toString());
-              },
-            )),
-            backgroundColor: greenFixed,
-          )),
           SizedBox(
             width: 8,
+          ),
+          GestureDetector(
+            child: Card(
+              shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(60)),
+              elevation: 4,
+              child: Container(
+                // color: greenFixed,
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(60), color: greenFixed),
+//                radius: 20,
+//                backgroundColor: greenFixed,
+                //decoration: BoxDecoration(borderRadius: BorderRadius.circular(60)),
+                child: new Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
+                // height: 50,
+                //  width: 50,
+              ),
+            ),
+            //iconSize: 20,
+            onTap: () {
+              weight++;
+              setState(() {
+                product.weight++;
+              });
+              Networks()
+                  .addToBasket(product.id, weight.toString())
+                  .then((onvalue) {
+                if (onvalue != null) {
+                  if (onvalue['action'] == "done") {
+                    //  viewModel.changeAddStatus(index, true, weight);
+                    //viewModel.onFetchShopList();
+                    store.dispatch(ShowBasketAction(store));
+                  }
+                }
+              });
+              //Networks().addToBasket(product.id, amount.toString());
+            },
+          ),
+          SizedBox(
+            width: 4,
           )
         ],
       ),
