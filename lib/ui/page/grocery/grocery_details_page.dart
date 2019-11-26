@@ -470,7 +470,7 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                         product.isLiked
                             ? Icons.favorite
                             : Icons.favorite_border,
-                        color: Colors.pink[400],
+                        color: const Color(0xFFD75A4A),
                         size: 40,
                       ),
                       onPressed: () {
