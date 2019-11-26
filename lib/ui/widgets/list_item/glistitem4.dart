@@ -65,58 +65,36 @@ class GroceryListItemFourState extends State<GroceryListItemFour> {
                   )),
                   Expanded(
                     child: Container(
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.only(bottom: 0, left: 16, right: 16),
-                      child: Column(
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Text(
-                                  orderItem.list.productsInCategory[0].name_en),
-                              Text(orderItem.list.productsInCategory[0].weight
-                                      .toString() +
-                                  " piece"),
-                            ],
-                          ),
-                          Divider(
-                            color: greenFixed,
-                          ),
-                          SizedBox(
-                            height: 4,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Text(
-                                  orderItem.list.productsInCategory[0].name_en),
-                              Text(orderItem.list.productsInCategory[0].weight
-                                      .toString() +
-                                  " piece"),
-                            ],
-                          ),
-                          Divider(
-                            color: greenFixed,
-                          ),
-                          SizedBox(
-                            height: 4,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Text(
-                                  orderItem.list.productsInCategory[0].name_en),
-                              Text(orderItem.list.productsInCategory[0].weight
-                                      .toString() +
-                                  " piece"),
-                            ],
-                          ),
-                          Divider(
-                            color: greenFixed,
-                          ),
-                        ],
-                      ),
-                    ),
+                        alignment: Alignment.center,
+                        padding:
+                            EdgeInsets.only( left: 16, right: 16),
+                        child: ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: orderItem.list.productsInCategory.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Column(
+                                children: <Widget>[
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Text(orderItem.list
+                                          .productsInCategory[index].name_en),
+                                      Text(orderItem.list
+                                              .productsInCategory[index].weight
+                                              .toString() +
+                                          " piece"),
+                                    ],
+                                  ),
+                                  Divider(
+                                    color: greenFixed,
+                                  ),
+                                  SizedBox(
+                                    height: 4,
+                                  ),
+                                ],
+                              );
+                            })),
                     flex: 2,
                   ),
                   Expanded(
