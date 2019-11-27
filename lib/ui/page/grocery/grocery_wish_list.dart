@@ -6,8 +6,6 @@ import 'package:kendden_shehere/redux/home/home_action.dart';
 import 'package:kendden_shehere/redux/productlist/product_model.dart';
 import 'package:kendden_shehere/redux/wishlist/wishlist_viewmodel.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/glistitem1.dart';
-import 'package:kendden_shehere/ui/widgets/list_item/glistitem2.dart';
-import 'package:kendden_shehere/ui/widgets/list_item/glistitem3.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 
@@ -120,13 +118,13 @@ class GroceryWishListPage extends StatelessWidget {
                 Image.asset('images/ks/heart.png'),
                 ListTile(
                   title: Text(
-                    'Your Wishlist is empty!',
+                    AppTranslations.of(context).text('wishlist_empty'),
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: blackFixed, fontWeight: FontWeight.bold),
                   ),
                   subtitle: Text(
-                    'Explore more and shorlist some items',
+                    AppTranslations.of(context).text('explore'),
                     textAlign: TextAlign.center,
                   ),
                 )
@@ -147,7 +145,7 @@ class GroceryWishListPage extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(40.0))),
                     child: Text(
-                      'START SHOPPING',
+                    AppTranslations.of(context).text('start_shopping'),
                       style: TextStyle(color: Colors.white),
                     )),
               ),

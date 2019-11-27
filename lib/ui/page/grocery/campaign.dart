@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
+import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/animation/size.dart';
 import 'package:kendden_shehere/ui/page/home.dart';
@@ -18,7 +19,7 @@ class CampaignsPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: greenFixed,
-          title: Text('CAMPAIGN'),
+          title: Text(AppTranslations.of(context).text('campaign')),
           centerTitle: true,
           actions: <Widget>[
             GestureDetector(

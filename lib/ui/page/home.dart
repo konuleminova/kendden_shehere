@@ -241,7 +241,7 @@ class HomePage extends StatelessWidget {
                                                           fontSize: 18),
                                                     ),
                                                     trailing: GestureDetector(
-                                                      child: Text("Show More"),
+                                                      child: Text(AppTranslations.of(context).text('show_more')),
                                                       onTap: () {
                                                         Navigator.push(
                                                             context,
@@ -276,7 +276,7 @@ class HomePage extends StatelessWidget {
                                                       BorderRadius.circular(4)),
                                               child: ListTile(
                                                 title: Text(
-                                                  'What are you looking for?',
+                                                AppTranslations.of(context).text('looking_for'),
                                                   style: TextStyle(
                                                       color: Colors.grey),
                                                 ),
@@ -474,14 +474,16 @@ class HomePage extends StatelessWidget {
                                     )),
                                 ListTile(
                                     title: Text(
-                                      'Campaigns',
+                                      AppTranslations.of(context)
+                                          .text('campaigns'),
                                       style: TextStyle(
                                           color: blackFixed,
                                           fontWeight: FontWeight.bold,
                                           fontSize: 18),
                                     ),
                                     trailing: GestureDetector(
-                                      child: Text("Show More"),
+                                      child: Text(AppTranslations.of(context)
+                                          .text('show_more')),
                                       onTap: () {
                                         Navigator.push(context,
                                             ScaleRoute(page: CampaignsPage()));
@@ -503,9 +505,10 @@ class HomePage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               Center(
-                                child: noData(
-                                  "There Is no Internet connectIon. Please Try again",
-                                ),
+                                child: noData(AppTranslations.of(context)
+                                        .text('no_internet') +
+                                    AppTranslations.of(context)
+                                        .text('try_again')),
                               ),
                             ],
                           ),
@@ -580,16 +583,19 @@ class HomePage extends StatelessWidget {
                   for (int i = 0; i < bannerPhotos.length - 1; i++) {
                     imagesWidget.add(Card(
                       margin: EdgeInsets.all(8),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
-                      child: new Container(
-                        width: width * 0.6,
-                        child:ClipRRect(child:  new Image(
-                          image: NetworkImage(
-                            bannerPhotos[i + 1],
-                          ),
-                          fit: BoxFit.cover
-                        ),borderRadius: BorderRadius.circular(10),)
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
                       ),
+                      child: new Container(
+                          width: width * 0.6,
+                          child: ClipRRect(
+                            child: new Image(
+                                image: NetworkImage(
+                                  bannerPhotos[i + 1],
+                                ),
+                                fit: BoxFit.cover),
+                            borderRadius: BorderRadius.circular(10),
+                          )),
                       elevation: 3,
                     ));
                   }

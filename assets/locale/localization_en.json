@@ -97,5 +97,56 @@
   "new_address":"Please add new address",
   "select_camera":"You select camera image :",
   "suggestion_or_complaint":"Suggestion or Complaint",
-  "enter_phonenumber":"Enter phone number or email"
+  "enter_phonenumber":"Enter phone number or email",
+
+
+  "welcome": "Welcome to Kendden Shehere",
+  "sign_in_continue": "Sign in to continue",
+  "enter_username": "Enter your username",
+  "password": "PASSWORD",
+  "enter_pass": "Enter your password",
+  "or": "OR",
+  "sign_up_for": "SIGN UP FOR AN ACCOUNT?",
+  "enter_name": "Enter your name",
+  "enter surname": "Enter your surname",
+  "enter_password": "Enter your password",
+  "confirm_pass": "Confirm your password",
+  "repeat_pass": "Repeat Password",
+  "verify_account": "Verify Account",
+  "please_send": "Please send verification code we sent to your phone number",
+  "pin_wrong": "Pin code is wrong.",
+  "campaigns": "Campaigns",
+  "show_more": "Show More",
+  "campaign": "CAMPAIGN",
+  "current_order": "Current Order",
+  "start_shopping": "START SHOPPING",
+  "wishlist_empty": "Your Wishlist is empty!",
+  "explore": "Explore more and shorlist some items",
+  "enter_dob": "Enter your birthday",
+  "enter_mobile": "Enter your phone number",
+  "enter_address": "Enter your address",
+  "tomorrow_delivery": "Your order will be delivered tomorrow",
+  "my_cart": "My Cart",
+  "support":"Support",
+  "looking_for": "What are you looking for?",
+  "profile":"Profile"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

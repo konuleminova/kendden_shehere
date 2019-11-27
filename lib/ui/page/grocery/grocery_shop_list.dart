@@ -3,7 +3,6 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/home/home_action.dart';
-import 'package:kendden_shehere/redux/productlist/product_viewmodel.dart';
 import 'package:kendden_shehere/ui/widgets/animation_shop_cart.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/payment_success_dialog.dart';
 import 'package:redux/redux.dart';
@@ -24,10 +23,9 @@ class GroceryShopCartPage extends StatelessWidget {
     this.context = context;
     // TODO: implement build
     return new StoreConnector(
-      onInit: (store){
-        this.store=store;
-
-      },
+        onInit: (store) {
+          this.store = store;
+        },
         onInitialBuild: (ShoppingCartViewModel viewModel) {
           this.viewModel = viewModel;
           viewModel.onFetchShopList();
@@ -44,26 +42,32 @@ class GroceryShopCartPage extends StatelessWidget {
           return DefaultTabController(
             length: 2,
             child: new Scaffold(
-              backgroundColor: greyFixed,
+                backgroundColor: greyFixed,
                 appBar: new AppBar(
                   backgroundColor: greenFixed,
-                  actions: <Widget>[GestureDetector(child: Image.asset('images/ks/remove.png'),onTap: (){
-                   // store.state.isLoading=true;
-                    viewModel.isDelete(true);
-
-                  },)],
+                  actions: <Widget>[
+                    GestureDetector(
+                      child: Image.asset('images/ks/remove.png'),
+                      onTap: () {
+                        // store.state.isLoading=true;
+                        viewModel.isDelete(true);
+                      },
+                    )
+                  ],
                   title:
                       new Text(AppTranslations.of(context).text('shop_list')),
                   bottom: TabBar(
                     indicatorColor: Colors.white,
                     indicatorSize: TabBarIndicatorSize.label,
-                    labelStyle: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
+                    labelStyle:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     tabs: <Widget>[
                       Tab(
-                        text: "Current Order",
-
+                        text: AppTranslations.of(context).text('current_order'),
                       ),
-                      Tab(text:AppTranslations.of(context).text('order_history'),)
+                      Tab(
+                        text: AppTranslations.of(context).text('order_history'),
+                      )
                     ],
                   ),
                 ),

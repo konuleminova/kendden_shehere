@@ -1,8 +1,6 @@
 import 'package:async/async.dart';
 import 'package:flutter/material.dart';
-import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/orderhistory/orderhistory_listmodel.dart';
-import 'package:kendden_shehere/redux/orderhistory/orderhistrory_model.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/glistitem4.dart';
 import 'package:kendden_shehere/util/helper_class.dart';

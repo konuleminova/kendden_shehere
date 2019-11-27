@@ -136,7 +136,7 @@ class LoginState extends State<LoginPage> {
                       ),
                       Container(
                         child: Text(
-                          "Welcome to Kendden Shehere",
+                        AppTranslations.of(context).text('welcome'),
                           style: TextStyle(
                               color: greenFixed,
                               fontSize: 18,
@@ -148,7 +148,7 @@ class LoginState extends State<LoginPage> {
                       ),
                       Container(
                         child: Text(
-                          "Sign in to continue",
+                       AppTranslations.of(context).text('sign_in_continue'),
                           style: TextStyle(color: blackFixed, fontSize: 16),
                         ),
                       ),
@@ -200,8 +200,8 @@ class LoginState extends State<LoginPage> {
                                       enabledBorder: UnderlineInputBorder(
                                           borderSide:
                                               BorderSide(color: greenFixed)),
-                                      hintText: "Enter your username",
-                                      labelText: "Username",
+                                      hintText: AppTranslations.of(context).text('enter_username'),
+                                      labelText: AppTranslations.of(context).text('username'),
                                       hintStyle: TextStyle(color: greenFixed),
                                       labelStyle: new TextStyle(
                                           color: const Color(0xFF424242)),
@@ -271,8 +271,8 @@ class LoginState extends State<LoginPage> {
                                       enabledBorder: UnderlineInputBorder(
                                           borderSide:
                                               BorderSide(color: greenFixed)),
-                                      hintText: "Enter your password",
-                                      labelText: "PASSWORD",
+                                      hintText: AppTranslations.of(context).text('enter_pass'),
+                                      labelText: AppTranslations.of(context).text('password'),
                                       hintStyle: TextStyle(color: greenFixed),
                                       labelStyle: new TextStyle(
                                           color: const Color(0xFF424242)),
@@ -334,7 +334,7 @@ class LoginState extends State<LoginPage> {
                                     child: Image.asset(
                                       'images/ks/google.png',
                                     ))),
-                            Text("OR"),
+                            Text(AppTranslations.of(context).text('or')),
                             Expanded(
                                 child:GestureDetector(child:  CircleAvatar(
                                     backgroundColor: greyFixed,
@@ -357,7 +357,7 @@ class LoginState extends State<LoginPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text('SIGN UP FOR AN ACCOUNT?'),
+                        Text(AppTranslations.of(context).text('sign_up_for')),
 //                          FlatButton(
 //                            child: Text(
 //                                AppTranslations.of(context).text('sign_up')),

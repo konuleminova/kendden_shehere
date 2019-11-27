@@ -103,7 +103,7 @@ class RegisterPageState extends State<RegisterPage> {
                 Container(
                   margin: EdgeInsets.all(16.0),
                   child: Text(
-                    "LOGIN",
+                    AppTranslations.of(context).text('login'),
                     style: TextStyle(color: greenFixed),
                   ),
                 )
@@ -129,7 +129,7 @@ class RegisterPageState extends State<RegisterPage> {
                             ),
                             Container(
                               child: Text(
-                                "Welcome to Kendden Shehere",
+                           AppTranslations.of(context).text('welcome'),
                                 style: TextStyle(
                                     color: greenFixed,
                                     fontSize: 18,
@@ -260,7 +260,7 @@ class RegisterPageState extends State<RegisterPage> {
                           style: TextStyle(color: blackFixed),
                           textInputAction: TextInputAction.next,
                           decoration: new InputDecoration(
-                              hintText: "Enter your username",
+                              hintText: AppTranslations.of(context).text('enter_username'),
                               enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(color: greenFixed)),
                               labelText:
@@ -313,7 +313,7 @@ class RegisterPageState extends State<RegisterPage> {
                         style: TextStyle(color: blackFixed),
                         textInputAction: TextInputAction.next,
                         decoration: new InputDecoration(
-                            hintText: "Enter your name",
+                            hintText: AppTranslations.of(context).text('enter_name'),
                             enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: greenFixed)),
                             labelText: AppTranslations.of(context).text('name'),
@@ -363,7 +363,7 @@ class RegisterPageState extends State<RegisterPage> {
                           FocusScope.of(context).requestFocus(mobileFocus);
                         },
                         decoration: new InputDecoration(
-                            hintText: "Enter your surname",
+                            hintText: AppTranslations.of(context).text('enter_surname'),
                             enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: greenFixed)),
                             labelText:
@@ -417,12 +417,12 @@ class RegisterPageState extends State<RegisterPage> {
                         maxLength: 9,
                         decoration: InputDecoration(
                             hintText:
-                                AppTranslations.of(context).text('mobile'),
+                                AppTranslations.of(context).text('enter_mobile'),
                             counterText: "",
                             hintStyle: TextStyle(color: greenFixed),
                             border: new UnderlineInputBorder(
                                 borderSide: new BorderSide(color: greenFixed)),
-                            labelText: "Phone Number",
+                            labelText: AppTranslations.of(context).text('mobile'),
                             enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: greenFixed)),
                             icon: Text(
@@ -473,10 +473,10 @@ class RegisterPageState extends State<RegisterPage> {
                           },
                           obscureText: true,
                           decoration: new InputDecoration(
-                              hintText: "Enter your password",
+                              hintText: AppTranslations.of(context).text('enter_password'),
                               enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(color: greenFixed)),
-                              labelText: "Password",
+                              labelText: AppTranslations.of(context).text('password'),
                               hintStyle: TextStyle(color: greenFixed),
                               labelStyle:
                                   new TextStyle(color: const Color(0xFF424242)),
@@ -548,8 +548,8 @@ class RegisterPageState extends State<RegisterPage> {
                         },
                         obscureText: true,
                         decoration: new InputDecoration(
-                            hintText: "Confirm your password",
-                            labelText: "Repeat Password",
+                            hintText: AppTranslations.of(context).text('confirm_pass'),
+                            labelText: AppTranslations.of(context).text('repeat_pass'),
                             enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: greenFixed)),
                             hintStyle: TextStyle(color: greenFixed),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
+import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/login/thunk_login.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/page/home.dart';
@@ -27,13 +28,13 @@ class PinCodePageState extends State<PinCodePage> {
       body: PinCode(
         backgroundColor: greenFixed,
         title: Text(
-          "Verify Account",
+          AppTranslations.of(context).text('verify_account'),
           style: TextStyle(
               color: Colors.white, fontSize: 25.0, fontWeight: FontWeight.bold),
         ),
 
         subTitle: Text(
-          "Please send verification code we sent to your phone number",
+          AppTranslations.of(context).text('please_send'),
           style: TextStyle(color: Colors.white,fontSize: 18,),
           textAlign: TextAlign.center,
         ),
@@ -69,7 +70,7 @@ class PinCodePageState extends State<PinCodePage> {
         onCodeFail: (code) {
           Networks().updateUser(context, 'sms', '0');
           Fluttertoast.showToast(
-              msg: "Pin code is wrong.",
+              msg: AppTranslations.of(context).text('pin_wrong'),
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.CENTER,
               timeInSecForIos: 1,

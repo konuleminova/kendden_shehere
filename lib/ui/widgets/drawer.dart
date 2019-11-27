@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
-import 'package:kendden_shehere/service/networks.dart';
-import 'package:kendden_shehere/ui/page/grocery/grocery_categories.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_shop_list.dart';
 import 'package:kendden_shehere/ui/page/menu/profile.dart';
-import 'package:kendden_shehere/util/sharedpref_util.dart';
 
 class DrawerWidget extends StatelessWidget{
   String name;
@@ -40,7 +37,7 @@ class DrawerWidget extends StatelessWidget{
           ListTile(
             contentPadding: EdgeInsets.only(left: 30.0),
             title: Text(
-              "Profile",
+              AppTranslations.of(context).text('profile'),
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
             onTap: () {
@@ -93,7 +90,7 @@ class DrawerWidget extends StatelessWidget{
                           )));
             },
             title: Text(
-              "My Cart",
+              AppTranslations.of(context).text('my_cart'),
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
           ),
@@ -112,7 +109,7 @@ class DrawerWidget extends StatelessWidget{
                 trailing: SizedBox(),
                 title: ListTile(
                     contentPadding: EdgeInsets.only(left: 12.0),
-                    title: Text("Support",
+                    title: Text(AppTranslations.of(context).text('support'),
                         style: TextStyle(color: Colors.white, fontSize: 20)),
                     onTap: null),
                 children: <Widget>[

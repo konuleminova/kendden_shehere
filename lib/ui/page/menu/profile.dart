@@ -324,7 +324,7 @@ class ProfileState extends State<ProfilePage> {
                                             enabledBorder: UnderlineInputBorder(
                                                 borderSide: BorderSide(
                                                     color: greenFixed)),
-                                            hintText: "Enter your name",
+                                            hintText: AppTranslations.of(context).text('enter_name'),
                                             labelText:
                                                 AppTranslations.of(context)
                                                     .text('name'),
@@ -363,7 +363,7 @@ class ProfileState extends State<ProfilePage> {
                                             enabledBorder: UnderlineInputBorder(
                                                 borderSide: BorderSide(
                                                     color: greenFixed)),
-                                            hintText: "Enter your surname",
+                                            hintText: AppTranslations.of(context).text('enter_surname'),
                                             labelText:
                                                 AppTranslations.of(context)
                                                     .text('surname'),
@@ -406,7 +406,6 @@ class ProfileState extends State<ProfilePage> {
                                                           'images/ks/calendar.png'),
                                                     ),
                                                     onTap: () {
-                                                      print("Calendar");
                                                       selectDateFromPicker();
                                                     },
                                                   )
@@ -414,7 +413,7 @@ class ProfileState extends State<ProfilePage> {
                                             enabledBorder: UnderlineInputBorder(
                                                 borderSide: BorderSide(
                                                     color: greenFixed)),
-                                            hintText: "Enter your birthday",
+                                            hintText:AppTranslations.of(context).text('enter_dob'),
                                             labelText:
                                                 AppTranslations.of(context)
                                                     .text('dob'),
@@ -460,7 +459,7 @@ class ProfileState extends State<ProfilePage> {
                                             enabledBorder: UnderlineInputBorder(
                                                 borderSide: BorderSide(
                                                     color: greenFixed)),
-                                            hintText: "Enter your phone number",
+                                            hintText:  AppTranslations.of(context).text('enter_mobile'),
                                             labelText:
                                                 AppTranslations.of(context)
                                                     .text('mobile'),
@@ -496,7 +495,7 @@ class ProfileState extends State<ProfilePage> {
                                             enabledBorder: UnderlineInputBorder(
                                                 borderSide: BorderSide(
                                                     color: greenFixed)),
-                                            hintText: "Enter your address",
+                                            hintText: AppTranslations.of(context).text('enter_address'),
                                             labelText:
                                                 AppTranslations.of(context)
                                                     .text('address'),
