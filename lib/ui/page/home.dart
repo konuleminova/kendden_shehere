@@ -11,11 +11,13 @@ import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/categories/category_item.dart';
 import 'package:kendden_shehere/redux/categories/list_categories.dart';
 import 'package:kendden_shehere/redux/home/home_viewmodel.dart';
+import 'package:kendden_shehere/redux/productlist/product_model.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/animation/scale.dart';
 import 'package:kendden_shehere/ui/animation/size.dart';
 import 'package:kendden_shehere/ui/animation/slide.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_shop_list.dart';
+import 'package:kendden_shehere/ui/page/grocery/show_more.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/payment_error_dialog.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/payment_success_dialog.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/glistitem1.dart';
@@ -529,7 +531,7 @@ class HomePage extends StatelessWidget {
     return null;
   }
 
-  _titleContainer(String title) => new Container(
+  _titleContainer(String title,BuildContext context,List<Product>products) => new Container(
         padding: EdgeInsets.all(10),
         margin: EdgeInsets.only(top: 10, left: 8),
         height: 60,
@@ -547,6 +549,16 @@ class HomePage extends StatelessWidget {
               ),
               alignment: AlignmentDirectional.centerStart,
             ),
+            GestureDetector(
+              child: Align(alignment: Alignment.centerRight,child: Text(AppTranslations.of(context).text('show_more')),),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    ScaleRoute(
+                        page:
+                      HomeListShowMore(title,products)));
+              },
+            )
           ],
         ),
       );
@@ -633,7 +645,7 @@ class HomePage extends StatelessWidget {
                 margin: EdgeInsets.all(8.0),
                 child: Column(
                   children: <Widget>[
-                    _titleContainer(title),
+                    _titleContainer(title,context, viewModel.homeList.homelist[index].list),
                     AspectRatio(
                       child: Container(
                         child: ListView.builder(
