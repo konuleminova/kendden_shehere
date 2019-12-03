@@ -520,16 +520,88 @@ class ProfileState extends State<ProfilePage> {
                                 AppTranslations.of(context).text('sign_out'),
                                 style: TextStyle(fontSize: 18),
                               ),
-                              onTap: () async {
+                              onTap: ()  {
+                                showDialog(
+                                    context: context,
+                                    builder:
+                                        (BuildContext context) {
+                                      return Material(
+                                          type: MaterialType
+                                              .transparency,
+                                          child: Dialog(
+                                              backgroundColor:
+                                              Colors
+                                                  .transparent,
+                                              child: Container(
+                                                width: 200,
+                                                height: 200,
+                                                child: Stack(
+                                                  alignment:
+                                                  Alignment
+                                                      .center,
+                                                  children: <
+                                                      Widget>[
+                                                    Image.asset(
+                                                        'images/ks/sorry.png'),
+                                                    Align(
+                                                        alignment:
+                                                        Alignment
+                                                            .bottomCenter,
+                                                        child:
+                                                        Container(
+                                                          width:
+                                                          150,
+                                                          height:
+                                                          100,
+                                                          child:
+                                                          Column(
+                                                            children: <
+                                                                Widget>[
+                                                              Text(
+                                                                AppTranslations.of(context).text('are_sure_signout'),
+                                                                style: TextStyle(color: Colors.white),
+                                                              ),
+                                                              Row(
+                                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                children: <Widget>[
+                                                                  GestureDetector(
+                                                                    child: Text(
+                                                                      AppTranslations.of(context).text('yes'),
+                                                                      style: TextStyle(color: Colors.white),
+                                                                      textAlign: TextAlign.center,
+                                                                    ),
+                                                                    onTap: () async{
+                                                                      await SharedPrefUtil().setBool(
+                                                                          SharedPrefUtil().isLoginKey, false);
+                                                                      SharedPreferences.getInstance().then((onvalue) {
+                                                                        onvalue.clear();
+                                                                      });
+                                                                      Navigator.pushReplacementNamed(
+                                                                          context, "/login");
+                                                                    },
+                                                                  ),
+                                                                  SizedBox(
+                                                                    height: 16,
+                                                                  ),
+                                                                  GestureDetector(child:  Text(
+                                                                    AppTranslations.of(context).text('no'),
+                                                                    style: TextStyle(color: Colors.white),
+                                                                  ),onTap: (){
+                                                                    Navigator.pop(context);
+                                                                  },)
+                                                                ],
+                                                              )
+                                                            ],
+                                                          ),
+                                                          alignment:
+                                                          Alignment.bottomCenter,
+                                                        ))
+                                                  ],
+                                                ),
+                                              )));
+                                    });
                                 // Navigator.of(context).pushNamedAndRemoveUntil(
                                 //  '/login', (Route<dynamic> route) => false);
-                                await SharedPrefUtil().setBool(
-                                    SharedPrefUtil().isLoginKey, false);
-                                SharedPreferences.getInstance().then((onvalue) {
-                                  onvalue.clear();
-                                });
-                                Navigator.pushReplacementNamed(
-                                    context, "/login");
                                 // Navigator.of(context).popUntil(ModalRoute.withName('/login'));
                                 // Navigator.pushNamed(context, "/");
                                 //Navigator.pop<bool>(context, true);
