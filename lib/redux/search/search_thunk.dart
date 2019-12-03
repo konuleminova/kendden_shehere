@@ -8,7 +8,9 @@ import 'package:redux_thunk/redux_thunk.dart';
 ThunkAction<AppState> searchListThunkAction(String lang, String query,String page,String state) {
   return (Store<AppState> store) async {
     ProductsInCategory response = await Networks().search(lang, query,page);
+    store.state.isLoading = false;
     if (response != null) {
+      store.state.isLoading = false;
       if (state == "init") {
         store.dispatch(
             FetchProductListAction(data: response.productsInCategory));
@@ -25,6 +27,9 @@ ThunkAction<AppState> searchListThunkAction(String lang, String query,String pag
           store.state.isScrolling=false;
         });
       }
+    }else{
+      store.state.isLoading = false;
+      store.dispatch(FetchProductListAction(data: []));
     }
   };
 }

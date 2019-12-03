@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
+import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/productlist/product_model.dart';
 import 'package:kendden_shehere/redux/productlist/productlist_viewmodel.dart';
@@ -10,6 +11,7 @@ import 'package:kendden_shehere/ui/page/grocery/grocery_categories.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_details_page.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_list.dart';
 import 'package:kendden_shehere/ui/widgets/list_item/glistitem1.dart';
+import 'package:kendden_shehere/util/helper_class.dart';
 import 'package:redux/redux.dart';
 
 class SearchWidget extends SearchDelegate<String> {
@@ -59,72 +61,90 @@ class SearchWidget extends SearchDelegate<String> {
         onInit: (store) {
           _scrollController = new ScrollController();
           _scrollController.addListener(_scrollListener);
+          store.state.isLoading = true;
         },
         onInitialBuild: (ProductListViewModel viewModel) {
           this.viewModel = viewModel;
-          page=0;
-          viewModel.onSearchProductList(lang, query,page.toString());
+          page = 0;
+          viewModel.onSearchProductList(lang, query, page.toString());
         },
         onDispose: (store) {
           store.state.newProducts.clear();
         },
-        onDidChange: (ProductListViewModel viewModel){
-        //print(  viewModel.productList);
+        onDidChange: (ProductListViewModel viewModel) {
+          //print(  viewModel.productList);
+          viewModel.isLoading = false;
         },
         converter: (Store<AppState> store) =>
             ProductListViewModel.create(store),
         builder: (BuildContext context, ProductListViewModel viewModel) {
-          return viewModel.productList.length > 0
-              ? new Stack(
-                  children: <Widget>[
-                    new CustomScrollView(
-                      controller: _scrollController,
-                      slivers: <Widget>[
-                        SliverPadding(
-                            padding: const EdgeInsets.all(8),
-                            sliver: new SliverGrid(
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisSpacing: 1,
-                                        mainAxisSpacing: 1,
-                                        crossAxisCount: 2,
-                                        childAspectRatio: 0.5),
-                                delegate: new SliverChildBuilderDelegate(
-                                    (BuildContext context, int index) {
-                                  return Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.6,
-                                      height: 370,
-                                      child: InkWell(
-                                        child: GroceryListItemOne(
-                                          product: viewModel.productList[index],
-                                        ),
-                                      ));
-                                }, childCount: viewModel.productList.length)))
+          return !viewModel.isLoading
+              ? (viewModel.productList.length > 0
+                  ? new Stack(
+                      children: <Widget>[
+                        new CustomScrollView(
+                          controller: _scrollController,
+                          slivers: <Widget>[
+                            SliverPadding(
+                                padding: const EdgeInsets.all(8),
+                                sliver: new SliverGrid(
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisSpacing: 1,
+                                            mainAxisSpacing: 1,
+                                            crossAxisCount: 2,
+                                            childAspectRatio: 0.5),
+                                    delegate: new SliverChildBuilderDelegate(
+                                        (BuildContext context, int index) {
+                                      return Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.6,
+                                          height: 370,
+                                          child: InkWell(
+                                            child: GroceryListItemOne(
+                                              product:
+                                                  viewModel.productList[index],
+                                            ),
+                                          ));
+                                    },
+                                        childCount:
+                                            viewModel.productList.length)))
+                          ],
+                          // controller: _scrollController,
+                        ),
+                        viewModel.isScrolling &&
+                                viewModel.productList.length > 0
+                            ? new Container(
+                                child: CircularProgressIndicator(),
+                                alignment: Alignment.bottomCenter,
+                              )
+                            : SizedBox(
+                                height: 0.0,
+                                width: 0.0,
+                              )
                       ],
-                      // controller: _scrollController,
-                    ),
-                    viewModel.isScrolling && viewModel.productList.length > 0
-                        ? new Container(
-                      child: CircularProgressIndicator(),
-                      alignment: Alignment.bottomCenter,
                     )
-                        : SizedBox(
-                      height: 0.0,
-                      width: 0.0,
-                    )
-                  ],
-                )
-              : Center(
-                  child:  CircularProgressIndicator()
-                );
+                  : Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Center(
+                            child: noData(AppTranslations.of(context)
+                                .text("no_product"))),
+                      ],
+                    ))
+              : loading();
         });
   }
+
   void loadMore() async {
     //isScrolling = true;
     page = page + 30;
-    viewModel.onSearchLoadMore(lang,query,page.toString());
+    viewModel.onSearchLoadMore(lang, query, page.toString());
   }
+
   @override
   Widget buildSuggestions(BuildContext context) {
     String langCode = Localizations.localeOf(context).languageCode;
@@ -174,8 +194,8 @@ class SearchWidget extends SearchDelegate<String> {
                                       title: qSearch
                                           .productsInCategory[index].name,
                                     )));
-                      }else
-                      if (qSearch.productsInCategory[index].catIdParent !=
+                      } else if (qSearch
+                                  .productsInCategory[index].catIdParent !=
                               null &&
                           qSearch.productsInCategory[index].catid == null) {
                         print("Product List:");
@@ -189,8 +209,8 @@ class SearchWidget extends SearchDelegate<String> {
                                       title: qSearch
                                           .productsInCategory[index].name,
                                     )));
-                      }else
-                      if (qSearch.productsInCategory[index].catIdParent ==
+                      } else if (qSearch
+                                  .productsInCategory[index].catIdParent ==
                               null &&
                           qSearch.productsInCategory[index].catid == null) {
                         print("DETAILS");
@@ -219,19 +239,17 @@ class SearchWidget extends SearchDelegate<String> {
   ThemeData appBarTheme(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return theme.copyWith(
-        primaryColor: greenFixed,
-        primaryIconTheme: theme.primaryIconTheme);
+        primaryColor: greenFixed, primaryIconTheme: theme.primaryIconTheme);
   }
 
   _scrollListener() {
     if (_scrollController.offset >=
-        _scrollController.position.maxScrollExtent &&
+            _scrollController.position.maxScrollExtent &&
         !_scrollController.position.outOfRange) {
       loadMore();
     }
     if (_scrollController.offset <=
-        _scrollController.position.minScrollExtent &&
-        !_scrollController.position.outOfRange) {
-    }
+            _scrollController.position.minScrollExtent &&
+        !_scrollController.position.outOfRange) {}
   }
 }
