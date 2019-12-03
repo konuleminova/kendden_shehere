@@ -132,7 +132,7 @@ class SearchWidget extends SearchDelegate<String> {
                       children: <Widget>[
                         Center(
                             child: noData(AppTranslations.of(context)
-                                .text("no_product"))),
+                                .text("no_product_search"))),
                       ],
                     ))
               : loading();
