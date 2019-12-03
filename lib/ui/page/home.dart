@@ -656,21 +656,25 @@ class HomePage extends StatelessWidget {
                                 viewModel.homeList.homelist[index].list.length,
                             itemBuilder: (BuildContext context, int index2) {
                               return Card(
-                                margin: EdgeInsets.all(8),
+                                margin: EdgeInsets.all(6),
                                 elevation: 4,
                                 child: Container(
-                                  width: width * 0.42,
+                                  width: width * 0.3,
                                   child: GroceryListItemOne(
                                     product: viewModel
                                         .homeList.homelist[index].list[index2],
                                   ),
                                 ),
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15)),
+                                    borderRadius: BorderRadius.circular(10)),
                               );
                             }),
                       ),
-                      aspectRatio: 9 / 6,
+                      aspectRatio: 10 / 5,
+                      //9/6
+                      //    width: width * 0.42,
+                      //margin(8)
+                      //gtitle
                     )
                   ],
                 ));

@@ -86,6 +86,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne>
                       Expanded(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             new Row(
                               children: <Widget>[
@@ -95,14 +96,14 @@ class GroceryListItemOneState extends State<GroceryListItemOne>
                                 ),
                               ],
                             ),
-                            IconButton(
-                              icon: Icon(
+                            GestureDetector(
+                              child: Icon(
                                   product.isLiked
                                       ? Icons.favorite
                                       : Icons.favorite_border,
                                   color: const Color(0xFFD75A4A),
-                                  size: 30),
-                              onPressed: () {
+                                  size: 24),
+                              onTap: () {
                                 setState(() {
                                   if (!product.isLiked) {
                                     product.isLiked = true;
@@ -132,11 +133,11 @@ class GroceryListItemOneState extends State<GroceryListItemOne>
                         ),
                       ),
                       Expanded(
-                        flex: 3,
+                        flex: 2,
                         child: GestureDetector(
                           child: Container(
                             //color: Colors.green,
-                            margin: EdgeInsets.only(bottom: 8,top: 8),
+                            margin: EdgeInsets.only(bottom: 4, top: 4),
                             alignment: Alignment.center,
                             child: FadeInImage.assetNetwork(
                               image: "https://kenddenshehere.az/images/pr/th/" +
@@ -166,21 +167,29 @@ class GroceryListItemOneState extends State<GroceryListItemOne>
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: <Widget>[
                             Expanded(
-                              flex: 4,
+                              flex: 5,
                               child: Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  new GroceryTitle(text: title),
+                                  Text(title,
+                                      maxLines: 2,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 11.0,
+                                      )),
                                   // new GrocerySubtitle(text: product.counttype),
                                   new GrocerySubtitle(
                                       text: product.price + " AZN"),
                                 ],
                               ),
                             ),
+                            SizedBox(
+                              width: 4,
+                            ),
                             Expanded(
-                              flex: 3,
+                              flex: 2,
                               child: addedWidget(),
                             )
                           ],
@@ -265,32 +274,33 @@ class GroceryListItemOneState extends State<GroceryListItemOne>
     int weight = product.weight;
     return AnimatedCrossFade(
       firstChild: Container(
-          alignment: Alignment.bottomRight,
-          child: CircleAvatar(
-            backgroundColor: greenFixed,
-            child: GestureDetector(
-                child: Image.asset(
-                  'images/ks/basket.png',
-                  width: 24,
-                  height: 24,
-                ),
-                onTap: () {
-                  Networks()
-                      .addToBasket(product.id, product.weight.toString())
-                      .then((onvalue) {
-                    if (onvalue != null) {
-                      if (onvalue['action'] == "done") {
-                        viewModel.addShopItem(product);
-                        // viewModel.onFetchShopList();
-                        //viewModel.changeAddStatus(index, true, product.weight);
-                      }
+        alignment: Alignment.bottomRight,
+        child: CircleAvatar(
+          backgroundColor: greenFixed,
+          child: GestureDetector(
+              child: Image.asset(
+                'images/ks/basket.png',
+                width: 18,
+                height: 18,
+              ),
+              onTap: () {
+                Networks()
+                    .addToBasket(product.id, product.weight.toString())
+                    .then((onvalue) {
+                  if (onvalue != null) {
+                    if (onvalue['action'] == "done") {
+                      viewModel.addShopItem(product);
+                      // viewModel.onFetchShopList();
+                      //viewModel.changeAddStatus(index, true, product.weight);
                     }
-                  });
-                  setState(() {
-                    product.isAdded = !product.isAdded;
-                  });
-                }),
-          ),),
+                  }
+                });
+                setState(() {
+                  product.isAdded = !product.isAdded;
+                });
+              }),
+        ),
+      ),
       secondChild: Container(
         alignment: Alignment.bottomRight,
         child: CircleAvatar(
@@ -302,8 +312,7 @@ class GroceryListItemOneState extends State<GroceryListItemOne>
                 height: 24,
               ),
               onTap: () {
-                Networks().removeFromBasket(product.id)
-                    .then((onvalue) {
+                Networks().removeFromBasket(product.id).then((onvalue) {
                   if (onvalue != null) {
                     if (onvalue['action'] == "done") {
                       viewModel.removeShopItem(product);
@@ -316,13 +325,14 @@ class GroceryListItemOneState extends State<GroceryListItemOne>
                   product.isAdded = !product.isAdded;
                 });
               }),
-        ),),
+        ),
+      ),
       crossFadeState: !product.isAdded
           ? CrossFadeState.showFirst
           : CrossFadeState.showSecond,
       duration: Duration(milliseconds: 300),
-      firstCurve: Curves.easeInToLinear,
-      secondCurve: Curves.easeOutQuad,
+      firstCurve: Curves.bounceIn,
+      secondCurve: Curves.fastOutSlowIn,
     );
   }
 }
