@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
+import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/productlist/product_model.dart';
 import 'package:kendden_shehere/redux/productlist/product_viewmodel.dart';
@@ -54,7 +55,7 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
         },
         onDispose: (store) {
           // store.state.newProducts.clear();
-           store.state.isDelete=false;
+          store.state.isDelete = false;
         },
         converter: (Store<AppState> store) => ProductViewModel.create(store),
         builder: (BuildContext context, ProductViewModel viewModel) {
@@ -114,7 +115,7 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
                           Expanded(
                               flex: 4,
                               child: Container(
-                                margin: EdgeInsets.only(bottom: 8,right: 4),
+                                margin: EdgeInsets.only(bottom: 8, right: 4),
                                 child: Column(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
@@ -143,11 +144,13 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
 //                                            });
 //                                          },
 //                                        ),
-                                  Row(children: <Widget>[],),
+                                    Row(
+                                      children: <Widget>[],
+                                    ),
                                     viewModel.isDelete
                                         ? GestureDetector(
                                             child: Card(
-                                              margin: EdgeInsets.all(8),
+                                                margin: EdgeInsets.all(8),
                                                 shape: RoundedRectangleBorder(
                                                     borderRadius:
                                                         BorderRadius.circular(
@@ -162,27 +165,88 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
                                                   ),
                                                 )),
                                             onTap: () {
-                                              viewModel.removeShopItem(product);
-                                              Networks()
-                                                  .removeFromBasket(product.id)
-                                                  .then((onvalue) {
-                                                if (onvalue != null) {
-                                                  if (onvalue['action'] ==
-                                                      "done") {
-                                                    Fluttertoast.showToast(
-                                                        msg: "Product removed",
-                                                        toastLength:
-                                                            Toast.LENGTH_SHORT,
-                                                        gravity:
-                                                            ToastGravity.CENTER,
-                                                        timeInSecForIos: 1,
-                                                        backgroundColor:
-                                                            Colors.green,
-                                                        textColor: Colors.white,
-                                                        fontSize: 16.0);
-                                                  }
-                                                }
-                                              });
+                                              showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return Material(
+                                                        type: MaterialType
+                                                            .transparency,
+                                                        child: Dialog(
+                                                            backgroundColor:
+                                                                Colors
+                                                                    .transparent,
+                                                            child: Container(
+                                                              width: 200,
+                                                              height: 200,
+                                                              child: Stack(
+                                                                alignment:
+                                                                    Alignment
+                                                                        .center,
+                                                                children: <
+                                                                    Widget>[
+                                                                  Image.asset(
+                                                                      'images/ks/sorry.png'),
+                                                                  Align(
+                                                                      alignment:
+                                                                          Alignment
+                                                                              .bottomCenter,
+                                                                      child:
+                                                                          Container(
+                                                                        width:
+                                                                            150,
+                                                                        height:
+                                                                            100,
+                                                                        child:
+                                                                            Column(
+                                                                          children: <
+                                                                              Widget>[
+                                                                            Text(
+                                                                              AppTranslations.of(context).text('are_you'),
+                                                                              style: TextStyle(color: Colors.white),
+                                                                            ),
+                                                                            Row(
+                                                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                              children: <Widget>[
+                                                                                GestureDetector(
+                                                                                  child: Text(
+                                                                                    AppTranslations.of(context).text('yes'),
+                                                                                    style: TextStyle(color: Colors.white),
+                                                                                    textAlign: TextAlign.center,
+                                                                                  ),
+                                                                                  onTap: () {
+                                                                                    viewModel.removeShopItem(product);
+                                                                                    Navigator.pop(context);
+                                                                                    Networks().removeFromBasket(product.id).then((onvalue) {
+                                                                                      if (onvalue != null) {
+                                                                                        if (onvalue['action'] == "done") {
+                                                                                          Fluttertoast.showToast(msg: "Product removed", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.CENTER, timeInSecForIos: 1, backgroundColor: Colors.green, textColor: Colors.white, fontSize: 16.0);
+                                                                                        }
+                                                                                      }
+                                                                                    });
+                                                                                  },
+                                                                                ),
+                                                                                SizedBox(
+                                                                                  height: 16,
+                                                                                ),
+                                                                               GestureDetector(child:  Text(
+                                                                                 AppTranslations.of(context).text('no'),
+                                                                                 style: TextStyle(color: Colors.white),
+                                                                               ),onTap: (){
+                                                                                 Navigator.pop(context);
+                                                                               },)
+                                                                              ],
+                                                                            )
+                                                                          ],
+                                                                        ),
+                                                                        alignment:
+                                                                            Alignment.bottomCenter,
+                                                                      ))
+                                                                ],
+                                                              ),
+                                                            )));
+                                                  });
+//
                                             },
                                           )
                                         : SizedBox(),
@@ -207,7 +271,8 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
         children: <Widget>[
           GestureDetector(
             child: Card(
-              shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(60)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(60)),
               elevation: 4,
               child: Container(
                 // color: greenFixed,
@@ -262,7 +327,8 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
           ),
           GestureDetector(
             child: Card(
-              shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(60)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(60)),
               elevation: 4,
               child: Container(
                 // color: greenFixed,
