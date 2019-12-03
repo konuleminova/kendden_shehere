@@ -37,18 +37,26 @@ snackBar(content) => SnackBar(
     );
 
 Widget noData(String text) => Container(
-        child: Stack(
+    height: 300,
+    width: 300,
+    child: Stack(
       alignment: Alignment.center,
       children: <Widget>[
-        Image.asset('images/ks/sorry.png'),
         Align(
-            alignment: Alignment.bottomCenter,
+          child: Image.asset('images/ks/sorry.png'),
+          alignment: Alignment.center,
+        ),
+        Align(
+            alignment: Alignment.center,
             child: Container(
               width: 150,
-              height: 50,
+              height: 160,
               child: Text(
                 text,
-                style: TextStyle(color: Colors.white,),
+                style: TextStyle(
+                  fontSize: 13,
+                  color: Colors.white,
+                ),
                 textAlign: TextAlign.center,
               ),
               alignment: Alignment.bottomCenter,
