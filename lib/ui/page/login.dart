@@ -136,7 +136,7 @@ class LoginState extends State<LoginPage> {
                       ),
                       Container(
                         child: Text(
-                        AppTranslations.of(context).text('welcome'),
+                          AppTranslations.of(context).text('welcome'),
                           style: TextStyle(
                               color: greenFixed,
                               fontSize: 18,
@@ -148,7 +148,7 @@ class LoginState extends State<LoginPage> {
                       ),
                       Container(
                         child: Text(
-                       AppTranslations.of(context).text('sign_in_continue'),
+                          AppTranslations.of(context).text('sign_in_continue'),
                           style: TextStyle(color: blackFixed, fontSize: 16),
                         ),
                       ),
@@ -200,8 +200,10 @@ class LoginState extends State<LoginPage> {
                                       enabledBorder: UnderlineInputBorder(
                                           borderSide:
                                               BorderSide(color: greenFixed)),
-                                      hintText: AppTranslations.of(context).text('enter_username'),
-                                      labelText: AppTranslations.of(context).text('username'),
+                                      hintText: AppTranslations.of(context)
+                                          .text('enter_username'),
+                                      labelText: AppTranslations.of(context)
+                                          .text('username'),
                                       hintStyle: TextStyle(color: greenFixed),
                                       labelStyle: new TextStyle(
                                           color: const Color(0xFF424242)),
@@ -271,8 +273,10 @@ class LoginState extends State<LoginPage> {
                                       enabledBorder: UnderlineInputBorder(
                                           borderSide:
                                               BorderSide(color: greenFixed)),
-                                      hintText: AppTranslations.of(context).text('enter_pass'),
-                                      labelText: AppTranslations.of(context).text('password'),
+                                      hintText: AppTranslations.of(context)
+                                          .text('enter_pass'),
+                                      labelText: AppTranslations.of(context)
+                                          .text('password'),
                                       hintStyle: TextStyle(color: greenFixed),
                                       labelStyle: new TextStyle(
                                           color: const Color(0xFF424242)),
@@ -281,6 +285,15 @@ class LoginState extends State<LoginPage> {
                                               color: greenFixed))),
                                 ),
                               ))),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding: EdgeInsets.only(left: 20,top: 8,bottom: 8),
+                        child: Text(
+                          "error",
+                          style: TextStyle(color: Colors.redAccent),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
                       Opacity(
                         opacity: opacity,
                         child: Container(
@@ -336,12 +349,15 @@ class LoginState extends State<LoginPage> {
                                     ))),
                             Text(AppTranslations.of(context).text('or')),
                             Expanded(
-                                child:GestureDetector(child:  CircleAvatar(
-                                    backgroundColor: greyFixed,
-                                    child: Image.asset(
-                                        'images/ks/instagram.png')),onTap: (){
-                                  instagram_login();
-                                },)),
+                                child: GestureDetector(
+                              child: CircleAvatar(
+                                  backgroundColor: greyFixed,
+                                  child:
+                                      Image.asset('images/ks/instagram.png')),
+                              onTap: () {
+                                instagram_login();
+                              },
+                            )),
                           ],
                         ),
                         width: 180,
