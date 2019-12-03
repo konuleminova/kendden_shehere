@@ -549,6 +549,7 @@ class ProfileState extends State<ProfilePage> {
                                                             .bottomCenter,
                                                         child:
                                                         Container(
+                                                          color: Colors.transparent,
                                                           width:
                                                           150,
                                                           height:
