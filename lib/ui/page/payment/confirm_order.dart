@@ -28,6 +28,7 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
   Checkout checkout;
   String alkaqol;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  BuildContext context;
 
   getSharedPref() async {
     checkout.mobile = await SharedPrefUtil().getString(SharedPrefUtil().mobile);
@@ -90,7 +91,7 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
               child: new Text(AppTranslations.of(context).text("accept")),
               onPressed: () {
                 Navigator.of(context).pop();
-                _finishBAsket();
+                _finishBAsket(this.context);
               },
             ),
           ],
@@ -99,7 +100,7 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
     );
   }
 
-  _finishBAsket() {
+  _finishBAsket(BuildContext context) {
     if (checkout.dtime_selected_val == "11:30-13:00") {
       checkout.dtime_selected_val = "11";
     } else if (checkout.dtime_selected_val == "13:00-19:30") {
@@ -113,13 +114,13 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
     Networks().finishBasket(checkout).then((onValue) {
       if (onValue['done'] == "1") {
         if (onValue['redirectUrl'] != null) {
-          Navigator.pop(context, true);
+          // Navigator.pop(context);
           Route route = MaterialPageRoute(
               builder: (BuildContext context) =>
                   WebViewPage(url: onValue['redirectUrl']));
           Navigator.pushReplacement(context, route);
         } else {
-          Navigator.pop(context, true);
+          // Navigator.pop(context);
           Route route = MaterialPageRoute(
               builder: (BuildContext context) => HomePage(
                     fromCheckout: true,
@@ -146,6 +147,7 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
 
   @override
   Widget build(BuildContext context) {
+    this.context=context;
     checkout = widget.checkout;
     // TODO: implement build
     return Scaffold(
@@ -316,7 +318,7 @@ class ConfirmPageState extends State<ConfirmOrderPage> {
                                               if (alkaqol == "1") {
                                                 _showDialog();
                                               } else {
-                                                _finishBAsket();
+                                                _finishBAsket(this.context);
                                               }
                                             }
                                           }))),
