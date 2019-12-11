@@ -72,8 +72,10 @@ class CampaignsPage extends StatelessWidget {
                                     Expanded(
                                       flex: 1,
                                       child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Text(
                                             'Hədiyyə Kartımız sahiblərini gözləyir',
@@ -90,8 +92,9 @@ class CampaignsPage extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            onTap: (){
-                              Navigator.push(context, SizeRoute(page:CampaignDetail()));
+                            onTap: () {
+                              Navigator.push(
+                                  context, SizeRoute(page: CampaignDetail(snapshot.data[index + 1])));
                             },
                           ));
                         }));
