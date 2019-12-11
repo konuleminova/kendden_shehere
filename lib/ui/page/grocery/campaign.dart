@@ -4,6 +4,7 @@ import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/service/networks.dart';
 import 'package:kendden_shehere/ui/animation/size.dart';
+import 'package:kendden_shehere/ui/page/grocery/campaign_detail.dart';
 import 'package:kendden_shehere/ui/page/home.dart';
 import 'package:kendden_shehere/util/helper_class.dart';
 import 'package:photo_view/photo_view.dart';
@@ -90,27 +91,7 @@ class CampaignsPage extends StatelessWidget {
                               ),
                             ),
                             onTap: (){
-                              Navigator.push(context, SizeRoute(page: new Scaffold(
-                                  backgroundColor: Colors.black87,
-                                  body: Stack(
-                                    children: <Widget>[
-                                      Center(
-                                          child: new Container(
-                                              child: PhotoView(imageProvider: NetworkImage(snapshot.data[index+1])))),
-                                      Positioned(
-                                          top: 30.0,
-                                          left: 16.0,
-                                          child: CircleAvatar(child: IconButton(
-                                            color: Colors.white,
-                                            iconSize: 30,
-                                            icon: Icon(Icons.clear),
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                          ),radius: 24,backgroundColor: Colors.grey,)
-                                      )
-                                    ],
-                                  ))));
+                              Navigator.push(context, SizeRoute(page:CampaignDetail()));
                             },
                           ));
                         }));

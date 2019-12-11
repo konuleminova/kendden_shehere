@@ -82,72 +82,11 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                       title: new Text(title),
                       backgroundColor: greenFixed,
                       actions: <Widget>[
-//                        InkWell(
-//                          child: IconButton(
-//                            icon: Icon(
-//                              Icons.share,
-//                              color: Colors.white,
-//                            ),
-//                            onPressed: () {
-//                              final RenderBox box = context.findRenderObject();
-//                              Share.share(img,
-//                                  sharePositionOrigin:
-//                                      box.localToGlobal(Offset.zero) &
-//                                          box.size);
-//                            },
-//                          ),
-//                        ),
                         GestureDetector(
                             child: Image.asset('images/ks/chat.png'),
                             onTap: () {
                               HomePage.getNewActivity();
                             }),
-//                        new Stack(
-//                          children: <Widget>[
-//                            InkWell(
-//                              child: new IconButton(
-//                                  icon: Icon(
-//                                    Icons.shopping_cart,
-//                                    color: Colors.white,
-//                                  ),
-//                                  onPressed: null),
-//                              onTap: () {
-//                                Navigator.push(
-//                                    context,
-//                                    MaterialPageRoute(
-//                                        builder: (BuildContext context) =>
-//                                            GroceryShopCartPage(
-//                                              fromCheckout: false,
-//                                            )));
-//                              },
-//                            ),
-//                            lenght != 0
-//                                ? new Positioned(
-//                                    right: 11,
-//                                    top: 11,
-//                                    child: new Container(
-//                                      padding: EdgeInsets.all(2),
-//                                      decoration: new BoxDecoration(
-//                                        color: Colors.red,
-//                                        borderRadius: BorderRadius.circular(6),
-//                                      ),
-//                                      constraints: BoxConstraints(
-//                                        minWidth: 14,
-//                                        minHeight: 14,
-//                                      ),
-//                                      child: Text(
-//                                        lenght.toString(),
-//                                        style: TextStyle(
-//                                          color: Colors.white,
-//                                          fontSize: 8,
-//                                        ),
-//                                        textAlign: TextAlign.center,
-//                                      ),
-//                                    ),
-//                                  )
-//                                : new Container()
-//                          ],
-//                        ),
                       ]),
                   body: _buildPageContent(context),
                   floatingActionButton: new FloatingActionButton(
