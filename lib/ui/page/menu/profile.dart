@@ -5,6 +5,8 @@ import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/login/user_model.dart';
 import 'package:kendden_shehere/service/networks.dart';
+import 'package:kendden_shehere/ui/animation/size.dart';
+import 'package:kendden_shehere/ui/page/menu/pass_change.dart';
 import 'package:kendden_shehere/ui/widgets/dialog/profile_edit_dialog.dart';
 import 'package:kendden_shehere/util/sharedpref_util.dart';
 import 'package:image_picker/image_picker.dart';
@@ -92,6 +94,7 @@ class ProfileState extends State<ProfilePage> {
                 'images/ks/pass_change.png',
               ),
               onTap: () {
+                Navigator.push(context,SizeRoute(page: PassWordChange()));
               },
             ),
             GestureDetector(
