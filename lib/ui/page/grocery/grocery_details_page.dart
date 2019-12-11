@@ -114,29 +114,28 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                             onTap: null),
                         viewModel.shopItems.length != 0
                             ? new Positioned(
-                          right: 6,
-                          top: 6,
-                          child: new Container(
-                            padding: EdgeInsets.only(left: 7,right: 7),
-                            decoration: new BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(6),
-                                border: Border.all(color: greenFixed)
-                            ),
-                            constraints: BoxConstraints(
-                              minWidth: 14,
-                              minHeight: 14,
-                            ),
-                            child: Text(
-                              viewModel.shopItems.length.toString(),
-                              style: TextStyle(
-                                color: Colors.red,
-                                fontSize: 8,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        )
+                                right: 6,
+                                top: 6,
+                                child: new Container(
+                                  padding: EdgeInsets.only(left: 7, right: 7),
+                                  decoration: new BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(6),
+                                      border: Border.all(color: greenFixed)),
+                                  constraints: BoxConstraints(
+                                    minWidth: 14,
+                                    minHeight: 14,
+                                  ),
+                                  child: Text(
+                                    viewModel.shopItems.length.toString(),
+                                    style: TextStyle(
+                                      color: Colors.red,
+                                      fontSize: 8,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              )
                             : new Container()
                       ],
                     ),
@@ -147,63 +146,60 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
   }
 
   Widget _buildPageContent(context) {
-    return Column(
+    return ListView(
       children: <Widget>[
-        Expanded(
-          child: ListView(
-            children: <Widget>[
-              //_buildItemCard(context),
-              GestureDetector(
-                child: _buildItemImage(),
-                onTap: () {
-                  Route route = MaterialPageRoute(
-                      builder: (BuildContext context) => GroceryBigImage(
-                            code: product.code,
-                          ));
-                  Navigator.push(context, route);
-                },
-              ),
-              new Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                      flex: 1,
-                      child: new Container(
-                        child: new Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            SizedBox(
-                              height: 10.0,
-                            ),
-                            Text(title,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 18.0,
-                                )),
-                            SizedBox(
-                              height: 8.0,
-                            ),
-                            Container(
-                                padding: EdgeInsets.only(right: 16),
-                                child: GrocerySubtitle(text: description)),
-                            SizedBox(
-                              height: 16.0,
-                            ),
-                            Text(
-                              product.counttype + " " + product.price + " AZN",
-                              style: TextStyle(color: greenFixed, fontSize: 18),
-                            ),
-                            SizedBox(
-                              height: 4,
-                            ),
-                            new Container(
-                              // margin: EdgeInsets.all(6),
-                              child: RatingStarWidget(5, 4, 32),
-                            ),
-                          ],
-                        ),
-                        margin: EdgeInsets.only(left: 20, top: 8),
-                      )),
+        //_buildItemCard(context),
+        GestureDetector(
+          child: _buildItemImage(),
+          onTap: () {
+            Route route = MaterialPageRoute(
+                builder: (BuildContext context) => GroceryBigImage(
+                  code: product.code,
+                ));
+            Navigator.push(context, route);
+          },
+        ),
+        new Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Expanded(
+                flex: 1,
+                child: new Container(
+                  child: new Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      Text(title,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 18.0,
+                          )),
+                      SizedBox(
+                        height: 8.0,
+                      ),
+                      Container(
+                          padding: EdgeInsets.only(right: 16),
+                          child: GrocerySubtitle(text: description)),
+                      SizedBox(
+                        height: 16.0,
+                      ),
+                      Text(
+                        product.counttype + " " + product.price + " AZN",
+                        style: TextStyle(color: greenFixed, fontSize: 18),
+                      ),
+                      SizedBox(
+                        height: 4,
+                      ),
+                      new Container(
+                        // margin: EdgeInsets.all(6),
+                        child: RatingStarWidget(5, 4, 32),
+                      ),
+                    ],
+                  ),
+                  margin: EdgeInsets.only(left: 20, top: 8),
+                )),
 //                  Expanded(
 //                    child: new Container(
 //                      child: addedWidget(),
@@ -211,11 +207,36 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
 //                    ),
 //                    flex: 1,
 //                  ),
-                ],
+          ],
+        ),
+        Container(
+          height: MediaQuery.of(context).size.height * 0.12,
+          padding: EdgeInsets.only(left: 12, bottom: 12, right: 12),
+          margin: EdgeInsets.all(16),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10)),
+          child: Stack(
+            children: <Widget>[
+              Container(
+                alignment: Alignment.topLeft,
+                width: MediaQuery.of(context).size.width*0.8,
+                child: TextField(
+                  maxLines: 5,
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText:
+                      AppTranslations.of(context).text('review')),
+                ),
               ),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Image.asset('images/ks/send.png'),
+              )
             ],
           ),
         ),
+        SizedBox(height: MediaQuery.of(context).size.height*0.12,)
       ],
     );
   }
@@ -394,7 +415,7 @@ class GroceryDetailsState extends State<GroceryDetailsPage> {
                       placeholder: "images/noimage.png",
                       image: img,
                       width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height * 0.5,
+                      height: MediaQuery.of(context).size.height * 0.45,
                       fadeInCurve: Curves.bounceOut,
                       fit: BoxFit.cover,
                     ),
