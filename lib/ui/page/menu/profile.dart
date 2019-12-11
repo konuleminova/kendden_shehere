@@ -89,6 +89,13 @@ class ProfileState extends State<ProfilePage> {
           actions: <Widget>[
             GestureDetector(
               child: Image.asset(
+                'images/ks/pass_change.png',
+              ),
+              onTap: () {
+              },
+            ),
+            GestureDetector(
+              child: Image.asset(
                 'images/ks/writing.png',
               ),
               onTap: () {
