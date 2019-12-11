@@ -4,7 +4,7 @@ import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_shop_list.dart';
 import 'package:kendden_shehere/ui/page/menu/profile.dart';
 
-class DrawerWidget extends StatelessWidget{
+class DrawerWidget extends StatelessWidget {
   String name;
   String surname;
   bool isExpanded = false;
@@ -15,6 +15,7 @@ class DrawerWidget extends StatelessWidget{
     return new Drawer(
         child: Container(
       color: greenFixed,
+      alignment: AlignmentDirectional.center,
       child: ListView(
         children: <Widget>[
           new Stack(
@@ -33,12 +34,13 @@ class DrawerWidget extends StatelessWidget{
               )
             ],
           ),
-          DrawerHeader(child: Container()),
+          //DrawerHeader(child: Container()),
+          Container(height: MediaQuery.of(context).size.height*0.11,),
           ListTile(
             contentPadding: EdgeInsets.only(left: 30.0),
             title: Text(
               AppTranslations.of(context).text('profile'),
-              style: TextStyle(color: Colors.white, fontSize: 20),
+              style: TextStyle(color: Colors.white, fontSize: 18),
             ),
             onTap: () {
               Navigator.pop(context);
@@ -68,7 +70,7 @@ class DrawerWidget extends StatelessWidget{
               AppTranslations.of(context).text(
                 "wish_list",
               ),
-              style: TextStyle(color: Colors.white, fontSize: 20),
+              style: TextStyle(color: Colors.white, fontSize: 18),
             ),
           ),
           Padding(
@@ -84,14 +86,13 @@ class DrawerWidget extends StatelessWidget{
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                          GroceryShopCartPage(
+                      builder: (BuildContext context) => GroceryShopCartPage(
                             fromCheckout: false,
                           )));
             },
             title: Text(
               AppTranslations.of(context).text('my_cart'),
-              style: TextStyle(color: Colors.white, fontSize: 20),
+              style: TextStyle(color: Colors.white, fontSize: 18),
             ),
           ),
           Padding(
@@ -110,14 +111,14 @@ class DrawerWidget extends StatelessWidget{
                 title: ListTile(
                     contentPadding: EdgeInsets.only(left: 12.0),
                     title: Text(AppTranslations.of(context).text('support'),
-                        style: TextStyle(color: Colors.white, fontSize: 20)),
+                        style: TextStyle(color: Colors.white, fontSize: 18)),
                     onTap: null),
                 children: <Widget>[
                   ListTile(
                     contentPadding: EdgeInsets.only(left: 50.0),
                     title: Text(
                       AppTranslations.of(context).text("delivery_terms"),
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+                      style: TextStyle(color: Colors.white, fontSize: 18),
                     ),
                     onTap: () {
                       Navigator.pop(context);
@@ -133,7 +134,7 @@ class DrawerWidget extends StatelessWidget{
                   ListTile(
                     contentPadding: EdgeInsets.only(left: 50.0),
                     title: Text(AppTranslations.of(context).text("fag"),
-                        style: TextStyle(color: Colors.white, fontSize: 20)),
+                        style: TextStyle(color: Colors.white, fontSize: 18)),
                     onTap: () {
                       Navigator.pop(context);
                       Navigator.pushNamed(context, "/fag");
@@ -149,7 +150,7 @@ class DrawerWidget extends StatelessWidget{
                     contentPadding: EdgeInsets.only(left: 50.0),
                     title: Text(
                       AppTranslations.of(context).text("contact_us"),
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+                      style: TextStyle(color: Colors.white, fontSize: 18),
                     ),
                     onTap: () {
                       Navigator.pop(context);
@@ -166,7 +167,7 @@ class DrawerWidget extends StatelessWidget{
                     contentPadding: EdgeInsets.only(left: 50.0),
                     title: Text(
                       AppTranslations.of(context).text("complaints"),
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+                      style: TextStyle(color: Colors.white, fontSize: 18),
                     ),
                     onTap: () {
                       Navigator.pop(context);
@@ -188,7 +189,7 @@ class DrawerWidget extends StatelessWidget{
             contentPadding: EdgeInsets.only(left: 30.0),
             title: Text(
               AppTranslations.of(context).text("about_us"),
-              style: TextStyle(color: Colors.white, fontSize: 20),
+              style: TextStyle(color: Colors.white, fontSize: 18),
             ),
             onTap: () {
               Navigator.pop(context);
@@ -201,6 +202,13 @@ class DrawerWidget extends StatelessWidget{
               color: Colors.white,
             ),
           ),
+          SizedBox(
+            height: 30,
+          ),
+          Container(
+            child: Image.asset('images/ks/ks.png'),
+          ),
+          SizedBox(height: 30,),
         ],
       ),
     ));
