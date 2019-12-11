@@ -16,7 +16,7 @@ class PassWordChange extends StatelessWidget {
     // TODO: implement build
     return Scaffold(
         appBar: new AppBar(
-          title: new Text(AppTranslations.of(context).text('campaign')),
+          title: new Text(AppTranslations.of(context).text('change_pass')),
           backgroundColor: greenFixed,
           elevation: 0,
         ),

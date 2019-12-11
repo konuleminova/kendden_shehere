@@ -138,6 +138,7 @@
   "new_pass": "NEW PASSWORD",
   "enter_new_pass": "Enter your new  password",
   "confirm_new_pass":"CONFIRM NEW PASSWORD",
-  "enter_new_confirm_pass": "Confirm new password"
+  "enter_new_confirm_pass": "Confirm new password",
+  "change_pass":"CHANGE PASSWORD"
 
 }
