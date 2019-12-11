@@ -30,7 +30,13 @@ class CampaignDetail extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-           Container(child: Image.network(urll,fit: BoxFit.cover,),height: MediaQuery.of(context).size.height*0.33,),
+            Container(
+              child: Image.network(
+                urll,
+                fit: BoxFit.cover,
+              ),
+              height: MediaQuery.of(context).size.height * 0.33,
+            ),
             ListTile(
               contentPadding: EdgeInsets.all(0),
               title: Padding(
