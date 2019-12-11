@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/service/networks.dart';
+import 'package:kendden_shehere/util/helper_class.dart';
 
 class PassWordChange extends StatelessWidget {
   var imageFile;
@@ -182,18 +183,145 @@ class PassWordChange extends StatelessWidget {
                         ],
                       ),
                     ),
+                    Container(
+                      child: Card(
+                          margin:
+                              EdgeInsets.only(left: 16, right: 16, bottom: 16),
+                          elevation: 2,
+                          //  padding: EdgeInsets.only(left: 4.0),
+                          color: Colors.white,
+                          child: new Theme(
+                              data: new ThemeData(
+                                hintColor: Colors.green,
+                                primaryColor: Colors.green,
+                                disabledColor: greenFixed,
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 8.0),
+                                child: TextField(
+                                  onChanged: (d) {},
+                                  decoration: new InputDecoration(
+                                      enabledBorder: UnderlineInputBorder(
+                                          borderSide:
+                                              BorderSide(color: greenFixed)),
+                                      hintText: AppTranslations.of(context)
+                                          .text('enter_current_pass'),
+                                      labelText: AppTranslations.of(context)
+                                          .text('current_pass'),
+                                      hintStyle: TextStyle(color: greenFixed),
+                                      labelStyle:
+                                          new TextStyle(color: Colors.grey),
+                                      border: new UnderlineInputBorder(
+                                          borderSide: new BorderSide(
+                                              color: greenFixed))),
+                                ),
+                              )
+                              // margin: EdgeInsets.only(left: 20, top: 16, right: 20),
+                              )),
+                    ),
+                    Card(
+                        margin:
+                            EdgeInsets.only(left: 16, right: 16, bottom: 16),
+                        elevation: 2,
+                        //  padding: EdgeInsets.only(left: 4.0),
+                        color: Colors.white,
+                        child: new Theme(
+                            data: new ThemeData(
+                              hintColor: Colors.green,
+                              primaryColor: Colors.green,
+                              disabledColor: greenFixed,
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 8.0),
+                              child: TextField(
+                                onChanged: (d) {},
+                                decoration: new InputDecoration(
+                                    enabledBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: greenFixed)),
+                                    hintText: AppTranslations.of(context)
+                                        .text('enter_new_pass'),
+                                    labelText: AppTranslations.of(context)
+                                        .text('new_pass'),
+                                    hintStyle: TextStyle(color: greenFixed),
+                                    labelStyle:
+                                        new TextStyle(color: Colors.grey),
+                                    border: new UnderlineInputBorder(
+                                        borderSide:
+                                            new BorderSide(color: greenFixed))),
+                              ),
+                            )
+                            // margin: EdgeInsets.only(left: 20, top: 16, right: 20),
+                            )),
+                    Card(
+                        margin:
+                            EdgeInsets.only(left: 16, right: 16, bottom: 16),
+                        elevation: 2,
+                        //  padding: EdgeInsets.only(left: 4.0),
+                        color: Colors.white,
+                        child: new Theme(
+                            data: new ThemeData(
+                              hintColor: Colors.green,
+                              primaryColor: Colors.green,
+                              disabledColor: greenFixed,
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 8.0),
+                              child: TextField(
+                                onChanged: (d) {},
+                                decoration: new InputDecoration(
+                                    enabledBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: greenFixed)),
+                                    hintText: AppTranslations.of(context)
+                                        .text('enter_new_confirm_pass'),
+                                    labelText: AppTranslations.of(context)
+                                        .text('confirm_new_pass'),
+                                    hintStyle: TextStyle(color: greenFixed),
+                                    labelStyle:
+                                        new TextStyle(color: Colors.grey),
+                                    border: new UnderlineInputBorder(
+                                        borderSide:
+                                            new BorderSide(color: greenFixed))),
+                              ),
+                            )
+                            // margin: EdgeInsets.only(left: 20, top: 16, right: 20),
+                            )),
+                    Align(
+                      child: Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all(30.0),
+                        child: RaisedButton(
+                            padding: EdgeInsets.symmetric(vertical: 16.0),
+                            color: greenFixed,
+                            disabledColor: greenFixed,
+                            onPressed: () {
+                                Networks().updateUser(context, 'pass',"");
+                            },
+                            elevation: 8,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(40.0))),
+                            child: Text(
+                              AppTranslations.of(context).text('save'),
+                              style: TextStyle(color: Colors.white),
+                            )),
+                      ),
+                      alignment: AlignmentDirectional(0, 0.5),
+                    )
                   ],
                 );
               } else {
-                return Container();
+                return loading();
               }
             }));
   }
+
   imageSelector(BuildContext context, ImageSource imageSource) async {
     imageFile = await ImagePicker.pickImage(source: imageSource
-      //maxHeight: 50.0,
-      //maxWidth: 50.0,
-    );
+        //maxHeight: 50.0,
+        //maxWidth: 50.0,
+        );
     if (imageFile != null) {
       List<int> imageBytes = imageFile.readAsBytesSync();
       String base64Image = base64Encode(imageBytes);
@@ -202,6 +330,6 @@ class PassWordChange extends StatelessWidget {
       Networks().upload(base64Image);
     }
     Navigator.pop(context);
-   // setState(() {});
+    // setState(() {});
   }
 }

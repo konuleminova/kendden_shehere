@@ -132,24 +132,12 @@
   "profile":"Profile",
   "are_you": "Are you sure you want to delete It?",
   "are_sure_signout": "Are you sure you want to SIGN OUT",
-  "no_product_search": "NO RESULT FOUND.\nWE CAN'T FIND ANY ITEM MATCHING YOUR SEARCH."
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  "no_product_search": "NO RESULT FOUND.\nWE CAN'T FIND ANY ITEM MATCHING YOUR SEARCH.",
+  "current_pass": "CURRENT PASSWORD",
+  "enter_current_pass": "Enter your current password",
+  "new_pass": "NEW PASSWORD",
+  "enter_new_pass": "Enter your new  password",
+  "confirm_new_pass":"CONFIRM NEW PASSWORD",
+  "enter_new_confirm_pass": "Confirm new password"
 
 }
