@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 //import 'package:flutter_launch/flutter_launch.dart';
 import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
@@ -69,6 +70,7 @@ class ContactsPage extends StatelessWidget {
                   size: 18,
                   color: greenFixed,
                 ),
+                onTap: _launchURLInsta,
               ),
               Padding(
                 padding: EdgeInsets.only(left: 60),
@@ -77,16 +79,16 @@ class ContactsPage extends StatelessWidget {
                 ),
               ),
               ListTile(
-                leading: Image.asset(
-                  'images/ks/fb.png',
-                ),
-                title: Text(AppTranslations.of(context).text('fb')),
-                trailing: Icon(
-                  Icons.arrow_forward_ios,
-                  size: 18,
-                  color: greenFixed,
-                ),
-              ),
+                  leading: Image.asset(
+                    'images/ks/fb.png',
+                  ),
+                  title: Text(AppTranslations.of(context).text('fb')),
+                  trailing: Icon(
+                    Icons.arrow_forward_ios,
+                    size: 18,
+                    color: greenFixed,
+                  ),
+                  onTap: _launchURLFB),
               Padding(
                 padding: EdgeInsets.only(left: 60),
                 child: Divider(
@@ -103,6 +105,7 @@ class ContactsPage extends StatelessWidget {
                   size: 18,
                   color: greenFixed,
                 ),
+                onTap: _launchURLMail,
               ),
               Padding(
                 padding: EdgeInsets.only(left: 60),
@@ -123,6 +126,33 @@ class ContactsPage extends StatelessWidget {
   }
 
   Future<void> _makePhoneCall(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  _launchURLInsta() async {
+    const url = 'https://www.instagram.com/kenddenshehere/';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  _launchURLFB() async {
+    const url = 'https://www.facebook.com/kenddenshehere/';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  _launchURLMail() async {
+    const url = 'https://kendden.az/i/compliants/';
     if (await canLaunch(url)) {
       await launch(url);
     } else {
