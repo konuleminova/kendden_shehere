@@ -43,7 +43,7 @@ class ComplaintsPageState extends State<ComplaintsPage> {
 
     // TODO: implement build
     return new Scaffold(
-      backgroundColor: greyFixed,
+        backgroundColor: greyFixed,
         appBar: new AppBar(
           title:
               Text(AppTranslations.of(context).text("suggestion_or_complaint")),
@@ -51,228 +51,185 @@ class ComplaintsPageState extends State<ComplaintsPage> {
         ),
         body: Padding(
             padding: EdgeInsets.all(8.0),
-            child: Card(
-                elevation: 10,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4)),
-                child: new FutureBuilder(
-                    future: Networks().complaints(lang),
-                    builder: (BuildContext context, AsyncSnapshot snapshot) {
-                      if (snapshot.hasData) {
-                        // ListInfo information = snapshot.data;
-                        if (snapshot.data != null) {
-                          String header = snapshot.data['header'] ?? "";
-                          String body = snapshot.data['body'] ?? "";
-                          String markdown = html2md.convert(body);
-                          return ListView(
+            child: Column(
+              children: <Widget>[
+                Card(
+                  margin: EdgeInsets.all(16),
+                  child: _value1 == null
+                      ? Container(
+                          //margin: EdgeInsets.all(16.0),
+                          child: ExpansionTile(
+                            trailing: Icon(
+                              Icons.keyboard_arrow_down,
+                              color: greenFixed,
+                            ),
+                            title: Text(
+                                'Sizə göstərilən xidmətdən ümumi məmnuniyyət səviyyəniz:'),
                             children: <Widget>[
-                              new Container(
-                                  margin: EdgeInsets.all(16),
-                                  child: new MarkdownBody(
-                                    data: markdown,
-                                  )),
-                              Container(
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                      hintText: "Ad Soyad",
-                                      border: InputBorder.none),
-                                ),
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.grey),
-                                    borderRadius: BorderRadius.circular(4.0),
-                                    color: Colors.white),
-                                padding: EdgeInsets.all(4.0),
-                                margin: EdgeInsets.all(16.0),
+                              ListTile(
+                                title: Text(
+                                    AppTranslations.of(context).text("poor")),
+                                onTap: () {
+                                  setState(() {
+                                    _value1 = AppTranslations.of(context)
+                                        .text("poor");
+                                  });
+                                },
                               ),
-                              _value1 == null
-                                  ? Container(
-                                      margin: EdgeInsets.all(16.0),
-                                      child: ExpansionTile(
-                                        title: Text(
-                                            'Sizə göstərilən xidmətdən ümumi məmnuniyyət səviyyəniz:'),
-                                        children: <Widget>[
-                                          ListTile(
-                                            title: Text(
-                                                AppTranslations.of(context)
-                                                    .text("poor")),
-                                            onTap: () {
-                                              setState(() {
-                                                _value1 =
-                                                    AppTranslations.of(context)
-                                                        .text("poor");
-                                              });
-                                            },
-                                          ),
-                                          ListTile(
-                                            title: Text(
-                                                AppTranslations.of(context)
-                                                    .text("normal")),
-                                            onTap: () {
-                                              setState(() {
-                                                _value1 =
-                                                    AppTranslations.of(context)
-                                                        .text("normal");
-                                              });
-                                            },
-                                          ),
-                                          ListTile(
-                                            title: Text(
-                                                AppTranslations.of(context)
-                                                    .text("good")),
-                                            onTap: () {
-                                              setState(() {
-                                                _value1 =
-                                                    AppTranslations.of(context)
-                                                        .text("good");
-                                              });
-                                            },
-                                          ),
-                                        ],
-                                        initiallyExpanded: isExpanded1,
-                                        onExpansionChanged: (value) {
-                                          if (value) {
-                                            print(value);
-                                          }
-                                        },
-                                        backgroundColor: Colors.white,
-                                      ),
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          border:
-                                              Border.all(color: Colors.grey),
-                                          borderRadius:
-                                              BorderRadius.circular(4.0)),
-                                    )
-                                  : Container(
-                                      child: ListTile(
-                                        title: Text(_value1),
-                                        onTap: () {
-                                          setState(() {
-                                            _value1 = null;
-                                            isExpanded1 = true;
-                                          });
-                                        },
-                                      ),
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          border:
-                                              Border.all(color: Colors.grey),
-                                          borderRadius:
-                                              BorderRadius.circular(4.0)),
-                                      padding: EdgeInsets.all(4.0),
-                                      margin: EdgeInsets.all(16.0),
-                                    ),
-                              _value2 == null
-                                  ? Container(
-                                      margin: EdgeInsets.all(16.0),
-                                      child: ExpansionTile(
-                                        title: Text(
-                                            'Təklif və ya şikayətiniz nə ilə bağlıdır?'),
-                                        children: <Widget>[
-                                          Container(
-                                            height: 200,
-                                            child: ListView.builder(
-                                              itemBuilder:
-                                                  (BuildContext context,
-                                                      int index) {
-                                                return ListTile(
-                                                  title: Text(compaints[index]),
-                                                  onTap: () {
-                                                    setState(() {
-                                                      _value2 =
-                                                          compaints[index];
-                                                      isExpanded2 = true;
-                                                    });
-                                                  },
-                                                );
-                                              },
-                                              itemCount: compaints.length,
-                                            ),
-                                          )
-                                        ],
-                                        backgroundColor: Colors.white,
-                                        initiallyExpanded: isExpanded2,
-                                      ),
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          border:
-                                              Border.all(color: Colors.grey),
-                                          borderRadius:
-                                              BorderRadius.circular(4.0)),
-                                    )
-                                  : Container(
-                                      child: ListTile(
-                                        title: Text(_value2),
-                                        onTap: () {
-                                          setState(() {
-                                            _value2 = null;
-                                            isExpanded2 = true;
-                                          });
-                                        },
-                                      ),
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          border:
-                                              Border.all(color: Colors.grey),
-                                          borderRadius:
-                                              BorderRadius.circular(4.0)),
-                                      padding: EdgeInsets.all(4.0),
-                                      margin: EdgeInsets.all(16.0),
-                                    ),
-                              Container(
-                                height: 100,
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                      hintText: "Təklif və ya iradınız",
-                                      border: InputBorder.none),
-                                  maxLines: 10,
-                                ),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(color: Colors.grey),
-                                    borderRadius: BorderRadius.circular(4.0)),
-                                padding: EdgeInsets.all(4.0),
-                                margin: EdgeInsets.all(16.0),
+                              ListTile(
+                                title: Text(
+                                    AppTranslations.of(context).text("normal")),
+                                onTap: () {
+                                  setState(() {
+                                    _value1 = AppTranslations.of(context)
+                                        .text("normal");
+                                  });
+                                },
                               ),
-                              Container(
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                      hintText: "Əlaqə vasitəsi",
-                                      border: InputBorder.none),
-                                ),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(color: Colors.grey),
-                                    borderRadius: BorderRadius.circular(4.0)),
-                                padding: EdgeInsets.all(4.0),
-                                margin: EdgeInsets.all(16.0),
+                              ListTile(
+                                title: Text(
+                                    AppTranslations.of(context).text("good")),
+                                onTap: () {
+                                  setState(() {
+                                    _value1 = AppTranslations.of(context)
+                                        .text("good");
+                                  });
+                                },
                               ),
+                            ],
+                            initiallyExpanded: isExpanded1,
+                            onExpansionChanged: (value) {
+                              if (value) {
+                                print(value);
+                              }
+                            },
+                            backgroundColor: Colors.white,
+                          ),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(4.0)),
+                        )
+                      : Container(
+                          child: ListTile(
+                            title: Text(_value1),
+                            onTap: () {
+                              setState(() {
+                                _value1 = null;
+                                isExpanded1 = true;
+                              });
+                            },
+                          ),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(4.0)),
+                          //  padding: EdgeInsets.all(4.0),
+                          margin: EdgeInsets.all(4.0),
+                        ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4)),
+                  elevation: 4,
+                ),
+                Card(
+                  margin: EdgeInsets.only(left: 16, right: 16, bottom: 16),
+                  elevation: 4,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4)),
+                  child: _value2 == null
+                      ? Container(
+                          // margin: EdgeInsets.all(16.0),
+                          child: ExpansionTile(
+                            trailing: Icon(
+                              Icons.keyboard_arrow_down,
+                              color: greenFixed,
+                            ),
+                            title: Text(
+                                'Təklif və ya şikayətiniz nə ilə bağlıdır?'),
+                            children: <Widget>[
                               Container(
-                                child: RaisedButton(
-                                  color: Colors.green,
-                                  onPressed: () {},
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: <Widget>[
-                                      Text("Gonder",
-                                          style:
-                                              TextStyle(color: Colors.white)),
-                                    ],
-                                  ),
+                                height: 220,
+                                child: ListView.builder(
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return ListTile(
+                                      title: Text(compaints[index]),
+                                      onTap: () {
+                                        setState(() {
+                                          _value2 = compaints[index];
+                                          isExpanded2 = true;
+                                        });
+                                      },
+                                    );
+                                  },
+                                  itemCount: compaints.length,
                                 ),
-                                margin: EdgeInsets.only(
-                                    left: 16, right: 16, bottom: 16),
                               )
                             ],
-                          );
-                        }
-                      } else if (snapshot.connectionState ==
-                          ConnectionState.waiting) {
-                        return loading();
-                      } else {
-                        return Container();
-                      }
-                    }))));
+                            backgroundColor: Colors.white,
+                            initiallyExpanded: isExpanded2,
+                          ),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(4.0)),
+                        )
+                      : Container(
+                          child: ListTile(
+                            title: Text(_value2),
+                            onTap: () {
+                              setState(() {
+                                _value2 = null;
+                                isExpanded2 = true;
+                              });
+                            },
+                          ),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(4.0)),
+                          margin: EdgeInsets.all(4.0),
+                        ),
+                ),
+                Card(
+                  margin: EdgeInsets.only(left: 16, right: 16),
+                  elevation: 4,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4)),
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.14,
+                    child: TextField(
+                      decoration: InputDecoration(
+                          hintText: "Təklif və ya iradınız",
+                          border: InputBorder.none),
+                      maxLines: 10,
+                    ),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(4.0)),
+                    padding: EdgeInsets.all(8.0),
+                    margin: EdgeInsets.all(4.0),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                      alignment: AlignmentDirectional.bottomCenter,
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.all(30.0),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: RaisedButton(
+                            padding: EdgeInsets.symmetric(vertical: 16.0),
+                            color: greenFixed,
+                            disabledColor: greenFixed,
+                            onPressed: null,
+                            elevation: 8,
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(40.0))),
+                            child: Text(
+                              AppTranslations.of(context).text('send'),
+                              style: TextStyle(color: Colors.white),
+                            )),
+                      )),
+                )
+              ],
+            )));
   }
 }
