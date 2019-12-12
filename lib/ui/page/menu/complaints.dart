@@ -50,8 +50,8 @@ class ComplaintsPageState extends State<ComplaintsPage> {
           backgroundColor: greenFixed,
         ),
         body: Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Column(
+            padding: EdgeInsets.all(0),
+            child: ListView(
               children: <Widget>[
                 Card(
                   margin: EdgeInsets.all(16),
@@ -207,28 +207,26 @@ class ComplaintsPageState extends State<ComplaintsPage> {
                     margin: EdgeInsets.all(4.0),
                   ),
                 ),
-                Expanded(
-                  child: Container(
-                      alignment: AlignmentDirectional.bottomCenter,
+                Container(
+                    alignment: AlignmentDirectional.bottomCenter,
+                    width: MediaQuery.of(context).size.width,
+                    padding: EdgeInsets.all(30.0),
+                    child: SizedBox(
                       width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.all(30.0),
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        child: RaisedButton(
-                            padding: EdgeInsets.symmetric(vertical: 16.0),
-                            color: greenFixed,
-                            disabledColor: greenFixed,
-                            onPressed: null,
-                            elevation: 8,
-                            shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(40.0))),
-                            child: Text(
-                              AppTranslations.of(context).text('send'),
-                              style: TextStyle(color: Colors.white),
-                            )),
-                      )),
-                )
+                      child: RaisedButton(
+                          padding: EdgeInsets.symmetric(vertical: 16.0),
+                          color: greenFixed,
+                          disabledColor: greenFixed,
+                          onPressed: null,
+                          elevation: 8,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(40.0))),
+                          child: Text(
+                            AppTranslations.of(context).text('send'),
+                            style: TextStyle(color: Colors.white),
+                          )),
+                    )),
               ],
             )));
   }
