@@ -52,7 +52,7 @@ class ContactsPage extends StatelessWidget {
                   color: greenFixed,
                 ),
                 onTap: () {
-                  _makePhoneCall('tel:+994559268910');
+                  _makePhoneCall('tel:+994504008899');
                 },
               ),
               Padding(
@@ -106,7 +106,9 @@ class ContactsPage extends StatelessWidget {
                   size: 18,
                   color: greenFixed,
                 ),
-                onTap: _launchURLMail,
+                onTap: (){
+                  Navigator.pushNamed(context, '/complaints');
+                }
               ),
               Padding(
                 padding: EdgeInsets.only(left: 60),
@@ -123,7 +125,7 @@ class ContactsPage extends StatelessWidget {
   }
 
   void whatsAppOpen() {
-    //FlutterOpenWhatsapp.sendSingleMessage("918179015345", "Hello");
+    //FlutterOpenWhatsapp.sendSingleMessage("+994504008899", "Salam");
   }
 
   Future<void> _makePhoneCall(String url) async {

@@ -28,7 +28,6 @@ class Networks {
 
 //Kendden Shehere APIs
   String BASE_KS_URL = "http://kenddenshehere.az/api/?act=";
-
   dynamic login(String username, String password) async {
     String LOGIN = BASE_KS_URL + "login&l=" + username + "&p=" + password;
     try {
