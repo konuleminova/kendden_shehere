@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_launch/flutter_launch.dart';
+//import 'package:flutter_launch/flutter_launch.dart';
 import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ContactsPage extends StatelessWidget {
   @override
@@ -48,9 +49,8 @@ class ContactsPage extends StatelessWidget {
                   size: 18,
                   color: greenFixed,
                 ),
-                onTap: ()  {
-//                  await FlutterLaunch.launchWathsApp(
-//                      phone: "5534992019999", message: "Hello");
+                onTap: () {
+                  _makePhoneCall('tel:+994559268910');
                 },
               ),
               Padding(
@@ -120,5 +120,13 @@ class ContactsPage extends StatelessWidget {
 
   void whatsAppOpen() {
     FlutterOpenWhatsapp.sendSingleMessage("918179015345", "Hello");
+  }
+
+  Future<void> _makePhoneCall(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
