@@ -19,6 +19,7 @@ class PassWordChange extends StatelessWidget {
           title: new Text(AppTranslations.of(context).text('change_pass')),
           backgroundColor: greenFixed,
           elevation: 0,
+          centerTitle: true,
         ),
         body: FutureBuilder(
             future: Networks().userinfo(),

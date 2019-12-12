@@ -32,6 +32,7 @@ class GroceryWishListPage extends StatelessWidget {
           this.viewModel = viewModel;
           return new Scaffold(
               appBar: new AppBar(
+                centerTitle: true,
                 backgroundColor: greenFixed,
                 title: Text(AppTranslations.of(context).text("wish_list")),
               ),

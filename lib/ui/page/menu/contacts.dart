@@ -15,6 +15,7 @@ class ContactsPage extends StatelessWidget {
         appBar: AppBar(
           title: Text(AppTranslations.of(context).text("contact_us")),
           backgroundColor: greenFixed,
+          centerTitle: true,
         ),
         body: Container(
           margin: EdgeInsets.only(left: 16, top: 24, bottom: 16),

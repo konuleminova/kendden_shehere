@@ -20,6 +20,7 @@ class SettingsState extends State<SettingsPage> {
     // TODO: implement build
     return new Scaffold(
         appBar: new AppBar(
+          centerTitle: true,
           backgroundColor: greenFixed,
           title: new Text(AppTranslations.of(context).text('settings')),
         ),

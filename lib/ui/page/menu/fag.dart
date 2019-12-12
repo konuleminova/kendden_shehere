@@ -40,6 +40,7 @@ class FAGState extends State<FagPage> {
     return new Scaffold(
         backgroundColor: greyFixed,
         appBar: new AppBar(
+          centerTitle: true,
             title: Text(AppTranslations.of(context).text("fag")),
             backgroundColor: greenFixed),
         body: Padding(

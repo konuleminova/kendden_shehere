@@ -24,6 +24,7 @@ class DeliveryPage extends StatelessWidget {
     return Scaffold(
         backgroundColor: greyFixed,
         appBar: AppBar(
+          centerTitle: true,
             title: Text(AppTranslations.of(context).text("delivery_terms")),
             backgroundColor: greenFixed),
         body: Padding(

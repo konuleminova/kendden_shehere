@@ -44,6 +44,7 @@ class GroceryShopCartPage extends StatelessWidget {
             child: new Scaffold(
                 backgroundColor: greyFixed,
                 appBar: new AppBar(
+                  centerTitle: true,
                   backgroundColor: greenFixed,
                   actions: <Widget>[
                     GestureDetector(

@@ -85,6 +85,7 @@ class ProfileState extends State<ProfilePage> {
     return Scaffold(
         backgroundColor: greyFixed,
         appBar: AppBar(
+          centerTitle: true,
           title: Text(AppTranslations.of(context).text('view_profile')),
           backgroundColor: greenFixed,
           elevation: 0,

@@ -15,6 +15,7 @@ class CampaignDetail extends StatelessWidget {
     // TODO: implement build
     return Scaffold(
       appBar: new AppBar(
+        centerTitle: true,
           title: new Text(AppTranslations.of(context).text('campaign')),
           backgroundColor: greenFixed,
           actions: <Widget>[

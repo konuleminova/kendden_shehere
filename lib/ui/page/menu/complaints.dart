@@ -45,6 +45,7 @@ class ComplaintsPageState extends State<ComplaintsPage> {
     return new Scaffold(
         backgroundColor: greyFixed,
         appBar: new AppBar(
+          centerTitle: true,
           title:
               Text(AppTranslations.of(context).text("suggestion_or_complaint")),
           backgroundColor: greenFixed,
