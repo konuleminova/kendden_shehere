@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
-import 'package:kendden_shehere/service/networks.dart';
-import 'package:html2md/html2md.dart' as html2md;
-import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:kendden_shehere/util/helper_class.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class ContactsPage extends StatelessWidget {
   @override
@@ -32,7 +28,9 @@ class ContactsPage extends StatelessWidget {
                   size: 18,
                   color: greenFixed,
                 ),
-                onTap: _launchURL
+                onTap: (){
+                  whatsAppOpen();
+                }
               ),
               Padding(
                 padding: EdgeInsets.only(left: 60),
@@ -115,12 +113,7 @@ class ContactsPage extends StatelessWidget {
           ),
         ));
   }
-  _launchURL() async {
-    const url = 'https://flutter.dev';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
+  void whatsAppOpen(){
+    FlutterOpenWhatsapp.sendSingleMessage("918179015345", "Hello");
   }
 }
