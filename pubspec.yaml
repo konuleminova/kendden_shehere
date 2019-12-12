@@ -39,7 +39,8 @@ dependencies:
   google_maps_flutter: ^0.5.15
   #geocoder: ^0.1.2
   #map_view: ^0.0.14
-  share: ^0.6.1+1
+  #share: ^0.6.1+1
+  url_launcher:
   #google_maps_webservice: ^0.0.14
   flutter_google_places: ^0.2.2
   image_picker: ^0.6.0+8
