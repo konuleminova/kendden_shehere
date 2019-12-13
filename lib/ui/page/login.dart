@@ -347,7 +347,7 @@ class LoginState extends State<LoginPage> {
                                     child: Image.asset(
                                       'images/ks/google.png',
                                     ))),
-                            Text(AppTranslations.of(context).text('or')),
+                          //  Text(AppTranslations.of(context).text('or')),
                             Expanded(
                                 child: GestureDetector(
                               child: CircleAvatar(
