@@ -9,6 +9,7 @@ import 'package:kendden_shehere/localization/app_translations_delegate.dart';
 import 'package:kendden_shehere/localization/application.dart';
 import 'package:kendden_shehere/redux/navigation/navigation_middleware.dart';
 import 'package:kendden_shehere/redux/navigation/navigation_observer.dart';
+import 'package:kendden_shehere/ui/page/create_new_pass.dart';
 import 'package:kendden_shehere/ui/page/grocery/grocery_categories.dart';
 import 'package:kendden_shehere/ui/page/menu/about_us.dart';
 import 'package:kendden_shehere/ui/page/menu/complaints.dart';
@@ -139,7 +140,7 @@ class MyAppState extends State<MyApp> {
               const Locale("tr", ""),
             ],
             debugShowCheckedModeBanner: false,
-            home:PasswordResetPage(),
+            home:CreateNewPassPage(),
             routes: <String, WidgetBuilder>{
               "/index": (BuildContext context) => IndexPage(),
               "/login": (BuildContext context) => LoginPage(),

@@ -141,5 +141,7 @@
   "enter_new_confirm_pass": "Confirm new password",
   "change_pass":"CHANGE PASSWORD",
   "pass_reset": "Password Reset Email Sent",
-  "enter_email": "Enter your email"
+  "enter_email": "Enter your email",
+  "create_new_pass": "CREATE NEW PASSWORD",
+  "repeat_new_pass": "REPEAT NEW PASSWORD"
 }
