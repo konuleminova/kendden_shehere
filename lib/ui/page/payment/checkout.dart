@@ -64,51 +64,14 @@ class CheckoutsPageState extends State<CheckoutsPage> {
         controller: _scrollController,
         children: <Widget>[
           _getAccountTypeSection(),
-          _getDropDown(),
-          new Container(
-            margin: EdgeInsets.only(left: 16, bottom: 8),
-            child: Text(
-              AppTranslations.of(context).text('address'),
-              style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
-            ),
-          ),
-          checkout.dtime_selected_val != Constants.deliveryTimes[3]
-              ? Container(
-                  child: Card(
-                    child: ListTile(
-                      title: FutureBuilder(
-                          future: _getAddress(),
-                          builder:
-                              (BuildContext context, AsyncSnapshot snapshot) {
-                            return Text(
-                              snapshot.hasData && snapshot.data != ""
-                                  ? snapshot.data
-                                  : AppTranslations.of(context)
-                                      .text('new_address'),
-                              style: TextStyle(color: Colors.grey),
-                            );
-                          }),
-                      trailing:
-                          IconButton(icon: Icon(Icons.edit), onPressed: null),
-                      onTap: () {
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context) =>
-                                Dialog(child: CustomSearchScaffold()));
-                      },
-                    ),
-                    elevation: 2,
-                  ),
-                  margin: EdgeInsets.only(left: 12, right: 12, bottom: 8))
-              : SizedBox(
-                  height: 10,
-                ),
+          _getAddressWidget(),
           checkout.dtime_selected_val != Constants.deliveryTimes[3]
               ? Container(
                   margin: EdgeInsets.only(left: 12, right: 12, bottom: 16),
                   child: Column(
                     children: <Widget>[
                       _getGoogleMap(),
+                      _getDropDown(),
                       SizedBox(
                         height: 8,
                       ),
@@ -242,57 +205,6 @@ class CheckoutsPageState extends State<CheckoutsPage> {
             ),
             alignment: AlignmentDirectional(0, 0.5),
           )
-//          new Container(
-//            child: RaisedButton(
-//              color: Colors.green,
-//              onPressed: () {
-//                if (checkout.dtime_selected_val != Constants.deliveryTimes[3]) {
-//                  SharedPrefUtil()
-//                      .getString(SharedPrefUtil().address)
-//                      .then((onValue) {
-//                    if (onValue.isEmpty) {
-//                      _scaffoldKey.currentState.showSnackBar(new SnackBar(
-//                          content: Text(
-//                            AppTranslations.of(context).text('please_fill'),
-//                            style: TextStyle(fontWeight: FontWeight.bold),
-//                          ),
-//                          duration: const Duration(seconds: 1),
-//                          action: SnackBarAction(
-//                            label: 'Ok',
-//                            onPressed: () {
-//                              _scaffoldKey.currentState.hideCurrentSnackBar();
-//                              // Some code to undo the change.
-//                            },
-//                          ),
-//                          backgroundColor: Colors.red));
-//                    } else {
-//                      Route route = MaterialPageRoute(
-//                          builder: (BuildContext context) =>
-//                              ConfirmOrderPage(
-//                                checkout: checkout,
-//                              ));
-//                      Navigator.push(context, route);
-//                    }
-//                  });
-//                } else {
-//                  Route route = MaterialPageRoute(
-//                      builder: (BuildContext context) =>
-//                          ConfirmOrderPage(
-//                            checkout: checkout,
-//                          ));
-//                  Navigator.push(context, route);
-//                }
-//              },
-//              child: Row(
-//                mainAxisAlignment: MainAxisAlignment.spaceAround,
-//                children: <Widget>[
-//                  Text(AppTranslations.of(context).text('next'),
-//                      style: TextStyle(color: Colors.white)),
-//                ],
-//              ),
-//            ),
-//            margin: EdgeInsets.only(left: 16, right: 16, bottom: 8),
-//          )
         ],
       ),
     );
@@ -301,7 +213,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
   Widget _getAccountTypeSection() {
     return Container(
       height: 90.0,
-      margin: EdgeInsets.all(16),
+      margin: EdgeInsets.only(left: 16,right: 16,top: 16),
       child: Row(
         children: <Widget>[
           Expanded(
@@ -379,8 +291,8 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                     ),
                   ),
                   Padding(
-                    child: Text(
-                        AppTranslations.of(context).text('on_delivery')),
+                    child:
+                        Text(AppTranslations.of(context).text('on_delivery')),
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 12.0),
                   )
@@ -398,14 +310,6 @@ class CheckoutsPageState extends State<CheckoutsPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
-              child: Text(
-                AppTranslations.of(context).text('delivery_time'),
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
-              ),
-            ),
-            Padding(
               padding: const EdgeInsets.symmetric(horizontal: 1.0),
               child: Container(
 //              height: 42.0,
@@ -414,7 +318,7 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     new Card(
-                      margin: EdgeInsets.only(left: 8),
+                      margin: EdgeInsets.only(left: 4, right: 4),
                       child: PopupMenuButton<String>(
                           onSelected: choiceAction,
                           itemBuilder: (BuildContext context) {
@@ -427,23 +331,45 @@ class CheckoutsPageState extends State<CheckoutsPage> {
                           },
                           child: new Container(
                               height: 50,
-                              padding: EdgeInsets.only(top: 1, bottom: 1),
-                              width: MediaQuery.of(context).size.width * 0.5,
-                              child: ListTile(
-                                title: Text(
-                                  choice,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 14.0),
-                                ),
-                                trailing: new Icon(
-                                  Icons.arrow_drop_down,
-                                  size: 20,
-                                ),
+                              margin: EdgeInsets.only(left: 8,right: 8,top: 4),
+                              decoration: BoxDecoration(
+                                  border: Border(bottom: BorderSide(color: greenFixed))),
+                             // padding: EdgeInsets.all(8),
+                              child: Row(
+                                children: <Widget>[
+                                  Column(
+                                    children: <Widget>[
+                                      Text(
+                                        AppTranslations.of(context)
+                                            .text('delivery_time'),
+                                        style: TextStyle(
+                                            color: Colors.grey, fontSize: 16),
+                                      ),
+                                      Text(
+                                        choice,
+                                        style: TextStyle(
+                                            fontSize: 14.0,color: Colors.grey),
+                                      ),
+                                      SizedBox(height: 8,)
+                                    ],
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                  ),
+                                  Expanded(
+                                      child: Container(
+                                    child: Icon(
+                                      Icons.keyboard_arrow_down,
+                                      color: greenFixed,
+                                    ),
+                                    alignment: Alignment.centerRight,
+                                  ))
+                                ],
                               ))),
                     ),
                     new Container(
-                      padding: EdgeInsets.all(12),
+                      margin: EdgeInsets.only(left:1,right: 8),
+                      padding: EdgeInsets.all(8),
                       child: Text(_text,
                           style: TextStyle(
                               fontWeight: FontWeight.w700,
@@ -492,4 +418,50 @@ class CheckoutsPageState extends State<CheckoutsPage> {
   _getAddress() async {
     return await SharedPrefUtil().getString(SharedPrefUtil().address);
   }
+
+  _getAddressWidget() => checkout.dtime_selected_val !=
+          Constants.deliveryTimes[3]
+      ? GestureDetector(
+          child: Container(
+              child: Card(
+                child: Container(
+                    padding: EdgeInsets.all(8),
+                    height: 60,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          AppTranslations.of(context).text('address'),
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        FutureBuilder(
+                            future: _getAddress(),
+                            builder:
+                                (BuildContext context, AsyncSnapshot snapshot) {
+                              return Text(
+                                snapshot.hasData && snapshot.data != ""
+                                    ? snapshot.data
+                                    : AppTranslations.of(context)
+                                        .text('new_address'),
+                                style: TextStyle(color: Colors.grey),
+                              );
+                            }),
+                      ],
+                    ),
+                    decoration: BoxDecoration(
+                        border: Border(bottom: BorderSide(color: greenFixed)))),
+                elevation: 2,
+              ),
+              margin: EdgeInsets.only(left: 12, right: 12, bottom: 8)),
+          onTap: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) =>
+                    Dialog(child: CustomSearchScaffold()));
+          },
+        )
+      : SizedBox(
+          height: 10,
+        );
 }

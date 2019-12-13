@@ -75,25 +75,26 @@ class _MapPage1State extends State<MapPage1> {
                             target: _lastMapPositon, zoom: 11.00),
                       ),
                       margin: EdgeInsets.only(
-                          left: 16, right: 16, bottom: 20, top: 5),
+                          left: 4, right: 4, bottom: 20, top: 5),
                     ),
-                    FutureBuilder(
-                      future: _getAddress(),
-                      builder: (BuildContext context, AsyncSnapshot snapshot) {
-                        if (snapshot.hasData) {
-                          return Container(
-                              child: snapshot.data != null
-                                  ? Text(
-                                      snapshot.data,
-                                      style: TextStyle(
-                                          color: Colors.green, fontSize: 18),
-                                    )
-                                  : Container());
-                        } else {
-                          return SizedBox();
-                        }
-                      },
-                    )
+//                    FutureBuilder(
+//                      future: _getAddress(),
+//                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+//                        if (snapshot.hasData) {
+//                          return Container(
+//                            margin: EdgeInsets.only(left: 16,bottom: 4),
+//                              child: snapshot.data != null
+//                                  ? Text(
+//                                      snapshot.data,
+//                                      style: TextStyle(
+//                                          color: Colors.green, fontSize: 16),
+//                                    )
+//                                  : Container());
+//                        } else {
+//                          return SizedBox();
+//                        }
+//                      },
+//                    )
                   ],
                 )
               : SizedBox();
