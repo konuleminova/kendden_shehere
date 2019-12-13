@@ -96,7 +96,7 @@ class LoginState extends State<LoginPage> {
     // TODO: implement build
     return WillPopScope(
       child: StoreConnector(
-        converter: (Store<AppState> store) => ViewModel.create(store),
+        converter: (Store<AppState> store) => LoginViewModel.create(store),
         onInit: (store) {
           _controllerUsername.text = store.state.user_info.username;
           _controllerPass.text = store.state.user_info.password;
@@ -114,7 +114,7 @@ class LoginState extends State<LoginPage> {
             }
           });
         },
-        builder: (BuildContext context, ViewModel viewModel) => Scaffold(
+        builder: (BuildContext context, LoginViewModel viewModel) => Scaffold(
             // key: scaffoldKey,
             body: SingleChildScrollView(
           child: Container(
@@ -285,15 +285,37 @@ class LoginState extends State<LoginPage> {
                                               color: greenFixed))),
                                 ),
                               ))),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        padding: EdgeInsets.only(left: 20,top: 8,bottom: 8),
-                        child: Text(
-                          "error",
-                          style: TextStyle(color: Colors.redAccent),
-                          textAlign: TextAlign.start,
-                        ),
-                      ),
+                      viewModel.status == STATUS.FAIL
+                          ? Container(
+                              width: MediaQuery.of(context).size.width,
+                              padding:
+                                  EdgeInsets.only(left: 20, top: 10, bottom: 8),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(
+                                    "Username or password is wrong.",
+                                    style: TextStyle(
+                                      color: Colors.red,
+                                      fontSize: 14,
+                                    ),
+                                    textAlign: TextAlign.start,
+                                  ),
+                                  Expanded(
+                                    child: Container(
+                                      margin: EdgeInsets.only(right: 12),
+                                      alignment: Alignment.topRight,
+                                      child: Text(
+                                        AppTranslations.of(context)
+                                            .text('forget_pass'),
+                                        style: TextStyle(color: Colors.grey),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ))
+                          : Container(),
                       Opacity(
                         opacity: opacity,
                         child: Container(
@@ -347,7 +369,7 @@ class LoginState extends State<LoginPage> {
                                     child: Image.asset(
                                       'images/ks/google.png',
                                     ))),
-                          //  Text(AppTranslations.of(context).text('or')),
+                            //  Text(AppTranslations.of(context).text('or')),
                             Expanded(
                                 child: GestureDetector(
                               child: CircleAvatar(
