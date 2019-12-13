@@ -55,7 +55,7 @@ class NewGroceryListItemTwoState extends State<GroceryListItemThree> {
         },
         onDispose: (store) {
           // store.state.newProducts.clear();
-          store.state.isDelete = false;
+          //store.state.isDelete = false;
         },
         converter: (Store<AppState> store) => ProductViewModel.create(store),
         builder: (BuildContext context, ProductViewModel viewModel) {

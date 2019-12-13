@@ -33,6 +33,7 @@ class GroceryShopCartPage extends StatelessWidget {
         onDispose: (store) {
           store.dispatch(ShowHomeWishAction(store));
           store.dispatch(ShowHomeBasketAction(store));
+          store.state.isDelete=false;
           //store.state.shopItems.clear();
         },
         converter: (Store<AppState> store) =>
