@@ -129,6 +129,25 @@
   "my_cart": "Моя корзина",
   "support": "Поддержка",
   "looking_for": "Что вы ищете?",
-  "profile": "Профиль"
+  "profile": "Профиль",
+  "are_you": "Вы уверены, что хотите удалить?",
+  "are_sure_signout": "Вы уверены, что хотите выйти из системы",
+  "no_product_search": "НЕТ РЕЗУЛЬТАТОВ. \nМЫ НЕ МОЖЕМ НАЙТИ НИКАКОЙ ПУНКТ, ПОДХОДЯЩИЙ К ВАШЕМ ПОИСКУ.",
+  "current_pass": "ТЕКУЩИЙ ПАРОЛЬ",
+  "enter_current_pass": "Введите ваш текущий пароль",
+  "new_pass": "НОВЫЙ ПАРОЛЬ",
+  "enter_new_pass": "Введите новый пароль",
+  "verify_new_pass": "ПОДТВЕРДИТЬ НОВЫЙ ПАРОЛЬ",
+  "enter_new_confirm_pass": "Подтвердите новый пароль",
+  "change_pass": "ИЗМЕНИТЬ ПАРОЛЬ",
+  "pass_reset": "Пароль сброшен, электронная почта отправлена",
+  "enter_email": "Введите адрес электронной почты",
+  "create_new_pass": "СОЗДАТЬ НОВЫЙ ПАРОЛЬ",
+  "repeat_new_pass": "ПОВТОРИТЬ НОВЫЙ ПАРОЛЬ",
+  "wp": "WhatsApp-a yazın",
+  "call": "Bizə zəng edin",
+  "insta": "Bizi Instagramda izləyin",
+  "fb":"Bizi Facebookda izləyin",
+  "email_t": "Təklif və şikayətləriniz üçün"
 
 }

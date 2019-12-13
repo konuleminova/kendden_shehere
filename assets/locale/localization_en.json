@@ -143,5 +143,10 @@
   "pass_reset": "Password Reset Email Sent",
   "enter_email": "Enter your email",
   "create_new_pass": "CREATE NEW PASSWORD",
-  "repeat_new_pass": "REPEAT NEW PASSWORD"
+  "repeat_new_pass": "REPEAT NEW PASSWORD",
+  "wp": "WhatsApp-a yazın",
+  "call": "Bizə zəng edin",
+  "insta": "Bizi Instagramda izləyin",
+  "fb":"Bizi Facebookda izləyin",
+  "email_t": "Təklif və şikayətləriniz üçün"
 }
