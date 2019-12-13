@@ -153,13 +153,4 @@ class ContactsPage extends StatelessWidget {
       throw 'Could not launch $url';
     }
   }
-
-  _launchURLMail() async {
-    const url = 'https://kendden.az/i/compliants/';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
 }
