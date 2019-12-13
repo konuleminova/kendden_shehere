@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
+import 'package:kendden_shehere/ui/page/create_new_pass.dart';
 
 class PasswordResetPage extends StatelessWidget {
   @override
@@ -112,7 +113,10 @@ class PasswordResetPage extends StatelessWidget {
                       child: RaisedButton(
                           padding: EdgeInsets.symmetric(vertical: 16.0),
                           color: greenFixed,
-                          onPressed: () {},
+                          onPressed: () {
+                            Route route=MaterialPageRoute(builder: (BuildContext context)=>CreateNewPassPage());
+                            Navigator.push(context, route);
+                          },
                           elevation: 7,
                           shape: RoundedRectangleBorder(
                               borderRadius:

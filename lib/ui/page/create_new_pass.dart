@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 
@@ -90,7 +91,16 @@ class CreateNewPassPage extends StatelessWidget {
                       child: RaisedButton(
                           padding: EdgeInsets.symmetric(vertical: 16.0),
                           color: greenFixed,
-                          onPressed: () {},
+                          onPressed: () {
+                            Fluttertoast.showToast(
+                                msg: "Something wrong",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.CENTER,
+                                timeInSecForIos: 1,
+                                backgroundColor: Colors.red,
+                                textColor: Colors.white,
+                                fontSize: 16.0);
+                          },
                           elevation: 7,
                           shape: RoundedRectangleBorder(
                               borderRadius:

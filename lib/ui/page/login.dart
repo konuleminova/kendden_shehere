@@ -5,6 +5,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kendden_shehere/constants/Constants.dart';
 import 'package:kendden_shehere/localization/app_translations.dart';
 import 'package:kendden_shehere/redux/login/user_model.dart';
+import 'package:kendden_shehere/ui/page/pass_reset.dart';
 import 'package:redux/redux.dart';
 import 'package:kendden_shehere/redux/app/app_state_model.dart';
 import 'package:kendden_shehere/redux/login/login_viewmodel.dart';
@@ -303,7 +304,7 @@ class LoginState extends State<LoginPage> {
                                     textAlign: TextAlign.start,
                                   ),
                                   Expanded(
-                                    child: Container(
+                                    child: GestureDetector(child: Container(
                                       margin: EdgeInsets.only(right: 12),
                                       alignment: Alignment.topRight,
                                       child: Text(
@@ -311,7 +312,10 @@ class LoginState extends State<LoginPage> {
                                             .text('forget_pass'),
                                         style: TextStyle(color: Colors.grey),
                                       ),
-                                    ),
+                                    ),onTap: (){
+                                      Route route=MaterialPageRoute(builder: (BuildContext context)=>PasswordResetPage());
+                                      Navigator.push(context, route);
+                                    },)
                                   )
                                 ],
                               ))
