@@ -68,7 +68,7 @@ class PasswordResetPage extends StatelessWidget {
                       padding: EdgeInsets.all(16),
                       child: Text(
                         "OR",
-                        style: TextStyle( fontSize: 18,color: Colors.grey),
+                        style: TextStyle( fontSize: 16,color: Colors.grey),
                       ),
                     ),
                     Card(

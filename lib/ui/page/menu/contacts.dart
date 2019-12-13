@@ -100,7 +100,7 @@ class ContactsPage extends StatelessWidget {
                 leading: Image.asset(
                   'images/ks/email.png',
                 ),
-                title: Text(AppTranslations.of(context).text('email')),
+                title: Text(AppTranslations.of(context).text('email_t')),
                 trailing: Icon(
                   Icons.arrow_forward_ios,
                   size: 18,
