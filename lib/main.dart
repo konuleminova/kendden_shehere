@@ -140,7 +140,7 @@ class MyAppState extends State<MyApp> {
               const Locale("tr", ""),
             ],
             debugShowCheckedModeBanner: false,
-            home:PasswordResetPage(),
+            home:IndexPage(),
             routes: <String, WidgetBuilder>{
               "/index": (BuildContext context) => IndexPage(),
               "/login": (BuildContext context) => LoginPage(),
