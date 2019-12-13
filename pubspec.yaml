@@ -41,7 +41,7 @@ dependencies:
   #map_view: ^0.0.14
   #share: ^0.6.1+1
   #url_launcher:
-  #flutter_open_whatsapp: ^0.1.2
+  flutter_open_whatsapp: ^0.1.2
   url_launcher:
   #google_maps_webservice: ^0.0.14
   flutter_google_places: ^0.2.2

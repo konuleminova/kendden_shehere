@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
 
 //import 'package:flutter_launch/flutter_launch.dart';
 //import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
@@ -125,7 +126,7 @@ class ContactsPage extends StatelessWidget {
   }
 
   void whatsAppOpen() {
-    //FlutterOpenWhatsapp.sendSingleMessage("+994504008899", "Salam");
+    FlutterOpenWhatsapp.sendSingleMessage("+994504008899", "Salam");
   }
 
   Future<void> _makePhoneCall(String url) async {
