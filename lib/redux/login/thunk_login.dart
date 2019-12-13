@@ -34,7 +34,7 @@ ThunkAction<AppState> loginThunkFunction(String username, String password) {
       await SharedPrefUtil()
           .setString(SharedPrefUtil().mobile, responseBody.mobile);
       await SharedPrefUtil().setString(SharedPrefUtil().uid, responseBody.id);
-      store.dispatch(NavigateReplaceAction("/home"));
+      store.dispatch(NavigateReplaceAction("/splash"));
     } else {
       checkInternetConnection().then((onValue) {
         if (onValue) {
