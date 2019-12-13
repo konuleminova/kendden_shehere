@@ -19,6 +19,7 @@ import 'package:kendden_shehere/ui/page/grocery/grocery_wish_list.dart';
 import 'package:kendden_shehere/ui/page/map/searchplace.dart';
 import 'package:kendden_shehere/ui/page/grocery/order_history.dart';
 import 'package:kendden_shehere/ui/page/grocery/order_shop_list.dart';
+import 'package:kendden_shehere/ui/page/pass_reset.dart';
 import 'package:kendden_shehere/ui/page/payment/checkout.dart';
 import 'package:kendden_shehere/ui/page/payment/confirm_order.dart';
 import 'package:kendden_shehere/ui/page/menu/profile.dart';
@@ -138,7 +139,7 @@ class MyAppState extends State<MyApp> {
               const Locale("tr", ""),
             ],
             debugShowCheckedModeBanner: false,
-            home:IndexPage(),
+            home:PasswordResetPage(),
             routes: <String, WidgetBuilder>{
               "/index": (BuildContext context) => IndexPage(),
               "/login": (BuildContext context) => LoginPage(),
