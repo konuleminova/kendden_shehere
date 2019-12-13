@@ -275,13 +275,14 @@ class GroceryListItemOneState extends State<GroceryListItemOne>
     return AnimatedCrossFade(
       firstChild: Container(
         alignment: Alignment.bottomRight,
+       // margin: EdgeInsets.all(8),
         child: CircleAvatar(
           backgroundColor: greenFixed,
           child: GestureDetector(
               child: Image.asset(
                 'images/ks/basket.png',
-                width: 18,
-                height: 18,
+                width: 16,
+                height: 16,
               ),
               onTap: () {
                 Networks()
