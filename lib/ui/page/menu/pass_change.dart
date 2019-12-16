@@ -143,7 +143,7 @@ class PassWordChange extends StatelessWidget {
                                                                         .grey),
                                                               ),
                                                               onTap: () {
-                                                                imageSelector(
+                                                                    imageSelector(
                                                                     context,
                                                                     ImageSource
                                                                         .camera);
